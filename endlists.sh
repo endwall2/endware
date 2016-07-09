@@ -297,10 +297,10 @@ tag=$3
 ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && ip6tables -I INPUT 51  -p "$proto" -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
 ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I INPUT 51 -p "$proto" -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
 
-#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
-#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
-#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
+#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
 
 }
 
@@ -335,8 +335,8 @@ echo DNS BLACKLIST LOADING
 for blackout in $(cat dns_blacklist.txt)
 do 
 
-log_drop udp 53 "DNS-BL UDP"
-log_drop tcp 53 "DNS-BL TCP"
+log_drop udp 53 "DNS-BL"
+log_drop tcp 53 "DNS-BL"
 
 echo "$blackout" 
 done 
