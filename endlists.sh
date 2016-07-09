@@ -335,8 +335,8 @@ echo DNS BLACKLIST LOADING
 for blackout in $(cat dns_blacklist.txt)
 do 
 
-log_drop udp 53 "DNS-BL"
-log_drop tcp 53 "DNS-BL"
+log_drop udp 53 DNS-BL
+log_drop tcp 53 DNS-BL
 
 echo "$blackout" 
 done 
