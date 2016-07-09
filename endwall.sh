@@ -6,12 +6,13 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 1
-# Current Version: 1.32  Jul 6 2016
+# Current Version: 1.33  Jul 9 2016
 # Stable Version:  1.30, Jun 6 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# Changes:     - Removed duplicate entry for DNS + Added DHCPv6 client output + Aesthetics 
+# Changes:     - Added 9030 tor in lo,server
+#              - Removed duplicate entry for DNS + Added DHCPv6 client output + Aesthetics 
 #              - Added functions and rewrote firewall using functions
 #              - Surpress output for sysctl to clean up
 #              - Updated EULA
@@ -982,8 +983,8 @@ server_in udp 6880,6881,6882,6883,6884,6885,6886
 #server_in tcp 2827,4444,4445,7652,7653,7654,7655,7656,7657,7658,7659,7660,19648
 #server_in udp 7655,19648
 ####################################            TOR SERVER       ####################################################################
-#server_in tcp 9040,9050,9051,9150,9151
-#server_in udp 9040,9050,9051,9150,9151,9053  
+#server_in tcp 9030,9040,9050,9051,9150,9151
+#server_in udp 9030,9040,9050,9051,9150,9151,9053  
 ####################################             TOR RELAY     ####################################################################
 #server_in tcp 9001
 #server_in udp 9001
