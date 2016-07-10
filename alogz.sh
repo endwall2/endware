@@ -15,24 +15,26 @@
 #               # ./alogz.sh
 #               # ./alogz.sh Jan 5
 #############################################################################################################################################
-##############################################################################################################################################################################
+#############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
-##############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts
-#  of OdiliTime, who graciously hosted and promoted this firewall project.
-#  Without his efforts and his wonderful website www.endchan.xyz , the Endware Suite including Endwall would not
-#  exist in the public domain at all in any form. So thanks to OdiliTime for inspiring this work
-#  and for hosting and promoting it. 
+#############################################################################################################################################################################
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
-#  The Endware Suite including Endwall,Endsets,Endlists,Endtools, Endloads and Endtube are named in honor of Endchan.
+#  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
+#
+#  The Endware Suite is available for download at the following locations:
+#  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
 #  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
-#  We also acknowledge paste.debian.net, ix.io and gitweb for their hosting services, 
+#  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
 #  without which distribution would be limited, so thank you.
 #
-#  https://www.endchan.xyz, http://paste.debian.net, http://gitweb2zl5eh7tp3.onion , http://ix.io  
+#  https://www.endchan.xyz, http://paste.debian.net, https://gitgud.io, https://github.com, http://ix.io  
 #
 #  We salute you! 
 #  
