@@ -1,4 +1,3 @@
-
 #!/bin/sh
 ##############################################################################################################################################################################
 # Program : mlogz.sh
@@ -7,9 +6,12 @@
 # Notes: Invoke with root permisions
 # Author: The Endware Development Team
 # Creation Date: February 13, 2016
-# Current Version: 1.06
-# Version Date: May 04 2016
+# Current Version: 1.07
+# Version Date: Jul 11 2016
 # Copyright: The Endware Development Team, 2016
+#
+# Changelog: -bug fix
+#
 ##########################################################################################################################################################################
 # Instructions: $ chmod u+rwx mlogalertz.sh
 # Examples:     $ su
@@ -139,7 +141,8 @@ fi
 echo "$month $day"
 if [ "$#" -ge 2 ] ; then  
   echo ~~~~~~~~~~~~~~~~~~~~~~~~MAIL LOG OLD ~~~~~~~~~~~~~~~~~~~~~~~
-  grep -ah "$(echo "$month $day")" "$mail"* 
+  grep -ah "$(echo "$month $day")" "$mail" 
+  grep -ah "$(echo "$month $day")" "$mail".* 
   echo
 else
   echo ~~~~~~~~~~~~~~~~~~~~~~~~~~MAIL LOG~~~~~~~~~~~~~~~~~~~~~~~~~

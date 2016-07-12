@@ -6,9 +6,12 @@
 # Author: The Endware Development Team
 # Notes: Invoke with root privaleges
 # Creation Date: February 13, 2016
-# Current Version: 1.06
-# Version Date: May 04, 2016
+# Current Version: 1.07
+# Version Date: Jul 11, 2016
 # Copyright: The Endware Development Team, 2016
+#
+# Changelog: -Bug fix
+#
 ################################################################################################################################### 
 # Instructions: $ chmod u+rwx alogalertz.sh
 # Examples:     $ su
@@ -142,9 +145,11 @@ fi
 echo "$month $day"
 if [ "$# " -ge 2 ] ; then
 echo ~~~~~~~~~~~~~~~~~~~~~~~~Apache HTTP ACCESS LOG OLD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-grep -ah "$(echo "$day2/$month/")" "$http_log"*
+grep -ah "$(echo "$day2/$month/")" "$http_log"
+grep -ah "$(echo "$day2/$month/")" "$http_log".*
 echo ~~~~~~~~~~~~~~~~~~~~~~~~Apache SSL ACCESS LOG OLD~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-grep -ah "$(echo "$day2/$month/")" "$ssl_log"*
+grep -ah "$(echo "$day2/$month/")" "$ssl_log"
+grep -ah "$(echo "$day2/$month/")" "$ssl_log".*
 
 else 
 
