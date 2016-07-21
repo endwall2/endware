@@ -2,14 +2,16 @@
 ################################################################################################
 # TITLE: renum.sh
 # TYPE: Bourne Shell Script
-# DESCRIPTION: Renames files in a directory randomly by number and extention from 000000-999999 sequentially 
+# DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.04
-# REVISION DATE: JUL 19, 2016
+# VERSION: 0.05
+# REVISION DATE: JUL 20, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG: - Standardized .jpg extention
+# CHANGE LOG: - Fixed a bug with for loop read in blank spaces as 1 line 
+#             - Added switch -r for random sort ordering, regular ordering is default 
+#             - Standardized .jpg extention
 #             - Changed hash to sha256
 #             - Changed from mv to cp -n into directory renum ( fixes major bug ) 
 #             - Zipp the backup + sha512sum for each file into sha512.txt 
@@ -29,9 +31,12 @@
 # $ cd ~/bin
 # $ chmod u+x renum
 #
-#  Run Renum
+#  Renum for name sequential sort order
 # $ cd ~/pictures/
 # $ renum
+# Renum random sort ordering
+# $ renum -r
+#
 ##################################################################################################
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -142,36 +147,61 @@
 # archive all the files in the directory
 tar -rvf backup.tar *
 mkdir -p renum
-# randomly sort a list of the directory files into a temp file
-ls >> filelist.txt
-ls | sort -R >> filelist.srt
 
-# Add these lists to the tar backup
-tar -rvf backup.tar filelist.txt filelist.srt
+# switch -r for random file sequential renumbering
+if [ "$1" == "-r" ] ;
+then
+# randomly sort a list of the directory files into a temp file
+ls  | sort -R > filelist.txt
+else
+# regular listing in the same name sequential order
+ls  > filelist.txt
+fi 
+
+# Add the file list to the tar backup
+tar -rvf backup.tar filelist.txt 
 
 # initialize index
 index=0
-
+IFS=$'\n' 
 # main loop
-for file in $(cat filelist.srt); do
+for file in $(cat filelist.txt); do
 
 # get the root and extention of the file
-rt=$( echo "$file" | cut -d . -f 1 )
-ext=$( echo "$file" | cut -d . -f 2 ) 
+rt=$( echo "$file" | cut -d . -f 1)
+ext=$( echo "$file" |cut -d . -f 2 ) 
 end=$( echo "$file" | cut -d - -f 2 )
 
-# case for no file extention
+#case for no extention
 case $end in 
 ( imagejpeg ) ext="jpg" ;;
 ( imagepng  ) ext="png" ;;
 ( imagegif  ) ext="gif" ;;
-( imagetiff ) ext="tiff" ;;
+( imagetiff ) ext="tif" ;;
 esac
 
 # standardize extentions 
 if [ "$ext" == "jpeg" ]
  then 
  ext=jpg
+elif [ "$ext" == "JPEG" ]
+ then 
+ ext=jpg
+elif [ "$ext" == "JPG" ]
+ then 
+ ext=jpg
+elif [ "$ext" == "GIF" ]
+ then 
+ ext=gif
+elif [ "$ext" == "TIFF" ]
+ then 
+ ext=tif
+elif [ "$ext" == "BMP" ]
+ then 
+ ext=bmp
+elif [ "$ext" == "PNG" ]
+ then 
+ ext=png
 fi
 
 # Relabel index to 6 digit number
@@ -200,7 +230,7 @@ fi
 if [ "$file" == "filelist.txt"  ]
  then  
  echo "Skipping $file" 
-elif [ "$file" == "filelist.srt"  ]
+elif [ "$file" == "concordance.txt"  ]
  then  
  echo "Skipping $file" 
 elif [ "$file" == "backup.tar" ]
@@ -209,33 +239,43 @@ elif [ "$file" == "backup.tar" ]
 elif [ "$file" == "sha256.txt" ]
  then
  echo "Skipping $file" 
+elif [ "$file" == "md5.txt" ]
+ then
+ echo "Skipping $file" 
 elif [ "$file" == "sha256_renum.txt" ]
+ then
+ echo "Skipping $file" 
+elif [ "$file" == "md5_renum.txt" ]
+ then
+ echo "Skipping $file" 
+elif [ "$file" == "renum" ]
  then
  echo "Skipping $file" 
 else
   echo "Renaming file: "$file"  to "$filenum.$ext" "
   cp -n "$file" renum/"$filenum.$ext"
   sha256sum "$file" >> sha256.txt   
-  sha256sum renum/"$filenum.$ext" >> renum/sha256_renum.txt   
+  md5sum "$file" >> md5.txt   
+  sha256sum renum/"$filenum.$ext" >> renum/sha256_renum.txt
+  md5sum renum/"$filenum.$ext" >> renum/md5_renum.txt
+  echo ""$file" ->  "$filenum.$ext" " >> renum/concordance.txt   
   index=$(expr "$index" + 1) 
 fi
 
 done
 
 # clean up
-tar -rvf backup.tar sha256.txt 
+tar -rvf backup.tar sha256.txt md5.txt 
 echo "Added to backup.tar" 
 # compress the data / zip it
 gzip backup.tar
-echo "backup.tar gzipped to backup.tar.gz"
-
-## uncomment to remove these files if you wish 
+## comment out to not remove these files  
 rm filelist.txt
-rm filelist.srt
 rm sha256.txt 
+rm md5.txt
 
 echo "Files backed up to backup.tar.gz"
 echo "Please verify that there is no data loss"
-echo "If any files have been lost unpack the archive backup to a new directory"
+echo "If any files have been lost, unpack the archive to restore"
 
 ################################# END OF PROGRAM  ##################################################
