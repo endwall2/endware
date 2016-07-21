@@ -1,15 +1,15 @@
-
 ####################################################################################################
 # TITLE: ENDTORRC
 # AUTHOR: THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: MAY 31, 2016
-# VERSION: 0.10
-# REVISION DATE: JUN 11, 2016
+# VERSION: 0.11
+# REVISION DATE: JUL 21, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPEMENT TEAM, 2016
 #
 # DESCRIPTION: A sample tor configuration file to use with endware
 #
-# CHANGE LOG: - Added {BH} to exclude + added ClientTransportPlugin lines to Bridges 
+# CHANGE LOG: - Added {SM} to exit+entry nodes
+#             - Added {BH} to exclude + added ClientTransportPlugin lines to Bridges 
 #             - Added {PS},{VN},{KH},{LA} to exclude + added {KR},{JP},{CY} to exit
 #             - Removed {AT},{CH} double entry in exit nodes
 #             - Added the bridges from https://www.torproject.org/docs/bridges.html.en
@@ -201,17 +201,17 @@ GuardLifetime 3 days
 
 KeepalivePeriod 60
 CircuitIdleTimeout 60
-CircuitBuildTimeout 15
-CircuitStreamTimeout 90
+CircuitBuildTimeout 20
+CircuitStreamTimeout 60
 
 NewCircuitPeriod 15
-MaxCircuitDirtiness 90
+MaxCircuitDirtiness 60
 PathsNeededToBuildCircuits 0.75
 
 ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
-EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
-ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
 
 #######################################    BRIDGES    #########################################################
 ## To use bridges comment out EntryNodes and ExcludeNodes, and install obfsproxy  (apt-get install obfsproxy)
