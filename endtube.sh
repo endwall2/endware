@@ -334,7 +334,7 @@ echo "Delaying download for "$delay" seconds"
 sleep "$delay"
 
 # check tor project ip
-torsocks curl -A "UA" https://check.torproject.org/ > $check_tor
+torsocks curl -A "$UA" https://check.torproject.org/ > $check_tor
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
