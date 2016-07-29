@@ -165,7 +165,7 @@ list=temp1.srt
 #main loop to select random user agent
 for link in $(cat "$list" ); do  
 # pick a random user agent
-n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 125  | awk '{print $1}')
+n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 126  | awk '{print $1}')
 # set the user agent
 
 if [ "$n" -le "9" ]
@@ -298,6 +298,9 @@ else
  ( 122 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)" ;;
  ( 123 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)" ;;
  ( 124 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)" ;;
+## Gaming Consoles
+ ( 125 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
+
  esac 
 fi 
 

@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.15
-# REVISION DATE: JULY 21 2016
+# VERSION: 0.16
+# REVISION DATE: JULY 23 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - Updated user agents
+# CHANGE LOG:  - Added min_delay max_delay variables
+#              - Updated user agents
 #              - Updated Acknowledgements
 #              - Updated EULA
 #              - Added exit node address grab
@@ -179,6 +180,9 @@ Lunsort=$1
 Punsort=$2
 nargs="$#"
 
+min_delay=20
+max_delay=200
+
 # randomly sort these lists
 sort -R $Lunsort > temp1.srt
 list=temp1.srt
@@ -188,7 +192,7 @@ check_tor=check.tmp
 for link in $(cat "$list" ); do  
 
 # pick a random user agent
-n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 122 | awk '{print $1}')
+n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 123 | awk '{print $1}')
 # set the user agent
 #echo "$n"
 if [ "$n" -le "9" ]
@@ -317,12 +321,14 @@ else
  ( 119 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10547" ;;
  ( 120 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586" ;;
  ( 121 ) UA="Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 735) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0" ;;
+## Gaming Consoles
+ ( 122 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;;
  esac 
 fi 
 
 echo "$UA"
 # generate a random number time delay
-delay=$( expr 20 + $(head -c 2 /dev/urandom | od -A n -i) % 180 | awk '{print $1}')
+delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
