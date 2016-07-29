@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.15
-# REVISION DATE: JULY 21 2016
+# VERSION: 0.16
+# REVISION DATE: JULY 28 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# # CHANGE LOG: - Updated Acknowledgements
+# CHANGE LOG:   - Fixed a bug with the UA + Added min_delay, max_delay variables
+#               - Updated Acknowledgements
 #               - Updated EULA
 #               - Added extra user-agents
 #               - Forked from endtube
@@ -157,6 +158,8 @@
 Lunsort=$1
 Punsort=$2
 nargs="$#"
+min_delay=20
+max_delay=120
 
 # randomly sort these lists
 sort -R $Lunsort > temp1.srt
@@ -307,7 +310,7 @@ fi
 echo "$UA"
 
 # generate a random number time delay
-delay=$( expr 10 + $(head -c 2 /dev/urandom | od -A n -i) % 120 | awk '{print $1}')
+delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
@@ -316,7 +319,7 @@ echo "Downloading "$link""
 # initiate download and change user agent
 
 # initate download +tor + random agent
-torsocks wget --user-agent='"$UA"' "$link" 
+torsocks wget --user-agent="$UA" "$link" 
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
