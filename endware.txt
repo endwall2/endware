@@ -1,21 +1,20 @@
 ################################################################################################
 # TITLE: endware.txt
 # TYPE: Text file
-# DESCRIPTION: Library of files in the Endware Suite, with descriptions catelogued by function. 
+# DESCRIPTION: Catelogue of the files in the Endware Suite, with descriptions and grouped by function. 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 30, 2016
 # VERSION: 0.01
-# REVISION DATE: JUL 30, 2016
+# REVISION DATE: JUL 31, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG: - File creation
-#
 #################################################################################################
 ######################## HEADER FILES ##########################################################################################
 acknowledge.txt - This is the current version of the acknowledgements that is pinned to the header of endware software products.
 eula.txt - The current version of the Endware Development Team software license.
 LICENSE - same file as eula.txt, comes from the git repo.
-endware.txt - The current file you are reading.
+endware.txt - A catelogue of the endware suite with descriptions grouped by functionality 
 ######################## ENDWALL FIREWALL #######################################################################################
 endwall.sh - An iptables based firewall script.
 endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. Useful for workstation ip blacklisting.
@@ -44,7 +43,8 @@ endtube.sh - An anonymized text file list based command line download manager fo
 proxyload.sh - Get a list of http and socks5 proxies.  Hard coded to a specific website.
 proxycheck.sh - Scrape the proxies in a list to test to see if they're working.
 ########################  FILE OPERATIONS  ####################################################################################
-pdfclean.sh - Sanitize a pdf by removing java script, and exif data, using qpdf,ghostscript and exiftool. 
+pdfclean.sh - Sanitize a pdf by removing exif tag data, and java script, using qpdf,ghostscript and exiftool. 
+
 safedown.sh - downloads a file using torsocks, wget into /dev/shm/ using firejail, and randomized user-agent.
 safemode.sh - spawn a firejail shell and cd into /dev/shm to deal with hostile downloads/files.
 
