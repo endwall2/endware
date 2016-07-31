@@ -51,6 +51,8 @@ pdfclean.sh - Sanitize a pdf by removing exif tag data, and java script, using q
 safedown.sh - downloads a file using torsocks, wget into /dev/shm/ using firejail, and randomized user-agent.
 safemode.sh - spawn a firejail shell and cd into /dev/shm to deal with hostile downloads/files.
 
+passgen.sh - Generate a random character password using /dev/urandom and base64.  Use as inspiration for a random password.
+
 renum.sh - rename the files in a directory sequentially or randomly by number and file extention.
 rmdupes.sh - check the files in a directory for duplicates by file size and md5 cheksum and remove them.
 ################################################################################################################################
