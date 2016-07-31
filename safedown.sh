@@ -141,7 +141,7 @@ cd /dev/shm/temp
 
 # select random user agent
 
-n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 126  | awk '{print $1}')
+n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 132  | awk '{print $1}')
 # set the user agent
 #echo "$n"
 
@@ -275,8 +275,14 @@ else
  ( 122 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)" ;;
  ( 123 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)" ;;
  ( 124 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)" ;;
-## Gaming Console
- ( 125 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
+ ( 125 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 126 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 127 ) UA="Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 128 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 129 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 130 ) UA="Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko" ;;
+## Gaming Consoles
+ ( 131 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
 
  esac
 fi

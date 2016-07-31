@@ -164,7 +164,7 @@ check_tor=check.tmp
 
 # select random user agent
 
-n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 126  | awk '{print $1}')
+n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 132  | awk '{print $1}')
 # set the user agent
 #echo "$n"
 
@@ -294,13 +294,18 @@ else
  ( 119 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10547" ;;
  ( 120 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586" ;;
  ( 121 ) UA="Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 735) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0" ;;
-## MS IE 9.0
+## MS IE 
  ( 122 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)" ;;
  ( 123 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)" ;;
  ( 124 ) UA="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)" ;;
-## Gaming Console
- ( 125 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
-
+ ( 125 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 126 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 127 ) UA="Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 128 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 129 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
+ ( 130 ) UA="Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko" ;;
+## Gaming Consoles
+ ( 131 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
  esac
 fi
 
@@ -309,7 +314,7 @@ echo "$UA"
 # generate a random number time delay
 
 # check tor project ip
-torsocks curl -A "UA" https://check.torproject.org/ > $check_tor
+torsocks curl -A "$UA" https://check.torproject.org/ > $check_tor
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 "$lookup_tool" "$exit_address" 
