@@ -1,7 +1,7 @@
 ################################################################################################
 # TITLE: endware.txt
 # TYPE: Text file
-# DESCRIPTION: Catelogue of the files in the Endware Suite, with descriptions and grouped by function. 
+# DESCRIPTION: Catalogue of the files in the Endware Suite, with descriptions and grouped by function. 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 30, 2016
 # VERSION: 0.01
@@ -14,7 +14,7 @@
 acknowledge.txt - This is the current version of the acknowledgements that is pinned to the header of endware software products.
 eula.txt - The current version of the Endware Development Team software license.
 LICENSE - same file as eula.txt, comes from the git repo.
-endware.txt - A catelogue of the endware suite with descriptions grouped by functionality 
+endware.txt - A catalogue of the endware suite with descriptions grouped by functionality 
 ######################## ENDWALL FIREWALL #######################################################################################
 endwall.sh - An iptables based firewall script.
 endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. Useful for workstation ip blacklisting.
