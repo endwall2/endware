@@ -4,36 +4,39 @@
 # DESCRIPTION: Catalogue of the files in the Endware Suite, with descriptions and grouped by function. 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 30, 2016
-# VERSION: 0.01
+# VERSION: 0.02
 # REVISION DATE: JUL 31, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG: - File creation
+# CHANGE LOG:  - Reorganization, Added Config files section
+#              - File creation
+#
 #################################################################################################
 ######################## HEADER FILES ##########################################################################################
 acknowledge.txt - This is the current version of the acknowledgements that is pinned to the header of endware software products.
 eula.txt - The current version of the Endware Development Team software license.
 LICENSE - same file as eula.txt, comes from the git repo.
-endware.txt - A catalogue of the endware suite with descriptions grouped by functionality 
+endware.txt - A catalogue of the endware suite with descriptions grouped by functionality. 
 ######################## ENDWALL FIREWALL #######################################################################################
 endwall.sh - An iptables based firewall script.
-endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. Useful for workstation ip blacklisting.
-endsets.sh - An ipset hash set based blacklisting and whitelisting script.  Recomended for a mail and web server.
+endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. For use with endwall. Useful for workstation ip blacklisting.
+endsets.sh - An ipset hash set based blacklisting and whitelisting script. For use with endwall.  Recomended for a mail and web server.
 ########################LOG READING ############################################################################################
 alogz.sh - A script for reading the log output of an apache or nginx http server.
-mlogz.sh - A script for reading the log output of a postfix mail server 
-spamlogz.sh - A script for reading access attempts of banned ip addresses flagged in endwall.sh, endlists.sh and endsets.sh 
+mlogz.sh - A script for reading the log output of a postfix mail server.
+spamlogz.sh - A script for reading access attempts of banned ip addresses flagged in endwall.sh, endlists.sh and endsets.sh .
 ######################## GEOIPLOOKUP ###########################################################################################
-iplookup.py - A python based geoiplookup script that uses maxmind *.dat files and python-geoip 
+iplookup.py - A python based geoiplookup script that uses maxmind *.dat files and python-geoip. 
 check16.sh - A script that sequentially outputs the geoip lookup output for a /16 range. Uses iplookup.py or geoiplookup.
 check8.sh - A script that sequentially outputs the geoip lookup output for a /8 range. Uses iplookup.py or geoiplookup.
 cidr.txt - A helpful list  of the CIDR block ranges to assist with bans in endsets/endlists after consulting the log readers and iplookup scripts.
-######################## TOR ANONYMIZED DOWNLOADERS ############################################################################
+######################## CONFIGURATION FILES  ##################################################################################
 endtorrc - A torrc-defaults file for use with tor.
-country_codes.txt - A list of country codes to grep for country codes to add to or subtract from endtorrc
+country_codes.txt - A list of country codes to grep for country codes to use with endtorrc.
+######################## TOR ANONYMIZED DOWNLOADERS ############################################################################
 endcurl.sh - A user agent randomizer for curl, using torsocks.
 endget.sh - A user agent randomizer for wget, using torsocks.
-endnode.sh - Check your exit node with a random useragent, torsocks and curl
+endnode.sh - Check your exit node in the command line wiht torsocks, curl and a random user agent.
 ########################  TOR ANONYMIZED DOWNLOAD MANAGER ######################################################################
 endloads.sh - An anonymized text file list based command line download manager for internet files in a list.
               Random download timing, download order, user agent, with torsocks and wget.
