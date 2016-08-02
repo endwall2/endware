@@ -24,6 +24,8 @@
 #
 #  $  mkdir ~/bin
 #  $  chmod u+wrx endmail.sh
+#  $  nano endmail.sh  ## edit the sender line
+#
 #  $  cp endmail.sh ~/bin/endmail
 #  $  export PATH=$PATH:~/bin
 #  $  mkdir ~/email
