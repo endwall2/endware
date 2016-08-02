@@ -1,6 +1,6 @@
 #################################################################################################################################################
 # NAME: endfix.cf
-# TYPE: BOURNE SHELL SCRIPT
+# TYPE: TEXT FILE 
 # DESCRIPTION: Endware Postfix configuration
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
