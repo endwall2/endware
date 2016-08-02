@@ -1,8 +1,7 @@
-#!/bin/sh
 #################################################################################################################################################
-# NAME: endmail.sh
+# NAME: endfix.cf
 # TYPE: BOURNE SHELL SCRIPT
-# DESCRIPTION: Sends mail to a tor hidden service mail server using torsocks, swaks
+# DESCRIPTION: Endware Postfix configuration
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: AUGUST 2 2016
@@ -14,26 +13,38 @@
 #              - File Creation
 #
 ########################################################################################################################################
-# DEPENDENCIES: torsocks,swaks,cut,echo,perl-net-ssleay
+# DEPENDENCIES: postfix, openssl
 ########################################################################################################################################
-# INSTRUCTIONS: Make a bin directory in ~/ add it to the path. Copy this file there and make executable.
-#               Make a videos directory in Downloads.  Get some download links, and some proxies place in separte text files.
-#               Start the TOR daemon. Execute the script in the ~/Download/videos/ directory.    
-#   
-#  Do the following at a command prompt
+# INSTRUCTIONS: Copy this file to /etc/postfix/main.cf, postmap the aliase files, start the postfix server.
+#                    
+#  Do the following at a command prompt:
 #
-#  $  mkdir ~/bin
-#  $  chmod u+wrx endmail.sh
-#  $  nano endmail.sh  ## edit the sender line
+#  $  su 
+#  #  cd /etc/postfix/
+#  #  cp main.cf main.bkp
+#  #  cp endfix.cf /etc/postfix/main.cf
+#  #  echo " " >> virtual
+#  #  postmap virtual
+#  #  echo " " >> virtusertables
+#  #  postmap virtusertables
+#  #  echo " " >> sender_access
+#  #  postmap sender_access
+#  #  echo " " >> client_access
+#  #  postmap client_access
+#  #  echo " " >> recipient_access
+#  #  postmap recipient_access
+#  #  postmap aliases
+#  #  mkdir -p /etc/tls
+#  #  mkdir -p /etc/tls/private
+#  #  mkdir -p /etc/tls/certs
+#  #  cd /etc/tls/private
+#  #  openssl req -x509 -newkey rsa:4096 -keyout smtpd.key -out smtpd.crt -days 365 -nodes
+#     put some fake/funny data in the certificate 
+#  #  mv smtpd.crt /etc/tls/certs    
+#  #  systemctl reload postfix 
+#  #  systemctl start postfix
+#  #  systemctl status postfix
 #
-#  $  cp endmail.sh ~/bin/endmail
-#  $  export PATH=$PATH:~/bin
-#  $  mkdir ~/email
-#  $  cd ~/email
-#  $  emacs/nano/leafpad message.txt
-#  $  gpg --armor --sign --encrypt --local-user "USER ID" --recipient "Recipient ID" message.txt 
-#  $  mv message.txt.asc encrypted.asc
-#  $  endmail recipient@hidden.onion "Re: The Subject is" encrypted.asc
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
@@ -138,18 +149,151 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 
-#####################################################        BEGINNING OF PROGRAM      #####################################################################################
-##  get input list from shell argument 
+####################################        BEGINNING OF CONFIGURATION       ######################################################
 
-sender="sender@returnpath.onion"
-recipient=$1
-rserver=$( echo $1 | cut -d @ -f 2 )
-hstring=$( echo "$sender" | cut -d @ -f 2 )
-subject=$2
-message=$3
+compatibility_level = 2
+soft_bounce = yes
+queue_directory = /var/spool/postfix
+command_directory = /usr/bin
+daemon_directory = /usr/lib/postfix/bin
+data_directory = /var/lib/postfix
+mail_owner = postfix
+home_mailbox = Maildir/
+debug_peer_level = 2
+debugger_command =
+	 PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
+	 ddd $daemon_directory/$process_name $process_id & sleep 5
+sendmail_path = /usr/bin/sendmail
+newaliases_path = /usr/bin/newaliases
+mailq_path = /usr/bin/mailq
+setgid_group = postdrop
+html_directory = no
+manpage_directory = /usr/share/man
+sample_directory = /etc/postfix
+readme_directory = /usr/share/doc/postfix
+inet_protocols = ipv4
+meta_directory = /etc/postfix
+shlib_directory = /usr/lib/postfix
 
-torsocks swaks --server "$rserver" --to "$recipient" --from "$sender" --helo "$hstring" --tls --h-Subject "$subject" --body "$message"
+mynetworks_style = host
+alias_maps = hash:/etc/postfix/aliases
+alias_database = $alias_maps
+local_recipient_maps = unix:passwd.byname $alias_maps
 
-exit 0
+######################  SERVER INFORMATION ##########################################
+smtpd_banner = "MY HIDDEN MAIL SERVER $mydomain ESMTP"
+myhostname = host.server67jlbcduh.onion
+mydomain = server67jlbcduh.onion
+myorigin = $mydomain
+inet_interfaces = localhost
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain, web.$mydomain
+mynetworks = 127.0.0.0/8, localhost, $myhostname, $mydomain
 
-#####################################################        END OF PROGRAM      #####################################################################################
+################## VIRTUAL MAPS ##########################################################
+
+virtual_maps = hash:/etc/postfix/virtusertables
+virtual_alias_maps = hash:/etc/postfix/virtual
+
+###################### TLS ENCRYPTION #######################################################
+smtp_tls_security_level = encrypt
+smtpd_tls_security_level = encrypt
+
+smtp_tls_loglevel = 1
+smtpd_tls_loglevel = 1 
+
+tls_random_source = dev:/dev/urandom
+tls_random_bytes = 64
+tls_random_reseed_period = 3600s
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_local_domain = $mydomain
+broken_sasl_auth_clients = no
+
+smtp_sasl_security_options = noanonymous, noplaintext, nodictionary, noactive
+smtpd_tls_ciphers = high
+smtp_tls_ciphers = high
+smtpd_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES, DES-CBC3-SHA, RC4-SHA, AES256-SHA, AES128-SHA
+smtp_tls_protocols = !SSLv2, !SSLv3
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+
+smtp_tls_note_starttls_offer = yes
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_database = btree:/var/lib/postfix/smtpd_tls_session_cache
+smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_tls_session_cache
+smtpd_tls_session_cache_timeout = 3600s
+smtpd_starttls_timeout = 360s
+smtp_tls_session_cache_timeout = 3600s 
+
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_use_tls = yes
+
+smtpd_tls_auth_only = yes
+smtpd_tls_cert_file = /etc/tls/certs/smtpd.crt
+smtpd_tls_key_file = /etc/tls/private/smtpd.key
+smtpd_sasl_exceptions_networks = !localhost
+###########################################################################################
+smtpd_helo_required = yes
+disable_vrfy_command = yes
+################## RESTRICTIONS ###########################################################
+smtpd_helo_restrictions = permit_mynetworks,  
+  	permit
+
+smtpd_data_restrictions = reject_unauth_pipelining,
+                          permit
+
+smtpd_etrn_restrictions = permit_mynetworks,
+                          reject
+
+smtpd_client_restrictions = permit_mynetworks,
+	check client_access hash:/etc/postfix/client_access,
+	permit
+
+smtpd_sender_restrictions = permit_mynetworks,
+	check_sender_access hash:/etc/postfix/sender_access,
+	permit_sasl_authenticated,
+	reject_unknown_sender_domain,
+	permit
+
+smtpd_recipient_restrictions = permit_mynetworks,
+	check_recipient_access hash:/etc/postfix/recipient_access,
+	reject_unauth_pipelining,
+	reject_unauth_destination, 
+	reject_non_fqdn_recipient,
+	permit_sasl_authenticated,
+	permit
+################ OTHER CONFIGS  ################################
+mailbox_size_limit = 0
+message_size_limit = 102400000
+maximal_queue_lifetime = 2h
+bounce_queue_lifetime = 1h
+in_flow_delay = 1s
+
+smtpd_helo_required = yes
+disable_vrfy_command = yes
+
+smtpd_delay_reject = yes
+smtpd_error_sleep_time = 10
+smtpd_soft_error_limit = 2
+smtpd_hard_error_limit = 5
+smtpd_junk_command_limit = 3
+strict_rfc821_envelopes = no
+show_user_unknown_table_name = no
+#####################   REJECT CODES  ########################
+access_map_reject_code = 554
+defer_code = 554
+invalid_hostname_reject_code = 554
+maps_rbl_reject_code = 554
+non_fqdn_reject_code = 554
+reject_code = 554
+relay_domains_reject_code = 554
+unknown_address_reject_code = 554
+unknown_client_reject_code = 554
+unknown_hostname_reject_code = 554
+unknown_relay_recipient_reject_code = 554
+unknown_virtual_alias_reject_code = 554
+unknown_virtual_mailbox_reject_code = 554
+unverified_sender_reject_code = 550
+unknown_local_recipient_reject_code = 550
+#################################################################
+#########################################        END OF CONFIGURATION     #######################################################
