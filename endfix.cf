@@ -1,15 +1,16 @@
 #################################################################################################################################################
 # NAME: endfix.cf
-# TYPE: TEXT FILE 
+# TYPE: CONFIGURATION FILE 
 # DESCRIPTION: Endware Postfix configuration
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: AUGUST 2 2016
-# VERSION: 0.01
+# VERSION: 0.02
 # REVISION DATE: AUGUST 2 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - Worked on Instructions 
+# CHANGE LOG:  - Reorganized sections, headers
+#              - Worked on Instructions 
 #              - File Creation
 #
 ########################################################################################################################################
@@ -151,6 +152,7 @@
 
 ####################################        BEGINNING OF CONFIGURATION       ######################################################
 
+############################  DAEMON AND DIRECTORIES #################################
 compatibility_level = 2
 soft_bounce = yes
 queue_directory = /var/spool/postfix
@@ -175,13 +177,9 @@ inet_protocols = ipv4
 meta_directory = /etc/postfix
 shlib_directory = /usr/lib/postfix
 
-mynetworks_style = host
-alias_maps = hash:/etc/postfix/aliases
-alias_database = $alias_maps
-local_recipient_maps = unix:passwd.byname $alias_maps
-
 ######################  SERVER INFORMATION ##########################################
 smtpd_banner = "MY HIDDEN MAIL SERVER $mydomain ESMTP"
+mynetworks_style = host
 myhostname = host.server67jlbcduh.onion
 mydomain = server67jlbcduh.onion
 myorigin = $mydomain
@@ -189,8 +187,11 @@ inet_interfaces = localhost
 mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain, web.$mydomain
 mynetworks = 127.0.0.0/8, localhost, $myhostname, $mydomain
 
-################## VIRTUAL MAPS ##########################################################
+##################  ALIASES AND VIRTUAL MAPS ##########################################################
 
+alias_maps = hash:/etc/postfix/aliases
+alias_database = $alias_maps
+local_recipient_maps = unix:passwd.byname $alias_maps
 virtual_maps = hash:/etc/postfix/virtusertables
 virtual_alias_maps = hash:/etc/postfix/virtual
 
@@ -205,11 +206,8 @@ tls_random_source = dev:/dev/urandom
 tls_random_bytes = 64
 tls_random_reseed_period = 3600s
 
-smtpd_sasl_auth_enable = yes
-smtpd_sasl_local_domain = $mydomain
-broken_sasl_auth_clients = no
+smtpd_use_tls = yes
 
-smtp_sasl_security_options = noanonymous, noplaintext, nodictionary, noactive
 smtpd_tls_ciphers = high
 smtp_tls_ciphers = high
 smtpd_tls_exclude_ciphers = aNULL, RC4, MD5, DES, 3DES, DES-CBC3-SHA, RC4-SHA, AES256-SHA, AES128-SHA
@@ -224,18 +222,21 @@ smtpd_tls_session_cache_timeout = 3600s
 smtpd_starttls_timeout = 360s
 smtp_tls_session_cache_timeout = 3600s 
 
-smtpd_sasl_type = dovecot
-smtpd_sasl_path = private/auth
-smtpd_use_tls = yes
-
 smtpd_tls_auth_only = yes
 smtpd_tls_cert_file = /etc/tls/certs/smtpd.crt
 smtpd_tls_key_file = /etc/tls/private/smtpd.key
+
+###################### SASL AUTHENTICATION #################################################
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_local_domain = $mydomain
+broken_sasl_auth_clients = no
 smtpd_sasl_exceptions_networks = !localhost
-###########################################################################################
-smtpd_helo_required = yes
-disable_vrfy_command = yes
+smtp_sasl_security_options = noanonymous, noplaintext, nodictionary, noactive
+
 ################## RESTRICTIONS ###########################################################
+
 smtpd_helo_restrictions = permit_mynetworks,  
   	permit
 
@@ -262,6 +263,7 @@ smtpd_recipient_restrictions = permit_mynetworks,
 	reject_non_fqdn_recipient,
 	permit_sasl_authenticated,
 	permit
+
 ################ OTHER CONFIGS  ################################
 mailbox_size_limit = 0
 message_size_limit = 102400000
