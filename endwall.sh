@@ -1,5 +1,3 @@
-
-
 #!/bin/sh
 ###############################################################################################################################################################
 #                        HEADER AND INSTRUCTIONS
@@ -8,12 +6,13 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 1
-# Current Version: 1.33  Jul 9 2016
+# Current Version: 1.34  Aug 9 2016
 # Stable Version:  1.30, Jun 6 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# Changes:     - Updated Acknowledgments
+# Changes:     - Added -o flag for open, to disable the firewall 
+#              - Updated Acknowledgments
 #              - Added 9030 tor in lo,server
 #              - Removed duplicate entry for DNS + Added DHCPv6 client output + Aesthetics 
 #              - Added functions and rewrote firewall using functions
@@ -55,6 +54,11 @@
 # OPTIONAL
 # # ./endlists.sh                   # Loads traditional blacklists and whitelists into iptables rules
 # # ./endsets.sh                    # Requires ipset, loads advanced kernel packet filtering blacklists
+#
+#
+#  If the firewall fails (bad interface pickup or bad ipv4 pickup) then run ./endwall.sh -o to return to open policies
+# $ ./endwall.sh -o 
+# Then manually set the interface ipv4 for ip1 and ip2 or play with the assignments of the internal variables (Switch 1 to 2 and retry etc)
 #
 ############################################################################################################################################################################
 # Note that ip6tables is not enabled by default on some distributions
@@ -229,8 +233,8 @@ echo "LOADING SYSCTL SECURITY BOOLEANS"
 sysctl -w -q kernel.sysrq=0
 sysctl -w -q kernel.core_uses_pid=1
 sysctl -w -q kernel.randomize_va_space=1
-sysctl -w -q kernel.pid_max=65536
 
+#sysctl -w -q kernel.pid_max=65536
 #sysctl -w -q kernel.exec-shield=1
 ###############          IPv4        #############################################################################################
 sysctl -w -q net.ipv4.tcp_syncookies=1          # enable tcp syn cookies (prevent against the common 'syn flood attack')
@@ -295,6 +299,49 @@ ip6tables -X -t security      # Delete table security from chains
 ip6tables -X                  # Delete Chains
 ip6tables -Z                  # Reset Counter
 
+# Disable firewall if -o flag 
+if [ "$1" == "-o" ];
+then
+
+################################  DISABLE THE FIREWALL #################################################################
+iptables -P INPUT   ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT  ACCEPT
+
+ip6tables -P INPUT   ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -P OUTPUT  ACCEPT
+
+###############################      SAVE RULES         ##############################################################
+echo SAVING RULES
+# comment out distribution rules that you are not using
+#ARCH/PARABOLA
+iptables-save  > /etc/iptables/iptables.rules
+ip6tables-save > /etc/iptables/ip6tables.rules
+
+#DEBIAN/UBUNTU
+iptables-save  > /etc/iptables/rules.v4
+ip6tables-save > /etc/iptables/rules.v6
+
+# RHEL/CENTOS/FEDORA
+iptables-save  > /etc/iptables/iptables
+ip6tables-save > /etc/iptables/ip6tables
+
+echo "ENDWALL DISABLED"
+##############################     PRINT RULES       ################################################################
+#list the rules
+#iptables -L -v
+#ip6tables -L -v
+#############################     PRINT ADDRESSES    ########################################################################
+echo "GATEWAY    :          MAC:"$gateway_mac"  IPv4:"$gateway_ip" " 
+echo "INTERFACE_1: "$int_if"  MAC:"$int_mac"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
+echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
+# print the time the script finishes
+date
+exit 0
+fi 
+## OTHERWISE continue with the firewall implementation 
+
 ############################     DEFUALT POLICY       ####################################################################
 iptables -P INPUT   DROP 
 iptables -P FORWARD DROP
@@ -303,6 +350,7 @@ iptables -P OUTPUT  DROP
 ip6tables -P INPUT   DROP 
 ip6tables -P FORWARD DROP
 ip6tables -P OUTPUT  DROP
+
 ############################   DEFINE CUSTOM CHAINS    #####################################################################
 iptables -N LnD			# Define custom DROP chain
 iptables -A LnD -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP drop] " 
@@ -1006,8 +1054,8 @@ iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 514 -
 #######################################      RELP LOG SERVER ########################################################################################################### 
 #iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 2514 --dport 2514 -m mac --mac-source "$gateway_mac" -m state --state NEW,ESTABLISHED -j PASS
 #######################################       DNS SERVER       ######################################################################################################## 
-server_internal_1p udp 53 "$host_ip" "$host_mac"
-server_internal_1p tcp 53 "$host_ip" "$host_mac"
+server_internal_1p udp 53 "$int_ip1" "$int_mac1"
+server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
 
 #server_internal_1p udp 53 "$client1_ip" "$client1_mac"
 #server_internal_1p tcp 53 "$client1_ip" "$client1_mac"
@@ -1015,20 +1063,20 @@ server_internal_1p tcp 53 "$host_ip" "$host_mac"
 #server_internal_1p udp 53 "$client2_ip" "$client2_mac"
 #server_internal_1p tcp 53 "$client2_ip" "$client2_mac"
 ###################################         POP3 SERVER       ############################################################################################## 
-#server_internal_1p tcp 110,995 "$host_ip" "$host_mac"
-#server_internal_1p tcp 110,995 "$client1_ip" "$client1_mac"
-#server_internal_1p tcp 110,995 "$client2_ip" "$client2_mac"
+#server_internal_mp tcp 110,995 "$int_ip1" "$int_mac1"
+#server_internal_mp tcp 110,995 "$client1_ip" "$client1_mac"
+#server_internal_mp tcp 110,995 "$client2_ip" "$client2_mac"
 ###################################         IMAP4 SERVER      ############################################################################################## 
-#server_internal_1p tcp 143,993 "$host_ip" "$host_mac"
-#server_internal_1p tcp 143,993 "$client1_ip" "$client1_mac"
-#server_internal_1p tcp 143,993 "$client2_ip" "$client2_mac"
+#server_internal_mp tcp 143,993 "$int_ip1" "$int_mac1"
+#server_internal_mp tcp 143,993 "$client1_ip" "$client1_mac"
+#server_internal_mp tcp 143,993 "$client2_ip" "$client2_mac"
 ###################################        SMB SERVER         ##############################################################################################
-#server_internal_2p tcp 445 445 "$host_ip" "$host_mac"
+#server_internal_2p tcp 445 445 "$int_ip1" "$int_mac1"
 #server_internal_2p tcp 445 445 "$client1_ip" "$client1_mac"
 #server_internal_2p tcp 445 445 "$client2_ip" "$client2_mac"
 ###################################        NETBIOS  SERVER    ##############################################################################################
-#server_internal_mp tcp 135,137,138,139 "$host_ip" "$host_mac" 
-#server_internal_mp udp 135,137,138,139 "$host_ip" "$host_mac" 
+#server_internal_mp tcp 135,137,138,139 "$int_ip1" "$int_mac1" 
+#server_internal_mp udp 135,137,138,139 "$int_ip1" "$int_mac1" 
 
 #server_internal_mp tcp 135,137,138,139 "$client1_ip" "$client1_mac" 
 #server_internal_mp udp 135,137,138,139 "$client1_ip" "$client1_mac" 
@@ -1036,8 +1084,8 @@ server_internal_1p tcp 53 "$host_ip" "$host_mac"
 #server_internal_mp tcp 135,137,138,139 "$client2_ip" "$client2_mac" 
 #server_internal_mp udp 135,137,138,139 "$client2_ip" "$client2_mac" 
 ###################################        CUPS SERVER        ##############################################################################################
-#server_internal_1p tcp 631 "$host_ip" "$host_mac" 
-#server_internal_1p udp 631 "$host_ip" "$host_mac" 
+#server_internal_1p tcp 631 "$int_ip1" "$int_mac1" 
+#server_internal_1p udp 631 "$int_ip1" "$int_mac1" 
 
 #server_internal_1p tcp 631 "$client1_ip" "$client1_mac" 
 #server_internal_1p udp 631 "$clinet1_ip" "$client1_mac" 
@@ -1045,8 +1093,8 @@ server_internal_1p tcp 53 "$host_ip" "$host_mac"
 #server_internal_1p tcp 631 "$client2_ip" "$client2_mac" 
 #server_internal_1p udp 631 "$clinet2_ip" "$client2_mac"
 ###################################    LDAP SERVER            ############################################################################################### 
-#server_internal_1p tcp 389 "$host_ip" "$host_mac" 
-#server_internal_1p udp 389 "$host_ip" "$host_mac" 
+#server_internal_1p tcp 389 "$int_ip1" "$int_mac1" 
+#server_internal_1p udp 389 "$int_ip1" "$int_mac1" 
 
 #server_internal_1p tcp 389 "$client1_ip" "$host_mac" 
 #server_internal_1p udp 389 "$client1_ip" "$host_mac" 
@@ -1054,8 +1102,8 @@ server_internal_1p tcp 53 "$host_ip" "$host_mac"
 #server_internal_1p tcp 389 "$client2_ip" "$host_mac" 
 #server_internal_1p udp 389 "$client2_ip" "$host_mac" 
 ####################################     XMPP SERVER          ############################################################################################### 
-#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$host_ip" "$host_mac" 
-#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$host_ip" "$host_mac"
+#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip1" "$int_mac1" 
+#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip1" "$int_mac1"
 
 #server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac" 
 #server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac"
@@ -1120,4 +1168,5 @@ echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v
 # print the time the script finishes
 date
 exit 0
+
 ###################################      END OF PROGRAM      ################################################################
