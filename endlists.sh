@@ -356,8 +356,7 @@ echo HTTP BLACKLIST LOADED
 echo SMTP BLACKLIST LOADING 
 for blackout in $(cat smtp_blacklist.txt) 
 do 
-log_drop tcp 25,587 
-SMTP-BL
+log_drop tcp 25,587 SMTP-BL
 
 echo "$blackout"  
 done 
