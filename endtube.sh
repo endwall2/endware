@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.16
+# VERSION: 0.17
 # REVISION DATE: JULY 23 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - Added min_delay max_delay variables
+# CHANGE LOG:  - Bug fix
+#              - Added min_delay max_delay variables
 #              - Updated user agents
 #              - Updated Acknowledgements
 #              - Updated EULA
@@ -345,7 +346,7 @@ torsocks curl -A "$UA" https://check.torproject.org/ > $check_tor
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
-
+rm "$check_tor"
 echo "Downloading "$link""
 # initiate download and change user agent
 
@@ -375,10 +376,8 @@ fi
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
-rm "$check_tor"
 
-cp "$list" "$Lunsort"
-rm "$list"
+mv "$list" "$Lunsort"
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################
