@@ -6,12 +6,13 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 1
-# Current Version: 1.34  Aug 9 2016
-# Stable Version:  1.30, Jun 6 2016
+# Current Version: 1.35  Aug 10 2016
+# Stable Version:  1.34, Aug 9 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# Changes:     - Added -o flag for open, to disable the firewall 
+# Changes:     - Loop over interfaces check that ip is picked up
+#              - Added -o flag for open, to disable the firewall 
 #              - Updated Acknowledgments
 #              - Added 9030 tor in lo,server
 #              - Removed duplicate entry for DNS + Added DHCPv6 client output + Aesthetics 
@@ -185,7 +186,7 @@ iptables=/sbin/iptables
 ip6tables=/sbin/ip6tables
 
 # Grab interface name from ip link and parse 
-int_if=$(ip link | grep -a "state " | awk -F: '{ if (FNR==2) print $2}')
+int_if1=$(ip link | grep -a "state " | awk -F: '{ if (FNR==2) print $2}')
 int_if2=$(ip link | grep -a "state " | awk -F: '{ if (FNR==3) print $2}')
 
 # Grab Gateway Information
@@ -198,11 +199,11 @@ gateway_mac=$( nmap -sS "$gateway_ip" -p 53| grep -a "MAC Address:" | awk '{prin
 #macchanger -A "$int_if2"
 
 # grab host mac addresses from ip link  
-host_mac=$(ip link | grep -a "ether" | awk ' {if (FNR==1) print $2}')
+host_mac1=$(ip link | grep -a "ether" | awk ' {if (FNR==1) print $2}')
 host_mac2=$(ip link | grep -a "ether" | awk ' {if (FNR==2) print $2}')
 
 # grab the ip addresses from the interfaces
-host_ip=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==1) print $1}'| awk '{print $2}')
+host_ip1=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==1) print $1}'| awk '{print $2}')
 host_ip2=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==2) print $1}'| awk '{print $2}')
 # grab the ipv6 addresses frrom the interfaces
 host_ip1v6=$(ip addr | grep -a "inet6"| awk 'BEGIN  {FS="/"} {if (FNR==2) print $1}'| awk '{print $2}')
@@ -217,9 +218,9 @@ host_ip2v6=$(ip addr | grep -a "inet6"| awk 'BEGIN  {FS="/"} {if (FNR==3) print 
 #client1_ip=192.168.0.161   # change to be the static ip of your first internal client
 #client2_ip=192.168.0.162   # change to be the static ip of your second internal client
 ########################### INTERNAL VARIABLES ################################## 
-int_mac="$host_mac"         # internal mac address of interface 1
+int_mac1="$host_mac1"         # internal mac address of interface 1
 int_mac2="$host_mac2"       # internal mac address of interface 2 
-int_ip1="$host_ip"          # internal ip address of interface 1  
+int_ip1="$host_ip1"          # internal ip address of interface 1  
 int_ip2="$host_ip2"         # internal ip address of interface 2
 int_ip1v6="$host_ip1v6"     # internal ipv6 address of interface 1
 int_ip2v6="$host_ip2v6"     # internal ipv6 address of interface 2
@@ -340,6 +341,8 @@ echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v
 date
 exit 0
 fi 
+
+
 ## OTHERWISE continue with the firewall implementation 
 
 ############################     DEFUALT POLICY       ####################################################################
@@ -444,23 +447,22 @@ ip6tables -A INPUT -p tcp ! --syn -m state --state NEW -j REJECT --reject-with t
 ###################### Prevent DoS attack ####################################################
 #iptables -A INPUT -p tcp --dport 25 -m limit --limit 40/minute --limit-burst 80 -j PASS
 #ip6tables -A INPUT -p tcp --dport 25 -m limit --limit 40/minute --limit-burst 80 -j PASS
-#################     DROP BROADCAST   #######################################################
-iptables -A INPUT  -i $int_if -d 255.255.255.255 -j DROP
-iptables -A INPUT  -i $int_if -d 192.168.255.255 -j DROP
-iptables -A INPUT  -i $int_if -d 192.168.0.255   -j DROP
-iptables -A INPUT  -i $int_if -d 153.122.255.255 -j DROP
-iptables -A INPUT  -i $int_if -d 153.122.1.255   -j DROP
-iptables -A INPUT  -i $int_if -d 172.2.255.255 -j DROP
-iptables -A INPUT  -i $int_if -d 172.2.1.255   -j DROP
-# comment out if you want to accept broadcast from your router
-
 #################### DROP MULTICAST/BROADCAST ################################################
 iptables -A INPUT  -s 224.0.0.0/4    -j LnD
 iptables -A OUTPUT -d 224.0.0.0/4    -j LnD
 iptables -A INPUT  -s 240.0.0.0/4    -j LnD
 iptables -A OUTPUT -d 240.0.0.0/4    -j LnD
-
 # comment out if you want to accept multicast or broadcast
+#################     DROP BROADCAST   #######################################################
+iptables -A INPUT  -d 255.255.255.255 -j DROP
+iptables -A INPUT  -d 192.168.255.255 -j DROP
+iptables -A INPUT  -d 192.168.0.255   -j DROP
+iptables -A INPUT  -d 153.122.255.255 -j DROP
+iptables -A INPUT  -d 153.122.1.255   -j DROP
+iptables -A INPUT  -d 172.2.255.255 -j DROP
+iptables -A INPUT  -d 172.2.1.255   -j DROP
+# comment out if you want to accept broadcast from your router
+
 #####################  DROP ASSUMED ATTACKERS   #####################################################
 iptables -A INPUT -m recent --rcheck --seconds 60 -m limit --limit 10/second -j LOG --log-prefix "BG "
 iptables -A INPUT -m recent --update --seconds 60 -j DROP
@@ -470,16 +472,16 @@ ip6tables -A INPUT -m recent --update --seconds 60 -j DROP
 # this rule places any input source ip making over 10 connections/second into a watch list
 # if this ip is still in the watch list after 60 seconds then it is dropped
 
-#######################  DROP INTERNAL HOST IP INPUT SPOOFING    ####################################
-#iptables -A INPUT    -i $int_if -s "$int_ip1" -m recent --set -j LnD
-#iptables -A FORWARD  -i $int_if -s "$int_ip1" -m recent --set -j LnD
-#iptables -A INPUT    -i $int_if -s "$int_ip2" -m recent --set -j LnD
-#iptables -A FORWARD  -i $int_if -s "$int_ip2" -m recent --set -j LnD
-### this rule may prevent you from seeing your own hosted website from the same computer
-### comment these lines out if this affects your ability to see your own website from the host.
-
 ######################      DROP OTHER LAN SPOOFING         ############################################
 # comment these lines out if they cause a problem
+
+#######################  DROP INTERNAL HOST IP INPUT SPOOFING    ####################################
+#iptables -A INPUT    -i $int_if1 -s "$int_ip1" -m recent --set -j LnD
+#iptables -A FORWARD  -i $int_if1 -s "$int_ip1" -m recent --set -j LnD
+#iptables -A INPUT    -i $int_if2 -s "$int_ip2" -m recent --set -j LnD
+#iptables -A FORWARD  -i $int_if2 -s "$int_ip2" -m recent --set -j LnD
+### this rule may prevent you from seeing your own hosted website from the same computer
+### comment these lines out if this affects your ability to see your own website from the host.
 
 #######################################################################################################################
 #                     DROP RESTRICTED SPECIAL USE IPv4 NETWORKS / IP SPOOFING
@@ -496,7 +498,6 @@ iptables -A OUTPUT -d 255.255.255.255 -j LnD
 #iptables -A INPUT  -s 192.168.0.0/16 -j LnD
 # uncomment private lan network classss that are not not applicable to your network to drop them
 # use an if statement to check gateway ip against 10,172,192 (not implemented currently)
-#
 
 echo "FIRST LINE SECURITY LOADED"
 
@@ -526,10 +527,10 @@ client_out()
 {
 proto=$1
 ports=$2
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED -j PASS
 }
 
 client_out_lim()
@@ -538,20 +539,20 @@ proto=$1
 ports=$2
 limrate=$3
 limburst=$4
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --dports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --sports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED -j PASS
 }
 
 client_out_rel()
 {
 proto=$1
 ports=$2
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p "$proto" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
 }
 
 client6_out()
@@ -651,7 +652,7 @@ server_internal_1way()
 ports=$1
 client_ip=$2
 client_mac=$3
-iptables -A INPUT  -i $int_if -p udp -m multiport --dports "$ports" -d "$int_ip1"  -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p udp -m multiport --dports "$ports" -d "$int_ip"  -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
 }
 
 server_internal_1p()
@@ -660,10 +661,10 @@ proto=$1
 port=$2
 client_ip=$3
 client_mac=$4
-iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port" -d "$int_ip1"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port" -s "$int_ip1"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port" -s "$client_ip" -d "$int_ip1"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port" -d "$client_ip" -s "$int_ip1"   -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port" -s "$client_ip" -d "$int_ip"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port" -d "$client_ip" -s "$int_ip"   -m state --state ESTABLISHED -j PASS
 }
 
 server_internal_mp()
@@ -672,10 +673,10 @@ proto=$1
 ports=$2
 client_ip=$3
 client_mac=$4
-iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --dports "$ports" -d "$int_ip1"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --sports "$ports" -s "$int_ip1"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --sports "$ports" -s "$client_ip" -d "$int_ip1"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --dports "$ports" -d "$client_ip" -s "$int_ip1"   -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --dports "$ports" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --sports "$ports" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --sports "$ports" -s "$client_ip" -d "$int_ip"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --dports "$ports" -d "$client_ip" -s "$int_ip"   -m state --state ESTABLISHED -j PASS
 }
 
 server_internal_2p()
@@ -685,10 +686,10 @@ port1=$2
 port2=$3
 client_ip=$4
 client_mac=$5
-iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$int_ip1"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$int_ip1"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$client_ip" -d "$int_ip1" -m mac --mac-source "$client_mac"  -m state --state NEW,ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$client_ip" -s "$int_ip1" -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$client_ip" -d "$int_ip" -m mac --mac-source "$client_mac"  -m state --state NEW,ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$client_ip" -s "$int_ip" -m state --state ESTABLISHED -j PASS
 }
 
 #####################################################################################################################################################
@@ -863,6 +864,28 @@ echo "LOCALHOST RULES LOADED"
 #                    REMOVED /ADD YOUR OWN according to your needs  sshd etc
 #
 #
+
+## Loop over interfaces check if ip is defined
+
+for int_if in "$int_if1" "$int_if2"  
+
+do 
+
+ind=1
+
+if [ $ind == "1" ]   
+then
+int_mac="$int_mac1"
+int_ip="$int_ip1"
+elif [ $ind == "2" ]   
+then
+int_mac="$int_mac2"
+int_ip="$int_ip2"
+fi 
+
+if  [ "$int_ip" != " " ]
+then 
+
 ######################################################################################################################################################
 #                      Application and Port Specific Rules for INTERNET 
 ######################################################################################################################################################
@@ -928,20 +951,20 @@ client_out tcp 114,993
 client_out udp 123
 client_out tcp 123
 #######################################            BOOTP  Client       #######################################################################################
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -d "$gateway_ip" -p udp -m multiport --dports 67,68 -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -d "$int_ip1" -s "$gateway_ip" -p udp -m multiport --sports 67,68 -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -d "$gateway_ip" -p udp -m multiport --dports 67,68 -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -s "$gateway_ip" -p udp -m multiport --sports 67,68 -m state --state ESTABLISHED -j PASS
 ###########################################        ICMP Ping         ###############################################################################
-iptables -A OUTPUT -o $int_if -s "$int_ip1" -p icmp --icmp-type ping  -m state --state NEW,ESTABLISHED -j PASS 
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p icmp --icmp-type ping  -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o $int_if -s "$int_ip" -p icmp --icmp-type ping  -m state --state NEW,ESTABLISHED -j PASS 
+iptables -A INPUT  -i $int_if -d "$int_ip" -p icmp --icmp-type ping  -m state --state ESTABLISHED -j PASS
 
 # echo reply from ping
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p icmp --icmp-type 0  -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p icmp --icmp-type 0  -m state --state ESTABLISHED -j PASS
 # rejection messages
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p icmp --icmp-type 3  -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p icmp --icmp-type 3  -m state --state ESTABLISHED -j PASS
 # time out signal
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p icmp --icmp-type 11 -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p icmp --icmp-type 11 -m state --state ESTABLISHED -j PASS
 # echo request from ping
-iptables -A INPUT  -i $int_if -d "$int_ip1" -p icmp --icmp-type 8  -m limit --limit 1/second -m state --state ESTABLISHED -j PASS
+iptables -A INPUT  -i $int_if -d "$int_ip" -p icmp --icmp-type 8  -m limit --limit 1/second -m state --state ESTABLISHED -j PASS
 
 ## comment out if you wish to block ipv6 icmp (ping etc)
 ip6tables -A OUTPUT -o $int_if -p icmp -m state --state NEW,ESTABLISHED -j PASS 
@@ -1054,8 +1077,8 @@ iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 514 -
 #######################################      RELP LOG SERVER ########################################################################################################### 
 #iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 2514 --dport 2514 -m mac --mac-source "$gateway_mac" -m state --state NEW,ESTABLISHED -j PASS
 #######################################       DNS SERVER       ######################################################################################################## 
-server_internal_1p udp 53 "$int_ip1" "$int_mac1"
-server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
+server_internal_1p udp 53 "$int_ip" "$int_mac"
+server_internal_1p tcp 53 "$int_ip" "$int_mac"
 
 #server_internal_1p udp 53 "$client1_ip" "$client1_mac"
 #server_internal_1p tcp 53 "$client1_ip" "$client1_mac"
@@ -1063,20 +1086,20 @@ server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
 #server_internal_1p udp 53 "$client2_ip" "$client2_mac"
 #server_internal_1p tcp 53 "$client2_ip" "$client2_mac"
 ###################################         POP3 SERVER       ############################################################################################## 
-#server_internal_mp tcp 110,995 "$int_ip1" "$int_mac1"
+#server_internal_mp tcp 110,995 "$int_ip" "$int_mac"
 #server_internal_mp tcp 110,995 "$client1_ip" "$client1_mac"
 #server_internal_mp tcp 110,995 "$client2_ip" "$client2_mac"
 ###################################         IMAP4 SERVER      ############################################################################################## 
-#server_internal_mp tcp 143,993 "$int_ip1" "$int_mac1"
+#server_internal_mp tcp 143,993 "$int_ip" "$int_mac"
 #server_internal_mp tcp 143,993 "$client1_ip" "$client1_mac"
 #server_internal_mp tcp 143,993 "$client2_ip" "$client2_mac"
 ###################################        SMB SERVER         ##############################################################################################
-#server_internal_2p tcp 445 445 "$int_ip1" "$int_mac1"
+#server_internal_2p tcp 445 445 "$int_ip" "$int_mac"
 #server_internal_2p tcp 445 445 "$client1_ip" "$client1_mac"
 #server_internal_2p tcp 445 445 "$client2_ip" "$client2_mac"
 ###################################        NETBIOS  SERVER    ##############################################################################################
-#server_internal_mp tcp 135,137,138,139 "$int_ip1" "$int_mac1" 
-#server_internal_mp udp 135,137,138,139 "$int_ip1" "$int_mac1" 
+#server_internal_mp tcp 135,137,138,139 "$int_ip" "$int_mac" 
+#server_internal_mp udp 135,137,138,139 "$int_ip" "$int_mac" 
 
 #server_internal_mp tcp 135,137,138,139 "$client1_ip" "$client1_mac" 
 #server_internal_mp udp 135,137,138,139 "$client1_ip" "$client1_mac" 
@@ -1084,8 +1107,8 @@ server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
 #server_internal_mp tcp 135,137,138,139 "$client2_ip" "$client2_mac" 
 #server_internal_mp udp 135,137,138,139 "$client2_ip" "$client2_mac" 
 ###################################        CUPS SERVER        ##############################################################################################
-#server_internal_1p tcp 631 "$int_ip1" "$int_mac1" 
-#server_internal_1p udp 631 "$int_ip1" "$int_mac1" 
+#server_internal_1p tcp 631 "$int_ip" "$int_mac" 
+#server_internal_1p udp 631 "$int_ip" "$int_mac" 
 
 #server_internal_1p tcp 631 "$client1_ip" "$client1_mac" 
 #server_internal_1p udp 631 "$clinet1_ip" "$client1_mac" 
@@ -1093,8 +1116,8 @@ server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
 #server_internal_1p tcp 631 "$client2_ip" "$client2_mac" 
 #server_internal_1p udp 631 "$clinet2_ip" "$client2_mac"
 ###################################    LDAP SERVER            ############################################################################################### 
-#server_internal_1p tcp 389 "$int_ip1" "$int_mac1" 
-#server_internal_1p udp 389 "$int_ip1" "$int_mac1" 
+#server_internal_1p tcp 389 "$int_ip" "$int_mac" 
+#server_internal_1p udp 389 "$int_ip" "$int_mac" 
 
 #server_internal_1p tcp 389 "$client1_ip" "$host_mac" 
 #server_internal_1p udp 389 "$client1_ip" "$host_mac" 
@@ -1102,14 +1125,24 @@ server_internal_1p tcp 53 "$int_ip1" "$int_mac1"
 #server_internal_1p tcp 389 "$client2_ip" "$host_mac" 
 #server_internal_1p udp 389 "$client2_ip" "$host_mac" 
 ####################################     XMPP SERVER          ############################################################################################### 
-#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip1" "$int_mac1" 
-#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip1" "$int_mac1"
+#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac" 
+#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac"
 
 #server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac" 
 #server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac"
 
 #server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac" 
 #server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac"
+##############################################################################################################################################################
+
+#### END OF LOOP OVER INTERFACES/IPs
+
+fi
+
+ind=$( expr "$ind" + 1 )
+
+done  
+
 #######################################################################################################################
 #                                          ICMP DROP
 #######################################################################################################################
@@ -1163,7 +1196,7 @@ echo "ENDWALL LOADED"
 #ip6tables -L -v
 #############################     PRINT ADDRESSES    ########################################################################
 echo "GATEWAY    :          MAC:"$gateway_mac"  IPv4:"$gateway_ip" " 
-echo "INTERFACE_1: "$int_if"  MAC:"$int_mac"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
+echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
 echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
 # print the time the script finishes
 date
