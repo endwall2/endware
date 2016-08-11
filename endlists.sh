@@ -5,15 +5,16 @@
 # Program: endlists.sh
 # Type: Bourne shell script
 # Creation Date: February 14, 2016
-# Current Version: 1.22  Jul 9 2016
-# Stable Version:  1.20, Jun 6 2016
+# Current Version: 1.23  Aug 11 2016
+# Stable Version:  1.22, Jul 9 2016
 # Author: The Endware Development Team
 # Copyright: The Endware Development Team 2016
 #
 ####################################################################################
 # Description:  Traditional iptables list based blacklisting 
 #
-# Changes:  - Updated Acknowledgements
+# Changes:  - Loop over interfaces + abstract rule insertion point $insert, $insert6
+#           - Updated Acknowledgements
 #           - Rewrite with shell functions
 #           - Updated EULA
 #           - Fixed insertion numbers
@@ -204,7 +205,7 @@ iptables=/sbin/iptables
 ip6tables=/sbin/ip6tables
 
 # Grab interface name from ip link and parse 
-int_if=$(ip link | grep -a "2: " | awk -F: '{ print $2}')
+int_if1=$(ip link | grep -a "2: " | awk -F: '{ print $2}')
 int_if2=$(ip link | grep -a "3: " | awk -F: '{ print $2}')
 
 # Grab Gateway Information
@@ -213,23 +214,28 @@ gateway_ip=$(ip route | awk '/via/ {print $3}')
 gateway_mac=$( nmap -sS $gateway_ip -p 53| grep -a "MAC Address:" | awk '{print $3}')
 
 # grab host mac addresses from ip link  
-host_mac=$(ip link | grep -a "ether" | awk ' {if (FNR==1) print $2}')
+host_mac1=$(ip link | grep -a "ether" | awk ' {if (FNR==1) print $2}')
 host_mac2=$(ip link | grep -a "ether" | awk ' {if (FNR==2) print $2}')
 
 # grab the ip addresses from the interfaces
-host_ip=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==1) print $1}'| awk '{print $2}')
+host_ip1=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==1) print $1}'| awk '{print $2}')
 host_ip2=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==2) print $1}'| awk '{print $2}')
 
 host_ip1v6=$(ip addr | grep -a "scope link"|awk 'BEGIN  {FS="/"} {if (FNR==1) print $1}'| awk '{print $2}')
 host_ip2v6=$(ip addr | grep -a "scope link"|awk 'BEGIN  {FS="/"} {if (FNR==2) print $1}'| awk '{print $2}')
 
 ########################### INTERNAL VARIABLES ################################## 
-int_mac="$host_mac"         # internal mac address of interface 1
+int_mac1="$host_mac1"       # internal mac address of interface 1
 int_mac2="$host_mac2"       # internal mac address of interface 2 
-int_ip1="$host_ip"          # internal ipv4 address of interface 1  
-int_ip1v6="$host_ip1v6"     # internal ipv6 address of interface 1  
+int_ip1="$host_ip1"         # internal ipv4 address of interface 1  
 int_ip2="$host_ip2"         # internal ipv4 address of interface 2
+int_ip1v6="$host_ip1v6"     # internal ipv6 address of interface 1  
 int_ip2v6="$host_ip2v6"     # internal ipv6 address of interface 2
+###################################################################################
+
+### Rule Insertion Points
+insert=51
+insert6=34
 
 #################################################        FUNCTIONS        ##########################################################################################
 log_drop()
@@ -239,16 +245,16 @@ proto=$1
 ports=$2
 tag=$3
 
-iptables -I OUTPUT 51 -p $proto -s "$int_ip1" -d "$blackout" -m multiport --dports $ports -j DROP && iptables -I OUTPUT 51 -p $proto -s "$int_ip1" -d "$blackout" -m multiport --sports $ports -j DROP;
-iptables -I INPUT 51 -p $proto -d "$int_ip1" -s "$blackout" -m multiport --dports $ports -j DROP && iptables -I INPUT 51 -p $proto -d "$int_ip1" -s "$blackout" -m multiport --sports $ports -j DROP;
+iptables -I OUTPUT "$insert" -p $proto -s "$int_ip" -d "$blackout" -m multiport --dports $ports -j DROP && iptables -I OUTPUT "$insert" -p $proto -s "$int_ip" -d "$blackout" -m multiport --sports $ports -j DROP;
+iptables -I INPUT "$insert" -p $proto -d "$int_ip" -s "$blackout" -m multiport --dports $ports -j DROP && iptables -I INPUT "$insert" -p $proto -d "$int_ip" -s "$blackout" -m multiport --sports $ports -j DROP;
 
-iptables -I OUTPUT 51 -p "$proto" -s "$int_ip1" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I OUTPUT 51 -p "$proto" -s "$int_ip1" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
-iptables -I INPUT 51 -p "$proto" -d "$int_ip1" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && iptables -I INPUT 51 -p "$proto" -d "$int_ip1" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
+iptables -I OUTPUT "$insert" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I OUTPUT "$insert" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
+iptables -I INPUT "$insert" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && iptables -I INPUT "$insert" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
 
-#iptables -I FORWARD 51 -p "$proto" -d "$int_ip1" -s "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD 51 -p "$proto" -s "$int_ip1" -d "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD 51 -p "$proto" -d "$int_ip1" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD 51 -p "$proto" -s "$int_ip1" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#iptables -I FORWARD "$insert" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j DROP;
+#iptables -I FORWARD "$insert" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j DROP;
+#iptables -I FORWARD "$insert" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
+#iptables -I FORWARD "$insert" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
 
 }
 
@@ -260,13 +266,13 @@ proto=$1
 ports=$2
 tag=$3
 
-iptables -I OUTPUT 51 -p "$proto" -s "$int_ip1" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && iptables -I INPUT 51  -p "$proto" -d "$int_ip1" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-iptables -I OUTPUT 51 -p "$proto" -s "$int_ip1" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I INPUT 51 -p "$proto" -d "$int_ip1" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
+iptables -I OUTPUT "$insert" -p "$proto" -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && iptables -I INPUT "$insert"  -p "$proto" -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+iptables -I OUTPUT "$insert" -p "$proto" -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I INPUT "$insert" -p "$proto" -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
 
-#iptables -I FORWARD 51 -p tcp -d "$int_ip1" -s "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
-#iptables -I FORWARD 51 -p tcp -s "$int_ip1" -d "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
-#iptables -I FORWARD 51 -p tcp -d "$int_ip1" -s "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#iptables -I FORWARD 51 -p tcp -s "$int_ip1" -d "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#iptables -I FORWARD "$insert" -p tcp -d "$int_ip" -s "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
+#iptables -I FORWARD "$insert" -p tcp -s "$int_ip" -d "$whiteout" -m multiport --dports 25,587 -j ACCEPT;
+#iptables -I FORWARD "$insert" -p tcp -d "$int_ip" -s "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
+#iptables -I FORWARD "$insert" -p tcp -s "$int_ip" -d "$whiteout" -m multiport --dports 25,587 -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
 
 }
 
@@ -278,16 +284,16 @@ proto=$1
 ports=$2
 tag=$3
 
-ip6tables -I OUTPUT 51 -p $proto -s "$int_ip1v6" -d "$blackout" -m multiport --dports $ports -j DROP && iptables -I OUTPUT 51 -p $proto -s "$int_ip1v6" -d "$blackout" -m multiport --sports $ports -j DROP;
-ip6tables -I INPUT 51 -p $proto -d "$int_ip1v6" -s "$blackout" -m multiport --dports $ports -j DROP && iptables -I INPUT 51 -p $proto -d "$int_ip1v6" -s "$blackout" -m multiport --sports $ports -j DROP;
+ip6tables -I OUTPUT "$insert6" -p $proto -s "$int_ipv6" -d "$blackout" -m multiport --dports $ports -j DROP && iptables -I OUTPUT "$insert6" -p $proto -s "$int_ipv6" -d "$blackout" -m multiport --sports $ports -j DROP;
+ip6tables -I INPUT "$insert6" -p $proto -d "$int_ipv6" -s "$blackout" -m multiport --dports $ports -j DROP && iptables -I INPUT "$insert6" -p $proto -d "$int_ipv6" -s "$blackout" -m multiport --sports $ports -j DROP;
 
-ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
-ip6tables -I INPUT 51 -p "$proto" -d "$int_ip1v6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && ip6tables -I INPUT 51 -p "$proto" -d "int_ip1v6" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
+ip6tables -I OUTPUT "$insert6" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I OUTPUT "$insert6" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
+ip6tables -I INPUT "$insert6" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && ip6tables -I INPUT "$insert6" -p "$proto" -d "int_ipv6" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
 
-#iptables -I FORWARD 51 -p "$proto" -d "$int_ip1v6" -s "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD 51 -p "$proto" -s "$int_ip1v6" -d "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD 51 -p "$proto" -d "$int_ip1v6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD 51 -p "$proto" -s "$int_ip1v6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#iptables -I FORWARD "$insert6" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j DROP;
+#iptables -I FORWARD "$insert6" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j DROP;
+#iptables -I FORWARD "$insert6" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
+#iptables -I FORWARD "$insert6" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
 
 }
 
@@ -298,38 +304,60 @@ proto=$1
 ports=$2
 tag=$3
 
-ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && ip6tables -I INPUT 51  -p "$proto" -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-ip6tables -I OUTPUT 51 -p "$proto" -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I INPUT 51 -p "$proto" -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
+ip6tables -I OUTPUT "$insert6" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && ip6tables -I INPUT "$insert6"  -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+ip6tables -I OUTPUT "$insert6" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I INPUT "$insert6" -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
 
-#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#ip6tables -I FORWARD 51 -p tcp -d "$int_ip1v6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#ip6tables -I FORWARD 51 -p tcp -s "$int_ip1v6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#ip6tables -I FORWARD "$insert6" -p tcp -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+#ip6tables -I FORWARD "$insert6" -p tcp -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
+#ip6tables -I FORWARD "$insert6" -p tcp -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
+#ip6tables -I FORWARD "$insert6" -p tcp -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
 
 }
 
 ##################################################################################################################################################################
 
-####################################################################################
-#                    IP FILTER BLACK LISTS
-####################################################################################
+### loop over interfaces
 
-echo HTTP/HTTPS BLACKLIST LOADING
-for blackout in $(cat http_blacklist.txt);
+for int_if in "$int_if1" "$int_if2"
+
+do
+
+ind=1
+
+if [ $ind == "1" ] 
+then 
+int_mac="$int_mac1" 
+int_ip="$int_ip1"
+int_ipv6="$int_ip1v6"
+elif [ $ind == "2" ]
+then
+int_ip="$int_ip2" 
+int_mac="$int_mac2" 
+int_ipv6="$int_ip2v6"
+fi 
+
+if [ "$int_ip" != " " ]
+then 
+
+#################################################################################### 
+# IP FILTER BLACK LISTS 
+#################################################################################### 
+
+echo HTTP/HTTPS BLACKLIST LOADING 
+for blackout in $(cat http_blacklist.txt); 
 do 
-
-log_drop tcp 80,443 HTTP-BL
-
-echo "$blackout"  
+log_drop tcp 80,443 HTTP-BL 
+echo "$blackout" 
 done 
+
 echo HTTP BLACKLIST LOADED
 
 #smtp_blacklist.txt
-echo SMTP BLACKLIST LOADING
-for blackout in $(cat smtp_blacklist.txt)
+echo SMTP BLACKLIST LOADING 
+for blackout in $(cat smtp_blacklist.txt) 
 do 
-
-log_drop tcp 25,587 SMTP-BL
+log_drop tcp 25,587 
+SMTP-BL
 
 echo "$blackout"  
 done 
@@ -350,11 +378,11 @@ echo EMAIL BLACKLIST LOADING
 for blackout in $(cat email_blacklist.txt);
 do 
 
-iptables -I INPUT 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP ;
-iptables -I INPUT 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info && iptables -I OUTPUT 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info ;
+iptables -I INPUT "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP ;
+iptables -I INPUT "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info && iptables -I OUTPUT "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info ;
 
-#iptables -I FORWARD 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP 
-#iptables -I FORWARD 51 -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info
+#iptables -I FORWARD "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j DROP 
+#iptables -I FORWARD "$insert" -p tcp --dport 25 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[EMAIL SPAM] " --log-level=info
 
 echo $blackout 
 done 
@@ -364,11 +392,11 @@ echo HTML BLACKLIST LOADING
 for blackout in $(cat html_blacklist.txt);
 do 
 
-iptables -I INPUT 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP;
-iptables -I INPUT 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info && iptables -I OUTPUT 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info;
+iptables -I INPUT "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP;
+iptables -I INPUT "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info && iptables -I OUTPUT "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info;
 
-#iptables -I FORWARD 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP 
-#iptables -I FORWARD 51 -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info;
+#iptables -I FORWARD "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j DROP 
+#iptables -I FORWARD "$insert" -p tcp -m multiport --dports 80,443 -m string --string "$blackout" --algo bm -j LOG --log-prefix "[HTTP SPAM] " --log-level=info;
 
 echo "$blackout"  
 done 
@@ -378,14 +406,14 @@ echo ATTACKER BLACKLIST LOADING
 for blackout in $(cat attackers.txt);
 do 
 
-iptables -I OUTPUT 51 -p all -s "$int_ip1" -d "$blackout" -j DROP && iptables -I INPUT 51  -p all -d "$int_ip1" -s "$blackout" -j DROP;
-iptables -I OUTPUT 51 -p all -s "$int_ip1" -d "$blackout" -j LOG --log-prefix "[ATTACKER OUT] "  --log-level=info && iptables -I INPUT 51  -p all -d "$int_ip1" -s "$blackout" -j LOG --log-prefix "[ATTACKER IN] "  --log-level=info;
+iptables -I OUTPUT "$insert" -p all -s "$int_ip" -d "$blackout" -j DROP && iptables -I INPUT "$insert"  -p all -d "$int_ip" -s "$blackout" -j DROP;
+iptables -I OUTPUT "$insert" -p all -s "$int_ip" -d "$blackout" -j LOG --log-prefix "[ATTACKER OUT] "  --log-level=info && iptables -I INPUT "$insert"  -p all -d "$int_ip" -s "$blackout" -j LOG --log-prefix "[ATTACKER IN] "  --log-level=info;
 
-#iptables -I FORWARD 51 -p all -d "$int_ip1" -s "$blackout" -j DROP;
-#iptables -I FORWARD 51 -p all -s "$int_ip1" -d "$blackout" -j DROP;
+#iptables -I FORWARD "$insert" -p all -d "$int_ip" -s "$blackout" -j DROP;
+#iptables -I FORWARD "$insert" -p all -s "$int_ip" -d "$blackout" -j DROP;
 
-#iptables -I FORWARD 51 -p all -d "$int_ip1" -s "$blackout" -j LOG --log-prefix "[ATTACKER FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD 51 -p all -s "$int_ip1" -d "$blackout" -j LOG --log-prefix "[ATTACKER FORWARD OUT] "  --log-level=info;
+#iptables -I FORWARD "$insert" -p all -d "$int_ip" -s "$blackout" -j LOG --log-prefix "[ATTACKER FORWARD IN] "  --log-level=info;
+#iptables -I FORWARD "$insert" -p all -s "$int_ip" -d "$blackout" -j LOG --log-prefix "[ATTACKER FORWARD OUT] "  --log-level=info;
 
 echo "$blackout" 
 done
@@ -396,14 +424,14 @@ for blackout in $(cat blacklist.txt);
 do 
 
 
-iptables -I OUTPUT 51 -p all -d "$blackout" -j DROP && iptables -I INPUT 51  -p all -s "$blackout" -j DROP;
-iptables -I OUTPUT 51 -p all -d "$blackout" -j LOG --log-prefix "[BLACKLIST OUT] " --log-level=info && "iptables" -I INPUT 51  -p all -s "$blackout" -j LOG --log-prefix "[BLACKLIST IN] "  --log-level=info;
+iptables -I OUTPUT "$insert" -p all -d "$blackout" -j DROP && iptables -I INPUT "$insert"  -p all -s "$blackout" -j DROP;
+iptables -I OUTPUT "$insert" -p all -d "$blackout" -j LOG --log-prefix "[BLACKLIST OUT] " --log-level=info && "iptables" -I INPUT "$insert"  -p all -s "$blackout" -j LOG --log-prefix "[BLACKLIST IN] "  --log-level=info;
 
-#iptables -I FORWARD 51 -p all -s "$blackout" -j DROP;
-#iptables -I FORWARD 51 -p all -d "$blackout" -j DROP;
+#iptables -I FORWARD "$insert" -p all -s "$blackout" -j DROP;
+#iptables -I FORWARD "$insert" -p all -d "$blackout" -j DROP;
 
-#iptables -I FORWARD 51 -p all -s "$blackout" -j LOG --log-prefix "[BLACKLIST FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD 51 -p all -d "$blackout" -j LOG --log-prefix "[BLACKLIST FORWARD OUT] "  --log-level=info;
+#iptables -I FORWARD "$insert" -p all -s "$blackout" -j LOG --log-prefix "[BLACKLIST FORWARD IN] "  --log-level=info;
+#iptables -I FORWARD "$insert" -p all -d "$blackout" -j LOG --log-prefix "[BLACKLIST FORWARD OUT] "  --log-level=info;
 
 echo "$blackout"  
 done
@@ -413,13 +441,13 @@ echo LOADING IPv6 BLACKLIST
 for blackout in $(cat ipv6_blacklist.txt);
 do 
 
-ip6tables -I OUTPUT 34 -p all -d "$blackout" -j DROP && ip6tables -I INPUT 34  -p all -s "$blackout" -j DROP;
-ip6tables -I OUTPUT 34 -p all -d "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST OUT] " --log-level=info && ip6tables -I INPUT 34 -p all -s "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST IN] "  --log-level=info ;
+ip6tables -I OUTPUT "$insert6" -p all -d "$blackout" -j DROP && ip6tables -I INPUT "$insert6"  -p all -s "$blackout" -j DROP;
+ip6tables -I OUTPUT "$insert6" -p all -d "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST OUT] " --log-level=info && ip6tables -I INPUT "$insert6" -p all -s "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST IN] "  --log-level=info ;
 
-#ip6tables -I FORWARD 34 -p all  -s "$blackout" -j DROP;
-#ip6tables -I FORWARD 34 -p all  -d "$blackout" -j DROP;
-#ip6tables -I FORWARD 34 -p all  -s "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST FORWARD IN] "  --log-level=info;
-#ip6tables -I FORWARD 34 -p all  -d "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST FORWARD OUT] "  --log-level=info;
+#ip6tables -I FORWARD "$insert6" -p all  -s "$blackout" -j DROP;
+#ip6tables -I FORWARD "$insert6" -p all  -d "$blackout" -j DROP;
+#ip6tables -I FORWARD "$insert6" -p all  -s "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST FORWARD IN] "  --log-level=info;
+#ip6tables -I FORWARD "$insert6" -p all  -d "$blackout" -j LOG --log-prefix "[IPv6 BLACKLIST FORWARD OUT] "  --log-level=info;
 
 echo "$blackout"  
 done
@@ -450,6 +478,15 @@ echo IPv6 BLACKLIST LOADED
 #echo "$whiteout"  
 #done 
 #echo HTTP/HTTPS WHITELIST LOADED
+
+###############
+### END OF LOOP OVER INTERFACES
+
+fi
+
+ind=$( expr "$ind" + 1 )
+
+done
 
 ##########################################################################################################################
 #                                 SAVE RULES
@@ -484,7 +521,7 @@ echo "ENDLISTS LOADED"
 
 #############################   PRINT ADDRESSES  ############################################################
 echo GATEWAY  :          MAC:$gateway_mac  IP:$gateway_ip  
-echo INTERFACE_1: "$int_if"  MAC:"$int_mac"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" 
+echo INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" 
 echo INTERFACE_2: "$int_if2" MAC:"$int_mac2" IPv4:"$int_ip2" IPv6:"$int_ip2v6"
 # print the time the script finishes
 date
