@@ -4,8 +4,8 @@
 #  BEGINNING OF LICENSE AGREMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.10 
-#  VERSION DATE: JULY 7, 2016
+#  VERSION: 1.11 
+#  VERSION DATE: AUGUST 11, 2016
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
@@ -61,14 +61,17 @@
 #  12)  This software is distributed without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
 #  13)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programers involved in its creation, free from prosecution, 
-#       free from indemnity, and free from liability, and will not attempt to seek restitution or renumeration for any such loss real or imagined.
+#       free from indemnity, and free from liability, and will not attempt to seek restitution, compenstation, or payment for any such loss real or imagined.
+#  14)  If a user makes a significant improvement to this software, and if this improvement is included in a release, the user agrees not to seek remuneration or payment 
+#       from the creators of this software or from Endwall or from the Endware Development Team, for any such work contribution performed, and the user understands 
+#       that there will be no such remuneration or payment rendered to them for any such contribution. 
 #  END OF LICENSE AGREEMENT
 ##################################################################################################################################################################################
 #  ADITIONAL NOTES:
-#  14)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
+#  15)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  15)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exlusion of use.  
+#  16)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exlusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  

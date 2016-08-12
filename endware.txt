@@ -1,3 +1,4 @@
+
 ################################################################################################
 # TITLE: endware.txt
 # TYPE: Text file
@@ -41,7 +42,7 @@ endnode.sh - Check your exit node in the command line with torsocks, curl and a 
 endloads.sh - An anonymized text file list based command line download manager for internet files in a list.
               Random download timing, download order, user agent, with torsocks and wget.
 endtube.sh - An anonymized text file list based command line download manager for video content using youtube-dl and randomization.                
-              Random download timing, download order, user agent, with torsocks and wget and proxies.
+              Random download timing, download order, user agent, with torsocks and proxies.
 ########################  HTTPS/SOCKS5 PROXIES   ###############################################################################
 proxyload.sh - Get a list of http and socks5 proxies.  Hard coded to a specific website.
 proxycheck.sh - Scrape the proxies in a list to test to see if they're working.

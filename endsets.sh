@@ -402,26 +402,26 @@ then
 #                    IP FILTER BLACK LISTS
 ####################################################################################
 
-echo HTTP/HTTPS BLACKLIST LOADING
+#echo HTTP/HTTPS BLACKLIST LOADING
 
 log_drop http_blacklist tcp 80,443 HTTP-BL
 
 echo HTTP BLACKLIST LOADED
 
-echo SMTP BLACKLIST LOADING
+#echo SMTP BLACKLIST LOADING
 
 log_drop smtp_blacklist tcp 25,587 SMTP-BL
 
 echo SMTP BLACKLIST LOADED
 
-echo DNS BLACKLIST LOADING
+#echo DNS BLACKLIST LOADING
 
 log_drop dns_blacklist udp 53,953 DNS-BL
 log_drop dns_blacklist tcp 53,953 DNS-BL
 
 echo DNS BLACKLIST LOADED
 
-echo ATTACKER BLACKLIST LOADING
+#echo ATTACKER BLACKLIST LOADING
 
 iptables -I OUTPUT "$insert" -p all -s "$int_ip" -m set --match-set attackers dst -j DROP && iptables -I INPUT "$insert" -p all -d "$int_ip" -m set --match-set attackers src -j DROP;
 iptables -I OUTPUT "$insert" -p all -s "$int_ip" -m set --match-set attackers dst -j LOG --log-prefix "[ATTACKER OUT] " --log-level=info && iptables -I INPUT "$insert" -p all -d "$int_ip" -m set --match-set attackers src -j LOG --log-prefix "[ATTACKER IN] "  --log-level=info; 
@@ -430,7 +430,8 @@ iptables -I OUTPUT "$insert" -p all -s "$int_ip" -m set --match-set attackers ds
 
 echo ATTACKER BLACKLIST LOADED
 
-echo LOADING BLACKLIST 
+#echo LOADING BLACKLIST 
+
 iptables -I OUTPUT "$insert" -p all -m set --match-set blacklist dst -j DROP && iptables -I INPUT "$insert" -p all -m set --match-set blacklist src -j DROP;
 iptables -I OUTPUT "$insert" -p all -m set --match-set blacklist dst -j LOG --log-prefix "[BLACKLIST OUT] " --log-level=info && iptables -I INPUT "$insert" -p all -m set --match-set blacklist src -j LOG --log-prefix "[BLACKLIST IN] " --log-level=info;
 
@@ -443,7 +444,7 @@ iptables -I OUTPUT "$insert" -p all -m set --match-set blacklist dst -j LOG --lo
 echo BLACKLIST LOADED
 
 
-echo LOADING IPv6 BLACKLIST 
+#echo LOADING IPv6 BLACKLIST 
 
 ip6tables -I OUTPUT "$insert6" -p all -m set --match-set ipv6_blacklist dst -j DROP && ip6tables -I INPUT "$insert6" -p all -m set --match-set ipv6_blacklist src -j DROP;
 ip6tables -I OUTPUT "$insert6"  -p all -m set --match-set ipv6_blacklist dst -j LOG --log-prefix "[IPv6-BLACKLIST OUT] " --log-level=info && ip6tables -I INPUT "$insert6" -p all -m set --match-set ipv6_blacklist src -j LOG --log-prefix "[IPv6-BLACKLIST IN] "  --log-level=info; 
@@ -454,7 +455,7 @@ ip6tables -I OUTPUT "$insert6"  -p all -m set --match-set ipv6_blacklist dst -j 
 
 echo IPv6 BLACKLIST LOADED
 
-echo TOR BLACKLIST LOADING
+#echo TOR BLACKLIST LOADING
 
 log_drop tor_list tcp 25,587,80,443 TOR-BL
 
