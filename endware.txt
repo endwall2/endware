@@ -36,7 +36,7 @@ country_codes.txt - A list of country codes to grep for country codes to use wit
 ######################## TOR ANONYMIZED DOWNLOADERS ############################################################################
 endcurl.sh - A user agent randomizer for curl, using torsocks.
 endget.sh - A user agent randomizer for wget, using torsocks.
-endnode.sh - Check your exit node in the command line wiht torsocks, curl and a random user agent.
+endnode.sh - Check your exit node in the command line with torsocks, curl and a random user agent.
 ########################  TOR ANONYMIZED DOWNLOAD MANAGER ######################################################################
 endloads.sh - An anonymized text file list based command line download manager for internet files in a list.
               Random download timing, download order, user agent, with torsocks and wget.
