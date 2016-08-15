@@ -358,7 +358,7 @@ echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
 rm $check_tor
 rm tor-on.png
-rm favicon.ico
+rm tor-on.ico
 
 # generate a random number time delay
 delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
