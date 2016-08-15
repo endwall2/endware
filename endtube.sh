@@ -351,7 +351,7 @@ sleep "$delay"
 # check tor project ip
 torsocks curl -A "$UA_torbrowser" https://check.torproject.org/ > $check_tor
 torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/torcheck/img/tor-on.png 
-torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/torcheck/favicon.ico 
+torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/torcheck/img/tor-on.ico 
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
