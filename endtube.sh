@@ -8,12 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.18
-# REVISION DATE: AUGUST 11 2016
+# VERSION: 0.19
+# REVISION DATE: AUGUST 15 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - GeoIPlookup on random proxy
-#              - Bug fix
+# CHANGE LOG:  - use torbrowser UA when checking tor exit node
+#              - geoiplookup on random proxy
+#              - bug fix
 #              - Added min_delay max_delay variables
 #              - Updated user agents
 #              - Updated Acknowledgements
@@ -195,6 +196,9 @@ check_tor=check.tmp
 #main loop to select random user agent
 for link in $(cat "$list" ); do  
 
+# define the current tor browser user agent
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
 # pick a random user agent
 n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 129 | awk '{print $1}')
 # set the user agent
@@ -345,11 +349,23 @@ echo "Delaying download for "$delay" seconds"
 sleep "$delay"
 
 # check tor project ip
-torsocks curl -A "$UA" https://check.torproject.org/ > $check_tor
+torsocks curl -A "$UA_torbrowser" https://check.torproject.org/ > $check_tor
+torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/tor-on.png 
+torsocks wget --user-agent="$UA_torbrowser" https://torproject.org/favicon.ico 
+
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
-rm "$check_tor"
+rm $check_tor
+rm tor-on.png
+rm favicon.ico
+
+# generate a random number time delay
+delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
+echo "Delaying download for "$delay" seconds"
+# wait by delay time
+sleep "$delay"
+
 echo "Downloading "$link""
 # initiate download and change user agent
 
@@ -383,6 +399,7 @@ done
 # sometimes the download cuts off so don't delete the file until its all done
 
 mv "$list" "$Lunsort"
+
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################

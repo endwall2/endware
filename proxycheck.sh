@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.08
-# REVISION DATE: JULY 21 2016
+# VERSION: 0.09
+# REVISION DATE: AUGUST 15 2016
 # 
-# CHANGE LOG:  - Updated user agents
+# CHANGE LOG:  - bug fix
+#              - Updated user agents
 #              - Output results incrementally
 #              - Updated to check proxy output using awk
 #              - Forked from proxyload
@@ -373,9 +374,9 @@ echo " "
 ## capture working redirects
 awk '{ if ($0 ~ /The document/) i=NR; if (NR == i+3) {print $2} }' "$holder_1" >> "$outfile_1"
 ## capture working google hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Search the world/ ) {print prxy} }' "$holder_1" >> "$outfile_1"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Search the world/ ) {print prxy} }' "$holder_1" >> "$outfile_2"
 ## capture working youtube hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$holder_2" >> "$outfile_2"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$holder_2" >> "$outfile_3"
 
 else 
 
