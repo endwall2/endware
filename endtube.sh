@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.17
+# VERSION: 0.18
 # REVISION DATE: AUGUST 11 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - Bug fix
+# CHANGE LOG:  - GeoIPlookup on random proxy
+#              - Bug fix
 #              - Added min_delay max_delay variables
 #              - Updated user agents
 #              - Updated Acknowledgements
@@ -368,6 +369,8 @@ then
     k=$( expr $k + 1 )
     done
   echo "Random Proxy is" "$Prxy" 
+  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+  geoiplookup "$proxy_ip"
   # initiate download + tor + random UA + proxy
   torsocks youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link" 
   rm $proxies
