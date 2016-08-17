@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.09
+# VERSION: 0.10
 # REVISION DATE: AUGUST 15 2016
 # 
-# CHANGE LOG:  - bug fix
+# CHANGE LOG:  - Added -m 120 to curl to timeout
+#              - bug fix
 #              - Updated user agents
 #              - Output results incrementally
 #              - Updated to check proxy output using awk
@@ -341,10 +342,10 @@ if [ "$infile" == ssl_proxies.txt ] ; then
 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks curl -A "$UA" --proxy "$proxy"  https://www.google.com >> "$holder_1"
+torsocks curl -m 120 -A "$UA" --proxy "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks curl -A "$UA" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks curl -m 120 -A "$UA" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -361,10 +362,10 @@ awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$hol
 elif [ "$infile" == socks_proxies.txt ] ; then 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks curl -A "$UA" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
+torsocks curl -m 120 -A "$UA" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks curl -A "$UA" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks curl -m 120 -A "$UA" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -399,3 +400,4 @@ date
 
 exit 0
 #########################################################        END OF PROGRAM         ###################################################################################
+
