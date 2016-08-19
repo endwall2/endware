@@ -10,7 +10,7 @@
 # REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - Added Tor browser extended header
+# CHANGE LOG:  - Default Tor browser UA + Tor browser extended header + -r flag for random useragent 
 #              - Updated user agentes
 #              - Forked from endloads
 #              - Added extra user-agents
@@ -40,7 +40,7 @@
 #      
 #     Run EndCurl 
 #  $  endcurl http://www.google.com
-#  
+#  $  endcurl -r http://www.google.com 
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################

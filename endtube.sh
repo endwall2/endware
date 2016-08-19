@@ -12,7 +12,7 @@
 # REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - use tor browser UA by default + -r flag for randomized UA + torbrowser header
+# CHANGE LOG:  - use tor browser UA by default + -r flag for randomized UA + tor browser header
 #              - use tor browser UA when checking tor exit node
 #              - geoiplookup on random proxy
 #              - bug fix
