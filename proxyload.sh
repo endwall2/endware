@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 15 2016
-# VERSION: 0.07
-# REVISION DATE: JULY 21 2016
+# VERSION: 0.08
+# REVISION DATE: AUGUST 18 2016
 # 
-# CHANGE LOG:  - Updated user agents
+# CHANGE LOG:  - Default to tor browser UA with -r flag for randomized UA + tor browser header + timeout
+#              - Updated user agents
 #              - Fixed instructions
 #              - Removed unused code and annotated code
 #              - Simplified grep chain, abstracted website names to variables 
@@ -168,6 +169,8 @@ holder_1=temp_1.txt
 holder_2=temp_2.txt
 holder_3=temp_3.txt
 
+if [ "$1" == "-r" ]
+then
 #select random user agent
  
 # pick a random user agent
@@ -315,31 +318,40 @@ else
  ( 131 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
  esac
 fi
+
+else
+
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+fi
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  
 echo "$UA"
 
 echo "Downloading SSL Proxies"
 
 cc="com"
-torsocks curl -A "$UA" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 30 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
 
 ## while loop to pick up country code
 cc=" "
 while [ "$cc" == " " ];do
-cc=$(torsocks curl -A "$UA" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
+cc=$(torsocks curl -m 30 -A "$UA" -H "$HEAD" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
 sleep 1
 done
 echo "Country Code is "$cc" "
 
 ## get the URLs hosting the proxy lists and parse
 
-torsocks curl -A "$UA" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 30 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
 
 cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 | sort -u > "$holder_2"
 
+echo "Downloading SSL Proxies"
 ## download the proxies then numeric sort and remove duplicates
 for link in $(cat "$holder_2") ; do
-torsocks curl -A "$UA" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
+torsocks curl -m 30 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
 done 
 
 sort -nu "$holder_3" >> ssl_proxies.txt
@@ -353,12 +365,12 @@ echo "Downloading Socks5 Proxies"
 
 ## get the URLs hosting the proxy lists and parse
 cc="net"
-torsocks curl -A "$UA" "$socks_site_rt"."$cc" | grep "VIP" | grep "html" | grep -v "title" > "$holder_1" 
+torsocks curl -m 30 -A "$UA" -H "$HEAD" "$socks_site_rt"."$cc" | grep "VIP" | grep "html" | grep -v "title" > "$holder_1" 
 cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 > "$holder_2"
 
 ## Download the proxies then numeric sort and remove duplicates
 for link in $(cat "$holder_2") ; do
-torsocks curl -A "$UA" "$socks_site_rt"."$link".html| grep -ah "[0123456789]:[123456789][0123456789]" >> "$holder_3"
+torsocks curl -m 30 -A "$UA" -H "$HEAD" "$socks_site_rt"."$link".html| grep -ah "[0123456789]:[123456789][0123456789]" >> "$holder_3"
 done 
 
 sort -nu "$holder_3" >> socks_proxies.txt

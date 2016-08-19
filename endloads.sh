@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.16
-# REVISION DATE: JULY 28 2016
+# VERSION: 0.17
+# REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:   - Fixed a bug with the UA + Added min_delay, max_delay variables
+# CHANGE LOG:   - Default to tor browser UA -r flag for random UA, + tor browser header
+#               - Fixed a bug with the UA + Added min_delay, max_delay variables
 #               - Updated Acknowledgements
 #               - Updated EULA
 #               - Added extra user-agents
@@ -158,8 +159,21 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
+if [ "$#" == 1 ]
+then
 Lunsort=$1
-Punsort=$2
+elif [ "$#" == 2 ]
+then 
+ if [ "$1" == "-r" ] 
+ then 
+ state="rand"
+ Lunsort=$2
+ fi
+else 
+echo "USAGE: endloads list.txt"
+echo "USAGE: endget -r list.txt"
+fi
+
 nargs="$#"
 min_delay=20
 max_delay=120
@@ -167,6 +181,9 @@ max_delay=120
 # randomly sort these lists
 sort -R $Lunsort > temp1.srt
 list=temp1.srt
+
+if [ "$state" == "rand" ]
+then
 
 #main loop to select random user agent
 for link in $(cat "$list" ); do  
@@ -316,6 +333,14 @@ else
  esac 
 fi 
 
+else
+
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+fi
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
 echo "$UA"
 
 # generate a random number time delay
@@ -328,7 +353,7 @@ echo "Downloading "$link""
 # initiate download and change user agent
 
 # initate download +tor + random agent
-torsocks wget --user-agent="$UA" "$link" 
+torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
 
 done
 # sometimes the download cuts off so don't delete the file until its all done

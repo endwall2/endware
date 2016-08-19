@@ -6,12 +6,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.14
+# VERSION: 0.15
 # REVISION DATE: JULY 21 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 #
-# CHANGE LOG:  - Updated user agents
+# CHANGE LOG:  - Default to tor browser UA + Header with -r for randomization
+#              - Updated user agents
 #              - Added flag -e to switch between geoiplookup (default) and endware iplookup
 #              - Added more user agents
 #              - Added exit node address grab
@@ -47,6 +48,9 @@
 #  Run EndNode
 #  $  endnode 
 #  $  endnode -e 
+#  $  endnode -r 
+#  $  endnode -e -r
+#  $  endnode -r -e
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
@@ -159,11 +163,23 @@
 if [ "$1" == "-e" ]
 then
 lookup_tool="iplookup"
+elif [ "$2" == "-e" ]
+then
+lookup_tool="iplookup"
 else 
 lookup_tool="geoiplookup"
 fi
 
-check_tor=check.tmp
+if [ "$1" == "-r" ]
+then 
+state="rand"
+elif [ "$2" == "-r" ]
+then 
+state="rand"
+fi
+
+if [ "$state" == "rand" ]
+then
 
 # select random user agent
 
@@ -312,17 +328,35 @@ else
  esac
 fi
 
+else 
+
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+fi
+
 echo "$UA"		
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 
 # generate a random number time delay
 
+check_tor=check.tmp
+#check_tor=index.html
+
 # check tor project ip
-torsocks curl -A "$UA" https://check.torproject.org/ > $check_tor
+torsocks curl -m 30 -A "$UA" -H "$HEAD" https://check.torproject.org/ > $check_tor 
+#torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/
+torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png
+torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico
+
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 "$lookup_tool" "$exit_address" 
 
 rm $check_tor
+#rm index.html
+rm tor-on.png
+rm tor-on.ico
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################

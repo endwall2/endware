@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.10
+# VERSION: 0.11
 # REVISION DATE: AUGUST 15 2016
 # 
-# CHANGE LOG:  - Added -m 120 to curl to timeout
+# CHANGE LOG:  - Default to tor browser UA with -r flag for randomized UA + tor browser header
+#              - Added -m 60 to curl to timeout
 #              - bug fix
 #              - Updated user agents
 #              - Output results incrementally
@@ -158,8 +159,19 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
-nargs="$#"
-infile=$1
+
+if [ "$#" == "2" ]
+then
+ if [ "$1" == "-r" ] 
+ then
+ state="rand"
+ infile="$2"
+else
+ infile="$1"
+ fi
+else
+infile="$1"
+fi
 
 if [ "$infile" == ssl_proxies.txt ] ; then 
 holder_1=ssl_google.tmp
@@ -181,6 +193,8 @@ fi
 ## MAIN LOOP
 for proxy in $(cat "$infile") ; do
 
+if [ "$state" == "rand" ]
+then
 # select random user agent
 
 n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 132  | awk '{print $1}')
@@ -326,11 +340,17 @@ else
 ## Gaming Consoles
  ( 131 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;; 
 
-
  esac
 fi
 
+else 
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+fi
+
 echo "$UA"
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 
 ##generate a random number time delay
 delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 10 | awk '{print $1}')
@@ -342,10 +362,10 @@ if [ "$infile" == ssl_proxies.txt ] ; then
 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks curl -m 120 -A "$UA" --proxy "$proxy"  https://www.google.com >> "$holder_1"
+torsocks curl -m 60 -A "$UA" -H "$HEAD" --proxy "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks curl -m 120 -A "$UA" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks curl -m 60 -A "$UA" -H "$HEAD" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -362,10 +382,10 @@ awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$hol
 elif [ "$infile" == socks_proxies.txt ] ; then 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks curl -m 120 -A "$UA" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
+torsocks curl -m 60 -A "$UA" -H "$HEAD" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks curl -m 120 -A "$UA" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks curl -m 60 -A "$UA" -H "$HEAD" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 

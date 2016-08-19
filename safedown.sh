@@ -6,10 +6,11 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # CREATION DATE: JUNE 3 2016
-# VERSION: 0.03 
-# REVISION DATE: JULY 21 2016
+# VERSION: 0.04 
+# REVISION DATE: AUGUST 15 2016
 #
-# CHANGE LOG: - Updated user agents
+# CHANGE LOG: - Default to tor browser UA -r flag for random UA, added tor browser header
+#             - Updated user agents
 #             - File Creation
 #
 #####################################################################################
@@ -137,9 +138,23 @@
 #################################################################################################################################################################################
 #################################   BEGINNING OF PROGRAM   ############################################
 
-link=$1
+if [ "$1" != "-r" ]
+then
+link="$1"
+else if [ "$1" == "-r" ]
+state="rand"
+link="$2"
+else
+link="$1"
+fi
+
+
 mkdir -p /dev/shm/temp 
 cd /dev/shm/temp 
+
+
+if [ "$state" == "rand" ]
+then
 
 # select random user agent
 
@@ -289,9 +304,15 @@ else
  esac
 fi
 
+else 
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+fi
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
 echo "$UA"																							echo "$UA"
 
-firejail --noprofile --protocol=inet  --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" "$link" 
+firejail --noprofile --protocol=inet  --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
 exit 0
 
 ################################   END OF PROGRAM   ####################################################
