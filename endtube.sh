@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.19
-# REVISION DATE: AUGUST 15 2016
+# VERSION: 0.20
+# REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - use torbrowser UA when checking tor exit node
+# CHANGE LOG:  - use tor browser UA by default + -r flag for randomized UA + torbrowser header
+#              - use tor browser UA when checking tor exit node
 #              - geoiplookup on random proxy
 #              - bug fix
 #              - Added min_delay max_delay variables
@@ -181,16 +182,42 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
+if [ "$#" == 1 ]
+then
 Lunsort=$1
-Punsort=$2
-nargs="$#"
+elif [ "$#" == 2 ]
+then 
+ if [ "$1" == "-r" ] 
+ then 
+ state="rand"
+ Lunsort=$2
+ else 
+ Lunsort=$1
+ Punsort=$2
+ fi
+elif [ "$#" == 3 ]
+then 
+ if [ "$1" == "-r" ] 
+ then 
+ state="rand"
+ Lunsort=$2
+ Punsort=$3
+ fi
+else 
+echo "USAGE: endtube list.txt"
+echo "USAGE: endtube list.txt proxies.txt"
+echo "USAGE: endtube -r list.txt"
+echo "USAGE: endtube -r list.txt proxies.txt"
+exit 1
+fi
 
 min_delay=20
 max_delay=200
 
-# randomly sort these lists
+# randomly sort the video list
 sort -R $Lunsort > temp1.srt
 list=temp1.srt
+
 check_tor=check.tmp
 
 #main loop to select random user agent
@@ -198,6 +225,9 @@ for link in $(cat "$list" ); do
 
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+if [ "$state" == "rand" ]
+then 
 
 # pick a random user agent
 n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 129 | awk '{print $1}')
@@ -341,6 +371,14 @@ else
  esac 
 fi 
 
+else
+
+UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
+fi
+
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
 echo "$UA"
 # generate a random number time delay
 delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
@@ -349,9 +387,9 @@ echo "Delaying download for "$delay" seconds"
 sleep "$delay"
 
 # check tor project ip
-torsocks curl -A "$UA_torbrowser" https://check.torproject.org/ > $check_tor
-torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/torcheck/img/tor-on.png 
-torsocks wget --user-agent="$UA_torbrowser" https://check.torproject.org/torcheck/img/tor-on.ico 
+torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
@@ -369,9 +407,18 @@ sleep "$delay"
 echo "Downloading "$link""
 # initiate download and change user agent
 
-if [ "$nargs" -eq 2 ]
+if [ "$#" == 1 ]
 then
-  # randomly sort proxies
+# initate download +tor + random agent - proxy 
+torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+
+elif [ "$#" == 2 ]
+then 
+ if [ "$1" == "-r" ] 
+ then 
+ torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+ else
+   # randomly sort proxies
   sort -R $Punsort > temp2.srt
   proxies=temp2.srt 
   n=$( expr $(head -c2 /dev/urandom | od -A n -i) % 3  | awk '{print $1}')
@@ -388,18 +435,42 @@ then
   proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
   geoiplookup "$proxy_ip"
   # initiate download + tor + random UA + proxy
-  torsocks youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link" 
+  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
+  rm $proxies
+ fi
+elif [ "$#" == 3 ]
+then
+   # randomly sort proxies
+  sort -R $Punsort > temp2.srt
+  proxies=temp2.srt 
+  n=$( expr $(head -c2 /dev/urandom | od -A n -i) % 3  | awk '{print $1}')
+  # load the random proxy
+    k="0"
+    for url in $(cat $proxies);do
+    if [ $k -eq $n ]
+    then
+     Prxy="$url"
+    fi
+    k=$( expr $k + 1 )
+    done
+  echo "Random Proxy is" "$Prxy" 
+  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+  geoiplookup "$proxy_ip"
+  # initiate download + tor + random UA + proxy
+  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
   rm $proxies
 else 
-  # initate download +tor + random agent - proxy 
-  torsocks youtube-dl --user-agent "$UA" "$link" 
+echo "USAGE: endtube list.txt"
+echo "USAGE: endtube list.txt proxies.txt"
+echo "USAGE: endtube -r list.txt"
+echo "USAGE: endtube -r list.txt proxies.txt"
+exit 1
 fi
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
 
 mv "$list" "$Lunsort"
-
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################

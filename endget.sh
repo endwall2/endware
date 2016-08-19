@@ -165,6 +165,7 @@ then
 else 
 echo "USAGE: endget http://website.com/file.xyz"
 echo "USAGE: endget -r http://website.com/file.xyz"
+exit 1
 fi
 
 

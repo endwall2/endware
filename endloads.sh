@@ -172,6 +172,7 @@ then
 else 
 echo "USAGE: endloads list.txt"
 echo "USAGE: endget -r list.txt"
+exit 1
 fi
 
 nargs="$#"
