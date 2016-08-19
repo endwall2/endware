@@ -10,7 +10,7 @@
 # REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - Default Tor browser UA + Tor browser extended header + -r flag for random useragent 
+# CHANGE LOG:  - Default Tor browser UA + Tor browser extended header + -r flag for random user agent 
 #              - Updated user agentes
 #              - Forked from endloads
 #              - Added extra user-agents
