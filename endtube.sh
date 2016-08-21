@@ -203,7 +203,7 @@ then
  then 
  state="rand"
  Lunsort=$2
- elif [ "$1" == "-e"]
+ elif [ "$1" == "-e" ]
  then
  enode="on"
  Lunsort=$2
@@ -439,14 +439,14 @@ sleep "$delay"
 if [ "$enode" == "on" ] 
 then
 # check tor project ip
-torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
+torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > "$check_tor"
 torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
 torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
-rm $check_tor
+rm "$check_tor"
 rm tor-on.png
 rm tor-on.ico
 
