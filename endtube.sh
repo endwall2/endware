@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.20
-# REVISION DATE: AUGUST 18 2016
+# VERSION: 0.21
+# REVISION DATE: AUGUST 20 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - use tor browser UA by default + -r flag for randomized UA + tor browser header
+# CHANGE LOG:  - added switches -e -er -re for exit node lookup default to no lookup 
+#              - use tor browser UA by default + -r flag for randomized UA + torbrowser header
 #              - use tor browser UA when checking tor exit node
 #              - geoiplookup on random proxy
 #              - bug fix
@@ -59,6 +60,10 @@
 #      
 #     Run EndTube 
 #  $  endtube ytlinks.txt
+#  $  endtube -r ytlinks.txt
+#  $  endtube -e ytlinks.txt
+#  $  endtube -re ytlinks.txt
+#  $  endtube -er ytlinks.txt
 #  
 #  Using with Proxies:
 #  $ emacs/nano/leafpad etc proxies.txt    
@@ -66,12 +71,16 @@
 #     You will require at least 4 fresh https proxies for operation, get as many as possible
 #     Populate the list of proxies from a fresh proxy source, save the list and test the proxies using
 #     proxies must be in the file in format protocol://ipv4address:port 
-#     eg. https://5.3.55.125:8080
+#     eg. https://5.3.55.125:8080, can also be just  5.4.55.125:8080
 #
 #  $  torsocks curl --proxy protocol://ipv4address:port www.google.com
 #
 #     Run EndTube
 #  $  endtube ytinks.txt proxies.txt
+#  $  endtube -r ytinks.txt proxies.txt
+#  $  endtube -e ytinks.txt proxies.txt
+#  $  endtube -er ytinks.txt proxies.txt
+#  $  endtube -re ytinks.txt proxies.txt
 #
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -182,6 +191,9 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
+enode="off"
+state="off"
+
 if [ "$#" == 1 ]
 then
 Lunsort=$1
@@ -190,6 +202,20 @@ then
  if [ "$1" == "-r" ] 
  then 
  state="rand"
+ Lunsort=$2
+ elif [ "$1" == "-e"]
+ then
+ enode="on"
+ Lunsort=$2
+ elif [ "$1" == "-er" ]
+ then
+ state="rand"
+ enode="on"
+ Lunsort=$2
+ elif [ "$1" == "-re" ]
+ then
+ state="rand"
+ enode="on"
  Lunsort=$2
  else 
  Lunsort=$1
@@ -202,12 +228,36 @@ then
  state="rand"
  Lunsort=$2
  Punsort=$3
+ elif [ "$1" == "-e" ]
+ then
+ enode="on"
+ Lunsort=$2
+ Punsort=$3
+ elif [ "$1" == "-er" ]
+ then
+ enode="on"
+ state="rand"
+ Lunsort=$2
+ Punsort=$3
+ elif [ "$1" == "-re" ]
+ then
+ enode="on"
+ state="rand"
+ Lunsort=$2
+ Punsort=$3
  fi
 else 
 echo "USAGE: endtube list.txt"
 echo "USAGE: endtube list.txt proxies.txt"
 echo "USAGE: endtube -r list.txt"
+echo "USAGE: endtube -e list.txt"
+echo "USAGE: endtube -re list.txt"
+echo "USAGE: endtube -er list.txt"
 echo "USAGE: endtube -r list.txt proxies.txt"
+echo "USAGE: endtube -e list.txt proxies.txt"
+echo "USAGE: endtube -re list.txt proxies.txt"
+echo "USAGE: endtube -er list.txt proxies.txt"
+
 exit 1
 fi
 
@@ -386,6 +436,8 @@ echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
 
+if [ "$enode" == "on" ] 
+then
 # check tor project ip
 torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
 torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
@@ -403,6 +455,10 @@ delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}'
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
+
+fi 
+
+
 
 echo "Downloading "$link""
 # initiate download and change user agent
@@ -463,7 +519,13 @@ else
 echo "USAGE: endtube list.txt"
 echo "USAGE: endtube list.txt proxies.txt"
 echo "USAGE: endtube -r list.txt"
+echo "USAGE: endtube -e list.txt"
+echo "USAGE: endtube -er list.txt"
+echo "USAGE: endtube -re list.txt"
 echo "USAGE: endtube -r list.txt proxies.txt"
+echo "USAGE: endtube -e list.txt proxies.txt"
+echo "USAGE: endtube -re list.txt proxies.txt"
+echo "USAGE: endtube -er list.txt proxies.txt"
 exit 1
 fi
 
