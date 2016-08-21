@@ -9,7 +9,7 @@
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
 # VERSION: 0.21
-# REVISION DATE: AUGUST 20 2016
+# REVISION DATE: AUGUST 18 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 # CHANGE LOG:  - added switches -e -er -re for exit node lookup default to no lookup 
@@ -439,14 +439,14 @@ sleep "$delay"
 if [ "$enode" == "on" ] 
 then
 # check tor project ip
-torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > "$check_tor"
+torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
 torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
 torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
-rm "$check_tor"
+rm $check_tor
 rm tor-on.png
 rm tor-on.ico
 
@@ -473,7 +473,16 @@ then
  if [ "$1" == "-r" ] 
  then 
  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
- else
+ elif [ "$1" == "-e" ]
+ then
+ torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+ elif  [ "$1" == "-er" ]
+ then
+ torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+ elif  [ "$1" == "-re" ]
+ then
+ torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+ else 
    # randomly sort proxies
   sort -R $Punsort > temp2.srt
   proxies=temp2.srt 
