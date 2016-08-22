@@ -8,11 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.21
-# REVISION DATE: AUGUST 18 2016
+# VERSION: 0.23
+# REVISION DATE: AUGUST 20 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - added switches -e -er -re for exit node lookup default to no lookup 
+# CHANGE LOG:  - moved user agents to user_agent.txt
+#              - simplified proxy sort with shuf
+#              - added switches -e -er -re for exit node lookup default to no lookup 
 #              - use tor browser UA by default + -r flag for randomized UA + torbrowser header
 #              - use tor browser UA when checking tor exit node
 #              - geoiplookup on random proxy
@@ -29,7 +31,7 @@
 #              - Fixed instructions
 #
 ########################################################################################################################################
-# DEPENDENCIES: torsocks,youtube-dl,od,head,urandom,sleep,curl,geoiplookup
+# DEPENDENCIES: torsocks,youtube-dl,od,head,urandom,sleep,curl,geoiplookup,shuf
 ########################################################################################################################################
 # INSTRUCTIONS: Make a bin directory in ~/ add it to the path. Copy this file there and make executable.
 #               Make a videos directory in Downloads.  Get some download links, and some proxies place in separte text files.
@@ -270,161 +272,19 @@ list=temp1.srt
 
 check_tor=check.tmp
 
-#main loop to select random user agent
-for link in $(cat "$list" ); do  
-
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
 
+#main loop to select random user agent
+for link in $(cat "$list" ); do  
+
+
 if [ "$state" == "rand" ]
 then 
-
 # pick a random user agent
-n=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 129 | awk '{print $1}')
-# set the user agent
-#echo "$n"
-if [ "$n" -le "9" ]
-then 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:4$n.0) Gecko/20100101 Firefox/4$n.0"
-else 
- case $n in 
-## Firefox Windows NT
- ( 10 ) UA="Mozilla/5.0 (Windows NT 6.1; rv:38.0) Gecko/20100101 Firefox/38.0" ;;
- ( 11 ) UA="Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
- ( 12 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0" ;;
- ( 13 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 14 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 15 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 16 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 17 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 18 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 19 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 20 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0" ;; 
- ( 21 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0" ;; 
- ( 22 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 23 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 24 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 25 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 26 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 27 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 28 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 29 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 30 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
- ( 31 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 32 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 33 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 34 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 35 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 36 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 37 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 38 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 39 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
- ( 40 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 41 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 42 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 43 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 44 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 45 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 46 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 47 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 48 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
- ( 49 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 50 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 51 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 52 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 53 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 54 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 55 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 56 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 57 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
- ( 58 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 59 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 60 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 61 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 62 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 63 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 64 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 65 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 66 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
-## Firefox Mac
- ( 67 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:41.0) Gecko/20100101 Firefox/41.0" ;;
- ( 68 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:42.0) Gecko/20100101 Firefox/42.0" ;;
- ( 69 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0" ;;
- ( 70 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:44.0) Gecko/20100101 Firefox/44.0" ;;
- ( 71 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0) Gecko/20100101 Firefox/45.0" ;;
- ( 72 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:46.0) Gecko/20100101 Firefox/46.0" ;;
- ( 73 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:47.0) Gecko/20100101 Firefox/47.0" ;;
- ( 74 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:48.0) Gecko/20100101 Firefox/48.0" ;;
- ( 75 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:49.0) Gecko/20100101 Firefox/49.0" ;;
- ( 76 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0" ;;
-## Chrome NT
- ( 77 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;
- ( 78 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;
- ( 79 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;
- ( 80 ) UA="Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;
- ( 81 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36" ;;
- ( 82 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36" ;;
- ( 83 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36" ;;
- ( 84 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36" ;;
- ( 85 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36" ;;
- ( 86 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36" ;;
- ( 87 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.75 Safari/537.36" ;; 
- ( 88 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.75 Safari/537.36" ;; 
- ( 89 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.75 Safari/537.36" ;; 
-## Chrome Mac
- ( 90 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;          
- ( 91 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36" ;;   
- ( 92 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36" ;;
- ( 93 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36" ;;  
- ( 94 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.75 Safari/537.36" ;;
-## Opera 
- ( 95 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41" ;;  
- ( 96 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41" ;;
- ( 97 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41" ;;
- ( 98 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36 OPR/38.0.2220.31" ;;  
- ( 99 ) UA="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36 OPR/38.0.2220.31" ;; 
- ( 100 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36 OPR/38.0.2220.31" ;;
-## Safari Mac
- ( 101 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/601.4.2 (KHTML, like Gecko) Version/9.0.3 Safari/601.4.2" ;;
- ( 102 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/601.4.4 (KHTML, like Gecko) Version/9.0.3 Safari/601.4.4" ;;
- ( 103 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/601.5.17 (KHTML, like Gecko) Version/9.1 Safari/601.5.17" ;;
- ( 104 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/601.6.14 (KHTML, like Gecko) Version/9.1.1 Safari/601.6.14" ;;
- ( 105 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.1 (KHTML, like Gecko) Version/9.1 Safari/601.5.17" ;;  
- ( 106 ) UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7" ;;
-## Safari iPhone
- ( 107 ) UA="Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13D15 Safari/601.1" ;;
- ( 108 ) UA="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E237 Safari/601.1" ;;
- ( 109 ) UA="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E238 Safari/601.1" ;;
- ( 110 ) UA="Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.32 (KHTML, like Gecko) Version/10.0 Mobile/14A5261v Safari/602.1" ;;
- ( 111 ) UA="Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A5297c Safari/602.1" ;;
-## Safari iPad
- ( 112 ) UA="Mozilla/5.0 (iPad; CPU OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13C75 Safari/601.1" ;;
- ( 113 ) UA="Mozilla/5.0 (iPad; CPU OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E233 Safari/601.1" ;;
- ( 114 ) UA="Mozilla/5.0 (iPad; CPU OS 9_3_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E238 Safari/601.1" ;;
- ( 115 ) UA="Mozilla/5.0 (iPad; CPU OS 10_0 like Mac OS X) AppleWebKit/602.1.32 (KHTML, like Gecko) Version/10.0 Mobile/14A5261v Safari/602.1" ;;
-## Edge
- ( 116 ) UA="Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36 Edge/12.0" ;; 
- ( 117 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.9600" ;; 
- ( 118 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240" ;; 
- ( 119 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10547" ;;
- ( 120 ) UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586" ;;
- ( 121 ) UA="Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 735) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0" ;;
-## MS IE
- ( 122 ) UA="Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
- ( 123 ) UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
- ( 124 ) UA="Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko" ;;
- ( 125 ) UA="Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko" ;;
- ( 126 ) UA="Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; rv:11.0) like Gecko" ;;
- ( 127 ) UA="Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko" ;;
-## Gaming Consoles
- ( 128 ) UA="Mozilla/5.0 (PLAYSTATION 3 4.80) AppleWebKit/531.22.8 (KHTML, like Gecko)" ;;
- esac 
-fi 
-
+UA=$( grep -v "#" /home/$USER/bin/user_agent.txt | shuf -n 1 )
 else
-
 UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
-
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
@@ -449,16 +309,12 @@ geoiplookup "$exit_address"
 rm $check_tor
 rm tor-on.png
 rm tor-on.ico
-
 # generate a random number time delay
 delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
-
 fi 
-
-
 
 echo "Downloading "$link""
 # initiate download and change user agent
@@ -483,19 +339,8 @@ then
  then
  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
  else 
-   # randomly sort proxies
-  sort -R $Punsort > temp2.srt
-  proxies=temp2.srt 
-  n=$( expr $(head -c2 /dev/urandom | od -A n -i) % 3  | awk '{print $1}')
-  # load the random proxy
-    k="0"
-    for url in $(cat $proxies);do
-    if [ $k -eq $n ]
-    then
-     Prxy="$url"
-    fi
-    k=$( expr $k + 1 )
-    done
+   # randomly sort proxies and load the random proxy
+  Prxy=$( shuf -n 1 "$Punsort" )
   echo "Random Proxy is" "$Prxy" 
   proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
   geoiplookup "$proxy_ip"
@@ -505,19 +350,8 @@ then
  fi
 elif [ "$#" == 3 ]
 then
-   # randomly sort proxies
-  sort -R $Punsort > temp2.srt
-  proxies=temp2.srt 
-  n=$( expr $(head -c2 /dev/urandom | od -A n -i) % 3  | awk '{print $1}')
-  # load the random proxy
-    k="0"
-    for url in $(cat $proxies);do
-    if [ $k -eq $n ]
-    then
-     Prxy="$url"
-    fi
-    k=$( expr $k + 1 )
-    done
+  # randomly sort proxies and load 
+  Prxy=$( shuf -n 1 "$Punsort" )
   echo "Random Proxy is" "$Prxy" 
   proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
   geoiplookup "$proxy_ip"
@@ -545,4 +379,3 @@ mv "$list" "$Lunsort"
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################
- 
