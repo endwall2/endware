@@ -282,7 +282,7 @@ for link in $(cat "$list" ); do
 if [ "$state" == "rand" ]
 then 
 # pick a random user agent
-UA=$( grep -v "#" /home/$USER/bin/user_agent.txt | shuf -n 1 )
+UA=$( grep -v "#" /home/$USER/bin/user_agents.txt | shuf -n 1 )
 else
 UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
 fi
