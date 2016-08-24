@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.23
-# REVISION DATE: AUGUST 20 2016
+# VERSION: 0.24
+# REVISION DATE: AUGUST 24 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - moved user agents to user_agent.txt
+# CHANGE LOG:  - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
+#              - moved user agents to user_agent.txt
 #              - simplified proxy sort with shuf
 #              - added switches -e -er -re for exit node lookup default to no lookup 
 #              - use tor browser UA by default + -r flag for randomized UA + torbrowser header
@@ -78,11 +79,11 @@
 #  $  torsocks curl --proxy protocol://ipv4address:port www.google.com
 #
 #     Run EndTube
-#  $  endtube ytinks.txt proxies.txt
-#  $  endtube -r ytinks.txt proxies.txt
-#  $  endtube -e ytinks.txt proxies.txt
-#  $  endtube -er ytinks.txt proxies.txt
-#  $  endtube -re ytinks.txt proxies.txt
+#  $  endtube proxies.txt ytlinks.txt
+#  $  endtube -r proxies.txt ytlinks.txt
+#  $  endtube -e proxies.txt ytinks.txt 
+#  $  endtube -er proxies.txt ytinks.txt 
+#  $  endtube -re proxies.txt ytinks.txt
 #
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -220,33 +221,33 @@ then
  enode="on"
  Lunsort=$2
  else 
- Lunsort=$1
- Punsort=$2
+ Lunsort=$2
+ Punsort=$1
  fi
 elif [ "$#" == 3 ]
 then 
  if [ "$1" == "-r" ] 
  then 
  state="rand"
- Lunsort=$2
- Punsort=$3
+ Lunsort=$3
+ Punsort=$2
  elif [ "$1" == "-e" ]
  then
  enode="on"
- Lunsort=$2
- Punsort=$3
+ Lunsort=$3
+ Punsort=$2
  elif [ "$1" == "-er" ]
  then
  enode="on"
  state="rand"
- Lunsort=$2
- Punsort=$3
+ Lunsort=$3
+ Punsort=$2
  elif [ "$1" == "-re" ]
  then
  enode="on"
  state="rand"
- Lunsort=$2
- Punsort=$3
+ Lunsort=$3
+ Punsort=$2
  fi
 else 
 echo "USAGE: endtube list.txt"
@@ -357,7 +358,6 @@ then
   geoiplookup "$proxy_ip"
   # initiate download + tor + random UA + proxy
   torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
-  rm $proxies
 else 
 echo "USAGE: endtube list.txt"
 echo "USAGE: endtube list.txt proxies.txt"
