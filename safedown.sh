@@ -6,10 +6,11 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # CREATION DATE: JUNE 3 2016
-# VERSION: 0.05 
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.06 
+# REVISION DATE: AUGUST 25 2016
 #
-# CHANGE LOG: - Moved user agents to user_agents.txt 
+# CHANGE LOG: - bug fix
+#             - Moved user agents to user_agents.txt 
 #             - Default to tor browser UA -r flag for random UA, added tor browser header
 #             - Updated user agents
 #             - File Creation
@@ -139,10 +140,8 @@
 #################################################################################################################################################################################
 #################################   BEGINNING OF PROGRAM   ############################################
 
-if [ "$1" != "-r" ]
-then
-link="$1"
-else if [ "$1" == "-r" ]
+if [ "$1" == "-r" ]
+then 
 state="rand"
 link="$2"
 else
