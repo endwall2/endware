@@ -6,10 +6,11 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # CREATION DATE: JUNE 3 2016
-# VERSION: 0.06 
+# VERSION: 0.07 
 # REVISION DATE: AUGUST 25 2016
 #
-# CHANGE LOG: - bug fix
+# CHANGE LOG: - reorganized input section added -nchk flag for --no-check-certificates
+#             - bug fix
 #             - Moved user agents to user_agents.txt 
 #             - Default to tor browser UA -r flag for random UA, added tor browser header
 #             - Updated user agents
@@ -140,12 +141,66 @@
 #################################################################################################################################################################################
 #################################   BEGINNING OF PROGRAM   ############################################
 
-if [ "$1" == "-r" ]
+if [ "$#" == "1" ]
 then 
-state="rand"
-link="$2"
-else
 link="$1"
+fi 
+
+if [ "$#" == 2 ]
+then
+ if [ "$1" == "-r" ]
+ then 
+ state="rand"
+ link="$2"
+ elif [ "$1" == "-nchk" ]
+ then
+ check_cert="no"
+ link="$2"
+ else
+
+ echo " USAGE: $ safedown link.html"
+ echo " USAGE: $ safedown -r link.html"
+ echo " USAGE: $ safedown -nchk link.html"
+ echo " USAGE: $ safedown -r -nchk link.html"
+ echo " USAGE: $ safedown -nchk -r link.html"
+
+ exit 1
+ fi
+fi
+
+if [ "$#" == 3 ]
+then
+ if [ "$1" == "-r" ]
+ then 
+ state="rand"
+ link="$3"
+  if [ "$2" == "-nchk" ] 
+  then 
+  check_cert="no"
+  fi 
+ elif [ "$1" == "-nchk" ]
+ then
+ check_cert="no"
+ link="$3"
+  if [ "$2" == "-r" ]
+  then 
+  state="rand"  
+  fi
+ else
+
+ echo " USAGE: $ safedown link.html"
+ echo " USAGE: $ safedown -r link.html"
+ echo " USAGE: $ safedown -nchk link.html"
+ echo " USAGE: $ safedown -r -nchk link.html"
+ echo " USAGE: $ safedown -nchk -r link.html"
+ 
+ exit 1
+ fi
+fi
+
+if [ "$check_cert" == "no" ]
+then
+extra_flag="--no-check-certificate"
 fi
 
 mkdir -p /dev/shm/temp 
@@ -164,7 +219,7 @@ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Ac
 
 echo "$UA"																							echo "$UA"
 
-firejail --noprofile --protocol=inet  --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
+firejail --noprofile --protocol=inet  --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$extra_flag" "$link" 
 exit 0
 
 ################################   END OF PROGRAM   ####################################################
