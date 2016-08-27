@@ -1,0 +1,63 @@
+################################################################################################
+# TITLE: endware.txt
+# TYPE: Text file
+# DESCRIPTION: Catalogue of the files in the Endware Suite, with descriptions and grouped by function. 
+# AUTHOR: THE ENDWARE DEVELOPMENT TEAM
+# CREATION DATE: JUL 30, 2016
+# VERSION: 0.04
+# REVISION DATE: AUG 27, 2016
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
+#
+# CHANGE LOG:  - Add new files
+#              - Reorganization, Added Config files section
+#              - File creation
+#
+#################################################################################################
+######################## HEADER FILES ##########################################################################################
+acknowledge.txt - This is the current version of the acknowledgements that is pinned to the header of endware software products.
+eula.txt - The current version of the Endware Development Team software license.
+LICENSE - same file as eula.txt, comes from the git repo.
+endware.txt - A catalogue of the endware suite with descriptions grouped by functionality. 
+######################## ENDWALL FIREWALL #######################################################################################
+endwall.sh - An iptables based firewall script.
+endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. For use with endwall. Useful for workstation ip blacklisting.
+endsets.sh - An ipset hash set based blacklisting and whitelisting script. For use with endwall.  Recomended for a mail and web server.
+########################LOG READING ############################################################################################
+alogz.sh - A script for reading the log output of an apache or nginx http server.
+mlogz.sh - A script for reading the log output of a postfix mail server.
+spamlogz.sh - A script for reading access attempts of banned ip addresses flagged in endwall.sh, endlists.sh and endsets.sh .
+######################## GEOIPLOOKUP ###########################################################################################
+iplookup.py - A python based geoiplookup script that uses maxmind *.dat files and python-geoip. 
+check16.sh - A script that sequentially outputs the geoip lookup output for a /16 range. Uses iplookup.py or geoiplookup.
+check8.sh - A script that sequentially outputs the geoip lookup output for a /8 range. Uses iplookup.py or geoiplookup.
+cidr.txt - A helpful list  of the CIDR block ranges to assist with bans in endsets/endlists after consulting the log readers and iplookup scripts.
+######################## CONFIGURATION FILES  ##################################################################################
+endtorrc - A torrc-defaults file for use with tor.
+country_codes.txt - A list of country codes to grep for country codes to use with endtorrc.
+endbound.conf - Unbound DNS server configuration file
+endfix.cf -  A postfix configuration file for hosting a smtp hidden service.
+######################## TOR ANONYMIZED DOWNLOADERS ############################################################################
+endcurl.sh - A user agent randomizer for curl, using torsocks.
+endget.sh - A user agent randomizer for wget, using torsocks.
+endnode.sh - Check your exit node in the command line wiht torsocks, curl and a random user agent.
+########################  TOR ANONYMIZED DOWNLOAD MANAGER ######################################################################
+endloads.sh - An anonymized text file list based command line download manager for internet files in a list.
+              Random download timing, download order, user agent, with torsocks and wget.
+endtube.sh - An anonymized text file list based command line download manager for video content using youtube-dl and randomization.                
+              Random download timing, download order, user agent, with torsocks and wget and proxies.
+########################  HTTPS/SOCKS5 PROXIES   ###############################################################################
+proxyload.sh - Get a list of http and socks5 proxies.  Hard coded to a specific website.
+proxycheck.sh - Scrape the proxies in a list to test to see if they're working.
+########################  TOR ANONYMIZED EMAIL   ###############################################################################
+endmail.sh - A command line email sender to tor hidden service smtp servers.
+########################  FILE OPERATIONS  ####################################################################################
+pdfclean.sh - Sanitize a pdf by removing exif tag data, and java script, using qpdf,ghostscript and exiftool. 
+
+safedown.sh - downloads a file using torsocks, wget into /dev/shm/ using firejail, and randomized user-agent.
+safemode.sh - spawn a firejail shell and cd into /dev/shm to deal with hostile downloads/files.
+
+passgen.sh - Generate a random character password using /dev/urandom and base64.  Use as inspiration for a random password.
+
+renum.sh - rename the files in a directory sequentially or randomly by number and file extention.
+rmdupes.sh - check the files in a directory for duplicates by file size and md5 cheksum and remove them.
+################################################################################################################################
