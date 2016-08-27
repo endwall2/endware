@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.13
+# VERSION: 0.14
 # REVISION DATE: AUGUST 22 2016
 # 
-# CHANGE LOG:  - moved user agents to user_agents.txt
+# CHANGE LOG:  - user agent path into variable 
+#              - moved user agents to user_agents.txt
 #              - Bug fix + increase timeout to 180
 #              - Default to tor browser UA with -r flag for randomized UA + tor browser header
 #              - Added -m 60 to curl to timeout
@@ -160,7 +161,7 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-
+USERAGENTS="$HOME/bin/user_agents.txt" 
 
 if [ "$#" == "2" ]
 then
@@ -199,9 +200,9 @@ for proxy in $(cat "$infile") ; do
 if [ "$state" == "rand" ]
 then
 # select random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 echo "$UA"
 
