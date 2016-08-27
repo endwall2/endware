@@ -207,6 +207,12 @@ state="normal"
 for arg in $@
 do 
 
+ if [ "$proxypick" == "on" ]
+ then 
+ Punsort="$arg"
+ proxypick="off" 
+ fi 
+
  if [ "$arg" == "--help" ]
  then
  echo "USAGE: endtube list.txt"
@@ -244,11 +250,6 @@ do
  shift
  fi  
  
- if [ "$proxypick" == "on" ]
- then 
- Punsort="$arg"
- proxypick="off" 
- fi 
 
  Lunsort="$arg"
 
