@@ -225,6 +225,7 @@ pdfmetadata "$rt".clean.pdf
 ## delete intermediary files
 rm "$file"_sane
 rm pdfmark
-exit 0
+
+exit "$?"
 
 ####################################                END OF PROGRAM                ##########################################################################

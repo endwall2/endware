@@ -280,4 +280,6 @@ echo "Files backed up to backup.tar.gz"
 echo "Please verify that there is no data loss"
 echo "If any files have been lost, unpack the archive to restore"
 
+exit "$?"
+
 ################################# END OF PROGRAM  ##################################################

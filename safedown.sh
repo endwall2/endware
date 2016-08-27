@@ -215,6 +215,6 @@ else
  firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget "$@" 
 fi 
 
-exit 0
+exit "$?"
 
 ################################   END OF PROGRAM   ####################################################

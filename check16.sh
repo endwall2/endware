@@ -173,5 +173,5 @@ echo "$ip"
 fi
 "$lookup_tool" "$ip"
 
-exit 0
+exit "$?"
 #################### END OF PROGRAM ##################################

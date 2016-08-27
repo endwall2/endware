@@ -279,5 +279,5 @@ fi
 done
 # sometimes the download cuts off so don't delete the file until its all done
 rm "$list"
-exit 0
+exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################

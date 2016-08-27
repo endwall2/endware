@@ -153,6 +153,6 @@ message=$3
 
 torsocks swaks --server "$rserver" --to "$recipient" --from "$sender" --helo "$hstring" --tls --h-Subject "$subject" --body "$message"
 
-exit 0
+exit "$?"
 
 #####################################################        END OF PROGRAM      #####################################################################################

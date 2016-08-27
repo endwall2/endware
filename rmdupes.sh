@@ -199,4 +199,6 @@ fi
 
 #echo "If any files have been lost, unpack the archive to restore"
 
+
+exit "$?"
 ################################# END OF PROGRAM  ##################################################
