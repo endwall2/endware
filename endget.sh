@@ -176,10 +176,10 @@ do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endcurl http://www.website.com/index.html"
- echo "USAGE: endcurl --uarand http://www.website.com/index.html"
- echo "USAGE: endcurl --help "
- echo "Type: curl --help for more options to add before the link"
+ echo "USAGE: endget http://www.website.com/index.html"
+ echo "USAGE: endget --uarand http://www.website.com/index.html"
+ echo "USAGE: endget --help "
+ echo "Type: wget --help for more options to add before the link"
  echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
  echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
  exit 0
