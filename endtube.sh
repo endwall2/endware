@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.24
-# REVISION DATE: AUGUST 24 2016
+# VERSION: 0.25
+# REVISION DATE: AUGUST 27 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
+# CHANGE LOG:  - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
+#              - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
 #              - moved user agents to user_agent.txt
 #              - simplified proxy sort with shuf
 #              - added switches -e -er -re for exit node lookup default to no lookup 
@@ -63,10 +64,10 @@
 #      
 #     Run EndTube 
 #  $  endtube ytlinks.txt
-#  $  endtube -r ytlinks.txt
-#  $  endtube -e ytlinks.txt
-#  $  endtube -re ytlinks.txt
-#  $  endtube -er ytlinks.txt
+#  $  endtube --uarand ytlinks.txt
+#  $  endtube --exitnode ytlinks.txt
+#  $  endtube --uarand --exitnode ytlinks.txt
+#  $  endtube --exitnode --uarand ytlinks.txt
 #  
 #  Using with Proxies:
 #  $ emacs/nano/leafpad etc proxies.txt    
@@ -80,10 +81,10 @@
 #
 #     Run EndTube
 #  $  endtube proxies.txt ytlinks.txt
-#  $  endtube -r proxies.txt ytlinks.txt
-#  $  endtube -e proxies.txt ytinks.txt 
-#  $  endtube -er proxies.txt ytinks.txt 
-#  $  endtube -re proxies.txt ytinks.txt
+#  $  endtube --uarand proxies.txt ytlinks.txt
+#  $  endtube --exitnode --proxylist proxies.txt ytinks.txt 
+#  $  endtube -exitnode --uarand --proxylist proxies.txt ytinks.txt 
+#  $  endtube --uarand --exitnodee --proxylist proxies.txt ytinks.txt
 #
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -193,85 +194,71 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-
-enode="off"
-state="off"
-
-if [ "$#" == 1 ]
-then
-Lunsort=$1
-elif [ "$#" == 2 ]
-then 
- if [ "$1" == "-r" ] 
- then 
- state="rand"
- Lunsort=$2
- elif [ "$1" == "-e" ]
- then
- enode="on"
- Lunsort=$2
- elif [ "$1" == "-er" ]
- then
- state="rand"
- enode="on"
- Lunsort=$2
- elif [ "$1" == "-re" ]
- then
- state="rand"
- enode="on"
- Lunsort=$2
- else 
- Lunsort=$2
- Punsort=$1
- fi
-elif [ "$#" == 3 ]
-then 
- if [ "$1" == "-r" ] 
- then 
- state="rand"
- Lunsort=$3
- Punsort=$2
- elif [ "$1" == "-e" ]
- then
- enode="on"
- Lunsort=$3
- Punsort=$2
- elif [ "$1" == "-er" ]
- then
- enode="on"
- state="rand"
- Lunsort=$3
- Punsort=$2
- elif [ "$1" == "-re" ]
- then
- enode="on"
- state="rand"
- Lunsort=$3
- Punsort=$2
- fi
-else 
-echo "USAGE: endtube list.txt"
-echo "USAGE: endtube list.txt proxies.txt"
-echo "USAGE: endtube -r list.txt"
-echo "USAGE: endtube -e list.txt"
-echo "USAGE: endtube -re list.txt"
-echo "USAGE: endtube -er list.txt"
-echo "USAGE: endtube -r list.txt proxies.txt"
-echo "USAGE: endtube -e list.txt proxies.txt"
-echo "USAGE: endtube -re list.txt proxies.txt"
-echo "USAGE: endtube -er list.txt proxies.txt"
-
-exit 1
-fi
-
+USERAGENTS="$HOME/bin/user_agents.txt"
 min_delay=20
 max_delay=200
 
-# randomly sort the video list
-sort -R $Lunsort > temp1.srt
-list=temp1.srt
+enode="off"
+state="off"
+headmode="on"
+uamode="on"
+state="normal"
 
-check_tor=check.tmp
+for arg in $@
+do 
+
+ if [ "$arg" == "--help" ]
+ then
+ echo "USAGE: endtube list.txt"
+ echo "USAGE: endtube --uarand list.txt  ## random user-agent"
+ echo "USAGE: endtube --exitnode list.txt ##  exit-node pull"
+ echo "USAGE: endtube --uarand --exitnode list.txt  ##random user-agent "
+ echo "USAGE: endtube --no-agent list.txt  ##deactivate user-agent "
+ echo "USAGE: endtube --no-header list.txt  ##deactivate header "
+ echo "USAGE: endtube --proxylist plist.txt list.txt  ##deactivate header " 
+ echo "USAGE: endtube --help "
+ echo "Type: wget --help for more options to add before the list"
+ exit 0
+ 
+ elif [ "$arg" == "--uarand" ]
+ then
+ state="rand"
+ uamode="on"
+ shift
+ elif [ "$arg" == "--no-agent" ]
+ then
+ uamode="off"
+ shift 
+ elif [ "$arg" == "--no-header" ]
+ then
+ headmode="off"
+ shift  
+ elif [ "$arg" == "--exitnode" ]
+ then
+ enode="on"
+ shift  
+ elif [ "$arg" == "--proxylist" ]
+ then
+ proxies="on"
+ proxypick="on"
+ shift
+ fi  
+ 
+ if [ "$proxypick" == "on" ]
+ then 
+ Punsort="$arg"
+ proxypick="off" 
+ fi 
+
+ Lunsort="$arg"
+
+done
+
+# randomly sort the video list
+list=temp1.srt
+shuf $Lunsort > $list
+
+check_tor=check_tor.tmp
 
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
@@ -279,18 +266,16 @@ UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
 #main loop to select random user agent
 for link in $(cat "$list" ); do  
 
-
 if [ "$state" == "rand" ]
 then 
 # pick a random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 
-echo "$UA"
 # generate a random number time delay
 delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
@@ -320,57 +305,43 @@ fi
 echo "Downloading "$link""
 # initiate download and change user agent
 
-if [ "$#" == 1 ]
+if [ "$proxies" == "on" ]
 then
-# initate download +tor + random agent - proxy 
-torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
-
-elif [ "$#" == 2 ]
-then 
- if [ "$1" == "-r" ] 
+# randomly sort proxies and load the random proxy
+Prxy=$( shuf -n 1 "$Punsort" )
+echo "Random Proxy is" "$Prxy" 
+proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+geoiplookup "$proxy_ip"
+ if [ "$uamode" == "on" ]
  then 
- torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
- elif [ "$1" == "-e" ]
- then
- torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
- elif  [ "$1" == "-er" ]
- then
- torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
- elif  [ "$1" == "-re" ]
- then
- torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" "$link" 
+ echo "$UA"
+  if [ "$headmode" == "on" ]
+  then
+   # initiate download + tor + random UA + proxy
+   torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
+  else 
+   torsocks youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link"
+  fi
  else 
-   # randomly sort proxies and load the random proxy
-  Prxy=$( shuf -n 1 "$Punsort" )
-  echo "Random Proxy is" "$Prxy" 
-  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
-  geoiplookup "$proxy_ip"
-  # initiate download + tor + random UA + proxy
-  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
-  rm $proxies
+ torsocks youtube-dl --proxy "$Prxy" "$link"
  fi
-elif [ "$#" == 3 ]
-then
-  # randomly sort proxies and load 
-  Prxy=$( shuf -n 1 "$Punsort" )
-  echo "Random Proxy is" "$Prxy" 
-  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
-  geoiplookup "$proxy_ip"
-  # initiate download + tor + random UA + proxy
-  torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
-else 
-echo "USAGE: endtube list.txt"
-echo "USAGE: endtube list.txt proxies.txt"
-echo "USAGE: endtube -r list.txt"
-echo "USAGE: endtube -e list.txt"
-echo "USAGE: endtube -er list.txt"
-echo "USAGE: endtube -re list.txt"
-echo "USAGE: endtube -r list.txt proxies.txt"
-echo "USAGE: endtube -e list.txt proxies.txt"
-echo "USAGE: endtube -re list.txt proxies.txt"
-echo "USAGE: endtube -er list.txt proxies.txt"
-exit 1
-fi
+rm $proxies
+
+else
+ if [ "$uamode" == "on" ]
+ then 
+ echo "$UA"
+  if [ "$headmode" == "on" ]
+  then 
+  # initate curl download +tor + random agent
+  torsocks youtube-dl --user-agent="$UA" --add-header="$HEAD" "$link" 
+  else
+  torsocks youtube-dl --user-agent="$UA" "$link" 
+  fi
+ else 
+ torsocks youtube-dl "$link" 
+ fi 
+fi 
 
 done
 # sometimes the download cuts off so don't delete the file until its all done

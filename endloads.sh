@@ -178,16 +178,15 @@ do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endcurl http://www.website.com/index.html"
- echo "USAGE: endcurl --uarand http://www.website.com/index.html"
- echo "USAGE: endcurl --exitnode http://www.website.com/index.html"  exit-node pull
- echo "USAGE: endcurl --uarand --exitnode http://www.website.com/index.html" random user-agent
- echo "USAGE: endcurl --no-agent http://www.website.com/index.html"  deactivate user-agent
- echo "USAGE: endcurl --no-header http://www.website.com/index.html"  deactivate header
- echo "USAGE: endcurl --help "
- echo "Type: curl --help for more options to add before the link"
- echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
- echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ echo "USAGE: endloads list.txt"
+ echo "USAGE: endloads --uarand list.txt  ## random user-agent"
+ echo "USAGE: endloads --exitnode list.txt ##  exit-node pull"
+ echo "USAGE: endloads --uarand --exitnode list.txt  ##random user-agent "
+ echo "USAGE: endloads --no-agent list.txt  ##deactivate user-agent "
+ echo "USAGE: endloads --no-header list.txt  ##deactivate header "
+ echo "USAGE: endloads --help "
+ echo "Type: wget --help for more options to add before the list"
+ 
  exit 0
  elif [ "$arg" == "--uarand" ]
  then
