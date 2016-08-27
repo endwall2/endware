@@ -8,11 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.18
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.21
+# REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:   - Moved user agents to user_agents.txt
+# CHANGE LOG:   - Rewrote input arguments section + added exit node pull option --exitnode, --uarand, --no-agent, --no-header, --help
+#               - USERAGENTS path variable 
+#               - Moved user agents to user_agents.txt
 #               - Default to tor browser UA -r flag for random UA, + tor browser header
 #               - Fixed a bug with the UA + Added min_delay, max_delay variables
 #               - Updated Acknowledgements
@@ -32,6 +34,7 @@
 #  $  mkdir ~/bin
 #  $  chmod u+wrx endtube.sh
 #  $  cp endtube.sh ~/bin
+#  $  cp user_agents.txt ~/bin
 #  $  export PATH=$PATH:~/bin
 #  $  cd Downloads
 #  $  emacs/nano/leafpad etc  links.txt  
@@ -159,53 +162,120 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
-if [ "$#" == 1 ]
-then
-Lunsort=$1
-elif [ "$#" == 2 ]
-then 
- if [ "$1" == "-r" ] 
- then 
- state="rand"
- Lunsort=$2
- fi
-else 
-echo "USAGE: endloads list.txt"
-echo "USAGE: endget -r list.txt"
-exit 1
-fi
+USERAGENTS="$HOME/bin/user_agents.txt"
 
 nargs="$#"
+headmode="on"
+uamode="on"
+state="normal"
+enode="off"
+
 min_delay=20
 max_delay=120
 
+for arg in $@
+do 
+
+ if [ "$arg" == "--help" ]
+ then
+ echo "USAGE: endcurl http://www.website.com/index.html"
+ echo "USAGE: endcurl --uarand http://www.website.com/index.html"
+ echo "USAGE: endcurl --exitnode http://www.website.com/index.html"  exit-node pull
+ echo "USAGE: endcurl --uarand --exitnode http://www.website.com/index.html" random user-agent
+ echo "USAGE: endcurl --no-agent http://www.website.com/index.html"  deactivate user-agent
+ echo "USAGE: endcurl --no-header http://www.website.com/index.html"  deactivate header
+ echo "USAGE: endcurl --help "
+ echo "Type: curl --help for more options to add before the link"
+ echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
+ echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ exit 0
+ elif [ "$arg" == "--uarand" ]
+ then
+ state="rand"
+ uamode="on"
+ shift
+ elif [ "$arg" == "--no-agent" ]
+ then
+ uamode="off"
+ shift 
+ elif [ "$arg" == "--no-header" ]
+ then
+ headmode="off"
+ shift  
+ elif [ "$arg" == "--exitnode" ]
+ then
+ enode="on"
+ shift  
+ fi 
+
+ Lunsort="$arg"
+
+done
+
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+
 # randomly sort these lists
-sort -R $Lunsort > temp1.srt
 list=temp1.srt
+shuf "$Lunsort" > "$list"
 
 #main loop to select random user agent
+
 for link in $(cat "$list" ); do  
 
 if [ "$state" == "rand" ]
 then
 # pick a random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+# default to first line of user_agents.txt
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
-
 echo "$UA"
+
 # generate a random number time delay
 delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
 
+if [ "$enode" == "on" ] 
+then
+# check tor project ip
+torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+
+exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
+echo "TOR exit node is "$exit_address" "
+geoiplookup "$exit_address" 
+rm $check_tor
+rm tor-on.png
+rm tor-on.ico
+# generate a random number time delay
+delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
+echo "Delaying download for "$delay" seconds"
+# wait by delay time
+sleep "$delay"
+fi 
+
 echo "Downloading "$link""
-# initate download +tor + random user-agent
-torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
+
+if [ "$uamode" == "on" ]
+then 
+echo "$UA"
+ if [ "$headmode" == "on" ]
+ then 
+ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+ # initate curl download +tor + random agent
+ torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
+ else
+ torsocks wget --user-agent="$UA" "$link" 
+ fi
+else 
+ torsocks wget "$link"
+fi 
 
 done
 # sometimes the download cuts off so don't delete the file until its all done

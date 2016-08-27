@@ -7,11 +7,13 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.13
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.15
+# REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:  - Moved user agents to user_agents.txt 
+# CHANGE LOG:  - Rewrite of input checking section, --uarand, --no-header, --no-agent flags
+#              - Added USERAGENTS path variable + default to first line of user_agents.txt
+#              - Moved user agents to user_agents.txt 
 #              - Default to torbrowser UA + -r flag for random UA + torbrowser header
 #              - Updated user agents
 #              - Forked from endloads
@@ -43,6 +45,14 @@
 #      
 #     Run EndLoads 
 #  $  endget http://www.website.com/coolfile.tar
+#  # use random user agent
+#  $  endget --uarand http://www.website.com/coolfile.tar 
+#  # turn off usr agent
+#  $  endget --no-agent http://www.website.com/coolfile.tar  
+#  # turn off user header
+#  $ endget --no-header http://www.website.com/coolfile.tar  
+#  # turn off header, agent, add other wget flags afterwards
+#  $ endget --no-header --no-agent http://www.website.com/coolfile.tar  
 #  
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -151,36 +161,75 @@
 #################################################################################################################################################################################
 #####################################################     BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-if [ "$#" == 1 ]
-then
-link=$1
-elif [ "$#" == 2 ]
-then 
- if [ "$1" == "-r" ] 
- then 
+
+#change this to whatever path/file you what to use as your user agents file
+USERAGENTS=$HOME/bin/user_agents.txt 
+
+headmode="on"
+uamode="on"
+state="normal"
+
+nargs=$#
+
+for arg in $@
+do 
+
+ if [ "$arg" == "--help" ]
+ then
+ echo "USAGE: endcurl http://www.website.com/index.html"
+ echo "USAGE: endcurl --uarand http://www.website.com/index.html"
+ echo "USAGE: endcurl --help "
+ echo "Type: curl --help for more options to add before the link"
+ echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
+ echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ exit 0
+ elif [ "$arg" == "--uarand" ]
+ then
  state="rand"
- link=$2
- fi
-else 
-echo "USAGE: endget http://website.com/file.xyz"
-echo "USAGE: endget -r http://website.com/file.xyz"
-exit 1
-fi
+ uamode="on"
+ shift
+ elif [ "$arg" == "--no-agent" ]
+ then
+ uamode="off"
+ shift 
+ elif [ "$arg" == "-no-header" ]
+ then
+ headmode="off"
+ shift  
+ fi 
+
+ link="$arg"
+
+done
 
 if [ "$state" == "rand" ]
 then
 #select random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )  
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )  
 else 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 echo "$UA"
 
 echo "Downloading "$link""
-# initate download +tor + random agent
-torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
+echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
+
+if [ "$uamode" == "on" ]
+then 
+echo "$UA"
+ if [ "$headmode" == "on" ]
+ then 
+ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+ # initate curl download +tor + random agent
+ torsocks wget --user-agent="$UA" --header="$HEAD" "$@" 
+ else
+ torsocks wget --user-agent="$UA" "$@" 
+ fi
+else 
+ torsocks wget "$@"
+fi 
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################

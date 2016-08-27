@@ -1,3 +1,4 @@
+
 #!/bin/sh
 #################################################################################################################################################
 # NAME: endcurl.sh
@@ -6,11 +7,13 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE:   APRIL 9 2016
-# VERSION: 0.14
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.15
+# REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - moved user agents to user_agents.txt
+# CHANGE LOG:  - rewrote input argument checking with a for loop + set switches
+#              - add USERAGENTS path variable + default to first line of user_agents.txt
+#              - moved user agents to user_agents.txt
 #              - Added Tor browser extended header
 #              - Updated user agentes
 #              - Forked from endloads
@@ -18,7 +21,7 @@
 #              - Forked from endtube
 #
 ########################################################################################################################################
-# DEPENDENCIES: torsocks,wget,od,head,urandom,sleep
+# DEPENDENCIES: torsocks,wget,od,head,urandom,sleep,head
 ########################################################################################################################################
 # INSTRUCTIONS: Make a bin directory in ~/ add it to the path. Copy this file there and make executable.
 #               Start the TOR daemon. Execute the script.    
@@ -41,6 +44,8 @@
 #      
 #     Run EndCurl 
 #  $  endcurl http://www.google.com
+#  $  endcurl --uarand http://www.google.com
+#  $  endcurl --help 
 #  
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -151,40 +156,78 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
 
-if [ "$#" == 1 ]
-then
-link=$1
-elif [ "$#" == 2 ]
-then
- if [ "$1" == "-r" ]
+## edit this line to where you place your user agents
+USERAGENTS="$HOME/bin/user_agents.txt"
+
+headmode="on"
+uamode="on"
+state="normal"
+
+nargs=$#
+
+for arg in $@
+do 
+
+ if [ "$arg" == "--help" ]
+ then
+ echo "USAGE: endcurl http://www.website.com/index.html"
+ echo "USAGE: endcurl --uarand http://www.website.com/index.html"
+ echo "USAGE: endcurl --help "
+ echo "Type: curl --help for more options to add before the link"
+ echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
+ echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ exit 0
+ elif [ "$arg" == "--uarand" ]
  then
  state="rand"
- link=$2
- fi
-else
-echo "USAGE: endget http://website.com/file.xyz"
-echo "USAGE: endget -r http://website.com/file.xyz"
-exit 1
-fi
+ uamode="on"
+ shift
+ elif [ "$arg" == "--user-agent" ]
+ then
+ uamode="off"
+ elif [ "$arg" == "-A" ]
+ then
+ uamode="off"
+ elif [ "$arg" == "--header" ]
+ then
+ headmode="off"
+ elif [ "$arg" == "-H" ]
+ then
+ headmode="off"
+ fi 
+
+ link="$arg"
+
+done
 
 if [ "$state" == "rand" ]
 then
 # select random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+# default to first line of user agents list file
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi 
 
-echo "$UA"
-
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
-
 echo "Downloading "$link""
+echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
+
 # initiate download and change user agent
 
-# initate curl download +tor + random agent
-torsocks curl -A "$UA" -H "$HEAD" "$link" 
+if [ "$uamode" == "on" ]
+then 
+echo "$UA"
+ if [ "$headmode" == "on" ]
+ then 
+ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+ # initate curl download +tor + random agent
+ torsocks curl -A "$UA" -H "$HEAD" "$@" 
+ else
+ torsocks curl -A "$UA" "$@" 
+ fi
+else 
+ torsocks curl "$@"
+fi 
 
 exit 0
 #########################################################        END OF PROGRAM         ######################################################################################
- 

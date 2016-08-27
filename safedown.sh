@@ -9,7 +9,8 @@
 # VERSION: 0.07 
 # REVISION DATE: AUGUST 25 2016
 #
-# CHANGE LOG: - reorganized input section added -nchk flag for --no-check-certificates
+# CHANGE LOG: - Rewrote input argument section +flags --uarand --no-header --no-agent
+#             - reorganized input section added -nchk flag for --no-check-certificates
 #             - bug fix
 #             - Moved user agents to user_agents.txt 
 #             - Default to tor browser UA -r flag for random UA, added tor browser header
@@ -32,7 +33,10 @@
 #
 #  STEP 3) RUN safedown
 #
-# $ safedl http://www.website.com/strange.pdf 
+# $ safedown http://www.website.com/strange.pdf 
+# $ safedown --uarand http://www.website.com/strange.pdf 
+# $ safedown --no-header --no-agent http://www.website.com/strange.pdf 
+#   you may also add flags from wget after the endware flags
 ########################################################################################
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -141,67 +145,44 @@
 #################################################################################################################################################################################
 #################################   BEGINNING OF PROGRAM   ############################################
 
-if [ "$#" == "1" ]
-then 
-link="$1"
-fi 
+## edit this with your user_agents.txt file path
+USERAGENTS=$HOME/bin/user_agents.txt 
 
-if [ "$#" == 2 ]
-then
- if [ "$1" == "-r" ]
- then 
- state="rand"
- link="$2"
- elif [ "$1" == "-nchk" ]
+headmode="on"
+uamode="on"
+state="normal"
+nargs=$#
+
+for arg in $@
+do 
+
+ if [ "$arg" == "--help" ]
  then
- check_cert="no"
- link="$2"
- else
-
- echo " USAGE: $ safedown link.html"
- echo " USAGE: $ safedown -r link.html"
- echo " USAGE: $ safedown -nchk link.html"
- echo " USAGE: $ safedown -r -nchk link.html"
- echo " USAGE: $ safedown -nchk -r link.html"
-
- exit 1
- fi
-fi
-
-if [ "$#" == 3 ]
-then
- if [ "$1" == "-r" ]
- then 
- state="rand"
- link="$3"
-  if [ "$2" == "-nchk" ] 
-  then 
-  check_cert="no"
-  fi 
- elif [ "$1" == "-nchk" ]
+ echo "USAGE: endcurl http://www.website.com/index.html"
+ echo "USAGE: endcurl --uarand http://www.website.com/index.html"
+ echo "USAGE: endcurl --help "
+ echo "Type: curl --help for more options to add before the link"
+ echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
+ echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ exit 0
+ elif [ "$arg" == "--uarand" ]
  then
- check_cert="no"
- link="$3"
-  if [ "$2" == "-r" ]
-  then 
-  state="rand"  
-  fi
- else
+ state="rand"
+ uamode="on"
+ shift
+ elif [ "$arg" == "--no-agent" ]
+ then
+ uamode="off"
+ shift 
+ elif [ "$arg" == "--no-header" ]
+ then
+ headmode="off"
+ shift  
+ fi 
 
- echo " USAGE: $ safedown link.html"
- echo " USAGE: $ safedown -r link.html"
- echo " USAGE: $ safedown -nchk link.html"
- echo " USAGE: $ safedown -r -nchk link.html"
- echo " USAGE: $ safedown -nchk -r link.html"
- 
- exit 1
- fi
-fi
+ link="$arg"
 
-if [ "$check_cert" == "no" ]
-then
-extra_flag="--no-check-certificate"
-fi
+done
 
 mkdir -p /dev/shm/temp 
 cd /dev/shm/temp 
@@ -209,17 +190,31 @@ cd /dev/shm/temp
 if [ "$state" == "rand" ]
 then
 # select random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
-
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+echo "$UA"
 
-echo "$UA"																							echo "$UA"
+echo "Downloading "$link""
+echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
 
-firejail --noprofile --protocol=inet  --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$extra_flag" "$link" 
+if [ "$uamode" == "on" ]
+then 
+echo "$UA"
+ if [ "$headmode" == "on" ]
+ then 
+ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+ # initate curl download +tor + random agent
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$@" 
+ else
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" "$@" 
+ fi
+else 
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget "$@" 
+fi 
+
 exit 0
 
 ################################   END OF PROGRAM   ####################################################
