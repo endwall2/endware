@@ -6,10 +6,11 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # CREATION DATE: JUNE 3 2016
-# VERSION: 0.07 
+# VERSION: 0.08 
 # REVISION DATE: AUGUST 25 2016
 #
-# CHANGE LOG: - Rewrote input argument section +flags --uarand --no-header --no-agent
+# CHANGE LOG: - added -i flag for torsocks --isolate on main download
+#             - Rewrote input argument section +flags --uarand --no-header --no-agent
 #             - reorganized input section added -nchk flag for --no-check-certificates
 #             - bug fix
 #             - Moved user agents to user_agents.txt 
@@ -207,12 +208,12 @@ echo "$UA"
  then 
  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" --header="$HEAD" "$@" 
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget --user-agent="$UA" --header="$HEAD" "$@" 
  else
- firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget --user-agent="$UA" "$@" 
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget --user-agent="$UA" "$@" 
  fi
 else 
- firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks wget "$@" 
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget "$@" 
 fi 
 
 exit "$?"

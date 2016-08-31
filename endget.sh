@@ -7,11 +7,12 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.15
+# VERSION: 0.16
 # REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:  - Rewrite of input checking section, --uarand, --no-header, --no-agent flags
+# CHANGE LOG:  - torsocks -i --isolate on main download 
+#              - Rewrite of input checking section, --uarand, --no-header, --no-agent flags
 #              - Added USERAGENTS path variable + default to first line of user_agents.txt
 #              - Moved user agents to user_agents.txt 
 #              - Default to torbrowser UA + -r flag for random UA + torbrowser header
@@ -223,12 +224,12 @@ echo "$UA"
  then 
  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- torsocks wget --user-agent="$UA" --header="$HEAD" "$@" 
+ torsocks -i wget --user-agent="$UA" --header="$HEAD" "$@" 
  else
- torsocks wget --user-agent="$UA" "$@" 
+ torsocks -i wget --user-agent="$UA" "$@" 
  fi
 else 
- torsocks wget "$@"
+ torsocks -i wget "$@"
 fi 
 
 exit "$?"

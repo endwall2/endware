@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.25
+# VERSION: 0.26
 # REVISION DATE: AUGUST 27 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
+# CHANGE LOG:  - use --isolate flag in torsocks -i 
+#              - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
 #              - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
 #              - moved user agents to user_agent.txt
 #              - simplified proxy sort with shuf
@@ -319,12 +320,12 @@ geoiplookup "$proxy_ip"
   if [ "$headmode" == "on" ]
   then
    # initiate download + tor + random UA + proxy
-   torsocks youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
+   torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
   else 
-   torsocks youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link"
+   torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link"
   fi
  else 
- torsocks youtube-dl --proxy "$Prxy" "$link"
+ torsocks -i youtube-dl --proxy "$Prxy" "$link"
  fi
 rm $proxies
 
@@ -335,12 +336,12 @@ else
   if [ "$headmode" == "on" ]
   then 
   # initate curl download +tor + random agent
-  torsocks youtube-dl --user-agent="$UA" --add-header="$HEAD" "$link" 
+  torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$link" 
   else
-  torsocks youtube-dl --user-agent="$UA" "$link" 
+  torsocks -i youtube-dl --user-agent="$UA" "$link" 
   fi
  else 
- torsocks youtube-dl "$link" 
+ torsocks -i youtube-dl "$link" 
  fi 
 fi 
 

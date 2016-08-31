@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.21
+# VERSION: 0.22
 # REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:   - Rewrote input arguments section + added exit node pull option --exitnode, --uarand, --no-agent, --no-header, --help
+# CHANGE LOG:   - torsocks -i --isolate flag on main download 
+#               - Rewrote input arguments section + added exit node pull option --exitnode, --uarand, --no-agent, --no-header, --help
 #               - USERAGENTS path variable 
 #               - Moved user agents to user_agents.txt
 #               - Default to tor browser UA -r flag for random UA, + tor browser header
@@ -268,16 +269,17 @@ echo "$UA"
  then 
  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- torsocks wget --user-agent="$UA" --header="$HEAD" "$link" 
+ torsocks -i wget --user-agent="$UA" --header="$HEAD" "$link" 
  else
- torsocks wget --user-agent="$UA" "$link" 
+ torsocks -i wget --user-agent="$UA" "$link" 
  fi
 else 
- torsocks wget "$link"
+ torsocks -i wget "$link"
 fi 
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
 rm "$list"
+
 exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################

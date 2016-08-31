@@ -6,11 +6,12 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE:   APRIL 9 2016
-# VERSION: 0.15
+# VERSION: 0.16
 # REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - rewrote input argument checking with a for loop + set switches
+# CHANGE LOG:  - torsocks -i --isolate flag on download
+#              - rewrote input argument checking with a for loop + set switches
 #              - add USERAGENTS path variable + default to first line of user_agents.txt
 #              - moved user agents to user_agents.txt
 #              - Added Tor browser extended header
@@ -220,12 +221,12 @@ echo "$UA"
  then 
  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- torsocks curl -A "$UA" -H "$HEAD" "$@" 
+ torsocks -i curl -A "$UA" -H "$HEAD" "$@" 
  else
- torsocks curl -A "$UA" "$@" 
+ torsocks -i curl -A "$UA" "$@" 
  fi
 else 
- torsocks curl "$@"
+ torsocks -i curl "$@"
 fi 
 
 exit "$?"
