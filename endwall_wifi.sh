@@ -6,7 +6,7 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 2, wifi enabled
-# Current Version: 1.37  Aug 11 2016
+# Current Version: 1.37  Sep 11 2016
 # Stable Version:  1.34, Aug 9 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
