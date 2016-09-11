@@ -20,6 +20,7 @@ LICENSE - same file as eula.txt, comes from the git repo.
 endware.txt - A catalogue of the endware suite with descriptions grouped by functionality. 
 ######################## ENDWALL FIREWALL #######################################################################################
 endwall.sh - An iptables based firewall script.
+endwall_wifi.sh - Endwall with permissive wifi, using bash.
 endlists.sh - An iptables text list based firewall blacklisting and whitelisting script. For use with endwall. Useful for workstation ip blacklisting.
 endsets.sh - An ipset hash set based blacklisting and whitelisting script. For use with endwall.  Recomended for a mail and web server.
 ########################LOG READING ############################################################################################
