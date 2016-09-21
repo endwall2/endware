@@ -11,7 +11,8 @@
 #
 # DESCRIPTION: Generates a random password output to screen or a text file
 #######################################################################################################################################
-# CHANGE LOG: - Removed cat
+# CHANGE LOG: - Added --help, --version, --bytes, --outfile flags
+#             - Removed cat
 #             - Added EULA+Instructions
 #
 ######################################################################################################################################
@@ -136,13 +137,96 @@
 #################################################################################################################################################################################
 
 ###################################################     BEGINNING OF PROGRAM        #############################################################################################
+version=0.03
+rev_date="20/09/2016"
+len_switch="off"
+byte_switch="off"
+syntax="check"
 nargs=$#
-outfile=$1
-if [ "$nargs" -gt 0 ] 
+
+for arg in "$@"
+do
+
+if [ "$byte_switch"  == "on" ]
+then
+bytes="$arg"
+byte_switch="off" 
+has_byte="yes"
+syntax="good"
+shift
+fi 
+
+if [ "$file_switch"  == "on" ]
+then
+outfile="$arg"
+file_switch="off"
+has_file="yes"
+syntax="good"
+shift
+fi 
+
+if [ "$arg" == --help ] 
 then 
-head -n 1 /dev/urandom | base64 -i >> "$outfile"
+echo "PASSGEN outputs random passwords using /dev/urandom and base64"
+echo " "
+echo "USAGE: $ passgen                      # default random password generation"
+echo "USAGE: $ passgen --help               # output usage statements"
+echo "USAGE: $ passgen --version            # output version statements"
+echo "USAGE: $ passgen --bytes n            # output a random password using n bytes of urandom"
+echo "USAGE: $ passgen --outfile file.txt   # output a random password to file.txt"
+echo "USAGE: $ passgen --bytes n --outfile file.txt   # output a random password using n bytes of urandom to file.txt"
+echo " "
+echo "Try $ passgen --bytes 18 for a 24 character password"
+echo " "
+shift
+exit 1 
+fi
+
+if [ "$arg" == --version ] 
+then 
+echo "PASSGEN version" "$version" "revised on" "$rev_date"
+echo "Copyright, 2016, THE ENDWARE DEVELOPMENT TEAM "
+shift
+exit 1 
+fi
+
+if [ "$arg" == --bytes ]
+then
+byte_switch="on"
+syntax="good"
+shift
+elif [ "$arg" == --outfile ]
+then
+file_switch="on"
+syntax="good"
+shift
 else
-head -n 1 /dev/urandom | base64 -i 
+ if [ "$syntax" == "check" ]
+ then 
+ echo " BAD SYNTAX: please type $ passgen --help "
+ exit 1
+ fi
+fi 
+
+syntax="check"
+
+done
+
+if [ "$has_file" == "yes" ] 
+then 
+ if [ "$has_byte" == "yes" ] 
+ then 
+ head -c "$bytes" /dev/urandom | base64 -i >> "$outfile"
+ else
+ head -n 3 /dev/urandom | base64 -i >> "$outfile"
+ fi
+else
+ if [ "$has_byte" == "yes" ] 
+ then 
+ head -c "$bytes" /dev/urandom | base64 -i 
+ else
+ head -n 3 /dev/urandom | base64 -i
+ fi
 fi
 
 exit "$?"
