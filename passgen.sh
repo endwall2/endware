@@ -5,6 +5,7 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUNE 21, 2016
 # VERSION: 0.04
+# BRANCH: GNU/LINUX
 # REVISION DATE: SEPTEMBER 20, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
@@ -137,7 +138,8 @@
 #################################################################################################################################################################################
 
 ###################################################     BEGINNING OF PROGRAM        #############################################################################################
-version=0.04
+version="0.04"
+branch="gnu/linux"
 rev_date="20/09/2016"
 len_switch="off"
 byte_switch="off"
@@ -184,8 +186,8 @@ fi
 
 if [ "$arg" == --version ] 
 then 
-echo "PASSGEN version" "$version" "revised on" "$rev_date"
-echo "Copyright, 2016, THE ENDWARE DEVELOPMENT TEAM "
+echo "PASSGEN version: "$version" branch: "$branch" revised on: "$rev_date" "
+echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016 "
 shift
 exit 1 
 fi
