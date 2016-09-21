@@ -4,8 +4,8 @@
 # TYPE: BOURN SHELL SCRIPT
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUNE 21, 2016
-# VERSION: 0.03
-# REVISION DATE: JULY 7, 2016
+# VERSION: 0.04
+# REVISION DATE: SEPTEMBER 20, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 #
@@ -137,7 +137,7 @@
 #################################################################################################################################################################################
 
 ###################################################     BEGINNING OF PROGRAM        #############################################################################################
-version=0.03
+version=0.04
 rev_date="20/09/2016"
 len_switch="off"
 byte_switch="off"
