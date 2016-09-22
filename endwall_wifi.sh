@@ -6,12 +6,13 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 2, wifi enabled
-# Current Version: 1.37  Sep 11 2016
-# Stable Version:  1.34, Aug 9 2016
+# Current Version: 1.38  Sep 21 2016
+# Stable Version:  1.37, Sep 11 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# Changes:     - Switched to bash + added wifi client out functions (internal ip independent)
+# Changes:     - Added --version flag + update acknowledgements
+#              - Switched to bash + added wifi client out functions (internal ip independent)
 #              - Bug fixes
 #              - Loop over interfaces check that ip is picked up
 #              - Added -o flag for open, to disable the firewall
@@ -179,15 +180,27 @@
 ####################################################################################################
 #                           INPUT ARGUMENTS
 ###################################################################################################
+version="1.38"
+branch="wi_fi"
+rev_date="21/09/2016"
 
 for arg in "$@"
 do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: ./endwall --open ## opens firewall to default open policies
- echo "USAGE: ./endwall  ## enable endwall firewall system
+ echo "USAGE: ./endwall --help ## displays usage statements"
+ echo "USAGE: ./endwall --version  ## displays version statements"
+ echo "USAGE: ./endwall --open ## opens firewall to default open policies"
+ echo "USAGE: ./endwall  ## enable endwall firewall system"
+ shift
  exit 0
+ elif  [ "$arg" == "--version" ]
+ then
+ echo "ENDWALL version:"$version", branch:"$branch", revision date:"$rev_date" "
+ echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016"
+ shift
+ exit 0 
  elif  [ "$arg" == "--open" ]
  then
  state="open"
@@ -196,6 +209,7 @@ do
  state="closed"
  fi
 done
+
 ####################################################################################################
 #                           GLOBAL VARIABLES
 ####################################################################################################
