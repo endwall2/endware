@@ -8,11 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.26
-# REVISION DATE: AUGUST 27 2016
+# VERSION: 0.27
+# REVISION DATE: SEPTEMBER 22 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - use --isolate flag in torsocks -i 
+# CHANGE LOG:  - --videolist flag replaces pickup last argument as the list
+#              - --version flag + bad syntax message. 
+#              - use --isolate flag in torsocks -i 
 #              - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
 #              - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
 #              - moved user agents to user_agent.txt
@@ -64,11 +66,11 @@
 #  $ sudo rc-status
 #      
 #     Run EndTube 
-#  $  endtube ytlinks.txt
-#  $  endtube --uarand ytlinks.txt
-#  $  endtube --exitnode ytlinks.txt
-#  $  endtube --uarand --exitnode ytlinks.txt
-#  $  endtube --exitnode --uarand ytlinks.txt
+#  $  endtube --videolist ytlinks.txt
+#  $  endtube --uarand --videolist ytlinks.txt
+#  $  endtube --exitnode --videolist ytlinks.txt
+#  $  endtube --uarand --exitnode --videolist ytlinks.txt
+#  $  endtube --exitnode --uarand --videolist ytlinks.txt
 #  
 #  Using with Proxies:
 #  $ emacs/nano/leafpad etc proxies.txt    
@@ -81,28 +83,31 @@
 #  $  torsocks curl --proxy protocol://ipv4address:port www.google.com
 #
 #     Run EndTube
-#  $  endtube proxies.txt ytlinks.txt
-#  $  endtube --uarand proxies.txt ytlinks.txt
-#  $  endtube --exitnode --proxylist proxies.txt ytinks.txt 
-#  $  endtube -exitnode --uarand --proxylist proxies.txt ytinks.txt 
-#  $  endtube --uarand --exitnodee --proxylist proxies.txt ytinks.txt
+#  $  endtube --videolist ytlinks.txt
+#  $  endtube --uarand --videolist ytlinks.txt
+#  $  endtube --exitnode --videolist ytlinks.txt
+#  $  endtube --uarand --proxylists proxies.txt --videolist ytlinks.txt
+#  $  endtube --exitnode --proxylist proxies.txt --videolist ytinks.txt 
+#  $  endtube --exitnode --uarand --proxylist proxies.txt --videolist ytinks.txt 
+#  $  endtube --uarand --exitnode --proxylist proxies.txt --videolist ytinks.txt
+#  $  endtube --help
+#  $  endtube --version 
 #
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted 
+#  this software project.  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain 
+#  at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -195,9 +200,15 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
+# version information
+version="0.27"
+branch="gnu/linux"
+rev_date="22/09/2016"
+
 ##  get input list from shell argument 
+
 USERAGENTS="$HOME/bin/user_agents.txt"
-min_delay=20
+min_delay=30
 max_delay=200
 
 enode="off"
@@ -205,6 +216,7 @@ state="off"
 headmode="on"
 uamode="on"
 state="normal"
+syntax="check" 
 
 for arg in $@
 do 
@@ -212,48 +224,80 @@ do
  if [ "$proxypick" == "on" ]
  then 
  Punsort="$arg"
- proxypick="off" 
+ proxypick="off"
+ syntax="good" 
+ elif [ "$videopick" == "on" ]
+ then
+ Lunsort="$arg"
+ videopick="off"
+ syntax="good"
  fi 
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endtube list.txt"
- echo "USAGE: endtube --uarand list.txt  ## random user-agent"
- echo "USAGE: endtube --exitnode list.txt ##  exit-node pull"
- echo "USAGE: endtube --uarand --exitnode list.txt  ##random user-agent "
- echo "USAGE: endtube --no-agent list.txt  ##deactivate user-agent "
- echo "USAGE: endtube --no-header list.txt  ##deactivate header "
- echo "USAGE: endtube --proxylist plist.txt list.txt  ##deactivate header " 
- echo "USAGE: endtube --help "
+ echo "ENDTUBE: Download videos using tor and youtube-dl, random user-agents and proxies"
+ echo " "
+ echo "USAGE: endtube --videolist list.txt # default mode downloads videos in list.txt"
+ echo "USAGE: endtube --uarand --videolist list.txt  # per video download random user-agent"
+ echo "USAGE: endtube --exitnode --videolist list.txt # check exit-node pull per download"
+ echo "USAGE: endtube --uarand --exitnode --videolist list.txt  # use random user-agent + exit node check "
+ echo "USAGE: endtube --no-agent --videolist list.txt  # deactivate user-agent "
+ echo "USAGE: endtube --no-header --videolist list.txt  # deactivate header "
+ echo "USAGE: endtube --proxylist plist.txt --videolist list.txt  # use random proxies from plist.txt " 
+ echo "USAGE: endtube --help # print usage information"
+ echo "USAGE: endtube --version # print version information"
+ echo " "
  echo "Type: wget --help for more options to add before the list"
+ shift 
  exit 0
- 
+ elif [ "$arg" == "--version" ]
+ then
+ echo "ENDTUBE: version "$version", branch: "$branch", revision date: "$rev_date" "
+ echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016" 
+ shift
+ exit 0
  elif [ "$arg" == "--uarand" ]
  then
  state="rand"
  uamode="on"
+ syntax="good"
  shift
  elif [ "$arg" == "--no-agent" ]
  then
  uamode="off"
+ syntax="good"
  shift 
  elif [ "$arg" == "--no-header" ]
  then
  headmode="off"
+ syntax="good"
  shift  
  elif [ "$arg" == "--exitnode" ]
  then
  enode="on"
+ syntax="good"
  shift  
  elif [ "$arg" == "--proxylist" ]
  then
  proxies="on"
  proxypick="on"
+ syntax="good"
  shift
+ elif [ "$arg" == "--videolist" ]
+ then
+ videopick="on"
+ syntax="good"
+ shift
+ else
+  if [ "$syntax" == "check" ] 
+  then
+  echo "BAD SYNTAX: type $ endtube --help "
+  shift
+  exit 1
+  fi
  fi  
  
-
- Lunsort="$arg"
+syntax="check"
 
 done
 
