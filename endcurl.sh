@@ -6,11 +6,12 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE:   APRIL 9 2016
-# VERSION: 0.16
-# REVISION DATE: AUGUST 25 2016
+# VERSION: 0.17
+# REVISION DATE: OCTOBER 3 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - torsocks -i --isolate flag on download
+# CHANGE LOG:  - Added --version and --native flags + fixed --help instructions
+#              - torsocks -i --isolate flag on download
 #              - rewrote input argument checking with a for loop + set switches
 #              - add USERAGENTS path variable + default to first line of user_agents.txt
 #              - moved user agents to user_agents.txt
@@ -48,21 +49,19 @@
 #  $  endcurl --help 
 #  
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -156,6 +155,10 @@
 #################################################################################################################################################################################
 
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
+version="0.17"
+branch="gnu/linux"
+rev_date="03/10/2016"
+
 ##  get input list from shell argument 
 
 ## edit this line to where you place your user agents
@@ -164,6 +167,7 @@ USERAGENTS="$HOME/bin/user_agents.txt"
 headmode="on"
 uamode="on"
 state="normal"
+native="off"
 
 nargs=$#
 
@@ -172,30 +176,55 @@ do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endcurl http://www.website.com/index.html"
- echo "USAGE: endcurl --uarand http://www.website.com/index.html"
- echo "USAGE: endcurl --help "
- echo "Type: curl --help for more options to add before the link"
+ echo "ENDCURL is a script to customize curl using tor, torsocks, random-user agents, and an extra header" 
+ echo "        you may append any curl command before the link, but use endcurl specific flags first"
+ echo " "
+ echo "USAGE: endcurl [option] [option] ... weblink "
+ echo " "
+ echo "endcurl http://www.website.com/index.html"
+ echo "endcurl --uarand http://www.website.com/index.html  # use random user agent"
+ echo "endcurl --native # use curl for socks connection to port 9050 instead of torsocks"
+ echo "endcurl --help  #output usage statements"
+ echo "endcurl --version #output version statements"
+ echo "endcurl -H # turn off extra header / overide header"
+ echo "endcurl -A # turn off user-agents / overide user-agent"
+ echo "endcurl -A -H # overide user agent and header"
+ echo "endcurl --header #manually input header  / overide"
+ echo "endcurl --user-agent #manually input user-agent / overide"
+ echo " "
  echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
- echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ echo " endcurl -A \" \" -H \" \" www.website.com is equivalent to torsocks curl website.com "
+ echo " "
+ echo "Type: curl --help for more options to add before the link"
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo " ENDCURL: Version: "$version" Branch: "$branch" Revision Date: "$rev_date" " 
+ echo " Copyright: 2016, The Endware Development Team "
  exit 0
  elif [ "$arg" == "--uarand" ]
  then
  state="rand"
  uamode="on"
  shift
+ elif [ "$arg" == "--native" ]
+ then
+ native="on"
+ shift 
  elif [ "$arg" == "--user-agent" ]
  then
  uamode="off"
  elif [ "$arg" == "-A" ]
  then
  uamode="off"
+ shift
  elif [ "$arg" == "--header" ]
  then
  headmode="off"
  elif [ "$arg" == "-H" ]
  then
  headmode="off"
+ shift
  fi 
 
  link="$arg"
@@ -212,24 +241,42 @@ UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi 
 
 echo "Downloading "$link""
-echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
+echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" NATIVE="$native" "
 
 # initiate download and change user agent
 
-if [ "$uamode" == "on" ]
+if [ "$native" == "on" ] 
 then 
-echo "$UA"
- if [ "$headmode" == "on" ]
+ if [ "$uamode" == "on" ]
  then 
- HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
- # initate curl download +tor + random agent
- torsocks -i curl -A "$UA" -H "$HEAD" "$@" 
- else
- torsocks -i curl -A "$UA" "$@" 
- fi
+ echo "$UA"
+  if [ "$headmode" == "on" ]
+  then 
+  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+  # initate curl download +tor + random agent
+  curl --socks5 127.0.0.1:9050 -A "$UA" -H "$HEAD" "$@" 
+  else
+  curl --socks5 127.0.0.1:9050 -A "$UA" "$@" 
+  fi
+ else 
+  curl --socks5 127.0.0.1:9050 "$@"
+ fi 
 else 
- torsocks -i curl "$@"
-fi 
+ if [ "$uamode" == "on" ]
+ then 
+ echo "$UA"
+  if [ "$headmode" == "on" ]
+  then 
+  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+  # initate curl download +tor + random agent
+  torsocks -i curl -A "$UA" -H "$HEAD" "$@" 
+  else
+  torsocks -i curl -A "$UA" "$@" 
+  fi
+ else 
+  torsocks -i curl "$@"
+ fi 
+fi
 
 exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################
