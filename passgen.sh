@@ -1,7 +1,7 @@
 #!/bin/sh
 #####################################################################################################################################
 # TITLE: passgen.sh
-# TYPE: BOURN SHELL SCRIPT
+# TYPE: BOURNE SHELL SCRIPT
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUNE 21, 2016
 # VERSION: 0.04
