@@ -8,11 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.29
-# REVISION DATE: OCTOBER 7, 2016
+# VERSION: 0.30
+# REVISION DATE: OCTOBER 8, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - added --native for native socks5 connection to tor router
+# CHANGE LOG:  - allow the last argument to be a url + --url flag
+#              - minor fix to delay time, max_delay is now the maximum delay time.
+#              - added --native for native socks5 connection to tor router
 #              - replace --videolist with --list, allow youtube-dl flags by removing syntax checking 
 #              - --videolist flag replaces pickup last argument as the list
 #              - --version flag + bad syntax message. 
@@ -74,6 +76,8 @@
 #  $  endtube --uarand --exitnode --list ytlinks.txt
 #  $  endtube --exitnode --uarand --list ytlinks.txt
 #  $  endtube --native --list ytlinks.txt
+#  $  endtube --url http://www.youtu.be/aa3gagacJGe
+#  $  endtube http://www.youtu.be/aa3gagacJGe
 #  Using with Proxies:
 #  $ emacs/nano/leafpad etc proxies.txt    
 #     
@@ -88,10 +92,11 @@
 #  $  endtube --list ytlinks.txt
 #  $  endtube --uarand --list ytlinks.txt
 #  $  endtube --exitnode --list ytlinks.txt
-#  $  endtube --uarand --proxylists proxies.txt --list ytlinks.txt
+#  $  endtube --uarand --proxylist proxies.txt --list ytlinks.txt
 #  $  endtube --exitnode --proxylist proxies.txt --list ytinks.txt 
 #  $  endtube --exitnode --uarand --proxylist proxies.txt --list ytinks.txt 
 #  $  endtube --uarand --exitnode --proxylist proxies.txt --list ytinks.txt
+#  $  endtube --proxylist proxies --url http://www.youtu.be/aa3gagacJGe
 #  $  endtube --help
 #  $  endtube --version 
 #
@@ -203,9 +208,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.29"
+version="0.30"
 branch="gnu/linux"
-rev_date="07/10/2016"
+rev_date="08/10/2016"
 
 ##  get input list from shell argument 
 
@@ -220,6 +225,8 @@ uamode="on"
 state="normal"
 syntax="check" 
 native="off"
+listmode="no"
+urlmode="no"
 
 for arg in $@
 do 
@@ -233,6 +240,13 @@ do
  then
  Lunsort="$arg"
  listpick="off"
+ listmode="yes"
+ shift 
+ elif [ "$urlpick" == "on" ]
+ then
+ url="$arg"
+ urlpick="off"
+ urlmode="yes"
  shift 
  fi 
 
@@ -241,6 +255,8 @@ do
  echo "ENDTUBE: Download videos using tor and youtube-dl, random user-agents and proxies"
  echo " "
  echo "USAGE:  endtube --option --option --list list.txt" 
+ echo "endtube --help    # print usage information"
+ echo "endtube --version # print version information"
  echo "endtube --list list.txt # default mode downloads videos in list.txt"
  echo "endtube --uarand --list list.txt  # per video download random user-agent"
  echo "endtube --exitnode --list list.txt # check exit-node pull per download"
@@ -249,10 +265,10 @@ do
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
- echo "endtube --help # print usage information"
- echo "endtube --version # print version information"
+ echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url
+ echo "endtube https://youtu.be/gGHeoahhe   # Download the url (assume last input is a url)
  echo " "
- echo "Type: youtube-dl --help for more options to add"
+ echo "Type: youtube-dl --help for more options to add after the --list list.txt option to pass through to youtube-dl"
  shift 
  exit 0
  elif [ "$arg" == "--version" ]
@@ -299,119 +315,284 @@ do
  listpick="on"
  syntax="good"
  shift
+ elif [ "$arg" == "--url" ]
+ then
+ urlpick="on"
+ syntax="good"
+ shift
  fi  
+
+arghold="$arg"
  
 done
-
-# randomly sort the video list
-list=temp1.srt
-shuf $Lunsort > $list
 
 check_tor=check_tor.tmp
 
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
-
-#main loop to select random user agent
-for link in $(cat "$list" ); do  
-
-if [ "$state" == "rand" ]
-then 
-# pick a random user agent
-UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
-else
-UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
-fi
-
+# define default header
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 
-# generate a random number time delay
-delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i ) % $( expr "$max_delay" - "$min_delay" )  | awk '{print $1}')
-echo "Delaying download for "$delay" seconds"
-# wait by delay time
-sleep "$delay"
-
-if [ "$enode" == "on" ] 
+## Assume final argument is a url and begin download
+if [ "$listmode" == "no" ]
 then
-# check tor project ip
-torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
-
-exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
-echo "TOR exit node is "$exit_address" "
-geoiplookup "$exit_address" 
-rm $check_tor
-rm tor-on.png
-rm tor-on.ico
-# generate a random number time delay
-delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
-echo "Delaying download for "$delay" seconds"
-# wait by delay time
-sleep "$delay"
-fi 
-
-echo "Downloading "$link""
-# initiate download and change user agent
-
-if [ "$proxies" == "on" ]
-then
-  # randomly sort proxies and load the random proxy
-  Prxy=$( shuf -n 1 "$Punsort" )
-  echo "Random Proxy is" "$Prxy" 
-  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
-  geoiplookup "$proxy_ip"
-   if [ "$uamode" == "on" ]
-   then 
-    echo "$UA"
-    if [ "$headmode" == "on" ]
-    then
-     # initiate download + tor + random UA + proxy
-     torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$link" 
+  
+  if [ "$state" == "rand" ]
+  then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
     else 
-     torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
-    fi
-   else 
-   torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
-   fi
-  rm $proxies
-else
- if [ "$native" == "on" ]
-  then
-   if [ "$uamode" == "on" ]
-   then 
-   echo "$UA"
-    if [ "$headmode" == "on" ]
-    then 
-    # initate curl download +tor + random agent
-    youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
-    else
-    youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$link" 
-    fi
-   else 
-   youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link" 
-   fi 
- else
-   if [ "$uamode" == "on" ]
-   then 
-   echo "$UA"
-    if [ "$headmode" == "on" ]
-    then 
-    # initate curl download +tor + random agent
-    torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
-    else
-    torsocks -i youtube-dl --user-agent="$UA" "$@" "$link" 
-    fi
-   else 
-   torsocks -i youtube-dl "$@" "$link" 
-   fi 
- fi
-fi 
+    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+  fi
 
+
+  if [ "$enode" == "on" ] 
+  then
+    # check tor project ip
+    torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
+    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
+    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+
+    exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
+    echo "TOR exit node is "$exit_address" "
+    geoiplookup "$exit_address" 
+    rm $check_tor
+    rm tor-on.png
+    rm tor-on.ico
+    # generate a random number time delay
+    delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
+    echo "Delaying download for "$delay" seconds"
+    # wait by delay time
+    sleep "$delay"
+  fi 
+
+
+  if [ "$urlmode" == "yes" ]
+  then
+    echo "Downloading "$url""
+
+    if [ "$proxies" == "on" ]
+    then
+     # randomly sort proxies and load the random proxy
+     Prxy=$( shuf -n 1 "$Punsort" )
+     echo "Random Proxy is" "$Prxy" 
+     proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+     geoiplookup "$proxy_ip"
+      if [ "$uamode" == "on" ]
+      then 
+      echo "$UA"
+        if [ "$headmode" == "on" ]
+        then
+         # initiate download + tor + random UA + proxy
+         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$url"  
+        else 
+         torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$url" 
+        fi
+      else 
+      torsocks -i youtube-dl --proxy "$Prxy" "$@" "$url"
+      fi
+     rm $proxies
+    else
+     if [ "$native" == "on" ]
+     then
+       if [ "$uamode" == "on" ]
+       then 
+         echo "$UA"
+         if [ "$headmode" == "on" ]
+         then 
+            # initate curl download +tor + random agent
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$url"  
+         else
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$url" 
+         fi
+       else 
+         youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"  
+       fi 
+     else
+       if [ "$uamode" == "on" ]
+       then 
+         echo "$UA"
+         if [ "$headmode" == "on" ]
+         then 
+           # initate curl download +tor + random agent
+             torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$url"  
+         else
+             torsocks -i youtube-dl --user-agent="$UA" "$@" "$url"  
+         fi
+       else 
+         torsocks -i youtube-dl "$@" "$url"  
+       fi 
+     fi
+    fi  
+
+  else
+
+    echo "Downloading "$arghold""
+
+    if [ "$proxies" == "on" ]
+    then
+     # randomly sort proxies and load the random proxy
+     Prxy=$( shuf -n 1 "$Punsort" )
+     echo "Random Proxy is" "$Prxy" 
+     proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+     geoiplookup "$proxy_ip"
+      if [ "$uamode" == "on" ]
+      then 
+      echo "$UA"
+        if [ "$headmode" == "on" ]
+        then
+         # initiate download + tor + random UA + proxy
+         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@"   
+        else 
+         torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@"
+        fi
+      else 
+      torsocks -i youtube-dl --proxy "$Prxy" "$@"
+      fi
+     rm $proxies
+    else
+     if [ "$native" == "on" ]
+     then
+       if [ "$uamode" == "on" ]
+       then 
+         echo "$UA"
+         if [ "$headmode" == "on" ]
+         then 
+            # initate curl download +tor + random agent
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@"  
+         else
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@"
+         fi
+       else 
+         youtube-dl --proxy socks5://127.0.0.1:9050 "$@"
+       fi 
+     else
+       if [ "$uamode" == "on" ]
+       then 
+         echo "$UA"
+         if [ "$headmode" == "on" ]
+         then 
+           # initate curl download +tor + random agent
+             torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@"  
+         else
+             torsocks -i youtube-dl --user-agent="$UA" "$@"
+         fi
+       else 
+         torsocks -i youtube-dl "$@"
+       fi 
+     fi
+    fi  
+
+  fi
+
+exit 0
+ 
+else
+
+
+# randomly sort the video list
+list=temp1.srt
+shuf $Lunsort > $list
+
+#main loop for list based downloadingto select random user agent
+
+for link in $(cat "$list" ); do  
+
+  if [ "$state" == "rand" ]
+  then 
+   # pick a random user agent
+   UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
+  else
+   UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+  fi
+
+
+  # generate a random number time delay
+  delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i ) % $( expr "$max_delay" - "$min_delay" )  | awk '{print $1}')
+  echo "Delaying download for "$delay" seconds"
+  # wait by delay time
+  sleep "$delay"
+
+  if [ "$enode" == "on" ] 
+  then
+  # check tor project ip
+  torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
+  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
+  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+
+  exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
+  echo "TOR exit node is "$exit_address" "
+  geoiplookup "$exit_address" 
+  rm $check_tor
+  rm tor-on.png
+  rm tor-on.ico
+  # generate a random number time delay
+  delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
+  echo "Delaying download for "$delay" seconds"
+  # wait by delay time
+  sleep "$delay"
+  fi 
+
+  echo "Downloading "$link""
+  # initiate download and change user agent
+
+  if [ "$proxies" == "on" ]
+  then
+    # randomly sort proxies and load the random proxy
+    Prxy=$( shuf -n 1 "$Punsort" )
+    echo "Random Proxy is" "$Prxy" 
+    proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+    geoiplookup "$proxy_ip"
+    if [ "$uamode" == "on" ]
+    then 
+      echo "$UA"
+      if [ "$headmode" == "on" ]
+      then
+       # initiate download + tor + random UA + proxy
+       torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$link" 
+      else 
+       torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
+      fi
+    else 
+     torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
+    fi
+   rm $proxies
+  else
+   if [ "$native" == "on" ]
+   then
+     if [ "$uamode" == "on" ]
+     then 
+     echo "$UA"
+       if [ "$headmode" == "on" ]
+       then 
+        # initate curl download +tor + random agent
+        youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
+       else
+        youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$link" 
+       fi
+     else 
+     youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link" 
+     fi 
+   else
+     if [ "$uamode" == "on" ]
+     then 
+      echo "$UA"
+      if [ "$headmode" == "on" ]
+      then 
+       # initate curl download +tor + random agent
+       torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
+      else
+       torsocks -i youtube-dl --user-agent="$UA" "$@" "$link" 
+      fi
+     else 
+      torsocks -i youtube-dl "$@" "$link" 
+     fi 
+   fi
+  fi 
 done
 # sometimes the download cuts off so don't delete the file until its all done
-
 mv "$list" "$Lunsort"
+fi
 
 exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################
