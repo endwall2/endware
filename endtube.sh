@@ -7,12 +7,14 @@
 #              anonymously using youtube-dl, torsocks, and the proxy
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
-# CREATION DATE: APRIL 9 2016
-# VERSION: 0.27
-# REVISION DATE: SEPTEMBER 22 2016
+# CREATION DATE: APRIL 9, 2016
+# VERSION: 0.29
+# REVISION DATE: OCTOBER 7, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - --videolist flag replaces pickup last argument as the list
+# CHANGE LOG:  - added --native for native socks5 connection to tor router
+#              - replace --videolist with --list, allow youtube-dl flags by removing syntax checking 
+#              - --videolist flag replaces pickup last argument as the list
 #              - --version flag + bad syntax message. 
 #              - use --isolate flag in torsocks -i 
 #              - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
@@ -66,12 +68,12 @@
 #  $ sudo rc-status
 #      
 #     Run EndTube 
-#  $  endtube --videolist ytlinks.txt
-#  $  endtube --uarand --videolist ytlinks.txt
-#  $  endtube --exitnode --videolist ytlinks.txt
-#  $  endtube --uarand --exitnode --videolist ytlinks.txt
-#  $  endtube --exitnode --uarand --videolist ytlinks.txt
-#  
+#  $  endtube --list ytlinks.txt
+#  $  endtube --uarand --list ytlinks.txt
+#  $  endtube --exitnode --list ytlinks.txt
+#  $  endtube --uarand --exitnode --list ytlinks.txt
+#  $  endtube --exitnode --uarand --list ytlinks.txt
+#  $  endtube --native --list ytlinks.txt
 #  Using with Proxies:
 #  $ emacs/nano/leafpad etc proxies.txt    
 #     
@@ -83,13 +85,13 @@
 #  $  torsocks curl --proxy protocol://ipv4address:port www.google.com
 #
 #     Run EndTube
-#  $  endtube --videolist ytlinks.txt
-#  $  endtube --uarand --videolist ytlinks.txt
-#  $  endtube --exitnode --videolist ytlinks.txt
-#  $  endtube --uarand --proxylists proxies.txt --videolist ytlinks.txt
-#  $  endtube --exitnode --proxylist proxies.txt --videolist ytinks.txt 
-#  $  endtube --exitnode --uarand --proxylist proxies.txt --videolist ytinks.txt 
-#  $  endtube --uarand --exitnode --proxylist proxies.txt --videolist ytinks.txt
+#  $  endtube --list ytlinks.txt
+#  $  endtube --uarand --list ytlinks.txt
+#  $  endtube --exitnode --list ytlinks.txt
+#  $  endtube --uarand --proxylists proxies.txt --list ytlinks.txt
+#  $  endtube --exitnode --proxylist proxies.txt --list ytinks.txt 
+#  $  endtube --exitnode --uarand --proxylist proxies.txt --list ytinks.txt 
+#  $  endtube --uarand --exitnode --proxylist proxies.txt --list ytinks.txt
 #  $  endtube --help
 #  $  endtube --version 
 #
@@ -201,15 +203,15 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.27"
+version="0.29"
 branch="gnu/linux"
-rev_date="22/09/2016"
+rev_date="07/10/2016"
 
 ##  get input list from shell argument 
 
 USERAGENTS="$HOME/bin/user_agents.txt"
 min_delay=30
-max_delay=200
+max_delay=330
 
 enode="off"
 state="off"
@@ -217,6 +219,7 @@ headmode="on"
 uamode="on"
 state="normal"
 syntax="check" 
+native="off"
 
 for arg in $@
 do 
@@ -225,35 +228,37 @@ do
  then 
  Punsort="$arg"
  proxypick="off"
- syntax="good" 
- elif [ "$videopick" == "on" ]
+ shift
+ elif [ "$listpick" == "on" ]
  then
  Lunsort="$arg"
- videopick="off"
- syntax="good"
+ listpick="off"
+ shift 
  fi 
 
  if [ "$arg" == "--help" ]
  then
  echo "ENDTUBE: Download videos using tor and youtube-dl, random user-agents and proxies"
  echo " "
- echo "USAGE: endtube --videolist list.txt # default mode downloads videos in list.txt"
- echo "USAGE: endtube --uarand --videolist list.txt  # per video download random user-agent"
- echo "USAGE: endtube --exitnode --videolist list.txt # check exit-node pull per download"
- echo "USAGE: endtube --uarand --exitnode --videolist list.txt  # use random user-agent + exit node check "
- echo "USAGE: endtube --no-agent --videolist list.txt  # deactivate user-agent "
- echo "USAGE: endtube --no-header --videolist list.txt  # deactivate header "
- echo "USAGE: endtube --proxylist plist.txt --videolist list.txt  # use random proxies from plist.txt " 
- echo "USAGE: endtube --help # print usage information"
- echo "USAGE: endtube --version # print version information"
+ echo "USAGE:  endtube --option --option --list list.txt" 
+ echo "endtube --list list.txt # default mode downloads videos in list.txt"
+ echo "endtube --uarand --list list.txt  # per video download random user-agent"
+ echo "endtube --exitnode --list list.txt # check exit-node pull per download"
+ echo "endtube --uarand --exitnode --list list.txt  # use random user-agent + exit node check "
+ echo "endtube --no-agent --list list.txt  # deactivate user-agent "
+ echo "endtube --no-header --list list.txt  # deactivate header "
+ echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
+ echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
+ echo "endtube --help # print usage information"
+ echo "endtube --version # print version information"
  echo " "
- echo "Type: wget --help for more options to add before the list"
+ echo "Type: youtube-dl --help for more options to add"
  shift 
  exit 0
  elif [ "$arg" == "--version" ]
  then
  echo "ENDTUBE: version "$version", branch: "$branch", revision date: "$rev_date" "
- echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016" 
+ echo "Copyright: 2016, THE ENDWARE DEVELOPMENT TEAM" 
  shift
  exit 0
  elif [ "$arg" == "--uarand" ]
@@ -283,22 +288,19 @@ do
  proxypick="on"
  syntax="good"
  shift
- elif [ "$arg" == "--videolist" ]
+ elif [ "$arg" == "--native" ]
  then
- videopick="on"
+ native="on"
+ proxies="off"
  syntax="good"
  shift
- else
-  if [ "$syntax" == "check" ] 
-  then
-  echo "BAD SYNTAX: type $ endtube --help "
-  shift
-  exit 1
-  fi
+ elif [ "$arg" == "--list" ]
+ then
+ listpick="on"
+ syntax="good"
+ shift
  fi  
  
-syntax="check"
-
 done
 
 # randomly sort the video list
@@ -324,7 +326,7 @@ fi
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
 
 # generate a random number time delay
-delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
+delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i ) % $( expr "$max_delay" - "$min_delay" )  | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
@@ -354,40 +356,56 @@ echo "Downloading "$link""
 
 if [ "$proxies" == "on" ]
 then
-# randomly sort proxies and load the random proxy
-Prxy=$( shuf -n 1 "$Punsort" )
-echo "Random Proxy is" "$Prxy" 
-proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
-geoiplookup "$proxy_ip"
- if [ "$uamode" == "on" ]
- then 
- echo "$UA"
-  if [ "$headmode" == "on" ]
-  then
-   # initiate download + tor + random UA + proxy
-   torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$link" 
-  else 
-   torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$link"
-  fi
- else 
- torsocks -i youtube-dl --proxy "$Prxy" "$link"
- fi
-rm $proxies
-
+  # randomly sort proxies and load the random proxy
+  Prxy=$( shuf -n 1 "$Punsort" )
+  echo "Random Proxy is" "$Prxy" 
+  proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+  geoiplookup "$proxy_ip"
+   if [ "$uamode" == "on" ]
+   then 
+    echo "$UA"
+    if [ "$headmode" == "on" ]
+    then
+     # initiate download + tor + random UA + proxy
+     torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$link" 
+    else 
+     torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
+    fi
+   else 
+   torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
+   fi
+  rm $proxies
 else
- if [ "$uamode" == "on" ]
- then 
- echo "$UA"
-  if [ "$headmode" == "on" ]
-  then 
-  # initate curl download +tor + random agent
-  torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$link" 
-  else
-  torsocks -i youtube-dl --user-agent="$UA" "$link" 
-  fi
- else 
- torsocks -i youtube-dl "$link" 
- fi 
+ if [ "$native" == "on" ]
+  then
+   if [ "$uamode" == "on" ]
+   then 
+   echo "$UA"
+    if [ "$headmode" == "on" ]
+    then 
+    # initate curl download +tor + random agent
+    youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
+    else
+    youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$link" 
+    fi
+   else 
+   youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link" 
+   fi 
+ else
+   if [ "$uamode" == "on" ]
+   then 
+   echo "$UA"
+    if [ "$headmode" == "on" ]
+    then 
+    # initate curl download +tor + random agent
+    torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
+    else
+    torsocks -i youtube-dl --user-agent="$UA" "$@" "$link" 
+    fi
+   else 
+   torsocks -i youtube-dl "$@" "$link" 
+   fi 
+ fi
 fi 
 
 done
