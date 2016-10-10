@@ -213,12 +213,14 @@ version="0.30"
 branch="gnu/linux"
 rev_date="08/10/2016"
 
-##  get input list from shell argument 
-
+# user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
+
+# min delay max delay time between downloads
 min_delay=30
 max_delay=330
 
+## initial flag switch states
 enode="off"
 state="off"
 headmode="on"
@@ -229,6 +231,7 @@ native="off"
 listmode="no"
 urlmode="no"
 
+##  get input list from shell argument 
 for arg in $@
 do 
 
@@ -266,8 +269,8 @@ do
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
- echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url
- echo "endtube https://youtu.be/gGHeoahhe   # Download the url (assume last input is a url)
+ echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url"
+ echo "endtube https://youtu.be/gGHeoahhe   # Download the url (assume last input is a url)"
  echo " "
  echo "Type: youtube-dl --help for more options to add after the --list list.txt option to pass through to youtube-dl"
  shift 
@@ -390,7 +393,7 @@ then
          torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$url" 
         fi
       else 
-      torsocks -i youtube-dl --proxy "$Prxy" "$@" "$url"
+         torsocks -i youtube-dl --proxy "$Prxy" "$@" "$url"
       fi
      rm $proxies
     else
@@ -407,7 +410,7 @@ then
             youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$url" 
          fi
        else 
-         youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"  
+            youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"  
        fi 
      else
        if [ "$uamode" == "on" ]
@@ -421,7 +424,7 @@ then
              torsocks -i youtube-dl --user-agent="$UA" "$@" "$url"  
          fi
        else 
-         torsocks -i youtube-dl "$@" "$url"  
+             torsocks -i youtube-dl "$@" "$url"  
        fi 
      fi
     fi  
@@ -448,7 +451,7 @@ then
          torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@"
         fi
       else 
-      torsocks -i youtube-dl --proxy "$Prxy" "$@"
+         torsocks -i youtube-dl --proxy "$Prxy" "$@"
       fi
      rm $proxies
     else
@@ -465,7 +468,7 @@ then
             youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@"
          fi
        else 
-         youtube-dl --proxy socks5://127.0.0.1:9050 "$@"
+            youtube-dl --proxy socks5://127.0.0.1:9050 "$@"
        fi 
      else
        if [ "$uamode" == "on" ]
@@ -479,14 +482,14 @@ then
              torsocks -i youtube-dl --user-agent="$UA" "$@"
          fi
        else 
-         torsocks -i youtube-dl "$@"
+             torsocks -i youtube-dl "$@"
        fi 
      fi
     fi  
 
   fi
 
-exit 0
+exit "$?"
  
 else
 
@@ -555,7 +558,7 @@ for link in $(cat "$list" ); do
        torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
       fi
     else 
-     torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
+       torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
     fi
    rm $proxies
   else
@@ -572,7 +575,7 @@ for link in $(cat "$list" ); do
         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$link" 
        fi
      else 
-     youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link" 
+        youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link" 
      fi 
    else
      if [ "$uamode" == "on" ]
@@ -586,7 +589,7 @@ for link in $(cat "$list" ); do
        torsocks -i youtube-dl --user-agent="$UA" "$@" "$link" 
       fi
      else 
-      torsocks -i youtube-dl "$@" "$link" 
+       torsocks -i youtube-dl "$@" "$link" 
      fi 
    fi
   fi 
