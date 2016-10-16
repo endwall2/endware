@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.22
+# VERSION: 0.23
 # REVISION DATE: AUGUST 25 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:   - torsocks -i --isolate flag on main download 
+# CHANGE LOG:   - delay time bug fix + state code + --version
+#               - torsocks -i --isolate flag on main download 
 #               - Rewrote input arguments section + added exit node pull option --exitnode, --uarand, --no-agent, --no-header, --help
 #               - USERAGENTS path variable 
 #               - Moved user agents to user_agents.txt
@@ -164,6 +165,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
+version="0.23"
+rev_date="10/17/2016"
+branch="gnu/linux"
 
 USERAGENTS="$HOME/bin/user_agents.txt"
 
@@ -173,23 +177,34 @@ uamode="on"
 state="normal"
 enode="off"
 
-min_delay=20
-max_delay=120
+min_delay=30
+max_delay=330
 
 for arg in $@
 do 
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endloads list.txt"
- echo "USAGE: endloads --uarand list.txt  ## random user-agent"
- echo "USAGE: endloads --exitnode list.txt ##  exit-node pull"
- echo "USAGE: endloads --uarand --exitnode list.txt  ##random user-agent "
- echo "USAGE: endloads --no-agent list.txt  ##deactivate user-agent "
- echo "USAGE: endloads --no-header list.txt  ##deactivate header "
- echo "USAGE: endloads --help "
- echo "Type: wget --help for more options to add before the list"
- 
+ echo "ENDTUBE: A command line anonymous download manager using wget, tor, and randomization of order, timing and user-agents"
+ echo " "
+ echo "USAGE:"
+ echo "endloads list.txt  ## download files in list.txt"
+ echo "endloads --uarand list.txt  ## random user-agent"
+ echo "endloads --exitnode list.txt ##  exit-node pull"
+ echo "endloads --uarand --exitnode list.txt  ##random user-agent "
+ echo "endloads --no-agent list.txt  ##deactivate user-agent "
+ echo "endloads --no-header list.txt  ##deactivate header "
+ echo "endloads --help ## output usage message"
+ echo "endloads --version ## output version information"
+ echo " "
+ echo "Type: wget --help for more options to add before the list but after endloads options"
+ shift
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo " ENDLOADS VERSION: "$version" BRANCH: "$branch" REVISION DATE: "$rev_date" " 
+ echo " Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016"
+ shift
  exit 0
  elif [ "$arg" == "--uarand" ]
  then
@@ -217,7 +232,7 @@ done
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
 
 # randomly sort these lists
-list=temp1.srt
+list=loadsort.tmp
 shuf "$Lunsort" > "$list"
 
 #main loop to select random user agent
@@ -237,7 +252,7 @@ HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Ac
 echo "$UA"
 
 # generate a random number time delay
-delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % "$max_delay" | awk '{print $1}')
+delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i) % $( expr "$max_delay" - "$min_delay" ) | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
 # wait by delay time
 sleep "$delay"
@@ -279,9 +294,12 @@ else
  torsocks -i wget "$link"
 fi 
 
+state_code="$?"
+
 done
+
 # sometimes the download cuts off so don't delete the file until its all done
 rm "$list"
 
-exit "$?"
+exit "$?" "$state_code"
 #########################################################        END OF PROGRAM         ######################################################################################
