@@ -495,10 +495,10 @@ else
 
 
 # randomly sort the video list
-list=temp1.srt
+list=tubesort.tmp
 shuf $Lunsort > $list
 
-#main loop for list based downloadingto select random user agent
+#main loop for list based downloading to select random user agent
 
 for link in $(cat "$list" ); do  
 
