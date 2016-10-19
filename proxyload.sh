@@ -200,7 +200,7 @@ echo "Country Code is "$cc" "
 
 ## get the URLs hosting the proxy lists and parse
 
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
 
 cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 | sort -u > "$holder_2"
 
