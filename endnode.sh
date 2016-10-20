@@ -6,12 +6,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.16
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.17
+# REVISION DATE: OCTOBER 19 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 #
-# CHANGE LOG:  - Moved user agents to user_agents.txt
+# CHANGE LOG:  - Added --verison, --help, for loop for input arguments.
+#              - Moved user agents to user_agents.txt
 #              - Default to tor browser UA + Header with -r for randomization
 #              - Updated user agents
 #              - Added flag -e to switch between geoiplookup (default) and endware iplookup
@@ -48,26 +49,22 @@
 #      
 #  Run EndNode
 #  $  endnode 
-#  $  endnode -e 
-#  $  endnode -r 
-#  $  endnode -e -r
-#  $  endnode -r -e
+#  $  endnode --endlook  # use iplookup instead of geoiplookup 
+#  $  endnode --uarand   # use random user agent 
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -160,32 +157,59 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
-##  get input list from shell argument 
+##### Version information ######
+version="0.17"
+branch="gnu/linux"
+rev_date="19/10/2016"
+#####                     ######
 
-if [ "$1" == "-e" ]
-then
-lookup_tool="iplookup"
-elif [ "$2" == "-e" ]
-then
-lookup_tool="iplookup"
-else 
+##  get input list from shell argument
+## change this line for custom pathes/files to use for user agents 
+USERAGENTS="$HOME/bin/user_agents.txt"
+
 lookup_tool="geoiplookup"
+
+for arg in "$@"
+do
+
+if [ "$arg" == "--version" ]
+then
+echo "ENDNODE version: "$version" branch: "$branch" revised: "$rev_date" "
+echo "Copyright: The Endware Development Team, 2016"
+shift
+exit 0
+elif [ "$arg" == "--help" ]
+then
+echo "ENDNODE is a command line lookup tool for your current tor exit node"
+echo " "
+echo "Usage:"
+echo "endnode           # default operational mode"
+echo "endnode --uarand  # use a random user-agent durring lookup"
+echo "endnode --endlook # use endware iplookup tool "
+echo "endnode --version # print version information "
+echo "endnode --help    # print usage information  "
+shift 
+exit 0
 fi
 
-if [ "$1" == "-r" ]
+if [ "$arg" == "--endlook" ]
+then
+lookup_tool="iplookup"
+shift
+elif [ "$arg" == "--uarand" ]
 then 
 state="rand"
-elif [ "$2" == "-r" ]
-then 
-state="rand"
+shift
 fi
+done
 
 if [ "$state" == "rand" ]
 then
 # select random user agent
-UA=$( grep -v "#" $HOME/bin/user_agents.txt | shuf -n 1 )
+UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
 else 
-UA="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+# default to first line of user agents list
+UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 echo "$UA"		
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
