@@ -6,10 +6,11 @@
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # CREATION DATE: JUNE 3 2016
-# VERSION: 0.08 
-# REVISION DATE: AUGUST 25 2016
+# VERSION: 0.10 
+# REVISION DATE: OCTOBER 20 2016
 #
-# CHANGE LOG: - added -i flag for torsocks --isolate on main download
+# CHANGE LOG: - --version , --help, flags
+#             - added -i flag for torsocks --isolate on main download
 #             - Rewrote input argument section +flags --uarand --no-header --no-agent
 #             - reorganized input section added -nchk flag for --no-check-certificates
 #             - bug fix
@@ -37,24 +38,24 @@
 # $ safedown http://www.website.com/strange.pdf 
 # $ safedown --uarand http://www.website.com/strange.pdf 
 # $ safedown --no-header --no-agent http://www.website.com/strange.pdf 
+# $ safedown --version
+# $ safedown --help
 #   you may also add flags from wget after the endware flags
 ########################################################################################
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -74,8 +75,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.12 
-#  VERSION DATE: AUGUST 11, 2016
+#  VERSION: 1.13 
+#  VERSION DATE: OCTOBER 20, 2016
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
@@ -87,7 +88,7 @@
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
 #  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#        dignitary, ambassador, legislator, senator, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -147,6 +148,11 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #################################   BEGINNING OF PROGRAM   ############################################
+####  VERSION INFORMATION #######
+version="0.10"
+branch="gnu/linux"
+rev_date="20/10/2016"
+#################################
 
 ## edit this with your user_agents.txt file path
 USERAGENTS=$HOME/bin/user_agents.txt 
@@ -161,13 +167,26 @@ do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endcurl http://www.website.com/index.html"
- echo "USAGE: endcurl --uarand http://www.website.com/index.html"
- echo "USAGE: endcurl --help "
- echo "Type: curl --help for more options to add before the link"
+ echo "SAFEDOWN : download sensitive or hazardous unknown materials to /dev/shm for processing using tor,wget,firejail"
+ echo " "
+ echo "USAGE: "
+ echo " "
+ echo "safedown http://www.website.com/index.html"
+ echo "safedown --uarand http://www.website.com/index.html"
+ echo "safedown --help "
+ echo "safedown --version"  
+ echo " "
  echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
- echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ echo "safedown -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ echo "Type: wget --help for more options to add before the link"
+ shift
  exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo "SAFEDOWN: version: $version, branch: "$branch" , revision date: "$rev_date" "
+ echo "Copyright: The Endware Development Team, 2016"
+ shift
+ exit 0 
  elif [ "$arg" == "--uarand" ]
  then
  state="rand"
@@ -200,6 +219,11 @@ fi
 
 echo "$UA"
 
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+
 echo "Downloading "$link""
 echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
 
@@ -208,9 +232,8 @@ then
 echo "$UA"
  if [ "$headmode" == "on" ]
  then 
- HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
- # initate curl download +tor + random agent
- firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget --user-agent="$UA" --header="$HEAD" "$@" 
+	 # initate curl download +tor + random agent
+ firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" "$@" 
  else
  firejail --noprofile --protocol=inet --private-tmp --private-etc=resolv.conf --nogroups torsocks -i wget --user-agent="$UA" "$@" 
  fi

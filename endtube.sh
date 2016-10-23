@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.30
-# REVISION DATE: OCTOBER 8, 2016
+# VERSION: 0.31
+# REVISION DATE: OCTOBER 23, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - allow the last argument to be a url + --url flag
+# CHANGE LOG:  - Fix headers
+#              - allow the last argument to be a url + --url flag
 #              - minor fix to delay time, max_delay is now the maximum delay time.
 #              - added --native for native socks5 connection to tor router
 #              - replace --videolist with --list, allow youtube-dl flags by removing syntax checking 
@@ -209,9 +210,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.30"
+version="0.31"
 branch="gnu/linux"
-rev_date="08/10/2016"
+rev_date="08/23/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -334,8 +335,11 @@ check_tor=check_tor.tmp
 
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
-# define default header
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+# define default headers
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
 
 ## Assume final argument is a url and begin download
 if [ "$listmode" == "no" ]
@@ -353,9 +357,9 @@ then
   if [ "$enode" == "on" ] 
   then
     # check tor project ip
-    torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
-    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
-    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+    torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "HEAD4" https://check.torproject.org/ > $check_tor
+    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
+    torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
 
     exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
     echo "TOR exit node is "$exit_address" "
@@ -388,7 +392,7 @@ then
         if [ "$headmode" == "on" ]
         then
          # initiate download + tor + random UA + proxy
-         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$url"  
+         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4"  --proxy "$Prxy" "$@" "$url"  
         else 
          torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$url" 
         fi
@@ -405,9 +409,9 @@ then
          if [ "$headmode" == "on" ]
          then 
             # initate curl download +tor + random agent
-            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$url"  
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@" "$url"  
          else
-            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$url" 
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$@" "$url" 
          fi
        else 
             youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"  
@@ -419,9 +423,9 @@ then
          if [ "$headmode" == "on" ]
          then 
            # initate curl download +tor + random agent
-             torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$url"  
+             torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@" "$url"  
          else
-             torsocks -i youtube-dl --user-agent="$UA" "$@" "$url"  
+             torsocks -i youtube-dl --user-agent "$UA" "$@" "$url"  
          fi
        else 
              torsocks -i youtube-dl "$@" "$url"  
@@ -446,7 +450,7 @@ then
         if [ "$headmode" == "on" ]
         then
          # initiate download + tor + random UA + proxy
-         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@"   
+         torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" --proxy "$Prxy" "$@"   
         else 
          torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@"
         fi
@@ -463,9 +467,9 @@ then
          if [ "$headmode" == "on" ]
          then 
             # initate curl download +tor + random agent
-            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@"  
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@"  
          else
-            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@"
+            youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$@"
          fi
        else 
             youtube-dl --proxy socks5://127.0.0.1:9050 "$@"
@@ -477,9 +481,9 @@ then
          if [ "$headmode" == "on" ]
          then 
            # initate curl download +tor + random agent
-             torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@"  
+             torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@"  
          else
-             torsocks -i youtube-dl --user-agent="$UA" "$@"
+             torsocks -i youtube-dl --user-agent "$UA" "$@"
          fi
        else 
              torsocks -i youtube-dl "$@"
@@ -520,9 +524,9 @@ for link in $(cat "$list" ); do
   if [ "$enode" == "on" ] 
   then
   # check tor project ip
-  torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
-  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
-  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+  torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" https://check.torproject.org/ > $check_tor
+  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1"  --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
+  torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
 
   exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
   echo "TOR exit node is "$exit_address" "
@@ -553,7 +557,7 @@ for link in $(cat "$list" ); do
       if [ "$headmode" == "on" ]
       then
        # initiate download + tor + random UA + proxy
-       torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD" --proxy "$Prxy" "$@" "$link" 
+       torsocks -i youtube-dl --user-agent "$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" --proxy "$Prxy" "$@" "$link" 
       else 
        torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
       fi
@@ -570,7 +574,7 @@ for link in $(cat "$list" ); do
        if [ "$headmode" == "on" ]
        then 
         # initate curl download +tor + random agent
-        youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
+        youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@" "$link" 
        else
         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent="$UA" "$@" "$link" 
        fi
@@ -584,8 +588,8 @@ for link in $(cat "$list" ); do
       if [ "$headmode" == "on" ]
       then 
        # initate curl download +tor + random agent
-       torsocks -i youtube-dl --user-agent="$UA" --add-header="$HEAD" "$@" "$link" 
-      else
+       torsocks -i youtube-dl --user-agent="$UA" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$@" "$link" 
+    else
        torsocks -i youtube-dl --user-agent="$UA" "$@" "$link" 
       fi
      else 

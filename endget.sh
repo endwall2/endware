@@ -7,11 +7,12 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.16
-# REVISION DATE: AUGUST 25 2016
+# VERSION: 0.17
+# REVISION DATE: OCTOBER 23 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:  - torsocks -i --isolate on main download 
+# CHANGE LOG:  - Header bug fix
+#              - torsocks -i --isolate on main download 
 #              - Rewrite of input checking section, --uarand, --no-header, --no-agent flags
 #              - Added USERAGENTS path variable + default to first line of user_agents.txt
 #              - Moved user agents to user_agents.txt 
@@ -56,21 +57,19 @@
 #  $ endget --no-header --no-agent http://www.website.com/coolfile.tar  
 #  
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -163,7 +162,12 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################     BEGINNING OF PROGRAM      #####################################################################################
-##  get input list from shell argument 
+
+########  VERSION INFORMATION  ###################
+version="0.17"
+branch="gnu/linux"
+rev_date="23/10/2016"
+##################################################
 
 #change this to whatever path/file you what to use as your user agents file
 USERAGENTS=$HOME/bin/user_agents.txt 
@@ -172,6 +176,8 @@ headmode="on"
 uamode="on"
 state="normal"
 
+##  get input list from shell argument 
+
 nargs=$#
 
 for arg in $@
@@ -179,12 +185,21 @@ do
 
  if [ "$arg" == "--help" ]
  then
- echo "USAGE: endget http://www.website.com/index.html"
- echo "USAGE: endget --uarand http://www.website.com/index.html"
- echo "USAGE: endget --help "
+ echo "ENDGET: download files remotely using wget, tor, torsocks, random user-agents"
+ echo "endget http://www.website.com/index.html"
+ echo "endget --uarand http://www.website.com/index.html ## random user-agent"
+ echo "endget --help ## usage statements"
+ echo "endget --version ## version information"
  echo "Type: wget --help for more options to add before the link"
- echo " --user-agent, --header, -H, -A default to user cli input for -H and -A curl mode"
- echo " endcurl -A " " -H " " www.website.com is equivalent to torsocks curl website.com "
+ echo "endget --no-header --no-agent www.website.com  ## is equivalent to torsocks curl website.com "
+ echo "type wget --help for more options to add before the web link"
+ shift
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo "ENDGET: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
+ echo "Copyright: The Endware Development Team, 2016"
+ shift
  exit 0
  elif [ "$arg" == "--uarand" ]
  then
@@ -195,7 +210,7 @@ do
  then
  uamode="off"
  shift 
- elif [ "$arg" == "-no-header" ]
+ elif [ "$arg" == "--no-header" ]
  then
  headmode="off"
  shift  
@@ -214,6 +229,12 @@ UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+
 echo "$UA"
 
 echo "Downloading "$link""
@@ -224,9 +245,8 @@ then
 echo "$UA"
  if [ "$headmode" == "on" ]
  then 
- HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- torsocks -i wget --user-agent="$UA" --header="$HEAD" "$@" 
+ torsocks -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" "$@" 
  else
  torsocks -i wget --user-agent="$UA" "$@" 
  fi

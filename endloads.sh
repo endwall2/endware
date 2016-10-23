@@ -8,8 +8,8 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.23
-# REVISION DATE: AUGUST 25 2016
+# VERSION: 0.24
+# REVISION DATE: OCTOBER 23 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG:   - delay time bug fix + state code + --version
@@ -165,8 +165,8 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-version="0.23"
-rev_date="10/17/2016"
+version="0.24"
+rev_date="23/10/2016"
 branch="gnu/linux"
 
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -249,6 +249,12 @@ UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 
 HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+
 echo "$UA"
 
 # generate a random number time delay
@@ -260,9 +266,9 @@ sleep "$delay"
 if [ "$enode" == "on" ] 
 then
 # check tor project ip
-torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD" https://check.torproject.org/ > $check_tor
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png 
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico 
+torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" https://check.torproject.org/ > $check_tor
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
+torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
@@ -284,9 +290,8 @@ then
 echo "$UA"
  if [ "$headmode" == "on" ]
  then 
- HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
  # initate curl download +tor + random agent
- torsocks -i wget --user-agent="$UA" --header="$HEAD" "$link" 
+ torsocks -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" "$link" 
  else
  torsocks -i wget --user-agent="$UA" "$link" 
  fi

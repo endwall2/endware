@@ -188,7 +188,7 @@ echo "$UA"
 echo "Downloading SSL Proxies"
 
 cc="com"
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free" | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
 
 ## while loop to pick up country code
 cc=" "

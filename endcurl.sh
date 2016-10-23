@@ -6,11 +6,12 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE:   APRIL 9 2016
-# VERSION: 0.17
-# REVISION DATE: OCTOBER 3 2016
+# VERSION: 0.18
+# REVISION DATE: OCTOBER 23 2016
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016 
 # 
-# CHANGE LOG:  - Added --version and --native flags + fixed --help instructions
+# CHANGE LOG:  - Fixed headers
+#              - Added --version and --native flags + fixed --help instructions
 #              - torsocks -i --isolate flag on download
 #              - rewrote input argument checking with a for loop + set switches
 #              - add USERAGENTS path variable + default to first line of user_agents.txt
@@ -155,9 +156,9 @@
 #################################################################################################################################################################################
 
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
-version="0.17"
+version="0.18"
 branch="gnu/linux"
-rev_date="03/10/2016"
+rev_date="03/23/2016"
 
 ##  get input list from shell argument 
 
@@ -240,6 +241,13 @@ else
 UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi 
 
+HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+
 echo "Downloading "$link""
 echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" NATIVE="$native" "
 
@@ -252,9 +260,8 @@ then
  echo "$UA"
   if [ "$headmode" == "on" ]
   then 
-  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
   # initate curl download +tor + random agent
-  curl --socks5 127.0.0.1:9050 -A "$UA" -H "$HEAD" "$@" 
+  curl --socks5 127.0.0.1:9050 -A "$UA" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" "$@" 
   else
   curl --socks5 127.0.0.1:9050 -A "$UA" "$@" 
   fi
@@ -267,9 +274,8 @@ else
  echo "$UA"
   if [ "$headmode" == "on" ]
   then 
-  HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
   # initate curl download +tor + random agent
-  torsocks -i curl -A "$UA" -H "$HEAD" "$@" 
+  torsocks -i curl -A "$UA" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" "$@" 
   else
   torsocks -i curl -A "$UA" "$@" 
   fi
