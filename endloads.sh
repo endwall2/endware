@@ -306,5 +306,5 @@ done
 # sometimes the download cuts off so don't delete the file until its all done
 rm "$list"
 
-exit "$?" "$state_code"
+exit "$state_code"
 #########################################################        END OF PROGRAM         ######################################################################################
