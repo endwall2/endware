@@ -170,11 +170,12 @@ FetchHidServDescriptors 1
 FetchUselessDescriptors 1
 UseMicrodescriptors 1
 ClientRejectInternalAddresses 1
-ClientDNSRejectInternalAddresses 1
 UpdateBridgesFromAuthority 1
 
 ## 0 for round robin between circuits mode,
 CircuitPriorityHalflife 0
+
+#################################### DEPRECATED SWITCHES ###########################################
 
 ## Flagged for deprecation in tor-2.9.2.0
 # Tor2webMode 0
@@ -182,7 +183,9 @@ CircuitPriorityHalflife 0
 # AllowSingleHopCircuits 0
 # ExcludeSingleHopRelays 1
 # UseNTorHandshake 1
+# ClientDNSRejectInternalAddresses 1
 
+################################  SECURITY SWITCHES #################################################
 Sandbox 1
 ## Comment out to use transparent proxying/plugable transports 
 StrictNodes 1
