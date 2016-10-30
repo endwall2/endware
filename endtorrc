@@ -177,11 +177,11 @@ UpdateBridgesFromAuthority 1
 CircuitPriorityHalflife 0
 
 ## Flagged for deprecation in tor-2.9.2.0
-Tor2webMode 0
-FastFirstHopPK 0
-AllowSingleHopCircuits 0
-ExcludeSingleHopRelays 1
-UseNTorHandshake 1
+# Tor2webMode 0
+# FastFirstHopPK 0
+# AllowSingleHopCircuits 0
+# ExcludeSingleHopRelays 1
+# UseNTorHandshake 1
 
 Sandbox 1
 ## Comment out to use transparent proxying/plugable transports 
