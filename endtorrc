@@ -2,13 +2,16 @@
 # TITLE: ENDTORRC
 # AUTHOR: THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: MAY 31, 2016
-# VERSION: 0.11
-# REVISION DATE: JUL 21, 2016
+# VERSION: 0.13
+# REVISION DATE: OCTOBER 29, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPEMENT TEAM, 2016
 #
 # DESCRIPTION: A sample tor configuration file to use with endware
 #
-# CHANGE LOG: - Added {SM} to exit+entry nodes
+# CHANGE LOG: - SocksPort and Isolation flags
+#             - Removed deprecated listen address variable
+#             - Flagged and grouped deprecated variablesflags to comply with tor-2.9.2 warnings
+#             - Added {SM} to exit+entry nodes
 #             - Added {BH} to exclude + added ClientTransportPlugin lines to Bridges 
 #             - Added {PS},{VN},{KH},{LA} to exclude + added {KR},{JP},{CY} to exit
 #             - Removed {AT},{CH} double entry in exit nodes
@@ -157,24 +160,28 @@
 AutomapHostsOnResolve 1
 AutomapHostsSuffixes .exit, .onion
 FetchDirInfoEarly 1
-CircuitPriorityHalflife 0
-ExcludeSingleHopRelays 1
 ClientOnly 1
 GeoIPExcludeUnknown 1
 EnforceDistinctSubnets 1
 UseEntryGuards 1
 UseEntryGuardsAsDirGuards 1
-FastFirstHopPK 0
-AllowSingleHopCircuits 0
-Tor2webMode 0
 FetchServerDescriptors 1
 FetchHidServDescriptors 1
 FetchUselessDescriptors 1
-UseNTorHandshake 1
 UseMicrodescriptors 1
 ClientRejectInternalAddresses 1
 ClientDNSRejectInternalAddresses 1
 UpdateBridgesFromAuthority 1
+
+## 0 for round robin between circuits mode,
+CircuitPriorityHalflife 0
+
+## Flagged for deprecation in tor-2.9.2.0
+Tor2webMode 0
+FastFirstHopPK 0
+AllowSingleHopCircuits 0
+ExcludeSingleHopRelays 1
+UseNTorHandshake 1
 
 Sandbox 1
 ## Comment out to use transparent proxying/plugable transports 
@@ -186,14 +193,14 @@ StrictNodes 1
 ##Only works if starting tor as root
 ################################  DNS/TRANSPROXY/SOCKS LISTENERS  ##################################
 
-## Transparent Proxying 
-## Set Sandbox 0 or comment out Sandbox 1 to use
-#Transport 9040
-#TransListenAddress 127.0.0.1
+SocksPort 9050 IsolateDestPort IsolateDestAddr IsolateSOCKSAuth
 
 ## DNS Listening Port to resolve DNS via the tor network ( use with dnsmasq)
 DNSPort 9053
-DNSListenAddress 127.0.0.1
+
+## Transparent Proxying 
+## Set Sandbox 0 or comment out Sandbox 1 to use
+#Transport 9040
 
 ###################################################################################################
 #                                     VARIABLE CONFIGURATION
@@ -206,7 +213,7 @@ GuardLifetime 3 days
 
 KeepalivePeriod 60
 CircuitIdleTimeout 60
-CircuitBuildTimeout 20
+CircuitBuildTimeout 30
 CircuitStreamTimeout 60
 
 NewCircuitPeriod 15
