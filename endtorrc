@@ -193,7 +193,7 @@ StrictNodes 1
 ##Only works if starting tor as root
 ################################  DNS/TRANSPROXY/SOCKS LISTENERS  ##################################
 
-SocksPort 9050 IsolateDestPort IsolateDestAddr IsolateSOCKSAuth
+SocksPort 9050 IsolateDestPort IsolateDestAddr IsolateClientProtocol IsolateSOCKSAuth 
 
 ## DNS Listening Port to resolve DNS via the tor network ( use with dnsmasq)
 DNSPort 9053
@@ -209,7 +209,7 @@ DNSPort 9053
 
 NumEntryGuards 400
 NumDirectoryGuards 400
-GuardLifetime 3 days
+GuardLifetime 1 month
 
 KeepalivePeriod 60
 CircuitIdleTimeout 60
