@@ -6,12 +6,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.17
+# VERSION: 0.18
 # REVISION DATE: OCTOBER 19 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 #
-# CHANGE LOG:  - Added --verison, --help, for loop for input arguments.
+# CHANGE LOG:  - Fixed headers
+#              - Added --verison, --help, for loop for input arguments.
 #              - Moved user agents to user_agents.txt
 #              - Default to tor browser UA + Header with -r for randomization
 #              - Updated user agents
@@ -212,22 +213,24 @@ else
 UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 echo "$UA"		
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
 
 check_tor=check.tmp
 #check_tor=index.html
-# check tor project ip
-torsocks curl -m 30 -A "$UA" -H "$HEAD" https://check.torproject.org/ > $check_tor 
-#torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/
-torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.png
-torsocks wget -T 30 --user-agent="$UA" --header="$HEAD" https://check.torproject.org/torcheck/img/tor-on.ico
+#### check tor project ip
+torsocks curl -m 30 -A "$UA" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" https://check.torproject.org/ > $check_tor 
+#torsocks wget -T 30 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/
+torsocks wget -T 30 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png
+torsocks wget -T 30 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 "$lookup_tool" "$exit_address" 
 
 rm $check_tor
-#rm index.html
 rm tor-on.png
 rm tor-on.ico
 
