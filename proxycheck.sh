@@ -6,10 +6,11 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.15
-# REVISION DATE: AUGUST 22 2016
+# VERSION: 0.17
+# REVISION DATE: NOVEMBER 6 2016
 # 
-# CHANGE LOG:  - added -i torsocks --isolate flag
+# CHANGE LOG:  - --version --help + headers
+#              - added -i torsocks --isolate flag
 #              - user agent path into variable 
 #              - moved user agents to user_agents.txt
 #              - Bug fix + increase timeout to 180
@@ -56,21 +57,19 @@
 #  $ proxycheck ssl_proxies.txt  
 #  $ proxycheck socks_proxies.txt
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -163,21 +162,42 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
+version="0.17"
+branch="gnu/linux"
+rev_date="11/06/2016"
+
 ##  get input list from shell argument 
 USERAGENTS="$HOME/bin/user_agents.txt" 
 
-if [ "$#" == "2" ]
+
+for arg in $@
+do
+
+if [ "$arg" == "--version" ]
+then 
+echo "PROXYCHECK: version: "$version" , branch: "$branch" , revision date: "$rev_date" "
+echo "Copyright: The Endware Development Team, 2016"
+exit 0
+elif [ "$arg" == "--help" ]
 then
- if [ "$1" == "-r" ] 
+echo "PROXYCHECK: checks a list of proxies supplied by proxyload.sh by scraping a website"
+echo "USAGE:"
+echo "proxycheck ssl_proxies.txt   # check a list of ssl_proxies"
+echo "proxycheck socks_proxies.txt # check a list of socks5 proxies"
+echo "proxycheck --uarand  ssl_proxies.txt # use a randome user-agent"
+echo "proxycheck --version # display version information"
+echo "proxycheck --help    # display usage information"
+exit 0
+fi
+
+if [ "$arg" == "--uarand" ] 
  then
  state="rand"
- infile="$2"
-else
- infile="$1"
- fi
-else
-infile="$1"
 fi
+
+infile="$arg"
+
+done
 
 if [ "$infile" == ssl_proxies.txt ] ; then 
 holder_1=ssl_google.tmp
@@ -209,7 +229,10 @@ UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
 fi
 echo "$UA"
 
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
 
 ##generate a random number time delay
 delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 10 | awk '{print $1}')
@@ -221,10 +244,10 @@ if [ "$infile" == ssl_proxies.txt ] ; then
 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD" --proxy "$proxy"  https://www.google.com >> "$holder_1"
+torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -241,10 +264,10 @@ awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$hol
 elif [ "$infile" == socks_proxies.txt ] ; then 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
+torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 

@@ -4,12 +4,15 @@
 # TYPE: BOURNE SHELL SCRIPT
 # DESCRIPTION: Fetch fresh ssl and socks5 proxies for use with endtube.
 #
-# AUTHOR:  ENDWALL DEVELOPEMENT TEAM
+# AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 15 2016
-# VERSION: 0.10
-# REVISION DATE: AUGUST 27 2016
+# VERSION: 0.11
+# REVISION DATE: NOVEMBER 04 2016
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # 
-# CHANGE LOG:  - user agent path into variable 
+# CHANGE LOG:  - Headers, version info, --version flag
+#              - bug fix
+#              - user agent path into variable 
 #              - Moved user agents to user_agents.txt
 #              - Default to tor browser UA with -r flag for randomized UA + tor browser header + timeout
 #              - Updated user agents
@@ -49,21 +52,19 @@
 #  $ proxyload
 #  
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -156,6 +157,11 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
+### VERSION INFORMATION
+version="0.11"
+branch="gnu/linux"
+rev_date="04/11/2016"
+
 ## change this path to the user_agents.txt
 USERAGENTS="$HOME/bin/user_agents.txt"
 ## get input list from shell argument 
@@ -175,7 +181,26 @@ holder_1=temp_1.txt
 holder_2=temp_2.txt
 holder_3=temp_3.txt
 
-if [ "$1" == "-r" ]
+for arg in $@
+do
+
+if [ "$arg" == "--version" ]
+then
+echo "PROXYLOAD: version: "$version" , branch: "$branch" , revision date: "$rev_date" "
+echo "Copyright: The Endware Development Team, 2016"
+exit 0
+elif [ "$arg" == "--help" ]
+then
+echo "PROXYLOAD: retrieves a list of ssl and socks5 proxies and saves them to text lists"
+echo "USAGE: "  
+echo "proxyload           # regular mode download two lists of proxies ssl_proxies.txt socks5_proxies.txt"
+echo "proxyload --help    # print usage information"
+echo "proxyload --version # print verison information"
+echo "proxyload --uarand  # use a random user agent"
+exit 0
+fi
+
+if [ "$arg" == "--uarand" ]
 then
 #select random user agent
 UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
@@ -183,31 +208,36 @@ else
 UA=$( grep -v "#" "$USERAGENTS" | head -n 1 ) 
 fi
 
-HEAD="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\Accept-Language: en-US,en;q=0.5\Accept-Encoding: gzip, deflate\Connection: keep-alive"
+done
+
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
 echo "$UA"
 echo "Downloading SSL Proxies"
 
 cc="com"
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
 
 ## while loop to pick up country code
 cc=" "
 while [ "$cc" == " " ];do
-cc=$(torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
+cc=$(torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
 sleep 1
 done
 echo "Country Code is "$cc" "
 
 ## get the URLs hosting the proxy lists and parse
 
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
+torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
 
 cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 | sort -u > "$holder_2"
 
 echo "Downloading SSL Proxies"
 ## download the proxies then numeric sort and remove duplicates
 for link in $(cat "$holder_2") ; do
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
+torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
 done 
 
 sort -nu "$holder_3" >> ssl_proxies.txt
@@ -221,12 +251,12 @@ echo "Downloading Socks5 Proxies"
 
 ## get the URLs hosting the proxy lists and parse
 cc="net"
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$socks_site_rt"."$cc" | grep "VIP" | grep "html" | grep -v "title" > "$holder_1" 
+torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$socks_site_rt"."$cc" | grep "VIP" | grep "html" | grep -v "title" > "$holder_1" 
 cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 > "$holder_2"
 
 ## Download the proxies then numeric sort and remove duplicates
 for link in $(cat "$holder_2") ; do
-torsocks curl -m 60 -A "$UA" -H "$HEAD" "$socks_site_rt"."$link".html| grep -ah "[0123456789]:[123456789][0123456789]" >> "$holder_3"
+torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$socks_site_rt"."$link".html| grep -ah "[0123456789]:[123456789][0123456789]" >> "$holder_3"
 done 
 
 sort -nu "$holder_3" >> socks_proxies.txt
