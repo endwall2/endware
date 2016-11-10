@@ -6,12 +6,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.18
-# REVISION DATE: NOVEMBER 4 2016
+# VERSION: 0.19
+# REVISION DATE: NOVEMBER 8 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 #
-# CHANGE LOG:  - Fixed headers + gunzip unpack html + replace curl with wget
+# CHANGE LOG:  - wget + gunzip optimization
+#              - Fixed headers + gunzip unpack html + replace curl with wget
 #              - Added --verison, --help, for loop for input arguments.
 #              - Moved user agents to user_agents.txt
 #              - Default to tor browser UA + Header with -r for randomization
@@ -159,9 +160,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##### Version information ######
-version="0.18"
+version="0.19"
 branch="gnu/linux"
-rev_date="4/11/2016"
+rev_date="8/11/2016"
 #####                     ######
 
 ##  get input list from shell argument
@@ -221,21 +222,19 @@ HEAD4="Connection: keep-alive"
 check_tor=check.tmp
 #check_tor=index.html
 ### check tor project ip
-#torsocks curl -m 30 -A "$UA" -H "$HEAD1" -H "$HEAD2" https://check.torproject.org/ > $check_tor 
-torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/
 torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png
 torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico
 
-### prepare and unpack html
-cp index.html check.tmp.gz
-gunzip check.tmp.gz
+### unpack html
+
+gunzip "$check_tor".gz
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 "$lookup_tool" "$exit_address" 
 
 rm $check_tor
-rm index.html
 rm tor-on.png
 rm tor-on.ico
 

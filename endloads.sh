@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.24
-# REVISION DATE: OCTOBER 23 2016
+# VERSION: 0.25
+# REVISION DATE: NOVEMBER 8 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# CHANGE LOG:   - delay time bug fix + state code + --version
+# CHANGE LOG:   - exit node bug fix
+#               - delay time bug fix + state code + --version
 #               - torsocks -i --isolate flag on main download 
 #               - Rewrote input arguments section + added exit node pull option --exitnode, --uarand, --no-agent, --no-header, --help
 #               - USERAGENTS path variable 
@@ -165,8 +166,8 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-version="0.24"
-rev_date="23/10/2016"
+version="0.25"
+rev_date="08/11/2016"
 branch="gnu/linux"
 
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -178,7 +179,7 @@ state="normal"
 enode="off"
 
 min_delay=30
-max_delay=330
+max_delay=390
 
 for arg in $@
 do 
@@ -266,16 +267,21 @@ sleep "$delay"
 if [ "$enode" == "on" ] 
 then
 # check tor project ip
-torsocks curl -m 30 -A "$UA_torbrowser" -H "$HEAD1" -H "$HEAD2" -H "$HEAD3" -H "$HEAD4" https://check.torproject.org/ > $check_tor
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
-torsocks wget -T 30 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
+
+## decompress/unzip website
+gunzip "$check_tor".gz
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
 geoiplookup "$exit_address" 
+
 rm $check_tor
 rm tor-on.png
 rm tor-on.ico
+
 # generate a random number time delay
 delay=$( expr 5 + $(head -c 2 /dev/urandom | od -A n -i) % 30 | awk '{print $1}')
 echo "Delaying download for "$delay" seconds"
@@ -305,6 +311,6 @@ done
 
 # sometimes the download cuts off so don't delete the file until its all done
 rm "$list"
-
+date
 exit "$state_code"
 #########################################################        END OF PROGRAM         ######################################################################################
