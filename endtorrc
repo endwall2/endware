@@ -36,8 +36,8 @@
 #  or
 #  # rc-service tor start
 #
-#  # torsocks wget http://ix.io/Rwt 
-#  # mv Rwt torrc-defaults
+#  # torsocks wget https://github.com/endwall2/endware/raw/master/endtorrc 
+#  # mv endtorrc torrc-defaults
 #  # systemctl restart tor
 #  or
 #  # rc-service tor stop 
