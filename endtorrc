@@ -2,13 +2,14 @@
 # TITLE: ENDTORRC
 # AUTHOR: THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: MAY 31, 2016
-# VERSION: 0.13
-# REVISION DATE: OCTOBER 29, 2016
+# VERSION: 0.14
+# REVISION DATE: NOVEMBER 26, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPEMENT TEAM, 2016
 #
 # DESCRIPTION: A sample tor configuration file to use with endware
 #
-# CHANGE LOG: - SocksPort and Isolation flags
+# CHANGE LOG: - Added section for 9 EYES and 14 EYES country exclusion
+#             - SocksPort and Isolation flags
 #             - Removed deprecated listen address variable
 #             - Flagged and grouped deprecated variablesflags to comply with tor-2.9.2 warnings
 #             - Added {SM} to exit+entry nodes
@@ -223,10 +224,34 @@ NewCircuitPeriod 15
 MaxCircuitDirtiness 60
 PathsNeededToBuildCircuits 0.75
 
-ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
-ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
-EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
-ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+####################################################################################################
+#                                    NODE PATH SELECTION
+####################################################################################################
+## FIVE EYES ISOLATION
+#ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+#ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+
+## NINE EYES ISOLATION
+ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+EntryNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+ExitNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+
+## 14 EYES ISOLATION
+#ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{DE},{SE},{BE},{IT},{ES},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{DE},{SE},{BE},{IT},{ES},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#EntryNodes {AT},{CH},{PT},{SM},{VA},{IS},{GL},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+#ExitNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+
+## FIVE EYES ENTRY (BYPASS to use for geoip region locked data in FIVE EYES)
+#ExcludeNodes {??},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#ExcludeExitNodes {??},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+#EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+#ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+#ExitNodes {US},{CA},{GB},{AU},{NZ},{ZA},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+#ExitNodes {US},{CA},{GB},{AU},{NZ},{ZA},
 
 #######################################    BRIDGES    #########################################################
 ## To use bridges comment out EntryNodes and ExcludeNodes, and install obfsproxy  (apt-get install obfsproxy)
