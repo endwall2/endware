@@ -227,25 +227,31 @@ PathsNeededToBuildCircuits 0.75
 ####################################################################################################
 #                                    NODE PATH SELECTION
 ####################################################################################################
-## FIVE EYES ISOLATION
+
+#######################  CURRENT SETTING  ###########################################
+## NINE EYES Exclusion
+ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
+EntryNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
+ExitNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+##################################################################################
+
+######################## ALTERNATE SETTINGS ########################################
+# Uncomment and replace current setting     
+
+## FIVE EYES Exclusion
 #ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
 #ExitNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
 
-## NINE EYES ISOLATION
-ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
-ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
-EntryNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
-ExitNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
-
-## 14 EYES ISOLATION
+## 14 EYES Exlusion
 #ExcludeNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{DE},{SE},{BE},{IT},{ES},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #ExcludeExitNodes {??},{US},{CA},{GB},{AU},{NZ},{ZA},{DK},{NL},{FR},{NO},{DE},{SE},{BE},{IT},{ES},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #EntryNodes {AT},{CH},{PT},{SM},{VA},{IS},{GL},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
-#ExitNodes {DE},{AT},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{BE},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
+#ExitNodes {AT},{CH},{PT},{SM},{VA},{IS},{GL},{PL},{CZ},{AD},{MC},{LI},{MT},{GR},{CY},{FI},{RO},{HU},{SI},{SK},{MA},{DZ},{TN},{MD},{AL},{MK},{ME},{RS},{HR},{BG},{BA},{IN},{KR},{JP}
 
-## FIVE EYES ENTRY (BYPASS to use for geoip region locked data in FIVE EYES)
+## FIVE EYES Inclusion (BYPASS) (use for geoip region locked data in FIVE EYES)
 #ExcludeNodes {??},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #ExcludeExitNodes {??},{CN},{MN},{KP},{TW},{VN},{KH},{LA},{RU},{UA},{CU},{BY},{LT},{LV},{EE},{GE},{KZ},{UZ},{TJ},{IL},{PS},{IQ},{IR},{AF},{SA},{SY},{AM},{TR},{AZ},{LB},{JO},{EG},{LY},{AE},{YE},{KW},{BH},{KG},{OM},{QA},{TM},{PK},{SD},{SS},{ET},{SO},{ER}
 #EntryNodes {DE},{AT},{FR},{CH},{ES},{PT},{IT},{SM},{VA},{IS},{GL},{DK},{BE},{NL},{NO},{SE},{PL},{CZ},{AD},{MC},{LI},{MT},{GR}
