@@ -8,11 +8,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.34
-# REVISION DATE: DECEMBER 10, 2016
+# VERSION: 0.35
+# REVISION DATE: DECEMBER 11, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - fixed referer using json dump for youtube videos 
+# CHANGE LOG:  - referer protocol bug fix
+#              - Accept-Charset header ( not turnned on yet)
+#              - fixed referer using json dump for youtube videos 
 #              - added referer
 #              - --exitnode bug fix + gunzip unpack optimization
 #              - Fix headers
@@ -213,9 +215,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.34"
+version="0.35"
 branch="gnu/linux"
-rev_date="10/12/2016"
+rev_date="11/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -348,10 +350,12 @@ json_unpack=json.col
 # define the current tor browser user agent
 UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
 # define default headers
+
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 HEAD2="Accept-Language: en-US,en;q=0.5"
 HEAD3="Accept-Encoding: gzip, deflate"
 HEAD4="Connection: keep-alive"
+HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 
 ## Assume final argument is a url and begin download
 if [ "$listmode" == "no" ]
@@ -418,7 +422,9 @@ then
 
     uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
 
-    REF=""$uploader_url"/videos" 
+    uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+
+    REF=""$web_proto""$uploader_url_rt"/videos" 
     else
     REF=""$web_proto"//"$site_root""
     fi
@@ -540,9 +546,9 @@ then
     line_num=$( expr "$url_lnum" + 1 )
 
     uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
+    uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
 
-    REF=""$uploader_url"/videos" 
-
+    REF=""$web_proto""$uploader_url_rt"/videos" 
     else
     REF=""$web_proto"//"$site_root""
     fi
@@ -693,9 +699,9 @@ for link in $(cat "$list" ); do
   line_num=$( expr $url_lnum + 1 )
 
   uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
+  uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
 
-  REF=""$uploader_url"/videos" 
-
+  REF=""$web_proto""$uploader_url_rt"/videos" 
   else
   REF=""$web_proto"//"$site_root""
   fi
