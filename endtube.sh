@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.35
-# REVISION DATE: DECEMBER 11, 2016
+# VERSION: 0.36
+# REVISION DATE: DECEMBER 12, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - referer protocol bug fix
+# CHANGE LOG:  - referer bug fix for if pull fails ( default to site root) 
+#              - referer protocol bug fix
 #              - Accept-Charset header ( not turnned on yet)
 #              - fixed referer using json dump for youtube videos 
 #              - added referer
@@ -215,9 +216,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.35"
+version="0.36"
 branch="gnu/linux"
-rev_date="11/12/2016"
+rev_date="12/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -424,7 +425,16 @@ then
 
     uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
 
-    REF=""$web_proto""$uploader_url_rt"/videos" 
+      if [ uploader_url == " " ]
+      then
+      REF=""$web_proto"//"$site_root""
+      elif [ uploader_url == "null" ]
+      then
+      REF=""$web_proto"//"$site_root""
+      else
+      REF=""$web_proto""$uploader_url_rt"/videos" 
+      fi
+
     else
     REF=""$web_proto"//"$site_root""
     fi
@@ -548,7 +558,16 @@ then
     uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
     uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
 
-    REF=""$web_proto""$uploader_url_rt"/videos" 
+      if [ uploader_url == " " ]
+      then
+      REF=""$web_proto"//"$site_root""
+      elif [ uploader_url == "null" ]
+      then
+      REF=""$web_proto"//"$site_root""
+      else
+      REF=""$web_proto""$uploader_url_rt"/videos" 
+      fi
+
     else
     REF=""$web_proto"//"$site_root""
     fi
@@ -701,7 +720,15 @@ for link in $(cat "$list" ); do
   uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
   uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
 
-  REF=""$web_proto""$uploader_url_rt"/videos" 
+     if [ uploader_url == " " ]
+     then
+     REF=""$web_proto"//"$site_root""
+     elif [ uploader_url == "null" ]
+     then
+     REF=""$web_proto"//"$site_root""
+     else
+     REF=""$web_proto""$uploader_url_rt"/videos" 
+     fi
   else
   REF=""$web_proto"//"$site_root""
   fi
