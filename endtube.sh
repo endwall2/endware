@@ -3,16 +3,17 @@
 # NAME: endtube.sh
 # TYPE: BOURNE SHELL SCRIPT
 # DESCRIPTION: Downlods youtube video files from an input video url list
-#              and an input proxy url list, by randomizing lists and  
-#              anonymously using youtube-dl, torsocks, and the proxy
+#              and an input proxy url list, by randomizing lists, randomizing timing   
+#              and anonymously using youtube-dl, torsocks, and the proxy
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.37
-# REVISION DATE: DECEMBER 13, 2016
+# VERSION: 0.38
+# REVISION DATE: DECEMBER 16, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - While loop to ensure json downloads
+# CHANGE LOG:  - bug fix missing "$", + random delay between json download and actual download
+#              - While loop to ensure json downloads
 #              - Don't pull referer (video upload channel) if --no-refer + check if youtube (multi case switch)  
 #              - bug fix for "null" uploader id
 #              - referer bug fix for if pull fails ( default to site root) 
@@ -209,16 +210,16 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.37"
+version="0.38"
 branch="gnu/linux"
-rev_date="13/12/2016"
+rev_date="16/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
 
 # min delay max delay time between downloads
 min_delay=30
-max_delay=420
+max_delay=450
 
 ## initial flag switch states
 enode="off"
@@ -424,7 +425,7 @@ then
       then
       json_exists=1
       fi
-      sleep 3
+      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
@@ -439,10 +440,13 @@ then
       line_num=$( expr $url_lnum + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-        if [ uploader_url == " " ]
+        if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
         else
@@ -580,7 +584,7 @@ then
       then
       json_exists=1
       fi
-      sleep 3
+      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
@@ -589,16 +593,19 @@ then
       fnum="1"
       while [ $fnum -lt "$nfields" ]; do
       awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-      fnum=$( expr $fnum + 1 )
+      fnum=$( expr "$fnum" + 1 )
       done
       url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-      line_num=$( expr $url_lnum + 1 )
+      line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-        if [ uploader_url == " " ]
+        if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
         else
@@ -765,25 +772,28 @@ for link in $(cat "$list" ); do
       then
       json_exists=1
       fi
-      sleep 5
+      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
       nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
       ## while loop to unpack these into rows of a single column vector
       fnum="1"
-      while [ $fnum -lt "$nfields" ]; do
+      while [ "$fnum" -lt "$nfields" ]; do
       awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-      fnum=$( expr $fnum + 1 )
+      fnum=$( expr "$fnum" + 1 )
       done
       url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-      line_num=$( expr $url_lnum + 1 )
+      line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-        if [ uploader_url == " " ]
+        if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
         else
