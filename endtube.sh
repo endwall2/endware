@@ -8,13 +8,16 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.36
-# REVISION DATE: DECEMBER 12, 2016
+# VERSION: 0.37
+# REVISION DATE: DECEMBER 13, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - referer bug fix for if pull fails ( default to site root) 
+# CHANGE LOG:  - While loop to ensure json downloads
+#              - Don't pull referer (video upload channel) if --no-refer + check if youtube (multi case switch)  
+#              - bug fix for "null" uploader id
+#              - referer bug fix for if pull fails ( default to site root) 
 #              - referer protocol bug fix
-#              - Accept-Charset header ( not turnned on yet)
+#              - Accept-Charset header added ( not used yet)
 #              - fixed referer using json dump for youtube videos 
 #              - added referer
 #              - --exitnode bug fix + gunzip unpack optimization
@@ -24,28 +27,18 @@
 #              - added --native for native socks5 connection to tor router
 #              - replace --videolist with --list, allow youtube-dl flags by removing syntax checking 
 #              - --videolist flag replaces pickup last argument as the list
-#              - --version flag + bad syntax message. 
+#              - --version flag. 
 #              - use --isolate flag in torsocks -i 
 #              - rewrite of input variable switches, --uarand,--exitnode, --proxylist plist.txt, --no-header, --no-agent 
 #              - changed input variable order, ytlinks.txt is now always the last input + fixed stray rm bug
 #              - moved user agents to user_agent.txt
 #              - simplified proxy sort with shuf
-#              - added switches -e -er -re for exit node lookup default to no lookup 
-#              - use tor browser UA by default + -r flag for randomized UA + torbrowser header
 #              - use tor browser UA when checking tor exit node
 #              - geoiplookup on random proxy
-#              - bug fix
 #              - Added min_delay max_delay variables
 #              - Updated user agents
 #              - Updated Acknowledgements
 #              - Updated EULA
-#              - Added exit node address grab
-#              - Added a bunch of user-agents
-#              - Fixed some typos
-#              - Updated EULA
-#              - Fixed randomization of proxies 
-#              - Fixed instructions
-#
 ########################################################################################################################################
 # DEPENDENCIES: torsocks,youtube-dl,od,head,urandom,sleep,curl,geoiplookup,shuf
 ########################################################################################################################################
@@ -216,16 +209,16 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.36"
+version="0.37"
 branch="gnu/linux"
-rev_date="12/12/2016"
+rev_date="13/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
 
 # min delay max delay time between downloads
 min_delay=30
-max_delay=390
+max_delay=420
 
 ## initial flag switch states
 enode="off"
@@ -393,52 +386,73 @@ then
     sleep "$delay"
   fi 
 
-
   if [ "$urlmode" == "yes" ]
   then
   echo "Downloading "$url""
 
     site_root=$( echo "$url" | cut -d "/" -f 3 )
     web_proto=$( echo "$url" | cut -d "/" -f 1 )
-    REF=""$web_proto"//"$site_root""
-
+    
     if [ "$site_root" == "www.youtube.com" ]
-    then       
-
-    echo "Grabbing video uploader url" 
-    torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$url"  > "$json_dump"
-
-    ## get the number of : colon delimited fields
-    nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
-
-    ## while loop to unpack these into rows of a single column vector
-    fnum="1"
-    while [ $fnum -lt "$nfields" ]; do
-    awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-    fnum=$( expr $fnum + 1 )
-    done
-
-    url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-    line_num=$( expr $url_lnum + 1 )
-
-    uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
-
-    uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-
-      if [ uploader_url == " " ]
-      then
-      REF=""$web_proto"//"$site_root""
-      elif [ uploader_url == "null" ]
-      then
-      REF=""$web_proto"//"$site_root""
-      else
-      REF=""$web_proto""$uploader_url_rt"/videos" 
-      fi
-
-    else
-    REF=""$web_proto"//"$site_root""
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "youtube.com" ]
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "wwww.youtu.be" ]
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "youtu.be" ]
+    then 
+    youtube_site="yes"
+    else 
+    youtube_site="no"
     fi
+        
+    if [ "$refmode" == "on" ]
+    then 
+      if [ "$youtube_site" == "yes" ]
+      then            
+      REF=""$web_proto"//"$site_root""
 
+      json_exists=0
+      while [ "$json_exists" == "0" ]
+      do         
+      echo "Grabbing video uploader url" 
+      torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$url"  > "$json_dump"
+      if [ -f "$json_dump" ]  
+      then
+      json_exists=1
+      fi
+      sleep 3
+      done   
+
+      ## get the number of : colon delimited fields
+      nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
+      ## while loop to unpack these into rows of a single column vector
+      fnum="1"
+      while [ $fnum -lt "$nfields" ]; do
+      awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
+      fnum=$( expr $fnum + 1 )
+      done
+      url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
+      line_num=$( expr $url_lnum + 1 )
+      uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
+      uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+        if [ uploader_url == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        else
+        REF=""$web_proto""$uploader_url_rt"/videos" 
+        fi
+
+      else
+      REF=""$web_proto"//"$site_root""
+      fi
+    fi
     if [ "$proxies" == "on" ]
     then
     # randomly sort proxies and load the random proxy
@@ -534,45 +548,69 @@ then
     
     site_root=$( echo "$arghold" | cut -d "/" -f 3 )
     web_proto=$( echo "$arghold" | cut -d "/" -f 1 )
-  
+     
     if [ "$site_root" == "www.youtube.com" ]
-    then   
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "youtube.com" ]
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "wwww.youtu.be" ]
+    then 
+    youtube_site="yes"
+    elif [ "$site_root" == "youtu.be" ]
+    then 
+    youtube_site="yes"
+    else 
+    youtube_site="no"
+    fi   
 
-    REF=""$web_proto"//"$site_root""
-    echo "Grabbing video uploader url" 
-    torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$arghold"  > "$json_dump"
-
-    ## get the number of : colon delimited fields
-    nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
-
-    ## while loop to unpack these into rows of a single column vector
-    fnum="1"
-    while [ $fnum -lt "$nfields" ]; do
-    awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-    fnum=$( expr $fnum + 1 )
-    done
-
-    url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-    line_num=$( expr "$url_lnum" + 1 )
-
-    uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
-    uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-
-      if [ uploader_url == " " ]
-      then
+   if [ "$refmode" == "on" ]
+   then 
+      if [ "$youtube_site" == "yes" ]
+      then       
       REF=""$web_proto"//"$site_root""
-      elif [ uploader_url == "null" ]
+      echo "Grabbing video uploader url" 
+
+      json_exists=0
+      while [ "$json_exists" == "0" ]
+      do         
+      torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$arghold"  > "$json_dump"
+      if [ -f "$json_dump" ]  
       then
-      REF=""$web_proto"//"$site_root""
-      else
-      REF=""$web_proto""$uploader_url_rt"/videos" 
+      json_exists=1
       fi
+      sleep 3
+      done   
 
-    else
-    REF=""$web_proto"//"$site_root""
-    fi
+      ## get the number of : colon delimited fields
+      nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
+      ## while loop to unpack these into rows of a single column vector
+      fnum="1"
+      while [ $fnum -lt "$nfields" ]; do
+      awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
+      fnum=$( expr $fnum + 1 )
+      done
+      url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
+      line_num=$( expr $url_lnum + 1 )
+      uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
+      uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+        if [ uploader_url == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        else
+        REF=""$web_proto""$uploader_url_rt"/videos" 
+        fi
 
-    if [ "$proxies" == "on" ]
+     else
+     REF=""$web_proto"//"$site_root""
+     fi
+   fi
+  
+   if [ "$proxies" == "on" ]
     then
      # randomly sort proxies and load the random proxy
      Prxy=$( shuf -n 1 "$Punsort" )
@@ -682,6 +720,21 @@ for link in $(cat "$list" ); do
   site_root=$( echo "$link" | cut -d "/" -f 3 )
   web_proto=$( echo "$link" | cut -d "/" -f 1 )
 
+  if [ "$site_root" == "www.youtube.com" ]
+  then 
+  youtube_site="yes"
+  elif [ "$site_root" == "youtube.com" ]
+  then 
+  youtube_site="yes"
+  elif [ "$site_root" == "wwww.youtu.be" ]
+  then 
+  youtube_site="yes"
+  elif [ "$site_root" == "youtu.be" ]
+  then 
+  youtube_site="yes"
+  else 
+  youtube_site="no"
+  fi   
 
   if [ "$state" == "rand" ]
   then 
@@ -697,41 +750,50 @@ for link in $(cat "$list" ); do
   # wait by delay time
   sleep "$delay"
 
-  if [ "$site_root" == "www.youtube.com" ]
-  then   
-  REF=""$web_proto"//"$site_root""
+   if [ "$refmode" == "on" ]
+   then 
+      if [ "$youtube_site" == "yes" ]
+      then       
+      REF=""$web_proto"//"$site_root""
+      echo "Grabbing video uploader url" 
 
-  echo "Grabbing video uploader url" 
+      json_exists=0
+      while [ "$json_exists" == "0" ]
+      do         
+      torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$link"  > "$json_dump"
+      if [ -f "$json_dump" ]  
+      then
+      json_exists=1
+      fi
+      sleep 5
+      done   
 
-  torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$link"  > "$json_dump"
+      ## get the number of : colon delimited fields
+      nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
+      ## while loop to unpack these into rows of a single column vector
+      fnum="1"
+      while [ $fnum -lt "$nfields" ]; do
+      awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
+      fnum=$( expr $fnum + 1 )
+      done
+      url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
+      line_num=$( expr $url_lnum + 1 )
+      uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
+      uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+        if [ uploader_url == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "null" ]
+        then
+        REF=""$web_proto"//"$site_root""
+        else
+        REF=""$web_proto""$uploader_url_rt"/videos" 
+        fi
 
-  ## get the number of : colon delimited fields
-  nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
-  ## while loop to unpack these into rows of a single column vector
-  fnum="1"
-  while [ $fnum -lt "$nfields" ]; do
-  awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-  fnum=$( expr $fnum + 1 )
-  done
-
-  url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-  line_num=$( expr $url_lnum + 1 )
-
-  uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
-  uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
-
-     if [ uploader_url == " " ]
-     then
-     REF=""$web_proto"//"$site_root""
-     elif [ uploader_url == "null" ]
-     then
-     REF=""$web_proto"//"$site_root""
      else
-     REF=""$web_proto""$uploader_url_rt"/videos" 
+     REF=""$web_proto"//"$site_root""
      fi
-  else
-  REF=""$web_proto"//"$site_root""
-  fi
+   fi
 
   if [ "$enode" == "on" ] 
   then
