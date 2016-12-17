@@ -443,6 +443,9 @@ then
         if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
         then
         REF=""$web_proto"//"$site_root""
@@ -600,6 +603,9 @@ then
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
         if [ "$uploader_url" == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == " " ]
         then
         REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
@@ -788,6 +794,9 @@ for link in $(cat "$list" ); do
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
         if [ "$uploader_url" == " " ]
+        then
+        REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == " " ]
         then
         REF=""$web_proto"//"$site_root""
         elif [ "$uploader_url_rt" == "null" ]
