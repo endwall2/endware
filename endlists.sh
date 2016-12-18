@@ -5,15 +5,16 @@
 # Program: endlists.sh
 # Type: Bourne shell script
 # Creation Date: February 14, 2016
-# Current Version: 1.23  Aug 11 2016
-# Stable Version:  1.22, Jul 9 2016
+# Current Version: 1.24  December 18 2016
+# Stable Version:  1.23, August 11 2016
 # Author: The Endware Development Team
 # Copyright: The Endware Development Team 2016
 #
 ####################################################################################
 # Description:  Traditional iptables list based blacklisting 
 #
-# Changes:  - Loop over interfaces + abstract rule insertion point $insert, $insert6
+# Changes:  - Add --version --help 
+#           - Loop over interfaces + abstract rule insertion point $insert, $insert6
 #           - Updated Acknowledgements
 #           - Rewrite with shell functions
 #           - Updated EULA
@@ -206,6 +207,38 @@
 #################################################################################################################
 #                           GLOBAL VARIABLES
 ################################################################################################
+# version information
+version="1.24"
+branch="gnu/linux"
+rev_date="17/12/2016"
+
+##  get input list from shell argument 
+for arg in $@
+do 
+
+if [ "$arg" == "--help" ]
+ then
+ echo "ENDLISTS: traditional iptables based text list blacklisting and whitlisting"
+ echo " "
+ echo "USAGE:  ./endlists.sh --option " 
+ echo "./endlists --help    ## print usage information"
+ echo "./endlists --version ## print version information"
+ echo "./endlists    ## default mode downloads videos in list.txt"
+ echo " "
+ shift 
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo "ENDLISTS: version "$version", branch: "$branch", revision date: "$rev_date" "
+ echo "Copyright: 2016, THE ENDWARE DEVELOPMENT TEAM" 
+ shift
+ exit 0
+ fi  
+
+arghold="$arg"
+ 
+done
+
 iptables=/sbin/iptables
 ip6tables=/sbin/ip6tables
 

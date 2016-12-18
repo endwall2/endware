@@ -3,10 +3,10 @@
 # Program: endsets.sh
 # Type: Bourne shell script
 # Creation Date: February 12, 2016
-# Current Version: 1.27
-# Revision Date: July 11 2016
-# Stable Version: 1.26
-# Stable Version Date: July 09 2016
+# Current Version: 1.29
+# Revision Date: December 18 2016
+# Stable Version: 1.28
+# Stable Version Date: July 11 2016
 # Author: The Endware Development Team 
 # Copyright: The Endware Development Team, 2016
 #
@@ -244,6 +244,38 @@
 ######################################################################################################
 #                           GLOBAL VARIABLES
 #######################################################################################################
+# version information
+version="1.29"
+branch="gnu/linux"
+rev_date="17/12/2016"
+
+##  get input list from shell argument 
+for arg in $@
+do 
+
+if [ "$arg" == "--help" ]
+ then
+ echo "ENDSETS: traditional iptables based text list blacklisting and whitlisting"
+ echo " "
+ echo "USAGE:  ./endsets.sh --option " 
+ echo "./endsets --help    ## print usage information"
+ echo "./endsets --version ## print version information"
+ echo "./endsets    ## default mode downloads videos in list.txt"
+ echo " "
+ shift 
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo "ENDSETS: version "$version", branch: "$branch", revision date: "$rev_date" "
+ echo "Copyright: 2016, THE ENDWARE DEVELOPMENT TEAM" 
+ shift
+ exit 0
+ fi  
+
+arghold="$arg"
+ 
+done
+
 iptables=/sbin/iptables
 ip6tables=/sbin/ip6tables
 
