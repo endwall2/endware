@@ -8,11 +8,11 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.38
+# VERSION: 0.38a
 # REVISION DATE: DECEMBER 16, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - bug fix missing "$", + random delay between json download and actual download
+# CHANGE LOG:  - bug fix missing "$", + random delay between json download and actual download + bug fix rm json 
 #              - While loop to ensure json downloads
 #              - Don't pull referer (video upload channel) if --no-refer + check if youtube (multi case switch)  
 #              - bug fix for "null" uploader id
@@ -210,9 +210,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.38"
+version="0.38a"
 branch="gnu/linux"
-rev_date="16/12/2016"
+rev_date="17/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -421,10 +421,10 @@ then
       do         
       echo "Grabbing video uploader url" 
       torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$url"  > "$json_dump"
-      if [ -f "$json_dump" ]  
-      then
-      json_exists=1
-      fi
+        if [ -f "$json_dump" ]  
+        then
+        json_exists=1
+        fi
       sleep $( expr 3 + $( expr $RANDOM % 15 ) )
       done   
 
@@ -455,7 +455,9 @@ then
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
-
+     
+      rm "$json_dump" 
+      rm "$json_unpack" 
       else
       REF=""$web_proto"//"$site_root""
       fi
@@ -574,8 +576,8 @@ then
 
    if [ "$refmode" == "on" ]
    then 
-      if [ "$youtube_site" == "yes" ]
-      then       
+     if [ "$youtube_site" == "yes" ]
+     then       
       REF=""$web_proto"//"$site_root""
       echo "Grabbing video uploader url" 
 
@@ -583,10 +585,10 @@ then
       while [ "$json_exists" == "0" ]
       do         
       torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$arghold"  > "$json_dump"
-      if [ -f "$json_dump" ]  
-      then
-      json_exists=1
-      fi
+        if [ -f "$json_dump" ]  
+        then
+        json_exists=1
+        fi
       sleep $( expr 3 + $( expr $RANDOM % 15 ) )
       done   
 
@@ -595,8 +597,8 @@ then
       ## while loop to unpack these into rows of a single column vector
       fnum="1"
       while [ $fnum -lt "$nfields" ]; do
-      awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-      fnum=$( expr "$fnum" + 1 )
+       awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
+       fnum=$( expr "$fnum" + 1 )
       done
       url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
       line_num=$( expr "$url_lnum" + 1 )
@@ -618,9 +620,12 @@ then
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
 
+
+     rm "$json_dump" 
+     rm "$json_unpack" 
      else
      REF=""$web_proto"//"$site_root""
-     fi
+    fi
    fi
   
    if [ "$proxies" == "on" ]
@@ -715,9 +720,7 @@ then
   fi
  date
 
- rm "$json_dump" 
- rm "$json_unpack"
- exit "$?"
+exit "$?"
  
 else
 
@@ -808,7 +811,8 @@ for link in $(cat "$list" ); do
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
-
+     rm "$json_dump" 
+     rm "$json_unpack" 
      else
      REF=""$web_proto"//"$site_root""
      fi
@@ -932,7 +936,6 @@ for link in $(cat "$list" ); do
   fi
 date
 
-rm "$json_unpack"
 done
 # sometimes the download cuts off so don't delete the file until its all done
 mv "$list" "$Lunsort"
