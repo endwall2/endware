@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.38a
-# REVISION DATE: DECEMBER 16, 2016
+# VERSION: 0.39
+# REVISION DATE: DECEMBER 20, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - bug fix missing "$", + random delay between json download and actual download + bug fix rm json 
+# CHANGE LOG:  - test -s to check json filesize after download + quotations on variables
+#              - bug fix missing "$", + random delay between json download and actual download + bug fix rm json 
 #              - While loop to ensure json downloads
 #              - Don't pull referer (video upload channel) if --no-refer + check if youtube (multi case switch)  
 #              - bug fix for "null" uploader id
@@ -210,9 +211,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.38a"
+version="0.39"
 branch="gnu/linux"
-rev_date="17/12/2016"
+rev_date="20/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -432,7 +433,7 @@ then
       nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
       ## while loop to unpack these into rows of a single column vector
       fnum="1"
-      while [ $fnum -lt "$nfields" ]; do
+      while [ "$fnum" -lt "$nfields" ]; do
       awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
       fnum=$( expr "$fnum" + 1 )
       done
@@ -440,6 +441,7 @@ then
       line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+      echo "$uploader_url"
         if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
@@ -452,6 +454,15 @@ then
         elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`" ]
+        then
+        REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
@@ -604,6 +615,7 @@ then
       line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+      echo "$uploader_url"
         if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
@@ -616,10 +628,18 @@ then
         elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`" ]
+        then
+        REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
-
 
      rm "$json_dump" 
      rm "$json_unpack" 
@@ -796,6 +816,7 @@ for link in $(cat "$list" ); do
       line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
+      echo "$uploader_url"
         if [ "$uploader_url" == " " ]
         then
         REF=""$web_proto"//"$site_root""
@@ -808,6 +829,15 @@ for link in $(cat "$list" ); do
         elif [ "$uploader_url_rt" == "{}" ]
         then
         REF=""$web_proto"//"$site_root""
+        elif [ "$uploader_url_rt" == "\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`\'" ]
+        then
+        REF=""$web_proto"//"$site_root""       
+        elif [ "$uploader_url_rt" == "\`" ]
+        then
+        REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
         fi
