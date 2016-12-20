@@ -421,11 +421,11 @@ then
       do         
       echo "Grabbing video uploader url" 
       torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$url"  > "$json_dump"
-        if [ -f "$json_dump" ]  
+        if [ -s "$json_dump" ]  
         then
         json_exists=1
         fi
-      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
+      sleep $( expr 3 + $( expr "$RANDOM" % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
@@ -434,10 +434,10 @@ then
       fnum="1"
       while [ $fnum -lt "$nfields" ]; do
       awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
-      fnum=$( expr $fnum + 1 )
+      fnum=$( expr "$fnum" + 1 )
       done
       url_lnum=$(grep -n "uploader_url" "$json_unpack" | cut -d : -f 1)
-      line_num=$( expr $url_lnum + 1 )
+      line_num=$( expr "$url_lnum" + 1 )
       uploader_url=$(head -n "$line_num" "$json_unpack" | tail -n 1 | cut -d , -f 1 | cut -d \" -f 2)
       uploader_url_rt=$( echo "$uploader_url" | cut -d ":" -f 2 ) 
         if [ "$uploader_url" == " " ]
@@ -585,18 +585,18 @@ then
       while [ "$json_exists" == "0" ]
       do         
       torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$arghold"  > "$json_dump"
-        if [ -f "$json_dump" ]  
+        if [ -s "$json_dump" ]  
         then
         json_exists=1
         fi
-      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
+      sleep $( expr 3 + $( expr "$RANDOM" % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
       nfields=$(  awk ' BEGIN { FS=": " } { print NF} ' "$json_dump" )
       ## while loop to unpack these into rows of a single column vector
       fnum="1"
-      while [ $fnum -lt "$nfields" ]; do
+      while [ "$fnum" -lt "$nfields" ]; do
        awk -v var="$fnum" ' BEGIN { FS=": " } { print $var} ' "$json_dump" >> "$json_unpack"
        fnum=$( expr "$fnum" + 1 )
       done
@@ -777,11 +777,11 @@ for link in $(cat "$list" ); do
       while [ "$json_exists" == "0" ]
       do         
       torsocks -i youtube-dl -j --user-agent "$UA" --referer "$REF" --add-header "$HEAD1" --add-header "$HEAD2" --add-header "$HEAD3" --add-header "$HEAD4" "$link"  > "$json_dump"
-      if [ -f "$json_dump" ]  
+      if [ -s "$json_dump" ]  
       then
       json_exists=1
       fi
-      sleep $( expr 3 + $( expr $RANDOM % 15 ) )
+      sleep $( expr 3 + $( expr "$RANDOM" % 15 ) )
       done   
 
       ## get the number of : colon delimited fields
