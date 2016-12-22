@@ -12,7 +12,7 @@
 # REVISION DATE: DECEMBER 21, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - collect referers from grab process into $REFERERS
+# CHANGE LOG:  - collect referers from grab process into $REFERERS + update --help
 #              - revert to site root as default referer + --grab-refer, --rand-refer, --ranstr-refer options
 #              - bug fix rm $proxies 
 #              - test -s to check json filesize after download + quotations on variables
@@ -103,6 +103,9 @@
 #  $  endtube --uarand --exitnode --proxylist proxies.txt --list ytinks.txt
 #  $  endtube --proxylist proxies --url http://www.youtu.be/aa3gagacJGe
 #  $  endtube --grab-refer --list ytlinks   # grab the video uploader channel as referer
+#  $  endtube --no-refer --list ytlinks   # no referer string
+#  $  endtube --ranstr-refer --list ytlinks   # website based on random string as referer
+#  $  endtube --rand-refer --list ytlinks   # referer random selected from $REFERERS as referer
 #  $  endtube --help
 #  $  endtube --version 
 #
@@ -278,6 +281,8 @@ do
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --no-refer --list list.txt  # deactivate referer url "
  echo "endtube --grab-refer --list list.txt  # fetch video uploader channel url as referer url, default is site root"
+ echo "endtube --ranstr-refer --list list.txt # use a random string website as referer url, default is site root"
+ echo "endtube --rand-refer --list list.txt # use a random referer from $REFERERS as referer url, default is site root"
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
  echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url"
