@@ -8,11 +8,14 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.39
-# REVISION DATE: DECEMBER 20, 2016
+# VERSION: 0.40
+# REVISION DATE: DECEMBER 21, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - test -s to check json filesize after download + quotations on variables
+# CHANGE LOG:  - collect referers from grab process into $REFERERS
+#              - revert to site root as default referer + --grab-refer, --rand-refer, --ranstr-refer options
+#              - bug fix rm $proxies 
+#              - test -s to check json filesize after download + quotations on variables
 #              - bug fix missing "$", + random delay between json download and actual download + bug fix rm json 
 #              - While loop to ensure json downloads
 #              - Don't pull referer (video upload channel) if --no-refer + check if youtube (multi case switch)  
@@ -99,6 +102,7 @@
 #  $  endtube --exitnode --uarand --proxylist proxies.txt --list ytinks.txt 
 #  $  endtube --uarand --exitnode --proxylist proxies.txt --list ytinks.txt
 #  $  endtube --proxylist proxies --url http://www.youtu.be/aa3gagacJGe
+#  $  endtube --grab-refer --list ytlinks   # grab the video uploader channel as referer
 #  $  endtube --help
 #  $  endtube --version 
 #
@@ -211,12 +215,13 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.39"
+version="0.40"
 branch="gnu/linux"
-rev_date="20/12/2016"
+rev_date="21/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
+REFERERS="$HOME/bin/referers.txt"
 
 # min delay max delay time between downloads
 min_delay=30
@@ -228,6 +233,7 @@ state="off"
 headmode="on"
 uamode="on"
 refmode="on"
+reftype="root"
 state="normal"
 syntax="check" 
 native="off"
@@ -271,6 +277,7 @@ do
  echo "endtube --no-agent --list list.txt  # deactivate user-agent "
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --no-refer --list list.txt  # deactivate referer url "
+ echo "endtube --grab-refer --list list.txt  # fetch video uploader channel url as referer url, default is site root"
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
  echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url"
@@ -304,6 +311,24 @@ do
  elif [ "$arg" == "--no-refer" ]
  then
  refmode="off"
+ syntax="good"
+ shift 
+ elif [ "$arg" == "--grab-refer" ]
+ then
+ refmode="on"
+ reftype="grab"
+ syntax="good"
+ shift 
+ elif [ "$arg" == "--rand-refer" ]
+ then
+ refmode="on"
+ reftype="rand"
+ syntax="good"
+ shift 
+ elif [ "$arg" == "--ranstr-refer" ]
+ then
+ refmode="on"
+ reftype="ranstr"
  syntax="good"
  shift 
  elif [ "$arg" == "--exitnode" ]
@@ -411,8 +436,36 @@ then
     youtube_site="no"
     fi
         
-    if [ "$refmode" == "on" ]
+   if [ "$refmode" == "on" ]
     then 
+     if [ "$reftype" == "root" ]
+     then
+     REF=""$web_proto"//"$site_root""
+     elif [ "$reftype" == "rand" ]
+     then 
+     REF="$( grep -v "#" "$REFERERS" | shuf -n 1 )"
+     elif [ "$reftype" == "ranstr" ]
+     then 
+     RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     REF="https://www."$RANSTR1".com/"$RANSTR2".html" 
+
+     elif [ "$reftype" == "grab" ]
+     then 
       if [ "$youtube_site" == "yes" ]
       then            
       REF=""$web_proto"//"$site_root""
@@ -465,6 +518,7 @@ then
         REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
+        echo "$REF" >> "$REFERERS"
         fi
      
       rm "$json_dump" 
@@ -472,7 +526,12 @@ then
       else
       REF=""$web_proto"//"$site_root""
       fi
+    else 
+    REF=""$web_proto"//"$site_root""  
     fi
+   fi
+  
+
     if [ "$proxies" == "on" ]
     then
     # randomly sort proxies and load the random proxy
@@ -505,7 +564,6 @@ then
       else  
         torsocks -i youtube-dl --proxy "$Prxy" "$@" "$url"
       fi
-     rm $proxies
     else
       if [ "$native" == "on" ]
       then
@@ -587,6 +645,33 @@ then
 
    if [ "$refmode" == "on" ]
    then 
+    if [ "$reftype" == "root" ]
+    then
+    REF=""$web_proto"//"$site_root""
+    elif [ "$reftype" == "rand" ]
+    then 
+    REF=$( grep -v "#" "$REFERERS" | shuf -n 1 )
+    elif [ "$reftype" == "ranstr" ]
+    then 
+     RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     REF="https://www."$RANSTR1".com/"$RANSTR2".html" 
+    elif [ "$reftype" == "grab" ]
+    then 
      if [ "$youtube_site" == "yes" ]
      then       
       REF=""$web_proto"//"$site_root""
@@ -639,6 +724,7 @@ then
         REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
+        echo "$REF" >> "$REFERERS"
         fi
 
      rm "$json_dump" 
@@ -646,8 +732,10 @@ then
      else
      REF=""$web_proto"//"$site_root""
     fi
+    else
+    REF=""$web_proto"//"$site_root""
    fi
-  
+  fi  
    if [ "$proxies" == "on" ]
     then
      # randomly sort proxies and load the random proxy
@@ -680,7 +768,6 @@ then
       else
       torsocks -i youtube-dl --proxy "$Prxy" "$@"
       fi
-      rm $proxies
     else
      if [ "$native" == "on" ]
      then
@@ -788,6 +875,33 @@ for link in $(cat "$list" ); do
 
    if [ "$refmode" == "on" ]
    then 
+    if [ "$reftype" == "root" ]
+    then
+    REF=""$web_proto"//"$site_root""
+    elif [ "$reftype" == "rand" ]
+    then 
+    REF=$( grep -v "#" "$REFERERS" | shuf -n 1 )
+    elif [ "$reftype" == "ranstr" ]
+    then 
+     RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR1="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      if [ "$RANSTR1" == " " ]
+      then 
+      while [ "$RANSTR1" == " " ]
+      do
+      RANSTR2="$( head -c 12 /dev/urandom | base64 -i | cut -d "/" -f 1 | cut -d "+" -f 1 )"
+      done 
+      fi
+     REF="https://www."$RANSTR1".com/"$RANSTR2".html" 
+    elif [ "$reftype" == "grab" ]
+    then 
       if [ "$youtube_site" == "yes" ]
       then       
       REF=""$web_proto"//"$site_root""
@@ -840,14 +954,17 @@ for link in $(cat "$list" ); do
         REF=""$web_proto"//"$site_root""       
         else
         REF=""$web_proto""$uploader_url_rt"/videos" 
+        echo "$REF" >> "$REFERERS"
         fi
      rm "$json_dump" 
      rm "$json_unpack" 
      else
      REF=""$web_proto"//"$site_root""
      fi
+     else
+     REF=""$web_proto"//"$site_root""
+    fi
    fi
-
   if [ "$enode" == "on" ] 
   then
   # check tor project ip
@@ -906,7 +1023,6 @@ for link in $(cat "$list" ); do
     else 
      torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
     fi
-    rm $proxies
   else
    if [ "$native" == "on" ]
    then
@@ -970,6 +1086,5 @@ done
 # sometimes the download cuts off so don't delete the file until its all done
 mv "$list" "$Lunsort"
 fi
-rm "$json_dump"
 exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################
