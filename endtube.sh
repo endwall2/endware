@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.40
-# REVISION DATE: DECEMBER 21, 2016
+# VERSION: 0.41
+# REVISION DATE: DECEMBER 28, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - collect referers from grab process into $REFERERS + update --help
+# CHANGE LOG:  - turn off automatic rerferer mode if --referer option is called
+#              - collect referers from grab process into $REFERERS + update --help
 #              - revert to site root as default referer + --grab-refer, --rand-refer, --ranstr-refer options
 #              - bug fix rm $proxies 
 #              - test -s to check json filesize after download + quotations on variables
@@ -218,9 +219,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.40"
+version="0.41"
 branch="gnu/linux"
-rev_date="21/12/2016"
+rev_date="28/12/2016"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -318,6 +319,10 @@ do
  refmode="off"
  syntax="good"
  shift 
+ elif [ "$arg" == "--referer" ]
+ then
+ refmode="off"
+ syntax="good"
  elif [ "$arg" == "--grab-refer" ]
  then
  refmode="on"
