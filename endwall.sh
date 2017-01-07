@@ -6,12 +6,13 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: wired
-# Current Version: 1.37  Sept 21 2016
-# Stable Version:  1.34, Aug 9 2016
+# Current Version: 1.38  January 07, 2017
+# Stable Version:  1.37, September 21, 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
-# Changes:     - Added --version flag, updated acknowledgements
+# Changes:     - fixed unfinished call to --open in code (bug fix)
+#              - Added --version flag, updated acknowledgements
 #              - Bug fixes
 #              - Loop over interfaces check that ip is picked up
 #              - Added -o flag for open, to disable the firewall 
@@ -59,8 +60,8 @@
 # # ./endsets.sh                    # Requires ipset, loads advanced kernel packet filtering blacklists
 #
 #
-#  If the firewall fails (bad interface pickup or bad ipv4 pickup) then run ./endwall.sh -o to return to open policies
-# $ ./endwall.sh -o 
+#  If the firewall fails (bad interface pickup or bad ipv4 pickup) then run ./endwall.sh --open to return to open policies
+# $ ./endwall.sh --open 
 # Then manually set the interface ipv4 for ip1 and ip2 or play with the assignments of the internal variables (Switch 1 to 2 and retry etc)
 #
 ############################################################################################################################################################################
@@ -188,9 +189,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.37"
+version="1.38"
 branch="wired"
-rev_date="21/09/2016"
+rev_date="07/01/2017"
 
 for arg in "$@"
 do
@@ -339,8 +340,8 @@ ip6tables -X -t security      # Delete table security from chains
 ip6tables -X                  # Delete Chains
 ip6tables -Z                  # Reset Counter
 
-# Disable firewall if -o flag 
-if [ "$1" == "-o" ];
+# Disable firewall if --open flag 
+if [ "$state" == "open" ];
 then
 
 ################################  DISABLE THE FIREWALL #################################################################
@@ -370,8 +371,8 @@ ip6tables-save > /etc/iptables/ip6tables
 echo "ENDWALL DISABLED"
 ##############################     PRINT RULES       ################################################################
 #list the rules
-#iptables -L -v
-#ip6tables -L -v
+iptables -L -v
+ip6tables -L -v
 #############################     PRINT ADDRESSES    ########################################################################
 echo "GATEWAY    :          MAC:"$gateway_mac"  IPv4:"$gateway_ip" " 
 echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
