@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.41
-# REVISION DATE: DECEMBER 28, 2016
+# VERSION: 0.42
+# REVISION DATE: FEBRUARY 04, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - turn off automatic rerferer mode if --referer option is called
+# CHANGE LOG:  - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
+#              - turn off automatic rerferer mode if --referer option is called
 #              - collect referers from grab process into $REFERERS + update --help
 #              - revert to site root as default referer + --grab-refer, --rand-refer, --ranstr-refer options
 #              - bug fix rm $proxies 
@@ -78,6 +79,7 @@
 #     Run EndTube 
 #  $  endtube --list ytlinks.txt
 #  $  endtube --uarand --list ytlinks.txt
+#  $  endtube --uaranstr --list ytlinks.txt
 #  $  endtube --exitnode --list ytlinks.txt
 #  $  endtube --uarand --exitnode --list ytlinks.txt
 #  $  endtube --exitnode --uarand --list ytlinks.txt
@@ -97,6 +99,7 @@
 #     Run EndTube
 #  $  endtube --list ytlinks.txt
 #  $  endtube --uarand --list ytlinks.txt
+#  $  endtube --uaranstr --list ytlinks.txt
 #  $  endtube --exitnode --list ytlinks.txt
 #  $  endtube --uarand --proxylist proxies.txt --list ytlinks.txt
 #  $  endtube --exitnode --proxylist proxies.txt --list ytinks.txt 
@@ -219,9 +222,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.41"
+version="0.42"
 branch="gnu/linux"
-rev_date="28/12/2016"
+rev_date="04/02/2017"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -233,7 +236,6 @@ max_delay=450
 
 ## initial flag switch states
 enode="off"
-state="off"
 headmode="on"
 uamode="on"
 refmode="on"
@@ -275,15 +277,16 @@ do
  echo "endtube --help    # print usage information"
  echo "endtube --version # print version information"
  echo "endtube --list list.txt # default mode downloads videos in list.txt"
- echo "endtube --uarand --list list.txt  # per video download random user-agent"
+ echo "endtube --ua-rand --list list.txt  # per video download random user-agent"
+ echo "endtube --ua-ranstr --list list.txt  # per video download random string user-agent"
  echo "endtube --exitnode --list list.txt # check exit-node pull per download"
- echo "endtube --uarand --exitnode --list list.txt  # use random user-agent + exit node check "
+ echo "endtube --ua-rand --exitnode --list list.txt  # use random user-agent + exit node check "
  echo "endtube --no-agent --list list.txt  # deactivate user-agent "
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --no-refer --list list.txt  # deactivate referer url "
- echo "endtube --grab-refer --list list.txt  # fetch video uploader channel url as referer url, default is site root"
- echo "endtube --ranstr-refer --list list.txt # use a random string website as referer url, default is site root"
- echo "endtube --rand-refer --list list.txt # use a random referer from $REFERERS as referer url, default is site root"
+ echo "endtube --refer-grab --list list.txt  # fetch video uploader channel url as referer url, default is site root"
+ echo "endtube --refer-ranstr --list list.txt # use a random string website as referer url, default is site root"
+ echo "endtube --refer-rand --list list.txt # use a random referer from $REFERERS as referer url, default is site root"
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
  echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url"
@@ -298,9 +301,15 @@ do
  echo "Copyright: 2016, THE ENDWARE DEVELOPMENT TEAM" 
  shift
  exit 0
- elif [ "$arg" == "--uarand" ]
+ elif [ "$arg" == "--ua-rand" ]
  then
  state="rand"
+ uamode="on"
+ syntax="good"
+ shift
+ elif [ "$arg" == "--ua-ranstr" ]
+ then
+ state="ranstr"
  uamode="on"
  syntax="good"
  shift
@@ -323,19 +332,19 @@ do
  then
  refmode="off"
  syntax="good"
- elif [ "$arg" == "--grab-refer" ]
+ elif [ "$arg" == "--refer-grab" ]
  then
  refmode="on"
  reftype="grab"
  syntax="good"
  shift 
- elif [ "$arg" == "--rand-refer" ]
+ elif [ "$arg" == "--refer-rand" ]
  then
  refmode="on"
  reftype="rand"
  syntax="good"
  shift 
- elif [ "$arg" == "--ranstr-refer" ]
+ elif [ "$arg" == "--refer-ranstr" ]
  then
  refmode="on"
  reftype="ranstr"
@@ -395,9 +404,14 @@ then
   if [ "$state" == "rand" ]
   then 
     # pick a random user agent
-    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
-    else 
-    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+  elif [ "$state" == "ranstr" ]
+  then 
+    # make a random string as the user agent 
+    bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+    UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+  else 
+    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 ) 
   fi
 
 
@@ -873,7 +887,12 @@ for link in $(cat "$list" ); do
   then 
    # pick a random user agent
    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
-  else
+  elif [ "$state" == "ranstr" ]
+  then 
+    # make a random string as the user agent 
+    bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+    UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+ else
    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
   fi
 
