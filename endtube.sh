@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.42
-# REVISION DATE: FEBRUARY 04, 2016
+# VERSION: 0.43
+# REVISION DATE: FEBRUARY 11, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
+# CHANGE LOG:  - index on list, download on initialize, initial referer,proxies,agent switches=off native=off 
+#              - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
 #              - turn off automatic rerferer mode if --referer option is called
 #              - collect referers from grab process into $REFERERS + update --help
 #              - revert to site root as default referer + --grab-refer, --rand-refer, --ranstr-refer options
@@ -222,9 +223,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.42"
+version="0.43"
 branch="gnu/linux"
-rev_date="04/02/2017"
+rev_date="11/02/2017"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -236,13 +237,14 @@ max_delay=450
 
 ## initial flag switch states
 enode="off"
-headmode="on"
-uamode="on"
-refmode="on"
+headmode="off"
+uamode="off"
+refmode="off"
 reftype="root"
 state="normal"
 syntax="check" 
 native="off"
+proxies="off"
 listmode="no"
 urlmode="no"
 
@@ -279,14 +281,17 @@ do
  echo "endtube --list list.txt # default mode downloads videos in list.txt"
  echo "endtube --ua-rand --list list.txt  # per video download random user-agent"
  echo "endtube --ua-ranstr --list list.txt  # per video download random string user-agent"
+ echo "endtube --ua-tor --list list.txt  # per video download tor browser user-agent"
+ echo "endtube --ua-row1 --list list.txt  # per video download user-agent from user_agents.txt row 1"
  echo "endtube --exitnode --list list.txt # check exit-node pull per download"
  echo "endtube --ua-rand --exitnode --list list.txt  # use random user-agent + exit node check "
  echo "endtube --no-agent --list list.txt  # deactivate user-agent "
  echo "endtube --no-header --list list.txt  # deactivate header "
  echo "endtube --no-refer --list list.txt  # deactivate referer url "
- echo "endtube --refer-grab --list list.txt  # fetch video uploader channel url as referer url, default is site root"
- echo "endtube --refer-ranstr --list list.txt # use a random string website as referer url, default is site root"
- echo "endtube --refer-rand --list list.txt # use a random referer from $REFERERS as referer url, default is site root"
+ echo "endtube --refer-grab --list list.txt  # fetch video uploader channel url as referer url"
+ echo "endtube --refer-ranstr --list list.txt # use a random string website as referer url"
+ echo "endtube --refer-rand --list list.txt # use a random referer from $REFERERS as referer url"
+ echo "endtube --refer-root --list list.txt # use the site root as referer url"
  echo "endtube --proxylist plist.txt --list list.txt  # use random proxies from plist.txt " 
  echo "endtube --native --list list.txt   # use native socks capcity instead of torsocks -i cant use proxies"
  echo "endtube --url https://youtu.be/gGHeoahhe   # Download the provided url"
@@ -298,7 +303,7 @@ do
  elif [ "$arg" == "--version" ]
  then
  echo "ENDTUBE: version "$version", branch: "$branch", revision date: "$rev_date" "
- echo "Copyright: 2016, THE ENDWARE DEVELOPMENT TEAM" 
+ echo "Copyright: 2015-2017, THE ENDWARE DEVELOPMENT TEAM" 
  shift
  exit 0
  elif [ "$arg" == "--ua-rand" ]
@@ -310,6 +315,18 @@ do
  elif [ "$arg" == "--ua-ranstr" ]
  then
  state="ranstr"
+ uamode="on"
+ syntax="good"
+ shift
+ elif [ "$arg" == "--ua-tor" ]
+ then
+ state="tor"
+ uamode="on"
+ syntax="good"
+ shift
+ elif [ "$arg" == "--ua-row1" ]
+ then
+ state="row1"
  uamode="on"
  syntax="good"
  shift
@@ -348,6 +365,11 @@ do
  then
  refmode="on"
  reftype="ranstr"
+ syntax="good"
+ elif [ "$arg" == "--refer-root" ]
+ then
+ refmode="on"
+ reftype="root"
  syntax="good"
  shift 
  elif [ "$arg" == "--exitnode" ]
@@ -401,18 +423,28 @@ HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 if [ "$listmode" == "no" ]
 then
   
-  if [ "$state" == "rand" ]
-  then 
+
+ if [ "$uamode" == "on" ]
+ then
+   if [ "$state" == "rand" ]
+   then 
     # pick a random user agent
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-  elif [ "$state" == "ranstr" ]
-  then 
-    # make a random string as the user agent 
-    bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-    UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
-  else 
-    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 ) 
-  fi
+   elif [ "$state" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$state" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$state" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   fi 
+ fi
 
 
   if [ "$enode" == "on" ] 
@@ -561,7 +593,7 @@ then
     # randomly sort proxies and load the random proxy
      Prxy=$( shuf -n 1 "$Punsort" )
      echo "Random Proxy is" "$Prxy" 
-     proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+     proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
      geoiplookup "$proxy_ip"
       if [ "$uamode" == "on" ]
       then 
@@ -765,7 +797,7 @@ then
      # randomly sort proxies and load the random proxy
      Prxy=$( shuf -n 1 "$Punsort" )
      echo "Random Proxy is" "$Prxy" 
-     proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+     proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
      geoiplookup "$proxy_ip"
       if [ "$uamode" == "on" ]
       then 
@@ -856,11 +888,14 @@ exit "$?"
 else
 
 
-# randomly sort the video list
+## randomly sort the video list
 list=tubesort.tmp
-shuf $Lunsort > $list
+shuf $Lunsort | sort -R > $list
 
-#main loop for list based downloading to select random user agent
+##main loop for list based downloading to select random user agent
+
+## initialize counter
+index=1
 
 for link in $(cat "$list" ); do  
 
@@ -883,24 +918,40 @@ for link in $(cat "$list" ); do
   youtube_site="no"
   fi   
 
-  if [ "$state" == "rand" ]
-  then 
-   # pick a random user agent
-   UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
-  elif [ "$state" == "ranstr" ]
-  then 
-    # make a random string as the user agent 
-    bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-    UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
- else
-   UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
-  fi
 
-  # generate a random number time delay
+ if [ "$uamode" == "on" ]
+ then
+   if [ "$state" == "rand" ]
+   then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+   elif [ "$state" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$state" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$state" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   fi 
+ fi
+
+
+  if [ "$index" == 1 ]
+  then
+  echo "Endtube is starting now"
+  else
+  ## generate a random number time delay
   delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i ) % $( expr "$max_delay" - "$min_delay" )  | awk '{print $1}')
   echo "Delaying download for "$delay" seconds"
-  # wait by delay time
+  ## wait by delay time
   sleep "$delay"
+  fi
 
    if [ "$refmode" == "on" ]
    then 
@@ -1024,7 +1075,7 @@ for link in $(cat "$list" ); do
     # randomly sort proxies and load the random proxy
     Prxy=$( shuf -n 1 "$Punsort" )
     echo "Random Proxy is" "$Prxy" 
-    proxy_ip=$( echo "$Prxy" | cut -d : -f 1 )
+    proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
     geoiplookup "$proxy_ip"
     
     if [ "$uamode" == "on" ]
@@ -1110,6 +1161,8 @@ for link in $(cat "$list" ); do
    fi 
   fi
 date
+
+index=$( expr "$index" + 1 )
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
