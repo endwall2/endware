@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.43
+# VERSION: 0.44
 # REVISION DATE: FEBRUARY 11, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - index on list, download on initialize, initial referer,proxies,agent switches=off native=off 
+# CHANGE LOG:  - --headers-on, --ua-tor, --ua-row1, --refer-root, etc activate these modes 
+#              - index on list, download on initialize, initial referer,proxies,agent switches=off native=off 
 #              - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
 #              - turn off automatic rerferer mode if --referer option is called
 #              - collect referers from grab process into $REFERERS + update --help
@@ -223,7 +224,7 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.43"
+version="0.44"
 branch="gnu/linux"
 rev_date="11/02/2017"
 
@@ -283,6 +284,7 @@ do
  echo "endtube --ua-ranstr --list list.txt  # per video download random string user-agent"
  echo "endtube --ua-tor --list list.txt  # per video download tor browser user-agent"
  echo "endtube --ua-row1 --list list.txt  # per video download user-agent from user_agents.txt row 1"
+ echo "endtube --headers-on --list list.txt  # Activate hardcoded headers to overide defaults"
  echo "endtube --exitnode --list list.txt # check exit-node pull per download"
  echo "endtube --ua-rand --exitnode --list list.txt  # use random user-agent + exit node check "
  echo "endtube --no-agent --list list.txt  # deactivate user-agent "
@@ -335,6 +337,10 @@ do
  uamode="off"
  syntax="good"
  shift 
+ elif [ "$arg" == "--headers-on" ]
+ then
+ headmode="on"
+ syntax="good"
  elif [ "$arg" == "--no-header" ]
  then
  headmode="off"
