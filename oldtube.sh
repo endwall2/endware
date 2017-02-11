@@ -8,11 +8,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.01
-# REVISION DATE: FEBRUARY 04, 2016
+# VERSION: 0.02
+# REVISION DATE: FEBRUARY 11, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
 # CHANGE LOG: 
+#              - set refmode=off initial state, added list index to start downloading 1st file with no delay
 #              - Forked from endtube.sh return to simplicity for tor (fit in to the crowd) purists
 #              - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
 #              - turn off automatic rerferer mode if --referer option is called
@@ -100,11 +101,11 @@
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog, and SnakeDude who graciously hosted and promoted this software project. 
 #  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
 #  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
@@ -206,7 +207,7 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.01"
+version="0.02"
 branch="gnu/linux"
 rev_date="10/02/2017"
 
@@ -220,7 +221,7 @@ max_delay=600
 
 ## initial flag switch states
 enode="off"
-headmode="on"
+headmode="off"
 uamode="off"
 refmode="off"
 reftype="root"
@@ -365,7 +366,6 @@ HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 if [ "$listmode" == "no" ]
 then
   
-
  if [ "$uamode" == "on" ]
  then
    if [ "$state" == "rand" ]
@@ -374,17 +374,17 @@ then
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
    elif [ "$state" == "ranstr" ]
    then 
-    # make a random string as the user agent 
-    bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-    UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
    elif [ "$state" == "tor" ] 
    then
-   UA="$UA_torbrowser" 
+     UA="$UA_torbrowser" 
    elif [ "$state" == "row1" ] 
    then
-   UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    else 
-   UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    fi 
  fi
 
@@ -436,9 +436,9 @@ then
       if [ "$uamode" == "on" ]
       then 
          echo "user-agent=" "$UA"    
-         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$url"  
+         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$@" "$url"  
       else
-         youtube-dl --proxy socks5://127.0.0.1:9050 "$url"        
+         youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"        
       fi     
     fi
   else
@@ -482,9 +482,12 @@ else
 
 # randomly sort the video list
 list=tubesort.tmp
-shuf $Lunsort > $list
+shuf $Lunsort | sort -R  > $list
 
-#main loop for list based downloading to select random user agent
+##main loop for list based downloading to select random user agent
+
+## initialize counter
+index=1
 
 for link in $(cat "$list" ); do  
 
@@ -530,12 +533,18 @@ for link in $(cat "$list" ); do
    fi 
  fi
 
+  
+  if [ "$index" == 1 ]
+  then
+  echo "Oldtube is starting now"
+  else
   # generate a random number time delay
   delay=$( expr "$min_delay" + $(head -c 2 /dev/urandom | od -A n -i ) % $( expr "$max_delay" - "$min_delay" )  | awk '{print $1}')
   echo "Delaying download for "$delay" seconds"
   # wait by delay time
   sleep "$delay"
-
+  fi
+ 
   if [ "$enode" == "on" ] 
   then
   # check tor project ip
@@ -574,7 +583,7 @@ for link in $(cat "$list" ); do
       echo "user-agent=" "$UA"
       torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
     else 
-     torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
+      torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
     fi
   else 
     if [ "$uamode" == "on" ]
@@ -586,6 +595,8 @@ for link in $(cat "$list" ); do
     fi 
   fi
 date
+
+index=$( expr "$index" + 1 )
 
 done
 # sometimes the download cuts off so don't delete the file until its all done
