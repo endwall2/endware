@@ -12,7 +12,8 @@
 # REVISION DATE: FEBRUARY 11, 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
-# CHANGE LOG:  - --headers-on, --ua-tor, --ua-row1, --refer-root, etc activate these modes 
+# CHANGE LOG:  - bug fix missing shift in argument pickup
+#              - --headers-on, --ua-tor, --ua-row1, --refer-root, etc activate these modes 
 #              - index on list, download on initialize, initial referer,proxies,agent switches=off native=off 
 #              - --ua-ranstr random string user agent --ua-rand, --refer-rand, --refer-ranstr, --refer-grab 
 #              - turn off automatic rerferer mode if --referer option is called
@@ -246,7 +247,7 @@ state="normal"
 syntax="check" 
 native="off"
 proxies="off"
-listmode="no"
+listmode="off"
 urlmode="no"
 
 ##  get input list from shell argument 
@@ -262,7 +263,7 @@ do
  then
  Lunsort="$arg"
  listpick="off"
- listmode="yes"
+ listmode="on"
  shift 
  elif [ "$urlpick" == "on" ]
  then
@@ -341,6 +342,7 @@ do
  then
  headmode="on"
  syntax="good"
+ shift
  elif [ "$arg" == "--no-header" ]
  then
  headmode="off"
@@ -372,6 +374,7 @@ do
  refmode="on"
  reftype="ranstr"
  syntax="good"
+ shift
  elif [ "$arg" == "--refer-root" ]
  then
  refmode="on"
@@ -398,6 +401,7 @@ do
  elif [ "$arg" == "--list" ]
  then
  listpick="on"
+ listmode="on"
  syntax="good"
  shift
  elif [ "$arg" == "--url" ]
@@ -426,7 +430,7 @@ HEAD4="Connection: keep-alive"
 HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 
 ## Assume final argument is a url and begin download
-if [ "$listmode" == "no" ]
+if [ "$listmode" == "off" ]
 then
   
 
@@ -891,8 +895,8 @@ then
 
 exit "$?"
  
-else
-
+elif [ "$listmode" == "on" ]
+then
 
 ## randomly sort the video list
 list=tubesort.tmp
