@@ -6,11 +6,12 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 15 2016
-# VERSION: 0.11
-# REVISION DATE: NOVEMBER 04 2016
+# VERSION: 0.12
+# REVISION DATE: FEBRUARY 11 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # 
-# CHANGE LOG:  - Headers, version info, --version flag
+# CHANGE LOG:  - While loop to make sure ssl proxies download
+#              - Headers, version info, --version flag
 #              - bug fix
 #              - user agent path into variable 
 #              - Moved user agents to user_agents.txt
@@ -30,12 +31,12 @@
 #               Start the TOR daemon. Execute the script.    
 #   
 #  Do the following at a command prompt
-#  $  wget http://ix.io/VTZ
-#  $  cp VTZ proxyload.sh
 #  $  mkdir ~/bin
+#  $  cd ~/bin
+#  $  wget https://github.com/endwall2/endware/raw/master/proxyload.sh
 #  $  chmod u+wrx proxyload.sh
-#  $  cp proxyload.sh ~/bin/proxyload
-#  $  export PATH=$PATH:/home/$USER/bin
+#  $  mv proxyload.sh proxyload
+#  $  export PATH=$PATH:/$HOME/bin
 # 
 #  START TOR DAEMON:
 #     SYSTEMD:
@@ -158,9 +159,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ### VERSION INFORMATION
-version="0.11"
+version="0.12"
 branch="gnu/linux"
-rev_date="04/11/2016"
+rev_date="11/02/2017"
 
 ## change this path to the user_agents.txt
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -217,14 +218,18 @@ HEAD4="Connection: keep-alive"
 echo "$UA"
 echo "Downloading SSL Proxies"
 
-cc="com"
-torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
+#cc="com"
+#torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
+
+## while loop to ensure that ssl_proxies download
+pfile_exists=0
+while [ "$pfile_exists" == "0" ];do
 
 ## while loop to pick up country code
 cc=" "
 while [ "$cc" == " " ];do
 cc=$(torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
-sleep 1
+sleep $(expr 1 + $(expr $RANDOM % 3) ) 
 done
 echo "Country Code is "$cc" "
 
@@ -240,12 +245,21 @@ for link in $(cat "$holder_2") ; do
 torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
 done 
 
+if [ -s "$holder_3" ]
+then
 sort -nu "$holder_3" >> ssl_proxies.txt
 
+pfile_exists=1
 ## remove temporary files
 rm "$holder_1"
 rm "$holder_2"
 rm "$holder_3"
+fi
+
+sleep $(expr 1 + $(expr $RANDOM % 3) ) 
+
+done
+
 
 echo "Downloading Socks5 Proxies"
 
