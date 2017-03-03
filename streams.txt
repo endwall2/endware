@@ -9,27 +9,27 @@
 # 6) TRT World
 # 7) Channels 24 Nigeria
 # 8) Africa News Live
-# 9) Fox News
+# 9) CGTN China English
 # 10) ABC News Australia 
 # 11) TWiT
-# 12) CNBC Africa
-# 13) Amazing Facts TV (Christian)
-# 14) It's Supernatural! Network
+# 12) Amazing Facts TV (Christian)
+# 13) It's Supernatural! Network
+# 14) Sheppard's Channel
 # 15) International House of Prayer (IHOP)
-# 16) Sheppard's Channel
-# 17) KTN Kenya English
-# 18) HSN
-# 19)  Arirang TV
-# 20) India TODAY
-# 21)   NASA TV
-# 22) TWiT on Twitch
-# 23) RSBN Live
-# 24) MSNBC\CBSN
-# 25) CVR English India
-# 26) 
-# 27) 
-# 28)
-# 29) 
+# 16) KTN Kenya English
+# 17) HSN
+# 18)  Arirang TV
+# 19) India TODAY
+# 20) NASA TV
+# 21) TWiT on Twitch
+# 22) RSBN Live
+# 23) CVR English India
+# 24) i24 News
+# 25) ------------
+# 26) ------------
+# 27) ------------ 
+# 28) ------------
+# 29) ------------
 #################    FRENCH   ################################
 # 30) France 24 
 # 31) France Info 
@@ -101,7 +101,7 @@
 # 94) CCTV 4 Chinese
 # 95) EBC 51 News
 ################ JAPANESE  ####################
-# 96) Shibua Community News Crosswalk Japan
+# 96)
 # 97) QVC JAPAN SHOPPING CHANNEL
 # 98) Sol!ve 24 Japan
 ################ KOREAN  ###############################
@@ -195,20 +195,22 @@
 # 179) Verona Italy
 # 180) Soggy Dollar Bar
 # 181) Amsterdam Netherlands
+# 182) Shibua Community News Crosswalk Japan
 ###############    SPACE       #########################    
-# 182) NASA LIVE STREAM 1
-# 183) NASA LIVE STREAM 2
-# 184) NASA LIVE STREAM 3
-# 185) Hubble Telescope
-# 186) Okeanos Ocean Explorer 
+# 183) NASA LIVE STREAM 1
+# 184) NASA LIVE STREAM 2
+# 185) NASA LIVE STREAM 3
+# 186) Hubble Telescope
+# 187) Okeanos Ocean Explorer 
 ###############    RESTRICTED TO EUROPE     ###########################
-# 187) SKY NEWS
-# 188) Euronews English Live
-# 189) DW English
-# 190)  EuroNews Deutche
+# 188) SKY NEWS
+# 189) Euronews English Live
+# 190) DW English
+# 192)  EuroNews Deutche
 ##############    TRANSIENT        #################################
-# 213) Joy News
-# 214) All News 
-# 215) TYT 
-# 217) CNN
-# 218) Fox
+# 214) -------- 
+# 215) Joy News
+# 216) All News 
+# 217) TYT 
+# 218) CNN
+# 219) Fox
