@@ -9,7 +9,7 @@
 # 6) TRT World
 # 7) Channels 24 Nigeria
 # 8) Africa News Live
-# 9) CGTN China English
+# 9) -----------------------
 # 10) ABC News Australia 
 # 11) TWiT
 # 12) Amazing Facts TV (Christian)
@@ -25,7 +25,7 @@
 # 22) RSBN Live
 # 23) CVR English India
 # 24) i24 News
-# 25) ------------
+# 25) CGTN China English
 # 26) ------------
 # 27) ------------ 
 # 28) ------------
@@ -46,7 +46,7 @@
 # 42) M7 Television
 # 43) France Inter
 # 44) RTL Endirect
-# 45) STRACK DANCE MUSIC    
+# 45) ---------------  
 # 46) Direct Journal TVLandes    
 # 47) CNEWS
 # 48) BMF TV
@@ -100,17 +100,17 @@
 ################ CHINESE MANDARIN CANTONESE  ####################
 # 94) CCTV 4 Chinese
 # 95) EBC 51 News
+# 96) SET Taiwan
 ################ JAPANESE  ####################
-# 96)
 # 97) QVC JAPAN SHOPPING CHANNEL
 # 98) Sol!ve 24 Japan
 ################ KOREAN  ###############################
 # 99) KBS World 24 News
 # 100) KBS World English Sub
 # 101) YTN 27 Korea
-# 102) -------------
+# 102) TV Korea
 ################ TAGALOG ###############################
-# 103) PTV
+# 103) PTV Philippeans
 ###### INDIAN, HINDI, URDU, DARI, PASHTUN ##################
 # 104) Survana News
 # 105) News 18 India
@@ -165,7 +165,7 @@
 # 153) RT Arabic 
 # 154) Makkha Live (Mecca Kaaba)
 # 155) ON E Live 
-# 156)  ON E Sports
+# 156) ON E Sports
 ################ AFRICAN #################################
 # 157 TVC Nigeria
 # 158 ADOM TV 
@@ -177,15 +177,15 @@
 # 163) News 1 Ukraine
 # 164) Еспресо Ukraine
 # 165) Thromadske Ukraine
-################### ENTERTAINMENT  ########################
-# 166) Talking Tom and Friends
-# 167) Tom and Jerry Cartoons
-# 168) Caillou Cartoons
-# 169) Sponge Bob 
-# 170) ESL League of Legends TWITCH
-# 171) Poker TV
-# 172) High Stakes Poker            
-# 173) WWE RAW 
+# 166) UA TV Ukraine
+################### OTHER  ########################
+# 167) Action 24 Greek
+# 168) Ionian Greek
+# 169) Star Lima Greek 
+# 170) 
+# 171) 
+# 172)             
+# 173) 
 ################## LOCATIONS #############################     
 # 174) Venice Italy Bridge Cam Live
 # 175) Venice Italy Port Cam Live
@@ -206,11 +206,32 @@
 # 188) SKY NEWS
 # 189) Euronews English Live
 # 190) DW English
-# 192)  EuroNews Deutche
-##############    TRANSIENT        #################################
-# 214) -------- 
-# 215) Joy News
-# 216) All News 
-# 217) TYT 
-# 218) CNN
-# 219) Fox
+# 191)  EuroNews Deutche
+#####################  OTHER   #########################################
+# 192) Talking Tom and Friends
+# 193) ESL League of Legends TWITCH
+# 194) Poker TV
+# 195) High Stakes Poker
+# 196) Star TV Turkey 
+# 197) DRHZ Philippeans
+# 198) ABS-CBN Philippeans
+# 199) GMA News Philippeans
+# 200) DZMM Philippeans
+# 201) CTI Taiwan 
+# 202) Tzu Chi Da Ai Taiwan
+# 203) FTV Live Taiwan
+# 204) EBC Finance Taiwan
+# 205) TTV Taiwan
+# 206) ON TV Taiwan 
+# 207) CTV Taiwan 
+# 208) Parovi 1 TV 
+# 209) TRT Haber Turkey
+# 210) 24 News Pakistan
+# 211) WWE RAW 
+# 212) Journalism Deutche 
+# 213) Plus Live Greek 
+# 214) Joy News
+# 215) Japan TV Live 
+# 216) CTS World Taiwan
+# 217) CNN 
+# 218) TYT 
