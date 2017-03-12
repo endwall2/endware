@@ -24,6 +24,8 @@ through openVPN ovpn files.  Should automatically add tunnels
 and ip addresses and allow for the correct forwarding rules in FORWARD 
 chain.
 
+- research pf rules for BSD, attempt simple firewall configurations and scripts.
+
 endloads.sh
 - update this to automatically start downloading on start ( update file)
 
@@ -37,4 +39,16 @@ user_agents.txt
 endware.txt
 
 - update this file list to reflect current products. Is out of date/ missing several products.
+
+endcurl.sh
+- this file is problematic, look at this again, look at header calls, decide what to do/ fix it.
+
+endlists.sh
+endsets.sh
+- whitelisting may not be working properly behind blacklisting ( investigate rule insertion ordering )
+- testing
+
+
+rmdupes.sh
+- give the user the opportunity to cancle the deletion of the duplicate files after flagging.
 
