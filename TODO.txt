@@ -1,0 +1,35 @@
+##################################
+#  TITLE:ENDWARE TO DO LIST
+#  CREATION DATE: March 12, 2017
+#  VERSION: 0.01
+#  REVISION DATE: March 12, 2017
+#  AUTHOR: ENDWALL
+##################################
+
+proxyload.sh:
+- user requests for addition of new proxy sources posted in /os/
+
+renum.sh:
+- bug report: user claims that 1 file is lost each use of program 
+              - investigate, then repair
+-user request for the addition of a file renamer that removes pipes and spaces 
+ and replaces with underscores. Possibley generate a new tool.  
+
+xtrac-ytpl.sh
+- remove call to endget and add the equivalent full code to make self contained.
+
+endwall.sh: 
+- make a version that allows for rapid addition of VPN/VPS severs 
+through openVPN ovpn files.  Should automatically add tunnels 
+and ip addresses and allow for the correct forwarding rules in FORWARD 
+chain.
+
+endloads.sh
+- update this to automatically start downloading on start ( update file)
+
+endstream.sh
+- push all stable constant streams to the front of each language pack
+- delete or renew other streams.
+
+user_agents.txt
+- review this file and add new user-agents / update
