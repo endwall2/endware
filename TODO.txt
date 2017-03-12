@@ -33,3 +33,8 @@ endstream.sh
 
 user_agents.txt
 - review this file and add new user-agents / update
+
+endware.txt
+
+- update this file list to reflect current products. Is out of date/ missing several products.
+
