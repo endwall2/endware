@@ -187,7 +187,7 @@ CircuitPriorityHalflife 0
 # ClientDNSRejectInternalAddresses 1
 
 ################################  SECURITY SWITCHES #################################################
-Sandbox 1
+## Sandbox 0  This isn't working properly anymore ( leave this commented out )
 ## Comment out to use transparent proxying/plugable transports 
 StrictNodes 1
 ## Comment out or set to 0 if connection problems to hidden services
