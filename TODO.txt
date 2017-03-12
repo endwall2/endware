@@ -48,7 +48,8 @@ endsets.sh
 - whitelisting may not be working properly behind blacklisting ( investigate rule insertion ordering )
 - testing
 
-
 rmdupes.sh
 - give the user the opportunity to cancle the deletion of the duplicate files after flagging.
 
+rmpac-files.sh
+- automate the deletion of the header and trailing output portion so that user doesn't have to delete these prior to use
