@@ -1647,269 +1647,269 @@ chan_name="The Noise Network" ;;
 # 427) HWC
 427) link=https://www.filmon.com/tv/hwc-network
      chan_name="HWC" ;;
-# 428) 
+# 428) The Jet Set Channel
 428) link=https://www.filmon.com/tv/the-jet-set-channel
-     chan_name="" ;;
-# 429) 
+     chan_name="The Jet Set Channel" ;;
+# 429) Discover Malta
 429) link=https://www.filmon.com/tv/discover-malta
-     chan_name="" ;;
-# 430) 
+     chan_name="Discover Malta" ;;
+# 430) Mega Destinations
 430) link=https://www.filmon.com/tv/mega-destinations
-     chan_name="" ;;
-# 431) 
+     chan_name="Mega Destinations" ;;
+# 431) 30A TV
 431) link=https://www.filmon.com/tv/30a-tv
-     chan_name="" ;;
-# 432) 
+     chan_name="30A TV" ;;
+# 432) OBX TV
 432) link=https://www.filmon.com/tv/obxtv
-     chan_name="" ;;
-# 433) 
+     chan_name="OBX TV" ;;
+# 433) Travel Channel
 433) link=https://www.filmon.com/tv/travel-channel1
-     chan_name="" ;;
-# 434) 
+     chan_name="Travel Channel" ;;
+# 434) Landmarks
 434) link=https://www.filmon.com/tv/landmarks
-     chan_name="" ;;
-# 435) 
+     chan_name="Landmarks" ;;
+# 435) Infamous Places
 435) link=https://www.filmon.com/tv/infamous-places
-     chan_name="" ;;  
+     chan_name="Infamous Places" ;;  
 ############################ SOMALI TV ####################################     
-# 436) 
+# 436) Somalia SNL TV
 436) link=https://www.filmon.com/tv/snltv-somaliland-national-tv
-     chan_name="" ;;
-# 437) 
+     chan_name="SNL TV Somalia" ;;
+# 437) Universal TV Somalia
 437) link=https://www.filmon.com/tv/universaltv-somali-television
-     chan_name="" ;;
-# 438) 
+     chan_name="Universal TV Somalia" ;;
+# 438) Somali National TV
 438) link=https://www.filmon.com/tv/somali-national-tv
-     chan_name="" ;;
-# 439) 
+     chan_name="Somali National TV" ;;
+# 439) Horn Cable Somalia
 439) link=https://www.filmon.com/tv/horn-cable-tv
-     chan_name="" ;;
-# 440) 
+     chan_name="Horn Cable Somalia" ;;
+# 440) ESTV Somali Ethiopia
 440) link=https://www.filmon.com/tv/estv-somali-ethiopia-tv
-     chan_name="" ;;
-# 441) 
+     chan_name="ESTV Somali Ethiopia" ;;
+# 441) Kalsan TV Somali
 441) link=https://www.filmon.com/tv/kalsan-tv-somali
-     chan_name="" ;;
+     chan_name="Kalsan TV Somali" ;;
 ######################## GREEK ###############################################
-# 442) 
+# 442) RIK Greek
 442) link=https://www.filmon.com/tv/rik
-     chan_name="" ;;
+     chan_name="RIK Greece" ;;
 ############################# RELIGION
 
-# 443)
+# 443) Hispanic American Faith
 443) link=https://www.filmon.com/tv/hispanic-american-faith-tv
-     chan_name="" ;;
-# 444) 
+     chan_name="Hispanic American Faith" ;;
+# 444) You Shall Live
 444) link=https://www.filmon.com/tv/you-shall-live
-     chan_name="" ;;
-# 445) 
+     chan_name="You Shall Live" ;;
+# 445) Preach the Word
 445) link=https://www.filmon.com/tv/preach-the-word
-     chan_name="" ;;
-# 446) 
+     chan_name="Preach the Word" ;;
+# 446) Audio Scripture
 446) link=https://www.filmon.com/tv/audio-scripture-channel
-     chan_name="" ;;
-# 447) 
+     chan_name="Audio Scripture" ;;
+# 447) Cyber Church
 447) link=https://www.filmon.com/tv/cyber-church-tv
-     chan_name="" ;;
-# 448) 
+     chan_name="Cyber Church" ;;
+# 448) Faith Cinema
 448) link=https://www.filmon.com/tv/faith-cinema
-     chan_name="" ;;
-# 449) 
+     chan_name="Faith Cinema" ;;
+# 449) NRB
 449) link=https://www.filmon.com/tv/nrb
-     chan_name="" ;;
-# 450) 
+     chan_name="NRB" ;;
+# 450) Glory TV
 450) link=https://www.filmon.com/tv/glory-tv
-     chan_name="" ;;
-# 451) 
+     chan_name="Glory TV" ;;
+# 451) Dunamis Radio TV
 451) link=https://www.filmon.com/tv/dunamis-radio-tv
-     chan_name="" ;;
-# 452) 
+     chan_name="Dunamis Radio" ;;
+# 452) Global Music TV
 452) link=https://www.filmon.com/tv/global-music-tv
-     chan_name="" ;;
-# 453) 
+     chan_name="Global Music TV" ;;
+# 453) The Church Channel
 453) link=https://www.filmon.com/tv/the-church-channel
-     chan_name="" ;;
-# 454) 
+     chan_name="The Church Channel" ;;
+# 454) TBN
 454) link=https://www.filmon.com/tv/tbn
-     chan_name="" ;;
-# 455) 
+     chan_name="TBN" ;;
+# 455) Daystar
 455) link=https://www.filmon.com/tv/daystar
-     chan_name="" ;;
-# 456) 
+     chan_name="Daystar" ;;
+# 456) Catholic TV
 456) link=https://www.filmon.com/tv/catholic-tv
-     chan_name="" ;;
+     chan_name="Catholic TV" ;;
 ################################ CELEBRITY TV 
-# 457) 
+# 457) Scenester TV
 457) link=https://www.filmon.com/tv/scenestertv
-     chan_name="" ;;
-# 458) 
+     chan_name="Scenester TV" ;;
+# 458) Celeberity Action Network
 458) link=https://www.filmon.com/tv/celebrity-action-network
-     chan_name="" ;;
-# 459) 
+     chan_name="Celebrity Action Network" ;;
+# 459) Dame Dash TV
 459) link=https://www.filmon.com/tv/dame-dash-tv
-     chan_name="" ;;
-# 460) 
+     chan_name="Dame Dash TV" ;;
+# 460) Nik Richie Network
 460) link=https://www.filmon.com/tv/nik-richie-network
-     chan_name="" ;;
-# 461) 
+     chan_name="Nik Richie Network" ;;
+# 461) Celebrity Icons
 461) link=https://www.filmon.com/tv/celebrity-icons-tv
-     chan_name="" ;;
-# 462) 
+     chan_name="Celebrity Icons" ;;
+# 462) Andy Dick
 462) link=https://www.filmon.com/tv/andy-dick
-     chan_name="" ;;
-# 463) 
+     chan_name="Andy Dick" ;;
+# 463) Janice TV
 463) link=https://www.filmon.com/tv/janice-tv
-     chan_name="" ;;
-# 464) 
+     chan_name="Janice TV" ;;
+# 464) Kato Katelin
 464) link=https://www.filmon.com/tv/kato
-     chan_name="" ;;
-# 465) 
+     chan_name="Kato Katelin" ;;
+# 465) PPV Celebrity Fight
 465) link=https://www.filmon.com/tv/ppv-celebrity-fight
-     chan_name="" ;;
-# 466) 
+     chan_name="PPV Celebrity Fight" ;;
+# 466) Vertro Live
 466) link=https://www.filmon.com/tv/vertrolive
-     chan_name="" ;;
-# 467) 
+     chan_name="Vertro Live" ;;
+# 467) Star Shop
 467) link=https://www.filmon.com/tv/starshop
-     chan_name="" ;;  
+     chan_name="Star Shop" ;;  
 ############################# FOOD #########################################
-# 468) 
+# 468) Wine RAM
 468) link=https://www.filmon.com/tv/wineram
-     chan_name="" ;;
-# 469) 
+     chan_name="Wine Ram" ;;
+# 469) World of Wine
 469) link=https://www.filmon.com/tv/world-of-wine
-     chan_name="" ;;
-# 470) 
+     chan_name="World of Wine" ;;
+# 470) The Chef Roc Show
 470) link=https://www.filmon.com/tv/the-chef-roc-tv-show
-     chan_name="" ;;
-# 471) 
+     chan_name="The Chef Roc Show" ;;
+# 471) Food Network Plus 1
 471) link=https://www.filmon.com/tv/food-network-plus-1
-     chan_name="" ;;
-# 472) 
+     chan_name=Food Network + 1"" ;;
+# 472) World Food Championships
 472) link=https://www.filmon.com/tv/world-food-championships
-     chan_name="" ;;
-# 473) 
+     chan_name="World Food Championships" ;;
+# 473) Dude Food
 473) link=https://www.filmon.com/tv/dude-food
-     chan_name="" ;;
-# 474) 
+     chan_name="Dude Food" ;;
+# 474) Food Network
 474) link=https://www.filmon.com/tv/food-network
-     chan_name="" ;;
-# 475) 
+     chan_name="Food Network" ;;
+# 475) iFood TV
 475) link=https://www.filmon.com/tv/ifood-tv
-     chan_name="" ;;
-# 476) 
+     chan_name="iFood TV" ;;
+# 476) Indian Recipes
 476) link=https://www.filmon.com/tv/indian-recipes
-     chan_name="" ;;
-# 477) 
+     chan_name="Indian Recipes" ;;
+# 477) Wine Oh TV 
 477) link=https://www.filmon.com/tv/wine-oh-tv
-     chan_name="" ;;
-# 478) 
+     chan_name="Wine Oh TV" ;;
+# 478) Gastrolab
 478) link=https://www.filmon.com/tv/gastrolab
-     chan_name="" ;;
-# 479) 
+     chan_name="Gastrolab" ;;
+# 479) Outdoor Cooking Channel
 479) link=https://www.filmon.com/tv/outdoor-cooking-channel
-     chan_name="" ;;
-# 480) 
+     chan_name="Outdoor Cooking Channel" ;;
+# 480) Wine Channel TV
 480) link=https://www.filmon.com/tv/wine-channel-tv
-     chan_name="" ;;
-# 481) 
+     chan_name="Wine Channel TV" ;;
+# 481) ECO RICO
 481) link=https://www.filmon.com/tv/eco-rico
-     chan_name="" ;;
-# 482) 
+     chan_name="Eco Rico" ;;
+# 482) Veg TV
 482) link=https://www.filmon.com/tv/veg-tv
-     chan_name="" ;;
+     chan_name="Veg TV" ;;
      
 ############################## CARS AUTO
-#  483) 
+#  483) Auto Channel
 483) link=https://www.filmon.com/tv/auto-channel
-     chan_name="" ;;
-# 484) 
+     chan_name="Auto Channel" ;;
+# 484) Raceline TV
 484) link=https://www.filmon.com/tv/raceline-tv
-     chan_name="" ;;
-# 485) 
+     chan_name="Raceline TV" ;;
+# 485) Race Central
 485) link=https://www.filmon.com/tv/race-central-tv
-     chan_name="" ;;
-# 486) 
+     chan_name="Race Central" ;;
+# 486) Honda HPD
 486) link=https://www.filmon.com/tv/honda-hpd
-     chan_name="" ;;
-# 487) 
+     chan_name="Honda HPD" ;;
+# 487) Torque and Tush
 487) link=https://www.filmon.com/tv/torque-and-tush
-     chan_name="" ;;
-# 488) 
+     chan_name="Torque and Tush" ;;
+# 488) MotorZ
 488) link=https://www.filmon.com/tv/motorz
-     chan_name="" ;;
-# 489) 
+     chan_name="MotorZ" ;;
+# 489) Steel Dreams
 489) link=https://www.filmon.com/tv/steel-dreams
-     chan_name="" ;;
-# 490) 
+     chan_name="Steel Dreams" ;;
+# 490) Distant Roads
 490) link=https://www.filmon.com/tv/distant-roads
-     chan_name="" ;;
+     chan_name="Distant Roads" ;;
 ############################# EDUCATION
-# 491) 
+# 491) The Florida Channel
 491) link=https://www.filmon.com/tv/the-florida-channel
-     chan_name="" ;;
-# 492) 
+     chan_name="The Florida Channel" ;;
+# 492) Make Your Move
 492) link=https://www.filmon.com/tv/make-your-move
-     chan_name="" ;;
-# 493) 
+     chan_name="Make Your Move" ;;
+# 493) Smarts TV
 493) link=https://www.filmon.com/tv/smarts-tv
-     chan_name="" ;;
-# 494) 
+     chan_name="Smarts TV" ;;
+# 494) Parenting International
 494) link=https://www.filmon.com/tv/parenting-international-tv
-     chan_name="" ;;
+     chan_name="Parenting International" ;;
 ########################## SHOPPING
-# 495) 
+# 495) Jewlery TV
 495) link=https://www.filmon.com/tv/jewelry-tv
-     chan_name="" ;;
-# 496) 
+     chan_name="Jewlery TV" ;;
+# 496) QVC HD 
 496) link=https://www.filmon.com/tv/qvc-hd
-     chan_name="" ;;
-# 497) 
+     chan_name="QVC HD" ;;
+# 497) Shop N Give
 497) link=https://www.filmon.com/tv/shop-n-give
-     chan_name="" ;;
-# 498) 
+     chan_name="Shop N Give" ;;
+# 498) Deals TV
 498) link=https://www.filmon.com/tv/deals-tv
-     chan_name="" ;;
-# 499) 
+     chan_name="Deals TV" ;;
+# 499) Beauty IQ
 499) link=https://www.filmon.com/tv/beauty-iq
-     chan_name="" ;;
-# 500) 
+     chan_name="Beauty IQ" ;;
+# 500) QVC
 500) link=https://www.filmon.com/tv/qvc
-     chan_name="" ;;
-# 501) 
+     chan_name="QVC" ;;
+# 501)  American Auctions
 501) link=https://www.filmon.com/tv/americas-auction-network
-     chan_name="" ;;
-# 502) 
+     chan_name="American Auction" ;;
+# 502) Caribbean Shopping
 502) link=https://www.filmon.com/tv/caribbean-shopping-channel
-     chan_name="" ;;
-# 503) 
+     chan_name="Caribbean Shopping" ;;
+# 503) Product Showcase
 503) link=https://www.filmon.com/tv/product-showcase-network
-     chan_name="" ;;
+     chan_name="Product Showcase Network" ;;
 ############################### CARIBBEAN
-# 504) 
+# 504) Calabash TV
 504) link=https://www.filmon.com/tv/calabash-tv
-     chan_name="" ;;
-# 505) 
+     chan_name="Calabash TV" ;;
+# 505) Caribbean Lifestyle
 505) link=https://www.filmon.com/tv/caribbean-lifestyle-channel
-     chan_name="" ;;
-# 506) 
+     chan_name="Caribbean Lifestyle" ;;
+# 506) Scruffy TV
 506) link=https://www.filmon.com/tv/scruffy-tv
-     chan_name="" ;;
+     chan_name="Scruffy TV" ;;
 ############################### ASIAN
-# 507) 
+# 507) Arirang TV Korea
 507) link=https://www.filmon.com/tv/arirang-tv
-     chan_name="" ;;
-# 508) 
+     chan_name="Ariran TV Korea" ;;
+# 508) VTC 10
 508) link=https://www.filmon.com/tv/vtc-10
-     chan_name="" ;;
-# 509) 
+     chan_name="VTC 10" ;;
+# 509) Voice of America Weishi
 509) link=https://www.filmon.com/tv/voa-weishi
-     chan_name="" ;;
+     chan_name="Voice of America Weishi" ;;
 ################################ AFRICAN
-# 510) 
+# 510) Eri Eritrea TV Africa
 510) link=https://www.filmon.com/tv/eri-tv
-     chan_name="" ;;
-# 511) Nollywood
+     chan_name="" ;Eri TV Eritrea;
+# 511) Nollywood Nigeria
 511) link=https://www.filmon.com/tv/nollywood
      chan_name="Nollywood" ;;
 # 512) Igboro TV
