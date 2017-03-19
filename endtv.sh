@@ -1908,7 +1908,7 @@ chan_name="The Noise Network" ;;
 ################################ AFRICAN
 # 510) Eri Eritrea TV Africa
 510) link=https://www.filmon.com/tv/eri-tv
-     chan_name="" ;Eri TV Eritrea;
+     chan_name="Eri TV Eritrea";;
 # 511) Nollywood Nigeria
 511) link=https://www.filmon.com/tv/nollywood
      chan_name="Nollywood" ;;
