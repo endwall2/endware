@@ -6,10 +6,11 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
-# Version: 0.02
-# Revision Date: March 19, 2017
+# Version: 0.03
+# Revision Date: March 25, 2017
 #
-# Change Log:  - Forked from enstream.sh
+# Change Log:  - Set to infinite repeat to reload streams automatically + grab cookie with curl
+#              - Forked from enstream.sh
 #              - grab transient channels by channel name 
 #              - Removed transient streams added some home shopping channels
 #              - Rearranged channels
@@ -26,7 +27,7 @@
 #
 #
 #####################################################################
-# Dependencies: youtube-dl, mpv, read , firejail
+# Dependencies: youtube-dl, mpv, read , firejail, curl
 #####################################################################
 # Instructions:  make a directory ~/bin and copy this file there, add this to the $PATH
 #                then make the file executable and run it.
@@ -150,13 +151,16 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.02"
-rev_date="19/03/2017"
+version="0.03"
+rev_date="25/03/2017"
 branch="gnu/linux"
 ##################################################
 
 chan_columns="$HOME/bin/streams.txt"
 cookie="$HOME/bin/cookie.tmp" 
+
+# clear cookie
+echo " " > "$cookie"
 
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
@@ -1966,16 +1970,21 @@ channel_select $num
 
 
 echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl "$link" --cookie-jar "$cookie"  1&>2
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
 
 
 
 entry="null"
 
+echo " " > "$cookie"
+
 channel_matrix
 echo "You were watching "$chan_name" on Channel "$num" "
 echo "Please Select a Number corresponding to a YouTube Live Stream:"
 echo "Select a new stream number or press q to quit."
+
+
 
 read entry 
 
@@ -1997,14 +2006,18 @@ read entry
     else
     channel_select $entry
     echo "$chan_name"
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --cookies --cookies-file "$cookie" "$link" 
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl "$link" --cookie-jar "$cookie"  1&>2
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
     fi
 else 
 
 
 channel_select $entry
 echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl "$link" --cookie-jar "$cookie"  1&>2
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
+
+echo " " > "$cookie"
 
 # echo "You were watching "$chan_name" on Channel "$entry" "
 
@@ -2032,18 +2045,21 @@ do
     if [ "$entry" == "q" ]
     then 
     echo "Type endstream to open a new stream."
-    exit "$?"if 
+    exit "$?"
     else
     channel_select $entry
     echo "$chan_name"
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --cookies --cookies-file "$cookie" "$link" 
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl "$link" --cookie-jar "$cookie"  1&>2
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
     fi
   else
   channel_select $entry
   echo "$chan_name"
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --cookies --cookies-file "$cookie" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl "$link" --cookie-jar "$cookie"  1&>2
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen  --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
  
   fi
+echo " " > "$cookie"
 
 done
 
@@ -2051,6 +2067,8 @@ fi
 
 
 echo "Type endstream to open a new stream."
+
+rm "$cookie"
 
 
 exit "$?"
