@@ -6,10 +6,11 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
-# Version: 0.03
-# Revision Date: March 25, 2017
+# Version: 0.04
+# Revision Date: March 30, 2017
 #
-# Change Log:  - Set to infinite repeat to reload streams automatically + grab cookie with curl
+# Change Log:  - proper implimentation of channel switching while loop
+#              - Set to infinite repeat to reload streams automatically + grab cookie with curl
 #              - Forked from enstream.sh
 #              - grab transient channels by channel name 
 #              - Removed transient streams added some home shopping channels
@@ -151,14 +152,14 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.03"
-rev_date="25/03/2017"
+version="0.04"
+rev_date="30/03/2017"
 branch="gnu/linux"
 ##################################################
 
 chan_columns="$HOME/bin/streams.txt"
 cookie="$HOME/bin/cookie.tmp" 
-
+entry="null"
 # clear cookie
 echo " " > "$cookie"
 
@@ -293,7 +294,6 @@ do
  fi
 done
 
-
 if [ "$1" != "" ]
 then
 echo "$1"
@@ -321,7 +321,7 @@ then
 channel_matrix_2
 echo "You were watching "$chan_name" on Channel "$num" "
 echo "Please Select a Number corresponding to a YouTube Live Stream:"
-echo "Select a new stream number or press q to quit."
+echo "Select a new stream number, press m for the main menu, or press q to quit."
 read num
 fi
 
@@ -1966,105 +1966,78 @@ chan_name="The Noise Network" ;;
 esac
 }
 
+# Function to check the menu status
+menu_status()
+{
+input=$1
+if [ $input == "q" ]
+then
+menstat="yes"
+elif [ $input == "n" ]
+then 
+menstat="yes"
+elif [ $input == "m" ]
+then
+menstat="yes"
+else
+menstat="no"
+fi
+}
+
+# function for m,n,q channel matrix display
+menu_switch()
+{
+input=$1
+case "$input" in
+q) echo "Type endtv to restart program. Bye."
+exit "$?" ;;
+m) channel_matrix
+echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:" ;;
+n) channel_matrix_2
+echo "Please Select a Number corresponding to a YouTube Live Stream, press m for the main menu or or press q to quit." ;;
+esac
+}
+
+# get the menu selection status
+menu_status $num
+
+if [ "$menstat" == "no" ]
+then
 channel_select $num
-
-
 echo "$chan_name"
 firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
 firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
-
-
-
-entry="null"
-
+# clear the cookie
 echo " " > "$cookie"
-
-channel_matrix
+channel_matrix 
 echo "You were watching "$chan_name" on Channel "$num" "
-echo "Please Select a Number corresponding to a YouTube Live Stream:"
-echo "Select a new stream number or press q to quit."
-
-
-
-read entry 
-
-if [ "$entry" == "q" ]
-then 
-echo "Type endstream to open a new stream."
-exit "$?"
-elif [ "$entry" == "n" ]
-then
-channel_matrix_2
-echo "You were watching "$chan_name" on Channel "$num" "
-echo "Please Select a Number corresponding to a YouTube Live Stream:"
-echo "Select a new stream number, or press q to quit."
-read entry 
-    if [ "$entry" == "q" ]
-    then 
-    echo "Type endstream to open a new stream."
-    exit "$?" 
-    else
-    channel_select $entry
-    echo "$chan_name"
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
-    fi
+echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
+read entry
 else 
-
-
-channel_select $entry
-echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  /dev/null 2>&1
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
-
-echo " " > "$cookie"
-
-# echo "You were watching "$chan_name" on Channel "$entry" "
-
-while [ "$entry" != "q" ]
-do
-
-  channel_matrix
-  echo "You were watching "$chan_name" on Channel "$entry" "
-  echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
-
-  read entry 
-
-  if [ "$entry" == "q" ]
-  then 
-  echo "Type endstream to open a new stream."
-  exit "$?"
-  elif [ "$entry" == "n" ]
-  then
-  channel_matrix_2
-  echo "You were watching "$chan_name" on Channel "$num" "
-  echo "Please Select a Number corresponding to a YouTube Live Stream:"
-  echo "Select a new stream number, or press q to quit."
-  read entry
-  
-    if [ "$entry" == "q" ]
-    then 
-    echo "Type endstream to open a new stream."
-    exit "$?"
-    else
-    channel_select $entry
-    echo "$chan_name"
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
-    fi
-  else
-  channel_select $entry
-  echo "$chan_name"
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie"  --silent "$link" > /dev/null 2>&1
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen  --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
- 
-  fi
-echo " " > "$cookie"
-
-done
-
+menu_switch $num
+read entry
 fi
 
+while [ "$entry" != q ]
+do
+menu_status $entry
+if [ "$menstat" == "no" ]
+then
+channel_select $entry
+echo "$chan_name"
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
+# clear the cookie
+echo " " > "$cookie"
+channel_matrix 
+echo "You were watching "$chan_name" on Channel "$num" "
+echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
+read entry
+else 
+menu_switch $entry
+read entry
+fi
+done
 
 echo "Type endstream to open a new stream."
 
