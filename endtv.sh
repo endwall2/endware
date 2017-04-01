@@ -2030,7 +2030,7 @@ firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroo
 # clear the cookie
 echo " " > "$cookie"
 channel_matrix 
-echo "You were watching "$chan_name" on Channel "$num" "
+echo "You were watching "$chan_name" on Channel "$entry" "
 echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
 read entry
 else 
