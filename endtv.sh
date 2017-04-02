@@ -158,7 +158,9 @@ branch="gnu/linux"
 ##################################################
 
 chan_columns="$HOME/bin/streams.txt"
-cookie="$HOME/bin/cookie.tmp" 
+cookie="$HOME/bin/cookies.txt" 
+cache_size=4096
+
 entry="null"
 # clear cookie
 echo " " > "$cookie"
@@ -1994,7 +1996,7 @@ exit "$?" ;;
 m) channel_matrix
 echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:" ;;
 n) channel_matrix_2
-echo "Please Select a Number corresponding to a YouTube Live Stream, press m for the main menu or or press q to quit." ;;
+echo "Please Select a Number corresponding to a YouTube Live Stream, press m for the main menu, or press q to quit:" ;;
 esac
 }
 
@@ -2005,8 +2007,8 @@ if [ "$menstat" == "no" ]
 then
 channel_select $num
 echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
 # clear the cookie
 echo " " > "$cookie"
 channel_matrix 
@@ -2025,8 +2027,8 @@ if [ "$menstat" == "no" ]
 then
 channel_select $entry
 echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  > /dev/null 2>&1
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
 # clear the cookie
 echo " " > "$cookie"
 channel_matrix 
@@ -2039,11 +2041,25 @@ read entry
 fi
 done
 
+
+
 echo "Type endstream to open a new stream."
 
+if [ -e "$cookie" ]
+then
 rm "$cookie"
-
+fi 
 
 exit "$?"
 
+# --user-agent=<string>
+# mpv --http-header-fields='Field1: value1','Field2: value2' 
+# --tls-verify
+# --referrer=<string>
+# --cache-secs=<seconds>
+# --cache-file-size=<kBytes>
+# --cache-pause  --cache=<kBytes|yes|no|auto>
+# https://mpv.io/manual/master/
+
 ######################     END OF PROGRAM      ####################################################
+
