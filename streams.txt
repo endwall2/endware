@@ -1,4 +1,4 @@
-================== ENDSTREAM  0.21 =======================
+====ENDSTREAM  0.21 =======
 ################   ENGLISH  ##################################
 # 1) France 24 Anglais 
 # 2) Al Jazeera
@@ -6,42 +6,42 @@
 # 4) i24 News Israel
 # 5) NEWSMAX
 # 6) ABC News Australia 
-# 7) Euronews English
+# 7) CGTN English
 # 8) Africa News Live
-# 9)  CGTN English
-# 10) Bloomberg
-# 11) BBC News
-# 12) RT English
-# 13) Press TV Iran
-# 14) DW English
-# 15) Newsy
-# 16) i24 News Israel 
-# 17) Saudi 2 TV
-# 18) Channels 24 Nigeria
-# 19) India TODAY
-# 20) CVR English India
-# 21) News 9 Bangalor India
-# 22) BBC World News
-# 23) RT Enlish
-# 24) CNN Live
-# 25) MSNBC
-# 26) FOX NEWS
-# 27) DVID Department of Defense Videos
-# 28) NASA TV Public Education
-# 29) NASA TV Media
-# 30) Arirang TV
-# 31) TWiT
-# 32) TWiT on Twitch
-# 33) High Stakes Poker 
-# 34) Amazing Facts TV (Christian)
-# 35) It's Supernatural! Network (Christian)
-# 36) Sheppard's Chapel (Christian)
-# 37) International House of Prayer (IHOP) (Christian)
-# 38) HSN
-# 39) HSN 2
-# 40) QVC 
+# 9) BBC News
+# 10) RT English
+# 11) Press TV Iran
+# 12) DW English
+# 13) Bloomberg
+# 14) i24 News Israel 
+# 15) Saudi 2 TV
+# 16) Channels 24 Nigeria
+# 17) India TODAY
+# 18) CVR English India
+# 19) News 9 Bangalor India
+# 20) Newsy
+# 21) DVID Department of Defense Videos
+# 22) NASA TV Public Education
+# 23) NASA TV Media
+# 24) Arirang TV
+# 25) TWiT
+# 26) Amazing Facts TV (Christian)
+# 27) It's Supernatural! Network (Christian)
+# 28) Sheppard's Chapel (Christian)
+# 29) International House of Prayer (IHOP) (Christian)
+# 30) HSN
+# 31) HSN 2
+# 32) QVC 
+# 33) KTN Kenya
+# 34) TVC News Nigeria
+# 35) NTV Uganda
+# 36) Arise News Nigeria
+# 37) Fox News 10 Pheonix
+# 38) -----------
+# 39) -----------
+# 40) Talking Tom and Friends
 #################    FRENCH   ################################
-# 41) France 24 Francais
+# 41) France 24 
 # 42) France Info 
 # 43) France 24 Francais
 # 44) Euronews Francais
@@ -60,222 +60,268 @@
 # 57) France Info Radio
 # 58) La Chaine Parlementaire LCP
 # 59) Public Senate France
-# 60) Africa News Francais
+# 60) Africa News
 # 61) RFI
 # 62) Mosaik TV Francais
 # 63) Afrique Media
+# 64) TLM Lyon Metro
+# 65) Elyse.fr
+# 66) QVC Francais
 ###################  SPANISH  #################################
-# 64) Globovision Venezeula
-# 65) RT Espanol
-# 66) DW Espanol
-# 67) NTN24 
-# 68) Canal 8 San Juan
-# 69) Canal 6 San Rafael
-# 70) Canal Siete
-# 71) c5n Argentina
-# 72) A24
-# 73) TelePacifico
-# 74) Canal 8 Mar del Plata
-# 75) Hispan TV
-# 76) Globovision Venezeula
-# 77) Tu Canal Panama
-# 78) Excelsior TV
-# 79) Cinevision Canal 19
-# 80) La Casacra TV 
-# 81) 100% Noticias
-# 82) Televisa del Golfo
-# 83) Televisa Veracruz
-# 84) Televisa Matamoros
-# 85) Televisa Zacatecas
-# 86) Televisa Puebla
-# 87) Televisa Alcapuloco
-# 88) Televisa Cuernavaca
-# 89) Televisa Leon
-# 90) Televisa Queretaro
-# 91) Televisa Gudalajera
-# 92) Televisa Mexicali
-# 93) Televisa Toluca
-# 94) Televisa Hermosillo
-# 95) Televisa Torreon
-# 96) --------------
-# 97) --------------
-# 98) --------------
+# 67) Globovision Venezeula
+# 68) RT Espanol
+# 69) DW Espanol
+# 70) NTN24 Venezuela
+# 71) Canal 8 San Juan Argentina
+# 72) Canal 6 San Rafael Argentina
+# 73) Canal 7 Mendoza Argentina
+# 74) c5n Argentina
+# 75) A24 Argentina
+# 76) TelePacifico Colombia
+# 77) Canal 8 Mar del Plata
+# 78) Hispan TV
+# 79) Globovision Venezeula
+# 80) Tu Canal Panama
+# 81) Excelsior TV Mexico
+# 82) Cinevision Canal 19
+# 83) La Casacra TV 
+# 84) 100% Noticias Nicaragua 
+# 85) Televisa del Golfo
+# 86) Televisa Veracruz
+# 87) Televisa Matamoros
+# 88) Televisa Zacatecas
+# 89) Televisa Puebla
+# 90) Televisa Alcapuloco
+# 91) Televisa Cuernavaca
+# 92) Televisa Leon
+# 93) Televisa Queretaro
+# 94) Televisa Gudalajera
+# 95) Televisa Mexicali
+# 96) Televisa Toluca
+# 97) Televisa Hermosillo
+# 98) Televisa Torreon
+# 99) TeleSUR Venezuela
+# 100) VTV Venezuela
+# 101) VPI TV Venezuela
+# 102) Imagen Radio Mexico
+# 103) Venevision Venezuela
+# 104) El Capitolo Venezulana
 ################ CHINESE MANDARIN CANTONESE  ####################
-# 99) CCTV 4 Chinese
-# 100)  ON TV News Hong Kong 
-# 101)  ON TV Sports Hong Kong 
-# 102) EBC 51 News Taiwan
-# 103) EBC Finance Taiwan
-# 104) Tzu Chi Da Ai Taiwan 
-# 105) FTV Taiwan
-# 106) TTV News Taiwan
-# 107) CTV Taiwan
-# 108) CTS World News HD Taiwan
-# 109) SET News Taiwan
-# 110) CTI Taiwan
-# 111) NeXT TV Taiwan
-# 112) Chinese Kareokee 
+# 105) CCTV 4 Chinese
+# 106) 119 Live 電視台大立
+# 107) EBC 51 News Taiwan
+# 108) EBC Finance Taiwan
+# 109) Tzu Chi Da Ai Taiwan 
+# 110) FTV Taiwan
+# 111) TTV News Taiwan
+# 112) CTV Taiwan
+# 113) CTS World News HD Taiwan
+# 114) SET News Taiwan
+# 115) CTI Taiwan
+# 116) NeXT TV Taiwan
+# 117) Sinda Television
+# 118) Cheng Sin TV
+# 119) TLTV
+# 120) FLTV Taiwan
+# 121) 郭世明
+# 122) 海豚直播
+# 123) SITTI 1
+# 124) SITTI 2
+# 125) SITTI 3
 ################ KOREAN  ###############################
-# 113) KBS World 24 News
-# 114) KBS World English Sub
-# 115) KBS World TV
-# 116) YTN 24 Korea
+# 126) KBS World 24 News
+# 127) KBS World English Sub
+# 128) KBS World TV
+# 129) YTN 24 Korea
 ################ JAPANESE  ####################
-# 117) QVC JAPAN SHOPPING CHANNEL
-# 118) Sol!ve 24 Japan
+# 130) QVC JAPAN SHOPPING CHANNEL
+# 131) Sol!ve 24 Japan
 ###### INDIAN, HINDI, URDU, DARI, PASHTUN ##################
-# 119) SunNews 
-# 120) TV9 India Live
-# 121) Rajya Sabha TV
-# 122) TV9 Gujarat
-# 123) Tv9 Marathi
-# 124) Bol TV Pakistan
-# 125) 92 News Pakistan
-# 126) News 7 Tamil
-# 127) T News Telegu
-# 128) 24 News Pakistan HD
-# 129) News 18 India
-# 130) Aaj Tak 
-# 131) TV9 Telugu Live
-# 132) NTV Telugu
-# 133) ABN Telugu
-# 134) Vanitha TV 
-# 135) HMT Telugu
-# 136) TV5 News 
-# 137) Channel 24 India
-# 138) SAMAA TV
-# 139) Survana News
-# 140) ATN News Bangladesh
-# 141) No 1 News Telugu
-# 142) i News Telugu
-# 143) APN News India
-# 144) 4tv News India
-# 145) Media One News
-# 146) Tamil Live News
-# 147) TOLO NEWS AFGHANISTAN
-# 148) Dawn News PAKISTAN
-# 149) DD News
-# 150) Public TV India
-# 151) REPORTER LIVE
-# 152) NTV Bangladesh
-# 153) AsiaNet News
-# 154) 10TV Telugu
-# 155) ABN Telegu
-# 156) TV 5 Telegu
-# 157) V6 News
-# 158) Kalaignar TV1
+# 132) SunNews 
+# 133) TV9 India Live
+# 134) Rajya Sabha TV
+# 135) TV9 Gujarat
+# 136) Tv9 Marathi
+# 137) Bol TV Pakistan
+# 138) 92 News Pakistan
+# 139) News 7 Tamil
+# 140) T News Telegu
+# 141) 24 News Pakistan HD
+# 142) News 18 India
+# 143) Aaj Tak 
+# 144) TV9 Telugu Live
+# 145) NTV Telugu
+# 146) ABN Telugu
+# 147) Vanitha TV 
+# 148) HMT Telugu
+# 149) TV5 News 
+# 150) Channel 24 India
+# 151) SAMAA TV
+# 152) Survana News
+# 153) ATN News Bangladesh
+# 154) No 1 News Telugu
+# 155)i News Telugu
+# 156) APN News India
+# 157) 4tv News India
+# 158) Media One News
+# 159)  Tamil Live News
+# 160) TOLO NEWS AFGHANISTAN
+# 161) Dawn News PAKISTAN
+# 162) DD News
+# 163) Public TV India
+# 164) REPORTER LIVE
+# 165) NTV Bangladesh
+# 166) AsiaNet News
+# 167) 10TV Telugu
+# 168) TV 5 Telegu
+# 169) V6 News
+# 170) Kalaignar TV1
+# 171) News 92 Pakistan
+# 172) Shirdi Sai Aarti/Darshan
+# 173) ETV Andhra Pradesh
+# 174) News 7 TamilShirdi Sai Aarti/Darshan
+# 175) News 18 Tamilnadu
+# 176) The Polimer TV
+# 177) Jaya Plus
+# 178) Neo TV India
+# 179) Samaya News
 ################## ARABIC  ##########################################
-# 159) EuroNews Arabic
-# 160) RT Arabic 
-# 161) ON E Live 
-# 162)  ON E Sports
-# 163) ON Live
-# 164) Al Jazeera Arabic
-# 165) France 24 Arabic
-# 166) BBC Arabic
-# 167) Al Arabiya
-# 168) Al Mayadeen
-# 169) Syrian Satellite
-# 170) ORTAS Syrian Satellite
-# 171) Bedya TV Arabic
-# 172) Belques TV Arabic
-# 173) Saudi TV Blue
-# 174) Saudi Finance TV Purple
-# 175) Saudi Channel 1 Green 
-# 176) Saudi TV Gold  Mecca Kabba
-# 177) Saudi Sliver Educational
-# 178) Saudi Cultural TV Orange
-# 179) Saudi Sports TV Red
-# 180) DMC Live
-# 181) SKY Arabic
-# 182) CBC Egypt Arabic Drama 
-# 183) eXtra News Egypt Arabic
-# 184) CBC Egypt Sofra Arabic
-# 184) CBC Egypt Arabic Live
-# 185) --------------
-# 186) --------------
-# 187) --------------
-# 188) --------------
-# 189) --------------
+# 180) EuroNews Arabic
+# 181) RT Arabic 
+# 182) ON E Live 
+# 183) ON E Sports
+# 184) ON Live
+# 185) Al Jazeera Arabic
+# 186) France 24 Arabic
+# 187) BBC Arabic
+# 188) Al Arabiya
+# 189) Al Mayadeen
+# 190) Syrian Satellite
+# 191) ORTAS Syrian Satellite
+# 192) Bedya TV Arabic
+# 193) Belques TV Arabic
+# 194) Saudi TV Blue
+# 195) Saudi Finance TV Purple
+# 196) Saudi Channel 1 Green 
+# 197) Saudi TV Gold  Mecca Kabba
+# 198) Saudi Sliver Educational
+# 199) Saudi Cultural TV Orange
+# 200) Saudi Sports TV Red
+# 201) DMC Live
+# 202) SKY Arabic
+# 203) CBC Egypt Arabic Drama 
+# 204) eXtra News Egypt Arabic
+# 205) CBC Egypt Sofra Arabic
+# 206) Saudi Ajyal Kids Tv
+# 207) Makkha Live (Mecca Kaaba) 
+# 208) DW Arabic
 ############### RUSSIAN ################################
-# 190) POCCNR 24 ROSSIYA 24
-# 191) Ukraine Channel 5 
-# 192) Ukraine 112
-# 193) News 1 Ukraine
-# 194) Еsspresso Ukraine
-# 195) Thromadske Ukraine
-# 196) UA TV Ukraine
-# 197) RTR Planeta
+# 209) Euronews Russian
+# 210) Россия 24
+# 211) Ukraine Channel 5 
+# 212) Ukraine 112
+# 213) News 1 Ukraine
+# 214) Еспресо Ukraine
+# 215) Thromadske Ukraine
+# 216) UA TV Ukraine
+# 217) RTR Planeta
+################### TURKISH  ########################
+# 218) TRT Haber Turkey
+# 219) NTV Turkey
+# 220) HaberTurk TV
+# 221) Star TV  Turkish
+# 222) Euronews Turkey
+# 223) CNN Turk 
+# 224) Ari TV Canali Turkish
+# 225) Ulusal Kanal Turkish
+# 226) KRT Kulture TV
+# 227) Tele 1 Kanali
+# 228) Turkmenelie TV
+# 229) Medine TV
+# 230) La Legul TV
+# 231) Yasin TV
+# 232) Number1 TV
+# 233) TGRT Haber TV
+# 234) TVNET Canali Yayin
+# 235) ShowTV Canali 
+# 236) Galatasaray 
+# 237) A9 Televizyounu 
+# 238) STerkTV Zindi 
+# 239) Ronahi TV Zindi 
+################### GREEK  ########################
+# 240) Action 24 Greece 
+# 241) Ionian TV
+# 242) Star Lima
 ################### OTHER  ########################
-# 198) Action 24 Greece 
-# 199) Ionian TV
-# 200) Star Lima
-# 201) Parovi 1 TV Serbian
-# 202) TRT Haber Turkey
-# 203) NTV Turkey
-# 204) HaberTurk TV
-# 205) Star TV  Turkish
-# 206) ADOM TV 
-# 207) Bukedde TV
-# 208) SKY NEWS
-# 209) DW English
-# 210)  EuroNews Deutche
-# 211) Talking Tom and Friends
-# 212) DZMM ABS-CBN Philippeans Radio
-# 213) DZRH Philippeans
-# 214) DZMM Philippeans
-# 215) ----------------
-# 216) ----------------
-# 217) ----------------
-# 218) ----------------
-# 219) ----------------
-################## LOCATIONS #############################     
-# 220) NASA ISS REPLAY
-# 221) NASA ISS 1
-# 222) NASA ISS 2
-# 223) Okeanos Ocean Explorer Cam 1
-# 224) Okeanos Ocean Explorer Cam 2
-# 225) Okeanos Ocean Explorer Cam 3
-# 226) Venice Italy Bridge Cam Live
-# 227) Venice Italy Port Cam Live
-# 228) Jackson Hole Intersection
-# 229) Jackson Hole Town Square
-# 230) Jackson Hole Rustic Inn
-# 231) Verona Italy
-# 232) Soggy Dollar Bar
-# 233) Amsterdam Netherlands
-# 234) Shibua Japan Community Crosswalk 
-# 235) RSBN Office Live
-# 236) Akiba Japan Live
-# 237) Yahoo Weather Japan
-# 238) Yahoo Weather Steamy Mountains
-# 239) Tokyo Weather Sky Cam
-# 240) Shizuoka Bridge Japan
-# 241) Yokohama Port Japan
-# 242) Hokkido Weather Cams
-# 243) Mount Fuji Japan
-#####################  OTHER   ##########################
-# 244) --------------
-# 245) --------------
-# 246) --------------
-# 247) Euronews Russian
-# 248) Euronews Turkey
-# 249) Euronews Italian
-# 250) QVC Itallian
-# 251) -------------- 
-# 252) Euronews Maygar Hugarian
-# 253) --------------
-# 254) --------------
-# 255) Shirdi Sai Aarti/Darshan
-# 256) ETV Andhra Pradesh
-# 257) News 7 TamilShirdi Sai Aarti/Darshan
-# 258) News 18 Tamilnadu
-# 259) The Polimer TV
-# 260) Jaya Plus
-# 271) RSBN News Feed 2
-# 272) Moni Toon
-# 273) Infowars
-# 274) Poker TV2
-# 275) The Young Turks
-# 276) Elyse.fr
-# 277) QVC Francais
+# 243) Parovi 1 TV Serbian
+# 244) SKY NEWS
+# 245) DW English
+# 246) Euronews English
+# 247) EuroNews Deutche
+# 248) Euronews Maygar Hugarian
+################  FILLIPINO ########################
+# 249) DZMM ABS-CBN Philippeans Radio
+# 250) DZRH Philippeans
+# 251) DWIZ Philippeans
+# 252) PTV Philippines
+################   AFRICAN  #########################
+# 253) ADOM TV 
+# 254) Bukedde TV
+################  PORTUGUESE ##########################
+# 255) TV Senado Brazil
+# 256) STF Brazil
+# 257) TV Camara Brazil
+################## ITALIAN #####################
+# 258) CTV Vaticano
+# 259) Euronews Italian
+# 260) QVC Itallian
+###############  FARSI / PERSIAN ######################
+# 261) Euronews Persian
+# 262) BBC Persian
+# 263) DJ Free Iran 
+################## TALK SHOW ################################
+# 264) EWTN
+# 265) The Young Turks
+# 266) RSBN Office Live
+# 267) RSBN News Feed 2
+# 268) Infowars
+################ NIGHTLY NEWS PODCAST #######################
+# 269) PBS NewsHour Video
+# 270) CBC The National
+# 271) --------------
+# 272) --------------
+# 273) --------------
+############# ENTERTAINMENT  ##################################
+# 274) Talking Tom and Friends Mini
+# 275) Caillou
+###################  LOCATIONS ################################
+# 276) NASA ISS REPLAY
+# 277) NASA ISS 1
+# 278) NASA ISS 2
+# 279) Venice Italy Bridge Cam Live
+# 280) Venice Italy Port Cam Live
+# 281) Jackson Hole Intersection
+# 282) Jackson Hole Town Square
+# 283) Jackson Hole Rustic Inn
+# 284) Verona Italy
+# 285) Soggy Dollar Bar
+# 286) Amsterdam Netherlands
+# 287) Shibua Japan Community Crosswalk 
+# 288) Akiba Japan Live
+# 289) Yahoo Weather Japan
+# 290) Yahoo Weather Steamy Mountains
+# 291) Tokyo Weather Sky Cam
+# 292) Shizuoka Bridge Japan
+# 293) Yokohama Port Japan
+# 294) Hokkido Weather Cams
+# 295) Mount Fuji Japan
+# 296) BSC 24 Japan
+# 297) -------------
+# 298) -------------
+# 299) -------------
+# 300) -------------
+###################  TRANSIENT NEWS ######################################3
+# 318) CNN Live 
+# 319) MSNBC
+# 320) MSNBC 
+#
