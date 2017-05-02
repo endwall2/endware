@@ -6,10 +6,11 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
-# Version: 0.04
-# Revision Date: March 30, 2017
+# Version: 0.05
+# Revision Date: May 1, 2017
 #
-# Change Log:  - proper implimentation of channel switching while loop
+# Change Log:  - Stay on previously selected menu after video finishes
+#              - proper implimentation of channel switching while loop
 #              - Set to infinite repeat to reload streams automatically + grab cookie with curl
 #              - Forked from enstream.sh
 #              - grab transient channels by channel name 
@@ -152,8 +153,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.04"
-rev_date="30/03/2017"
+version="0.05"
+rev_date="01/05/2017"
 branch="gnu/linux"
 ##################################################
 
@@ -168,97 +169,97 @@ echo " " > "$cookie"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
 {
-   echo "==================================================================      EndTV  "$version"   =========================================================================="
-   echo "====================================================================================================================================================================="
-   echo "=======CANADA======  39)CBS Drama        77)Zombie Underworld 116)Sci-Fi Telly    155)Noise Network 192)POP             229)CDTV          267)TMTV          305)TV Gold   "    
-   echo "1)CFRN CTV EDMONTON  40)CBS Action       78)Vampire Empire    117)Hollywoodland   156)Janey Kirk    193)Popeye          230)EIC TV        268)WHOMAG        306)Battle Rap " 
-   echo "2)CKCK CTV REGINA    41)truTV            79)Creepy Crawly     118)Western Channel 157)FilmOn Jazz   194)Funny Company   231)Global Goals  269)WHOMAG VID    307)Tribe TV   "  
-   echo "3)CFCN-5 CTV LethBr  42)Psychic Today    80)RSquared          119)Matriarch       158)FilmOn Rock   195)AngelAttic      232)Native Nations270)New Star      308)FOn Reality"             
-   echo "4)CICC CTV Yorktown  43)FusionPlus TV    81)Macabre Theater   120)Film 4          159)JCTV          196)Cat TV          233)France 24     271)Bone Thugs    309)Red Carpet"  
-   echo "========UK ========== =====SPORTS======  82)B-Movie!          121)Film Detective  160)Classic Arts  197)CBeebies        234)Truth Files   272)RMC Live      310)Christmas "  
-   echo "5)BBC One            44)Grandstand Show  83)Alien Invasion    ===ENTERTAINMENT====161)Jazz Radio    198)CBBC            235)NewsMax       273)Raw Report    311)Nub TV  "
-   echo "6)My Face My Body    45)Football Fanatics84)Horror Channel    122)CRAGG           ====BIKINI=====   199)Talya Toys      236)TV 47         274)Linkct Network312)Chai Life"
-   echo "7)V Channel          46)FilmOn Tennis    =======MOVIES======= 123)Shockya Trailers162)Player        200)Kartoon Klassic 237)VOA           275)Urban Music   313)Joe Nation"
-   echo "8)Reality TV         47)Snooker Legends  85)FilmOn Classics   124)California Life 163)J CLub        201)Fun Little      238)FilmOn NEWS   276)Aspire Now    314)OCRealEstate"
-   echo "9)Ireland's Country  48)The Ring TV      86)Love On The Range 125)Rose Parade     164)Bikini Down   202)Tayla Tea       239)Al Jazeera    277)Amp TV        315)MHL TV  "
-   echo "10)Britrox           49)Gali Lucha Libre 87)Silent Cinema     126)Screensaver     165)Cheerleaders  203)Wild Animals    240)Bloomberg     278)Weedmaps      316)RUNWAY TV"
-   echo "11)Dr. Fab Show      50)Beach Sports     88)ChristmasTime     127)Drone TV        166)Party Girls   204)FilmOn Kids     241)DW English    279)Buddy Plant   317)TEOS   "
-   echo "12)BBC News          51)Pugalism         89)Real Life Films   128)Miss Multiverse 167)Showing Off   205)Smile Child     242)Russia Today  280)PROHBTD       318)TV ART "
-   echo "13)BBC 1 Wales       52)Inside The Ring  90)Sherlock Holmes   129)Vape Channel    168)Show and Tell 206)Mouse House     243)America Thinks281)Sweet Leaf    319)RunwayTV "  
-   echo "14)BBC 1 Scotland    53)Emerging Sports  91)Xtreme IND        130)Trinity Heart   169)Miss Top      =====BUSINESS=====  244)CGTN          ===LIFESTYLE===   320)Chic   "
-   echo "15)BBC 1 N Ireland   54)Softball 360     92)Seven Sins        131)Talent Know     170)Bikini TV     207)Crowd Angels    245)DVID          282)Health Life   321)NASA TV"
-   echo "16)BBC Two           55)Golden Boy       93)The Monarch       132)EZ Way          171)Bikini Kitchen208)Red Chip        246)Press TV      283)SOBA          ===FRENCH==="	
-   echo "17)BBC Parliament    56)FilmOn Wrestling 94)Trailer Nut       133)Tomorrow Pics   172)Miami TV      209)Biz TV          247)Job Channel   284)Readers Digest322)ARTE   "
-   echo "18)BBC Four          57)FilmOn Football  95)Thespian Theater  134)Razzies         =====COMEDY====== ===DOCUMENTARY====  248)Unreliable    285)Green Living  323)France 0"  
-   echo "19)ITV               58)Roopstigo        96)Rated B           135)24.7 The Stream 173)ComiCZoo      210)CCTV 9          249)Insider Ex    286)Safe TV       324)France 3"
-   echo "20)ITV +1            59)Fighting Athletes97)Movie Loft TV     136)Miami Music     174)Placeholders  211)Fame TV         ==EXTREME SPORTS==287)Bid America   325)France 3"       
-   echo "21)ITV2              60)Ultimate Disc    98)Dragon Arena      137)Talent Watch    175)Lumbfilm      212)Locomotion      250)GFL Combat    288)MegaMe        326)RTS UN"  
-   echo "22)ITV2 +1           61)FilmOn Boxing    99)Mad Science Cinema138)HotRock         176)FimOn Comedy  213)FBI Insider     251)XCORPS        289)Wonderful Life327)RTS Deux"
-   echo "23)ITV3              62)Game Time        100)FilmOn Family    139)Hot Country     177)Spud's Funny  214)FilmOn Docs     252)MMA Now       290)Simply Me     328)BFM Biz"  
-   echo "24)ITV3 +1           63)1 on 1 Boxing    101)Hollywood War    140)Music Mix       178)SupaPirateBoot215)UFO NEWS        253)GLORY Kick    291)The Walk      329)BFM TV"
-   echo "25)ITV4              64)AFL Classic      102)Bloodzillathon   141)Guitar Lessons  179)Fun Little    216)WAKAJ TV        254)Sledhead      292)Time TV       330)France 2"
-   echo "26)ITV4 +1           65)Cheer Channel    103)Banned Western   142)Soundtrack      180)Comedy Time   217)FilmOn Bio      255)DestX         293)DRTV          ===GERMAN==="
-   echo "27)ITV Be            66)Football Heroes  104)Eurotrash        143)EDM TV          181)EyeforanEye   218)Victory at Sea  256)PlanetX       294)Medical News  331)HSE 2a"
-   echo "28)Channel 4         67)Live Boxing      105)High School      144)Jimmy Lloyd SWS =====KIDS======== 219)FilmOn War      257)MMA Now       295)Supreme Master332)HSE 2b"    
-   echo "29)E4                68)Army Boxing      106)Award Cinema     145)Beatles Stories 182)KIDS ZONE     220)Ghost Hunters   258)UFC Next      =====FILMON====   333)Kika   "
-   echo "30)More4             69)Tuff TV          107)New York         146)DM TV           183)AngelsAttic   221)Timeless Bios   259)Sports Blooper296)FOTV USA      334)ZDF Info"
-   echo "31)Channel 5         70)Disability Sports108)Major Crimes     147)Country Star    184)SuperGeekHero 222)RealLife History260)Crash Bang    297)FOTV Workout  ===RUSSIAN==" 
-   echo "32)5*                71)Fashion News     109)Cultra           148)Josh and JB     185)AA Create     223)Living History  ====URBAN/PARTY===298)FilmOn Sports 335)RTR Planet"  
-   echo "33)5USA              ======HORROR========110)iFlix TV         149)JBTV            186)Reading       224)WW2 TV          261)Urban Firearms299)360 Exp       336)CurrentTime"
-   echo "34)Really            72)FilmOn Horror    111)Campy Channel    150)Jazz TeeVee     187)OM NOM        225)Aliens UFOS     262)Road 2 Fame   300)BH Cam 360    337)RT Docs"
-   echo "35)Yesterday         73)American Horrors 112)Filmon Stars     151)Dancing Machine 188)Kids Rock     226)Crime Inc.      263)WWRTV         301)R&B Live      338)Perviy "
-   echo "36)Pick TV           74)Midnight Release 113)KungFu Classics  152)Inside Music    189)Tiny Pop      227)Short a Lesson  264)Evidence      302)Cast Out      339)Music Box"	
-   echo "37)CBS Reality       75)Chillings        114)Double Feature   153)Tipstr.TV       190)Kix!          ======NEWS========= 265)Superfly      303)ROC Summer    340)Rossiya 24"
-   echo "38)CBS Reality+1     76)Monster Madhouse 115)FilmOn Grab Bag  154)Clubbing TV     191)Tails TV      228)Newsy           266)Harlem        304)FilmON Studio ===INDIA TV=="
-   echo "========================================================================================================================================================================"
+   echo "==================================================================      EndTV  "$version"   ===================================================================================="
+   echo "=========================================================================================================================================================================="
+   echo "=======UK ======    =====SPORTS======  78)B-Movie!          117)Film Detective  156)Classic Arts  193)CBeebies        230)Truth Files   268)RMC Live      306)Christmas "    
+   echo "1)BBC One          40)Grandstand Show  79)Alien Invasion    ===ENTERTAINMENT====157)Jazz Radio    194)CBBC            231)NewsMax       269)Raw Report    307)Nub TV  " 
+   echo "2)My Face My Body  41)Football Fanatics80)Horror Channel    118)CRAGG           =====BIKINI=====  195)Talya Toys      232)TV 47         270)Linkct Network308)Chai Life "  
+   echo "3)V Channel        42)FilmOn Tennis    =======MOVIES======= 119)Shockya Trailers158)Player        196)Kartoon Klassic 233)VOA           271)Urban Music   309)Joe Nation"             
+   echo "4)Reality TV       43)Snooker Legends  81)FilmOn Classics   120)California Life 159)J CLub        197)Fun Little      234)FilmOn NEWS   272)Aspire Now    310)OCRealEstate"  
+   echo "5)Ireland's Country44)The Ring TV      82)Love On The Range 121)Rose Parade     160)Bikini Down   198)Tayla Tea       235)Al Jazeera    273)Amp TV        311)MHL TV  "  
+   echo "6)Britrox          45)Gali Lucha Libre 83)Silent Cinema     122)Screensaver     161)Cheerleaders  199)Wild Animals    236)Bloomberg     274)Weedmaps      312)RUNWAY TV "
+   echo "7)Dr. Fab Show     46)Beach Sports     84)ChristmasTime     123)Drone TV        162)Party Girls   200)FilmOn Kids     237)DW English    275)Buddy Plant   313)TEOS "
+   echo "8)BBC News         47)Pugalism         85)Real Life Films   124)Miss Multiverse 163)Showing Off   201)Smile Child     238)Russia Today  276)PROHBTD       314)TV ART"
+   echo "9)BBC 1 Wales      48)Inside The Ring  86)Sherlock Holmesq  125)Vape Channel    164)Show and Tell 202)Mouse House     239)America Thinks277)Sweet Leaf    315)RunwayTV"
+   echo "10)BBC 1 Scotland  49)Emerging Sports  87)Xtreme IND        126)Trinity Heart   165)Miss Top      =====BUSINESS=====  240)CGTN          ===LIFESTYLE===   316)Chic "
+   echo "11)BBC 1 N Ireland 50)Softball 360     88)Seven Sins        127)Talent Know     166)Bikini TV     203)Crowd Angels    241)DVID          278)Health Life   317)NASA TV "
+   echo "12)BBC Two         51)Golden Boy       89)The Monarch       128)EZ Way          167)Bikini Kitchen204)Red Chip        242)Press TV      279)SOBA          ===FRENCH==="
+   echo "13)BBC Parliament  52)FilmOn Wrestling 90)Trailer Nut       129)Tomorrow Pics   168)Miami TV      205)Biz TV          243)Job Channel   280)Readers Digest318)ARTE  "
+   echo "14)BBC Four        53)FilmOn Football  91)Thespian Theater  130)Razzies         =====COMEDY====== ===DOCUMENTARY====  244)Unreliable    281)Green Living  319)France 0  "  
+   echo "15)ITV             54)Roopstigo        92)Rated B           131)24.7 The Stream 169)ComiCZoo      206)CCTV 9          245)Insider Ex    282)Safe TV       320)France 3  "
+   echo "16)ITV +1          55)Fighting Athlete 93)Movie Loft TV     132)Miami Music     170)Placeholders  207)Fame TV         ==EXTREME SPORTS==283)Bid America   321)France 3  "
+   echo "17)ITV2            56)Ultimate Disc    94)Dragon Arena      133)Talent Watch    171)Lumbfilm      208)Locomotion      246)GFL Combat    284)MegaMe        322)RTS UN  "	
+   echo "18)ITV2 +1         57)FilmOn Boxing    95)Mad Science Cinema134)HotRock         172)FimOn Comedy  209)FBI Insider     247)XCORPS        285)Wonderful Life323)RTS Deux"
+   echo "19)ITV3            58)Game Time        96)FilmOn Family     135)Hot Country     173)Spud's Funny  210)FilmOn Docs     248)MMA Now       286)Simply Me     324)BFM Biz"  
+   echo "20)ITV3 +1         59)1 on 1 Boxing    97)Hollywood War     136)Music Mix       174)SupaPirateBoot211)UFO NEWS        249)GLORY Kick    287)The Walk      325)BFM TV"
+   echo "21)ITV4            60)AFL Classic      98)Bloodzillathon    137)Guitar Lessons  175)Fun Little    212)WAKAJ TV        250)Sledhead      288)Time TV       326)France 2"       
+   echo "22)ITV4 +1         61)Cheer Channel    99)Banned Western    138)Soundtrack      176)Comedy Time   213)FilmOn Bio      251)DestX         289)DRTV          ===GERMAN==="  
+   echo "23)ITV Be          62)Football Heroes  100)Eurotrash        139)EDM TV          177)EyeforanEye   214)Victory at Sea  252)PlanetX       290)Medical News  327)HSE 2a "
+   echo "24)Channel 4       63)Live Boxing      101)High School      140)Jimmy Lloyd SWS ======KIDS======= 215)FilmOn War      253)MMA Now       291)Supreme Master328)HSE 2b"  
+   echo "25)E4              64)Army Boxing      102)Award Cinema     141)Beatles Stories 178)KIDS ZONE     216)Ghost Hunters   254)UFC Next      =====FILMON====   329)Kika "
+   echo "26)More4           65)Tuff TV          103)New York         142)DM TV           179)AngelsAttic   217)Timeless Bios   255)Sports Blooper292)FOTV USA      330)ZDF Info"
+   echo "27)Channel 5       66)Disability Sports104)Major Crimes     143)Country Star    180)SuperGeekHero 218)RealLife History256)Crash Bang    293)FOTV Workout  ===RUSSIAN== "
+   echo "28)5*              67)Fashion News     105)Cultra           144)Josh and JB     181)AA Create     219)Living History  ====URBAN/PARTY===294)FilmOn Sports 331)RTR Planet"
+   echo "29)5USA            ======HORROR========106)iFlix TV         145)JBTV            182)Reading       220)WW2 TV          257)Urban Firearms295)360 Exp       332)CurrentTime"    
+   echo "30)Really          68)FilmOn Horror    107)Campy Channel    146)Jazz TeeVee     183)OM NOM        221)Aliens UFOS     258)Road 2 Fame   296)BH Cam 360    333)RT Docs"
+   echo "31)Yesterday       69)American Horrors 108)Filmon Stars     147)Dancing Machine 184)Kids Rock     222)Crime Inc.      259)WWRTV         297)R&B Live      334)Perviy "
+   echo "32)Pick TV         70)Midnight Release 109)KungFu Classics  148)Inside Music    185)Tiny Pop      223)Short a Lesson  260)Evidence      298)Cast Out      335)Music Box " 
+   echo "33)CBS Reality     71)Chillings        110)Double Feature   149)Tipstr.TV       186)Kix!           =======NEWS======  261)Superfly      299)ROC Summer    336)Rossiya 24"  
+   echo "34)CBS Reality+1   72)Monster Madhouse 111)FilmOn Grab Bag  150)Clubbing TV     187)Tails TV      224)Newsy           262)Harlem        300)FilmON Studio ===INDIA TV=="
+   echo "35)CBS Drama       73)Zombie Underworld112)Sci-Fi Telly     151)Noise Network   188)POP           225)CDTV            263)TMTV          301)TV Gold       337)Films India"
+   echo "36)CBS Action      74)Vampire Empire   113)Hollywoodland    152)Janey Kirk      189)Popeye        226)EIC TV          264)WHOMAG        302)Battle Rap    338)Live 9 TV "
+   echo "37)truTV           75)Creepy Crawly    114)Western Channel  153)FilmOn Jazz     190)Funny Company 227)Global Goals    265)WHOMAG VID    303)Tribe TV      339)Delhi Aaj Tak"	
+   echo "38)Psychic Today   76)RSquared         115)Matriarch        154)FilmOn Rock     191)AngelAttic    228)Native Nations2 266)New Star      304)FOn Reality   340)Aaj Tak  "
+   echo "39)FusionPlus TV   77)Macabre Theater  116)Film 4           155)JCTV            192)Cat TV        229)France 24       267)Bone Thugs    305)Red Carpet    341)Tez TV  "
+   echo "==========================================================================================================================================================================="
 echo " " 
 }	
 
 channel_matrix_2()
 {
-   echo "==================================================================      EndTV  "$version"   =========================================================================="
-   echo "=====INDIA==========================================================================================================================================================="
-   echo "341)Films of India   377)RT Espanol        415)Sprokets         450)GLORY TV      487)Torque Tush    520)U Matter 2    560)---------- 600)---------- 640)---------- "    
-   echo "342)Live 9 TV        378)DW Latino America 416)Teen Shorts      451)Dunamis       488)MotorZ         521)WXEA 94.7     561)---------- 601)---------- 641)---------- " 
-   echo "343)Delhi Aaj Tak    379)Televideo Latino  417)Drama Shorts     452)Global Music  489)Steel Dreams   522)Wise Choice   562)---------- 602)---------- 642)---------- "  
-   echo "344)Aaj Tak          ===CLASSIC TV===      418)Digi Animation   453)Church Channel490)Distant Roads  523)FONYE Dance   563)---------- 603)---------- 643)---------- "             
-   echo "345)Tez TV           380)The Lucy Show     419)Documentary      454)TBN           ====EDUCATION===   524)Key 56        564)---------- 604)---------- 644)---------- "  
-   echo "346)ABP News         381)Date with Angels  ===OUTDOORS=====     455)DAYSTAR       491)Florida        525)A1 Bluegrass  565)---------- 605)---------- 645)---------- "  
-   echo "===ITALY===          382)Man with Camera   420)Bayou Country    456)CATHOLIC TV   492)Make Your Move 526)WZQR Talk     566)---------- 606)---------- 646)---------- "
-   echo "347)Italia Channel   383)Colgate Comedy    421)Gun Student      ===CELEBS====     493)Smarts TV      527)---------     567)---------- 607)---------- 647)---------- "
-   echo "348)Camera Deputati  384)Catwalk           422)Ultimate Outdoor 457)Screenster    494)Parenting TV   528)---------     568)---------- 608)---------- 648)---------- "
-   echo "349)QVC Italy        385)Life of Riley     423)Hunt Channel     458)Celeb Action  =====SHOPPING====  529)---------     569)---------- 609)---------- 649)---------- "
-   echo "==MIDDLE EAST==      386)Strange Paradise  424)Thouroughbred    459)Dame Dash     495)Jewelry TV     530)---------     570)---------- 610)---------- 650)---------- "
-   echo "350)Rotana Aflam     387)Red Skeleton      425)Wilderness       460)Nik Richie    496)QVC HD         531)---------     571)---------- 611)---------- 651)---------- "
-   echo "351)DW Arabia        388)Dragnet           426)Pursuit          461)Celeb Icons   497)Shop-N-Give    532)---------     572)---------- 612)---------- 652)---------- "
-   echo "352)AlJazeera Docs   389)Private Secretary ===TRAVEL======      462)Andy Dick     498)Deals TV       533)---------     573)---------- 613)---------- 653)---------- "
-   echo "353)AlJazeeraMubasher390)Suspense TV       427)HWC              463)Janice TV     499)Beauty IQ      534)---------     574)---------- 614)---------- 654)---------- "  
-   echo "354)AlJazeera Arabic 391)Timeless Westerns 428)Jet Set          464)Kato Katelin  500)QVC            535)---------     575)---------- 615)---------- 655)---------- "
-   echo "355)Saudi TV 2       392)You bet your Life 429)Mata             465)Celeb Fight   501)America Auction536)---------     576)---------- 616)---------- 656)---------- "
-   echo "356)Saudi TV Sports  393)Flash Gordon      430)Mega Dest        466)Vertro Live   502)Caribbean Shop 537)---------     577)---------- 617)---------- 657)---------- "	
-   echo "357)Suryoyo Satalite 394)Betty Boop        431)30A TV           467)Star Shop     503)Product Show   538)---------     578)---------- 618)---------- 658)---------- "
-   echo "358)Rotana           395)Fury TV           432)OBX TV           =====FOOD====     ====CARIBBEAN====  539)---------     579)---------- 619)---------- 659)---------- "  
-   echo "359)Rotana Clip      396)Cisco Kid         433)Travel           468)Wine Ram      504)Calabash       540)---------     580)---------- 620)---------- 660)---------- "
-   echo "360)Rotana Khalijah  397)Bonanza           434)Landmarks        469)World of Wine 505)Caribbean Life 541)---------     581)---------- 621)---------- 661)---------- "       
-   echo "361)Rotana Classic   398)Ozzie and Harriet 435)Infamous Places  470)The Chef Roc  506)Scruffy TV     542)---------     582)---------- 622)---------- 662)---------- "  
-   echo "362)Rotana Masriya   399)One Step Beyond   ====SOMALIA====      471)Food Network+1====ASIAN========  543)---------     583)---------- 623)---------- 663)---------- "
-   echo "363)Rotana Cinema    400)Charlie Chaplin   436)SNL TV           472)Food Champ    507)Arirang TV     544)---------     584)---------- 624)---------- 664)---------- "  
-   echo "364)Saudi TV 1       401)Beverly Hillbilies437)Universal TV     473)Dude Food     508)VTC-10         545)---------     585)---------- 625)---------- 665)---------- "
-   echo "365)Noor Dubai       402)Robin Hood        438)National         474)Food Network  509)VOA Weishi     546)---------     586)---------- 626)---------- 666)---------- "
-   echo "366)iFilm            403)Timeless TV       439)Horn Cable       475)iFood TV      ===AFRICAN======   547)---------     587)---------- 627)---------- 667)---------- "
-   echo "367)Dubai Sports     404)Spud's Crime      440)ESTV             476)Indian Recipe 510)ERI TV         548)---------     588)---------- 628)---------- 668)---------- "
-   echo "=====SWISS =====     405)Dick Van Dyke     441)Kalsan           477)Wine Oh       511)Nollywood      549)---------     589)---------- 629)---------- 669)---------- "    
-   echo "368)SRF 1            == SHORT FILMS==      ===GREEK======       478)Gastrolab     512)iGboro TV      550)---------     590)---------- 630)---------- 670)---------- "
-   echo "369)RSI LA 1         406)Funny Shorts      442)RIK              479)Outdoor Cook  ===KAZAKH=======   551)---------     591)---------- 631)---------- 671)---------- "
-   echo "370)Raido Chico      407)Movies            ==RELIGION=====      480)Wine Channel  513)Kazakh TV      552)---------     592)---------- 632)---------- 672)---------- " 
-   echo "=====LATINO======    408)Dancing Shorts    443)Hispanic         481)Eco Rico      ====RADIO=====     553)---------     593)---------- 633)---------- 673)---------- "  
-   echo "371)Peliculas FilmON 409)Reality Shorts    444)You Shall Live   482)Veg TV        514)Marko Polka    554)---------     594)---------- 634)---------- 674)---------- "
-   echo "372)Catwalk Espanol  410)Acid TV           445)Preach the Word  ====CARS=======   515)v104 Live      555)---------     595)---------- 635)---------- 675)---------- "
-   echo "373)Animacion FilmOn 411)Horror TV         446)Audio Scripture  483)Auto Channel  516)Daytona Surf   556)---------     596)---------- 636)---------- 676)---------- "
-   echo "374)Planet Fashion   412)Music Videos      447)Cyber Church     484)Raceline TV   517)Classic Oldies 557)---------     597)---------- 637)---------- 677)---------- "	
-   echo "375)HispanTV         413)Sci Fi            448)Faith Cinema     485)Race Central  518)The Cajun      558)---------     598)---------- 638)---------- 678)---------- "
-   echo "376)Telenovelas      414)Micro Shorts      449)NRB              486)Honda HPD     519) J&J FM        559)---------     599)---------- 639)---------- 679)---------- "
-   echo "========================================================================================================================================================================"
+   echo "==================================================================      EndTV  "$version"   ================================================================================="
+   echo "======================================================================================================================================================================="
+   echo "342)ABP News          377)Date with Angels  ======OUTDOORS====== 451)DAYSTAR        487)Florida          521)A1 Bluegrass  560)---------- 600)---------- 640)---------- "    
+   echo "===ITALY===           378)Man with Camera   416)Bayou Country    452)CATHOLIC TV    488)Make Your Move   522)WZQR Talk     561)---------- 601)---------- 641)---------- " 
+   echo "343)Italia Channel    379)Colgate Comedy    417)Gun Student       ======CELEBS====  489)Smarts TV        522)---------     562)---------- 602)---------- 642)---------- "  
+   echo "344)Camera Deputati   380)Catwalk           418)Ultimate Outdoor 453)Screenster     490)Parenting TV     523)---------     563)---------- 603)---------- 643)---------- "             
+   echo "345)QVC Italy         381)Life of Riley     419)Hunt Channel     454)Celeb Action   =====SHOPPING====    524)---------     564)---------- 604)---------- 644)---------- "  
+   echo "==MIDDLE EAST==       382)Strange Paradise  420)Thouroughbred    455)Dame Dash      491)Jewelry TV       525)---------     565)---------- 605)---------- 645)---------- "  
+   echo "346)Rotana Aflam      383)Red Skeleton      421)Wilderness       456)Nik Richie     492)QVC HD           526)---------     566)---------- 606)---------- 646)---------- "
+   echo "347)DW Arabia         384)Dragnet           422)Pursuit          457)Celeb Icons    493)Shop-N-Give      527)---------     567)---------- 607)---------- 647)---------- "
+   echo "348)AlJazeera Docs    385)Private Secretary ======TRAVEL======   458)Andy Dick      494)Deals TV         528)---------     568)---------- 608)---------- 648)---------- "
+   echo "349)AlJazeeraMubasher 386)Suspense TV       423)HWC              459)Janice TV      495)Beauty IQ        529)---------     569)---------- 609)---------- 649)---------- "
+   echo "350)AlJazeera Arabic  387)Timeless Westerns 424)Jet Set          460)Kato Katelin   496)QVC              530)---------     570)---------- 610)---------- 650)---------- "
+   echo "351)Saudi TV 2        388)You bet your Life 425)Mata             461)Celeb Fight    497)America Auction  531)---------     571)---------- 611)---------- 651)---------- "
+   echo "352)Saudi TV Sports   389)Flash Gordon      426)Mega Dest        462)Vertro Live    498)Caribbean Shop   532)---------     572)---------- 612)---------- 652)---------- "
+   echo "353)Suryoyo Satalite  390)Betty Boop        427)30A TV           463)Star Shop      499)Product Show     533)---------     573)---------- 613)---------- 653)---------- "
+   echo "354)Rotana            391)Fury TV           428)OBX TV           =====FOOD=======   ====CARIBBEAN====    534)---------     574)---------- 614)---------- 654)---------- "  
+   echo "355)Rotana Clip       392)Cisco Kid         429)Travel           464)Wine Ram       500)Calabash         535)---------     575)---------- 615)---------- 655)---------- "
+   echo "356)Rotana Khalijah   393)Bonanza           430)Landmarks        465)World of Wine  501)Caribbean Life   536)---------     576)---------- 616)---------- 656)---------- "
+   echo "357)Rotana Classic    394)Ozzie and Harriet 431)Infamous Places  466)The Chef Roc   502)Scruffy TV       537)---------     577)---------- 617)---------- 657)---------- "	
+   echo "358)Rotana Masriya    395)One Step Beyond   =====SOMALIA======   467)Food Network+1 =======ASIAN======   538)---------     578)---------- 618)---------- 658)---------- "
+   echo "359)Rotana Cinema     396)Charlie Chaplin   432)SNL TV           468)Food Champ     503)Arirang TV       539)---------     579)---------- 619)---------- 659)---------- "  
+   echo "360)Saudi TV 1        397)Beverly Hillbilies433)Universal TV     469)Dude Food      504)VTC-10           540)---------     580)---------- 620)---------- 660)---------- "
+   echo "361)Noor Dubai        398)Robin Hood        434)National         470)Food Network   505)VOA Weishi       541)---------     581)---------- 621)---------- 661)---------- "       
+   echo "362)iFilm             399)Timeless TV       435)Horn Cable       471)iFood TV       ======AFRICAN=====   542)---------     582)---------- 622)---------- 662)---------- "  
+   echo "363)Dubai Sports      400)Spud's Crime      436)ESTV             472)Indian Recipe  506)ERI TV           543)---------     583)---------- 623)---------- 663)---------- "
+   echo "=====SWISS =====      401)Dick Van Dyke     437)Kalsanv          473)Wine Oh        507)Nollywood        544)---------     584)---------- 624)---------- 664)---------- "  
+   echo "364)SRF 1             == SHORT FILMS==      ======GREEK======    474)Gastrolab      508)iGboro TV        545)---------     585)---------- 625)---------- 665)---------- "
+   echo "365)RSI LA 1          402)Funny Shorts      438)RIK              475)Outdoor Cook   =====KAZAKH=======   546)---------     586)---------- 626)---------- 666)---------- "
+   echo "366)Raido Chico       403)Movies            =====RELIGION=====   476)Wine Channel   509) Kazakh TV       547)---------     587)---------- 627)---------- 667)---------- "
+   echo "=====LATINO======     404)Planet Fashion    439)Hispanic         477)Eco Rico       ======RADIO=======   548)---------     588)---------- 628)---------- 668)---------- "
+   echo "367)Dancing Shorts    405)Reality Shorts    440)You Shall Live   478)Veg TV         510)Marko Polka      549)---------     589)---------- 629)---------- 669)---------- "    
+   echo "368)Peliculas FilmON  406)Acid TV           441)Preach the Word  =======CARS======= 511)v104 Live        550)---------     590)---------- 630)---------- 670)---------- "
+   echo "369)Catwalk Espanol   407)Horror TV         442)Audio Scripture  479)Auto Channel   512)Daytona Surf     551)---------     591)---------- 631)---------- 671)---------- "
+   echo "370)Animacion FilmOn  408)Music Videos      443)Cyber Church     480)Raceline TV    513)Classic Oldies   552)---------     592)---------- 632)---------- 672)---------- " 
+   echo "371)HispanTV          409)Sci Fi            444)Faith Cinema     481)Race Central   514)The Cajun        553)----------    593)---------- 633)---------- 673)---------- "  
+   echo "372)Telenovelas       410)Micro Shorts      445)NRB              482)Honda HPD      515)J&J FM           554)---------     594)---------- 634)---------- 674)---------- "
+   echo "373)RT Espanol        411)Sprokets          446)GLORY TV         483)Torque Tush    516)U Matter 2       555)---------     595)---------- 635)---------- 675)---------- "
+   echo "374)DW Latino America 412)Teen Shorts       447)Dunamis          484)MotorZ         517)WXEA 94.7        556)---------     596)---------- 636)---------- 676)---------- "
+   echo "375)Televideo Latino  413)Drama Shorts      448)Global Music     485)Steel Dreams   518)Wise Choice      557)---------     597)---------- 637)---------- 677)---------- "	
+   echo "===CLASSIC TV===      414)Digi Animation    449)Church Channel   486)Distant Roads  519)FONYE Dance      558)---------     598)---------- 638)---------- 678)---------- "
+   echo "376)The Lucy Show     415)Documentary       450)TBN              ====EDUCATION===   520)Key 56           559)---------     599)---------- 639)---------- 679)---------- "
+   echo "=========================================================================================================================================================================="
 echo " " 
 }	
 
@@ -337,1636 +338,1625 @@ chan_num=$1
 
 case $chan_num in 
 ################    CANADIAN TV  ##################################
-# 1) CFRN CTV Edmonton
-1) link=https://www.filmon.com/tv/cfrn-ctv-edmonton
-   chan_name="CFRN CTV Edmonton";;
-# 2) CKCK CTV Regina
-2) link=https://www.filmon.com/tv/ckck-ctv-regina 
-   chan_name="CKCK CTV Regina" ;;  
-#  3) CFCN 5 CTV Lethbridge
-3) link=https://www.filmon.com/tv/cfcn-5-ctv-lethbridge  
-    chan_name="CFCN 5 CTV Lethbridge";;   
-# 4) CICC CTV Yorktown
-4) link=https://www.filmon.com/tv/cicc-ctv-yorkton  
- chan_name="CICC CTV Yorktown" ;;
-# 5) BBC One
-5) link=https://www.filmon.com/tv/bbc-one 
+# 1) BBC One
+1) link=https://www.filmon.com/tv/bbc-one 
    chan_name="BBC One";;
-# 6) My Face My Body 
-6) link=https://www.filmon.com/tv/my-face-my-body   
+# 2) My Face My Body 
+2) link=https://www.filmon.com/tv/my-face-my-body   
      chan_name="My Face My Body" ;;
-# 7) V Channel
-7) link=https://www.filmon.com/tv/v-channel
+# 3) V Channel
+3) link=https://www.filmon.com/tv/v-channel
    chan_name="V Channel";;
-# 8) Reality TV
-8) link=https://www.filmon.com/tv/reality-tv    
+# 4) Reality TV
+4) link=https://www.filmon.com/tv/reality-tv    
     chan_name="Reality TV";;    
-# 9) Ireland's Country
-9) link=https://www.filmon.com/tv/irelands-country-tv 
+# 5) Ireland's Country
+5) link=https://www.filmon.com/tv/irelands-country-tv 
    chan_name="Ireland's Coundry";;     
-#  10) Brit Rox
-10) link=https://www.filmon.com/tv/britrox 
+#  6) Brit Rox
+6) link=https://www.filmon.com/tv/britrox 
     chan_name="britrox" ;;
-# 11) Dr. Fab Show
-11) link=https://www.filmon.com/tv/dr-fab-show
+# 7) Dr. Fab Show
+7) link=https://www.filmon.com/tv/dr-fab-show
     chan_name="Dr. Fab Show" ;;
-# 12)BBC News
-12) link=https://www.filmon.com/tv/bbc-news
+# 8)BBC News
+8) link=https://www.filmon.com/tv/bbc-news
     chan_name="BBC News" ;;
-# 13) BBC 1 Wales
-13) link=https://www.filmon.com/tv/bbc-1-wales
+# 9) BBC 1 Wales
+9) link=https://www.filmon.com/tv/bbc-1-wales
     chan_name="BBC 1 Wales" ;;
-# 14) BBC 1 Scotland
-14) link=https://www.filmon.com/tv/bbc-1-scotland
+# 10) BBC 1 Scotland
+10) link=https://www.filmon.com/tv/bbc-1-scotland
     chan_name="BBC 1 Scotland" ;;
-# 15) BBC 1 North Ireland
-15)  link=https://www.filmon.com/tv/bbc-1-north-ireland
+# 11) BBC 1 North Ireland
+11)  link=https://www.filmon.com/tv/bbc-1-north-ireland
      chan_name="BBC 1 North Ireland" ;;
-# 16)  BBC TWO
-16) link=https://www.filmon.com/tv/bbc-two
+# 12)  BBC TWO
+12) link=https://www.filmon.com/tv/bbc-two
     chan_name="BBC TWO" ;;
-# 17) BBC Parliament
-17) link=https://www.filmon.com/tv/bbc-parliament
+# 13) BBC Parliament
+13) link=https://www.filmon.com/tv/bbc-parliament
     chan_name="BBC Parliament" ;;
-# 18)  BBC Four
-18) link=https://www.filmon.com/tv/cbeebiesbbc-four
+# 14)  BBC Four
+14) link=https://www.filmon.com/tv/cbeebiesbbc-four
     chan_name="BBC Four" ;; 
-# 19) ITV
-19) link=https://www.filmon.com/tv/itv1
+# 15) ITV
+15) link=https://www.filmon.com/tv/itv1
     chan_name="ITV" ;;
-# 20) ITV + 1
-20) link=https://www.filmon.com/tv/itv-plus-1
+# 16) ITV + 1
+16) link=https://www.filmon.com/tv/itv-plus-1
 chan_name="ITV + 1" ;; 
-# 21) ITV 2
-21) link=https://www.filmon.com/tv/itv2
+# 17) ITV 2
+17) link=https://www.filmon.com/tv/itv2
 chan_name="ITV 2" ;;   
-# 22) ITV 2 + 1
-22) link=https://www.filmon.com/tv/itv2-plus-1
+# 18) ITV 2 + 1
+18) link=https://www.filmon.com/tv/itv2-plus-1
 chan_name="ITV 2 + 1" ;;
-# 23) ITV 3
-23) link=https://www.filmon.com/tv/itv3
+# 19) ITV 3
+19) link=https://www.filmon.com/tv/itv3
 chan_name="ITV 3" ;;
-# 24) ITV 3 + 1
-24) link=https://www.filmon.com/tv/itv3-plus-1 
+# 20) ITV 3 + 1
+20) link=https://www.filmon.com/tv/itv3-plus-1 
 chan_name="ITV 3 + 1" ;;
-# 25) ITV 4
-25) link=https://www.filmon.com/tv/itv4
+# 21) ITV 4
+21) link=https://www.filmon.com/tv/itv4
 chan_name="ITV 4" ;;
-# 26) ITV 4 + 1
-26) link=https://www.filmon.com/tv/itv4-plus-1
+# 22) ITV 4 + 1
+22) link=https://www.filmon.com/tv/itv4-plus-1
 chan_name="ITV 4 + 1" ;;
-# 27) ITV Be
-27) link=https://www.filmon.com/tv/itvbe
+# 23) ITV Be
+23) link=https://www.filmon.com/tv/itvbe
     chan_name="ITV Be" ;;
-# 28)  Channel 4
-28) link=https://www.filmon.com/tv/channel-4
+# 24)  Channel 4
+24) link=https://www.filmon.com/tv/channel-4
      chan_name="Channel 4" ;;    
-# 29) E4
-29) link=https://www.filmon.com/tv/channel-4
+# 25) E4
+25) link=https://www.filmon.com/tv/channel-4
 chan_name="E4" ;;
-# 30) More4
-30) link=https://www.filmon.com/tv/more4
+# 26) More4
+26) link=https://www.filmon.com/tv/more4
 chan_name="More4" ;;
-# 31) Channel 5
-31) link=https://www.filmon.com/tv/channel-5
+# 27) Channel 5
+27) link=https://www.filmon.com/tv/channel-5
 chan_name="Channel 5" ;;
-# 32) 5*
-32) link=https://www.filmon.com/tv/5-star
+# 28) 5*
+28) link=https://www.filmon.com/tv/5-star
 chan_name="5*" ;;
-# 33) 5 USA
-33) link=https://www.filmon.com/tv/5usa
+# 29) 5 USA
+29) link=https://www.filmon.com/tv/5usa
 chan_name="5 USA" ;;
-# 34) Really
-34) link=https://www.filmon.com/tv/really
+# 30) Really
+30) link=https://www.filmon.com/tv/really
 chan_name="Really" ;;
-# 35) Yesterday
-35) link=https://www.filmon.com/tv/yesterday
+# 31) Yesterday
+31) link=https://www.filmon.com/tv/yesterday
 chan_name="Yesterday" ;;
-# 36) Pick TV
-36) link=https://www.filmon.com/tv/pick-tv
+# 32) Pick TV
+32) link=https://www.filmon.com/tv/pick-tv
 chan_name="Pick TV" ;;
-# 37) CBS Reality 
-37) link=https://www.filmon.com/tv/cbs-reality
+# 33) CBS Reality 
+33) link=https://www.filmon.com/tv/cbs-reality
 chan_name="CBS Reality" ;;
-# 38) CBS Reality + 1
-38) link=https://www.filmon.com/tv/cbs-reality1
+# 34) CBS Reality + 1
+34) link=https://www.filmon.com/tv/cbs-reality1
 chan_name="CBS Reality + 1" ;;  
-# 39) CBS Drama
-39) link=https://www.filmon.com/tv/cbs-drama
+# 35) CBS Drama
+35) link=https://www.filmon.com/tv/cbs-drama
 chan_name="CBS Drama" ;;
-# 40) CBS Action
-40) link=https://www.filmon.com/tv/cbs-action
+# 36) CBS Action
+36) link=https://www.filmon.com/tv/cbs-action
     chan_name="CBS Action" ;;
-# 41) TruTV
-41) link=https://www.filmon.com/tv/tru-tv
+# 37) TruTV
+37) link=https://www.filmon.com/tv/tru-tv
 chan_name="TruTV" ;;
-# 42) Psychic TV
-42) link=https://www.filmon.com/tv/psychic-today
+# 38) Psychic TV
+38) link=https://www.filmon.com/tv/psychic-today
 chan_name="Psychic TV" ;;
-# 43) FussionPlus TV
-43) link=https://www.filmon.com/tv/fusionplus
+# 39) FussionPlus TV
+39) link=https://www.filmon.com/tv/fusionplus
     chan_name="Fussion Plus TV" ;;
+
 ###################### SPORTS ################################    
-# 44) Grandstand Show
-44) link=https://www.filmon.com/tv/grandstand-show
+# 40) Grandstand Show
+40) link=https://www.filmon.com/tv/grandstand-show
     chan_name="Grandstand Show" ;;                                                            
-# 45) Football Fanatics
-45) link=https://www.filmon.com/tv/football-fanatics
+# 41) Football Fanatics
+41) link=https://www.filmon.com/tv/football-fanatics
     chan_name="Football Fanatics" ;;
-# 46) FilmOn Tennis
-46) link=https://www.filmon.com/tv/filmon-tennis
+# 42) FilmOn Tennis
+42) link=https://www.filmon.com/tv/filmon-tennis
     chan_name="FilmOn Tennis" ;;
-# 47) Snooker Legends
-47) link=https://www.filmon.com/tv/snooker-legends
+# 43) Snooker Legends
+43) link=https://www.filmon.com/tv/snooker-legends
     chan_name="Snooker Legends" ;;
-# 48) The Ring TV
-48) link=https://www.filmon.com/tv/ring-tv
+# 44) The Ring TV
+44) link=https://www.filmon.com/tv/ring-tv
     chan_name="The Ring TV" ;;
-# 49) Gali Lucha Libre
-49) link=https://www.filmon.com/tv/galli-lucha-libre
+# 45) Gali Lucha Libre
+45) link=https://www.filmon.com/tv/galli-lucha-libre
     chan_name="Gali Lucha Libra" ;;
-# 50) Beach Sports Network
-50) link=https://www.filmon.com/tv/beach-sports-network
+# 46) Beach Sports Network
+46) link=https://www.filmon.com/tv/beach-sports-network
     chan_name="Beach Sports Network" ;;
-# 51) Pugalism TV   
-51) link=https://www.filmon.com/tv/pugilism-tv
+# 47) Pugalism TV   
+47) link=https://www.filmon.com/tv/pugilism-tv
 chan_name="Pugilism TV"  ;;      
-# 52) Inside The Ring
-52) link=https://www.filmon.com/tv/inside-the-ring
+# 48) Inside The Ring
+48) link=https://www.filmon.com/tv/inside-the-ring
 chan_name="Inside The Ring" ;;
-# 53) Emerging Sports TV
-53) link=https://www.filmon.com/tv/emerging-sports-tv
+# 49) Emerging Sports TV
+49) link=https://www.filmon.com/tv/emerging-sports-tv
 chan_name="Emerging Sports TV";;
-# 54) Softball 360
-54) link=https://www.filmon.com/tv/softball-360
+# 50) Softball 360
+50) link=https://www.filmon.com/tv/softball-360
 chan_name="Softball 360" ;;
-# 55) Golden Boy Channel
-55) link=https://www.filmon.com/tv/golden-boy-channel
+# 51) Golden Boy Channel
+51) link=https://www.filmon.com/tv/golden-boy-channel
 chan_name="Golden Boy Channel";;
-# 56) FilmOn Wrestling
-56) link=https://www.filmon.com/tv/filmon-wrestling-network
+# 52) FilmOn Wrestling
+52) link=https://www.filmon.com/tv/filmon-wrestling-network
 chan_name="Film On Wrestling" ;;
-# 57) FilmOn Football
-57) link=https://www.filmon.com/tv/filmon-football
+# 53) FilmOn Football
+53) link=https://www.filmon.com/tv/filmon-football
 chan_name="FilmOn Football" ;;
-# 58) Roopstigo 
-58) link=https://www.filmon.com/tv/roopstigo
+# 54) Roopstigo 
+54) link=https://www.filmon.com/tv/roopstigo
 chan_name="Roopstigo";;
-# 59) Fighting Athletes Network
-59) link=https://www.filmon.com/tv/fighting-athletes-network
+# 55) Fighting Athletes Network
+55) link=https://www.filmon.com/tv/fighting-athletes-network
 chan_name="Fighting Athletes Network" ;;
-# 60) Ultimate Disc TV
-60) link=https://www.filmon.com/tv/ultimate-disc-tv
+# 56) Ultimate Disc TV
+56) link=https://www.filmon.com/tv/ultimate-disc-tv
     chan_name="Ultimate Disc TV" ;;
-# 61) FilmOn Boxing
-61) link=https://www.filmon.com/tv/filmon-boxing
+# 57) FilmOn Boxing
+57) link=https://www.filmon.com/tv/filmon-boxing
     chan_name="FilmOn Boxing" ;;
-# 62) Game Time
-62) link=https://www.filmon.com/tv/game-time  
+# 58) Game Time
+58) link=https://www.filmon.com/tv/game-time  
     chan_name="Game Time" ;;
-# 63) 1 on 1 Boxing TV
-63) link=https://www.filmon.com/tv/1-on-1-boxing-tv
+# 59) 1 on 1 Boxing TV
+59) link=https://www.filmon.com/tv/1-on-1-boxing-tv
     chan_name="1 on 1 Boxing TV" ;;  
-# 64) AFL Classic
-64) link=https://www.filmon.com/tv/afl-classics
+# 60) AFL Classic
+60) link=https://www.filmon.com/tv/afl-classics
 chan_name="AFL Classic" ;;
-# 65) Cheer Channel
-65) link=https://www.filmon.com/tv/cheer-channel
+# 61) Cheer Channel
+61) link=https://www.filmon.com/tv/cheer-channel
     chan_name="Cheer Channel" ;;
-# 66) Football Heroes
-66) link=https://www.filmon.com/tv/football-heroes
+# 62) Football Heroes
+62) link=https://www.filmon.com/tv/football-heroes
     chan_name="Football Heroes" ;;
-# 67) Live Boxing
-67) link=https://www.filmon.com/tv/live-boxing 
+# 63) Live Boxing
+63) link=https://www.filmon.com/tv/live-boxing 
     chan_name="Live Boxing" ;;
-# 68) Armed Forces Boxing
-68) link=https://www.filmon.com/tv/armed-forces-boxing
+# 64) Armed Forces Boxing
+64) link=https://www.filmon.com/tv/armed-forces-boxing
     chan_name="Armed Forces Boxing" ;;
-# 69) Tuff TV
-69) link=https://www.filmon.com/tv/tuff
+# 65) Tuff TV
+65) link=https://www.filmon.com/tv/tuff
     chan_name="TUFF TV" ;;
-# 70) Disability Sports
-70) link=https://www.filmon.com/tv/disability-sports-network
+# 66) Disability Sports
+66) link=https://www.filmon.com/tv/disability-sports-network
     chan_name="Disability Sports" ;;
 ####################### PAY TV ############################    
-# 71) Fashion News Network
-71) link=https://www.filmon.com/tv/fashion-news-lifestyle
+# 67) Fashion News Network
+67) link=https://www.filmon.com/tv/fashion-news-lifestyle
 chan_name="Fashion News Network" ;;
 ####################### HORROR ###########################
-# 72) FilmOn Horror
-72) link=https://www.filmon.com/tv/filmon-horror-network
+# 68) FilmOn Horror
+68) link=https://www.filmon.com/tv/filmon-horror-network
     chan_name="FilmON Horror";;
-# 73) American Horrors
-73) link=https://www.filmon.com/tv/american-horrors 
+# 69) American Horrors
+69) link=https://www.filmon.com/tv/american-horrors 
     chan_name="American Horrors" ;; 
-# 74) Midnight Releasing
-74) link=https://www.filmon.com/tv/midnight-releasing  
+# 70) Midnight Releasing
+70) link=https://www.filmon.com/tv/midnight-releasing  
     chan_name="Midnight Releasing" ;; 
-# 75) Chillings
-75) link=https://www.filmon.com/tv/chillings
+# 71) Chillings
+71) link=https://www.filmon.com/tv/chillings
 chan_name="Chillings" ;;
-# 76) Monster Madhouse
-76) link=https://www.filmon.com/tv/monster-madhouse
+# 72) Monster Madhouse
+72) link=https://www.filmon.com/tv/monster-madhouse
    chan_name="Monster Madhouse" ;;
-# 77) Zombie Underworld
-77) link=https://www.filmon.com/tv/zombie-underworld
+# 73) Zombie Underworld
+73) link=https://www.filmon.com/tv/zombie-underworld
     chan_name="Zombie Underworld" ;;
-# 78) Vampire Empire
-78) link=https://www.filmon.com/tv/vampire-empire
+# 74) Vampire Empire
+74) link=https://www.filmon.com/tv/vampire-empire
    chan_name="Vampire Empire" ;;
-# 79) Creepy Crawly
-79) link=https://www.filmon.com/tv/creepy-crawly  
+# 75) Creepy Crawly
+75) link=https://www.filmon.com/tv/creepy-crawly  
 chan_name="Creepy Crawly" ;; 
-# 80) RSquared
-80) link=https://www.filmon.com/tv/rsquared  
+# 76) RSquared
+76) link=https://www.filmon.com/tv/rsquared  
 chan_name="RSquared" ;;
-# 81) Macabre Theater
-81) link=https://www.filmon.com/tv/macabre-theatre  
+# 77) Macabre Theater
+77) link=https://www.filmon.com/tv/macabre-theatre  
  chan_name="Macabre Theater" ;;   
-# 82) B-Movie! 
-82) link=https://www.filmon.com/tv/b-movie  
+# 78) B-Movie! 
+78) link=https://www.filmon.com/tv/b-movie  
  chan_name="B-Movie" ;; 
-# 83) Alien Invasion Channel
-83) link=https://www.filmon.com/tv/alien-invasion-channel  
+# 79) Alien Invasion Channel
+79) link=https://www.filmon.com/tv/alien-invasion-channel  
  chan_name="Alien Invasion Channel" ;; 
-# 84) Horror Channel
-84)  link=https://www.filmon.com/tv/horror-channel  
+# 80) Horror Channel
+80)  link=https://www.filmon.com/tv/horror-channel  
  chan_name="Horror Channel" ;; 
 ######################### MOVIES   #######################
-# 85) FilmOn Classics
-85)  link=https://www.filmon.com/tv/filmon-classic-films 
+# 81) FilmOn Classics
+81)  link=https://www.filmon.com/tv/filmon-classic-films 
  chan_name="FilmOn Classics" ;;  
-# 86) Love On The Range
-86)  link=https://www.filmon.com/tv/love-on-the-range
+# 82) Love On The Range
+82)  link=https://www.filmon.com/tv/love-on-the-range
  chan_name="Love On The Range" ;;   
-# 87) Silent Cinema
-87)  link=https://www.filmon.com/tv/silent-cinema
+# 83) Silent Cinema
+83)  link=https://www.filmon.com/tv/silent-cinema
  chan_name="Silent Cinema" ;;   
-# 88) Christmastime TV
-88)  link=https://www.filmon.com/tv/christmastime-tv 
+# 84) Christmastime TV
+84)  link=https://www.filmon.com/tv/christmastime-tv 
  chan_name="ChristmasTime TV" ;; 
-# 89) Real Life Films 
-89)  link=https://www.filmon.com/tv/real-life-films
+# 85) Real Life Films 
+85)  link=https://www.filmon.com/tv/real-life-films
  chan_name="Real Life Films" ;; 
- # 90) Sherlock Holmes Channel
-90)  link=https://www.filmon.com/tv/sherlock-holmes-channel 
+ # 86) Sherlock Holmes Channel
+86)  link=https://www.filmon.com/tv/sherlock-holmes-channel 
  chan_name="Sherlock Holmes Channel" ;; 
- # 91) Xtreme IND Films
-91)  link=https://www.filmon.com/tv/xtreme-ind-films 
+ # 87) Xtreme IND Films
+87)  link=https://www.filmon.com/tv/xtreme-ind-films 
  chan_name="Xtreme IND Films" ;;  
- # 92) Seven Sins TV
-92)  link=https://www.filmon.com/tv/seven-sins-tv 
+ # 88) Seven Sins TV
+88)  link=https://www.filmon.com/tv/seven-sins-tv 
  chan_name="Seven Sins TV" ;;  
- # 93) The Monarch Channel
-93)  link=https://www.filmon.com/tv/the-monarch-channel 
+ # 89) The Monarch Channel
+89)  link=https://www.filmon.com/tv/the-monarch-channel 
  chan_name="The Monarch Channel" ;;  
-# 94) Trailer Nut TV
-94)  link=https://www.filmon.com/tv/trailer-nut-tv 
+# 90) Trailer Nut TV
+90)  link=https://www.filmon.com/tv/trailer-nut-tv 
  chan_name="Trailer Nut TV" ;;  
-# 95) Thespian Theater
-95) link=https://www.filmon.com/tv/thespian-theater
+# 91) Thespian Theater
+91) link=https://www.filmon.com/tv/thespian-theater
     chan_name="Thespian Theater" ;;
-#  96)  Rated B
-96) link=https://www.filmon.com/tv/rated-b
+#  92)  Rated B
+92) link=https://www.filmon.com/tv/rated-b
 chan_name="Rated B" ;;
-# 97) Movie Loft TV
-97) link=https://www.filmon.com/tv/movie-loft-tv
+# 93) Movie Loft TV
+93) link=https://www.filmon.com/tv/movie-loft-tv
 chan_name="Movie Loft TV" ;;
-# 98) Dragon Arena
-98) link=https://www.filmon.com/tv/dragon-arena
+# 94) Dragon Arena
+94) link=https://www.filmon.com/tv/dragon-arena
     chan_name="Dragon Arena" ;;
-# 99) Mad Science Cinema
-99) link=https://www.filmon.com/tv/mad-science-cinema
+# 95) Mad Science Cinema
+95) link=https://www.filmon.com/tv/mad-science-cinema
 chan_name="Mad Sience Cinema" ;;
-#  100) FilmOn Family
-100) link=https://www.filmon.com/tv/filmon-family
+#  96) FilmOn Family
+96) link=https://www.filmon.com/tv/filmon-family
 chan_name="FilmOn Family" ;; 
-# 101) Hollywood War
-101) link=https://www.filmon.com/tv/hollywood-war
+# 97) Hollywood War
+97) link=https://www.filmon.com/tv/hollywood-war
 chan_name="Hollywood war";;
-# 102) Bloodzillathon
-102) link=https://www.filmon.com/tv/bloodzillathon
+# 98) Bloodzillathon
+98) link=https://www.filmon.com/tv/bloodzillathon
 chan_name="Bloodzillathon"  ;;
-# 103) Banned Westerns
-103) link=https://www.filmon.com/tv/banned-westerns
+# 99) Banned Westerns
+99) link=https://www.filmon.com/tv/banned-westerns
 chan_name="Banned Westerns" ;;
-# 104) Eurotrash
-104) link=https://www.filmon.com/tv/eurotrash
+# 100) Eurotrash
+100) link=https://www.filmon.com/tv/eurotrash
 chan_name="Eurotrash" ;;
-# 105) High School
-105) link=https://www.filmon.com/tv/high-school
+# 101) High School
+101) link=https://www.filmon.com/tv/high-school
 chan_name="High School" ;;
-# 106) Award Cinema
-106) link=https://www.filmon.com/tv/award-cinema
+# 102) Award Cinema
+102) link=https://www.filmon.com/tv/award-cinema
 chan_name="Award Cinema" ;;  
-# 107) New York Channel
-107) link=https://www.filmon.com/tv/new-york-channel
+# 103) New York Channel
+103) link=https://www.filmon.com/tv/new-york-channel
 chan_name="New York Channel" ;;
-# 108) Major Crimes
-108) link=https://www.filmon.com/tv/major-crimes
+# 104) Major Crimes
+104) link=https://www.filmon.com/tv/major-crimes
 chan_name="Major Crimes" ;; 
-#  109) Cultra
-109) link=https://www.filmon.com/tv/cultra
+#  105) Cultra
+105) link=https://www.filmon.com/tv/cultra
      chan_name="Cultra" ;;
-# 110) iFlix TV
-110) link=https://www.filmon.com/tv/iflix-tv
+# 106) iFlix TV
+106) link=https://www.filmon.com/tv/iflix-tv
      chan_name="iFlix TV" ;;
-# 111) Campy Channel
-111) link=https://www.filmon.com/tv/campy-channel
+# 107) Campy Channel
+107) link=https://www.filmon.com/tv/campy-channel
 chan_name="Campy Channel" ;;
-# 112) Filmon Stars
-112) link=https://www.filmon.com/tv/filmon-stars
+# 108) Filmon Stars
+108) link=https://www.filmon.com/tv/filmon-stars
 chan_name="Filmon Stars" ;;  
-#  113) KungFu Classics
-113) link=https://www.filmon.com/tv/kung-fu-classics
+#  109) KungFu Classics
+109) link=https://www.filmon.com/tv/kung-fu-classics
     chan_name="KungFu Classics" ;;
-# 114) Double Feature TV
-114) link=https://www.filmon.com/tv/double-feature-tv
+# 110) Double Feature TV
+110) link=https://www.filmon.com/tv/double-feature-tv
 chan_name="Double Feature TV";; 
-# 115) FilmOn Grab Bag TV
-115) link=https://www.filmon.com/tv/filmon-grab-bag-tv
+# 111) FilmOn Grab Bag TV
+111) link=https://www.filmon.com/tv/filmon-grab-bag-tv
 chan_name="FilmOn Grab Bag TV" ;; 
-# 116) Sci-Fi Telly
-116) link=https://www.filmon.com/tv/sci-fi-telly
+# 112) Sci-Fi Telly
+112) link=https://www.filmon.com/tv/sci-fi-telly
 chan_name="Sci-Fi Telly";;    
-# 117) Hollywoodland Channel
-117) link=https://www.filmon.com/tv/hollywoodland-channel
+# 113) Hollywoodland Channel
+113) link=https://www.filmon.com/tv/hollywoodland-channel
 chan_name="Hollywoodland-channel" ;;
-# 118) The Western Channel
-118) link=https://www.filmon.com/tv/the-western-channel
+# 114) The Western Channel
+114) link=https://www.filmon.com/tv/the-western-channel
 chan_name="The Western Channel" ;; 
-# 119) Matriarch TV
-119) link=https://www.filmon.com/tv/matriarch-tv
+# 115) Matriarch TV
+115) link=https://www.filmon.com/tv/matriarch-tv
      chan_name="Matriarch TV" ;; 
-# 120) Film 4
-120) link=https://www.filmon.com/tv/film-4
+# 116) Film 4
+116) link=https://www.filmon.com/tv/film-4
 chan_name="Film 4" ;;
-# 121) The Film Detective
-121) link=https://www.filmon.com/tv/the-film-detective
+# 117) The Film Detective
+117) link=https://www.filmon.com/tv/the-film-detective
 chan_name="The Film Detective";; 
 #############################   ENTERTAINMENT ########################################
-# 122) CRAGG
-122) link=https://www.filmon.com/tv/cragg
+# 118) CRAGG
+118) link=https://www.filmon.com/tv/cragg
 chan_name="CRAGG" ;;
-# 123) Shockya Trailers
-123) link=https://www.filmon.com/tv/fotv-trailers
+# 119) Shockya Trailers
+119) link=https://www.filmon.com/tv/fotv-trailers
  chan_name="Shockya Trailers" ;;
-## 124) California Life
-124) link=https://www.filmon.com/tv/california-life
+## 120) California Life
+120) link=https://www.filmon.com/tv/california-life
 chan_name="California Life" ;;  
-# 125) Rose Parade 2017
-125) link=https://www.filmon.com/tv/rose-parade-2016
+# 121) Rose Parade 2017
+121) link=https://www.filmon.com/tv/rose-parade-2016
      chan_name="Rose Parade" ;;
-# 126) Screensaver TV
-126) link=https://www.filmon.com/tv/screensaver-tv
+# 122) Screensaver TV
+122) link=https://www.filmon.com/tv/screensaver-tv
      chan_name="Screensaver TV" ;;
-# 127) Drone TV
-127) link=https://www.filmon.com/tv/drone-race-tv
+# 123) Drone TV
+123) link=https://www.filmon.com/tv/drone-race-tv
 chan_name="Drone TV" ;;
-# 128) Miss Multiverse
-128) link=https://www.filmon.com/tv/miss-multiverse
+# 124) Miss Multiverse
+124) link=https://www.filmon.com/tv/miss-multiverse
      chan_name="Miss Multverse" ;;
-# 129) Vape Channel
-129) link=https://www.filmon.com/tv/vape-channel
+# 125) Vape Channel
+125) link=https://www.filmon.com/tv/vape-channel
      chan_name="Vape Channel" ;;
-# 130) Trinity Heart Media
-130) link=https://www.filmon.com/tv/trinity-heart-media
+# 126) Trinity Heart Media
+126) link=https://www.filmon.com/tv/trinity-heart-media
      chan_name="Trinity Heart Media" ;;
-# 131) Talent You Should Know
-131) link=https://www.filmon.com/tv/talent-you-should-know
+# 127) Talent You Should Know
+127) link=https://www.filmon.com/tv/talent-you-should-know
      chan_name="Talent You SHould Know" ;;
-# 132) EZ Way TV
-132) link=https://www.filmon.com/tv/ez-way-tv
+# 128) EZ Way TV
+128) link=https://www.filmon.com/tv/ez-way-tv
      chan_name="EZ Way TV" ;;
-# 133) Tomorrow Pictures 
-133) link=https://www.filmon.com/tv/tomorrow-pictures
+# 129) Tomorrow Pictures 
+129) link=https://www.filmon.com/tv/tomorrow-pictures
    chan_name="Tomorrow Pictures";;
-# 134) Razzies Channel
-134) link=https://www.filmon.com/tv/razzies-channel
+# 130) Razzies Channel
+130) link=https://www.filmon.com/tv/razzies-channel
   chan_name="Razzies Channel" ;;    
-# 135) 24.7 The Stream
-135) link=https://www.filmon.com/tv/247-the-stream 
+# 131) 24.7 The Stream
+131) link=https://www.filmon.com/tv/247-the-stream 
 chan_name="24. 7 The Stream" ;;   
-# 136) Miami Music Television
-136) link=https://www.filmon.com/tv/miami-music-television
+# 132) Miami Music Television
+132) link=https://www.filmon.com/tv/miami-music-television
 chan_name="Miami Music Television";;     
-# 137) Talent Watch
-137) link=https://www.filmon.com/tv/talentwatch 
+# 133) Talent Watch
+133) link=https://www.filmon.com/tv/talentwatch 
 chan_name="Talent Watch" ;;
-# 138) HotRock TV
-138) link=https://www.filmon.com/tv/hotrock-tv 
+# 134) HotRock TV
+134) link=https://www.filmon.com/tv/hotrock-tv 
 chan_name="HotRock TV" ;; 
-#  139) Hot Country Ireland
-139) link=https://www.filmon.com/tv/hot-country-ireland
+#  135) Hot Country Ireland
+135) link=https://www.filmon.com/tv/hot-country-ireland
 chan_name="Hot Country Ireland" ;;
-# 140) Music Mix USA
-140) link=https://www.filmon.com/tv/music-mix-usa
+# 136) Music Mix USA
+136) link=https://www.filmon.com/tv/music-mix-usa
 chan_name="Music Mix USA" ;;   
-# 141) Guitar Lessons TV
-141) link=https://www.filmon.com/tv/guitar-lessons-tv
+# 137) Guitar Lessons TV
+137) link=https://www.filmon.com/tv/guitar-lessons-tv
 chan_name="Guitar Lessons TV" ;;
-# 142)  The Soundtrack Channel
- 142) link=https://www.filmon.com/tv/the-soundtrack-channel
+# 138)  The Soundtrack Channel
+ 138) link=https://www.filmon.com/tv/the-soundtrack-channel
  chan_name="The Soundtrack Channel";;
-## 143) EDM TV
-143) link=https://www.filmon.com/tv/edm-tv
+## 139) EDM TV
+139) link=https://www.filmon.com/tv/edm-tv
 chan_name="EDM TV";; 
-## 144) Jimmy Lloyd Song Writer Showcase
-144) link=https://www.filmon.com/tv/jimmy-lloyd-song-writer-showcase
+## 140) Jimmy Lloyd Song Writer Showcase
+140) link=https://www.filmon.com/tv/jimmy-lloyd-song-writer-showcase
 chan_name="Jimmy Lloyd Song Writer Showcase" ;;
-## 145) Beatles Stories
- 145) link=https://www.filmon.com/tv/beatles-stories
+## 141) Beatles Stories
+ 141) link=https://www.filmon.com/tv/beatles-stories
  chan_name="Beatles Stories" ;; 
-## 146) DM TV
- 146) link=https://www.filmon.com/tv/dmtv
+## 142) DM TV
+ 142) link=https://www.filmon.com/tv/dmtv
  chan_name="DM TV" ;;
-# 147) Country Star TV
- 147) link=https://www.filmon.com/tv/country-star-tv
+# 143) Country Star TV
+ 143) link=https://www.filmon.com/tv/country-star-tv
 chan_name="Country Star TV" ;;
-# 148) Josh and JB in the Industry
- 148) link=https://www.filmon.com/tv/josh-and-jb-in-the-industry 
+# 144) Josh and JB in the Industry
+ 144) link=https://www.filmon.com/tv/josh-and-jb-in-the-industry 
  chan_name="Josh and JB in the Industry" ;;
-# 149) JBTV
- 149) link=https://www.filmon.com/tv/jbtv
+# 145) JBTV
+ 145) link=https://www.filmon.com/tv/jbtv
  chan_name="JBTV" ;;     
-# 150) Jazz TeeVee
- 150) link=https://www.filmon.com/tv/jazz-teevee
+# 146) Jazz TeeVee
+ 146) link=https://www.filmon.com/tv/jazz-teevee
  chan_name="Jazz TeeVee" ;;     
-# 151) Dancing Machine TV
- 151) link=https://www.filmon.com/tv/dancing-machine-tv
+# 147) Dancing Machine TV
+ 147) link=https://www.filmon.com/tv/dancing-machine-tv
   chan_name="Dancing Machine TV"  ;;
-# 152) Inside Music TV
-152) link=https://www.filmon.com/tv/inside-music-tv
+# 148) Inside Music TV
+148) link=https://www.filmon.com/tv/inside-music-tv
  chan_name="Inside Music TV" ;;
-# 153) Tipstr.TV
-153) link=https://www.filmon.com/tv/tipstrtv
+# 149) Tipstr.TV
+149) link=https://www.filmon.com/tv/tipstrtv
 chan_name="Tipstr.TV" ;;
-# 154) Clubbing TV
-154) link=https://www.filmon.com/tv/clubbing-tv
+# 150) Clubbing TV
+150) link=https://www.filmon.com/tv/clubbing-tv
 chan_name="Clubbing TV" ;;
-# 155) The Noise Network
-155) link=https://www.filmon.com/tv/the-noise-network
+# 151) The Noise Network
+151) link=https://www.filmon.com/tv/the-noise-network
 chan_name="The Noise Network" ;;
-# 156) Janey Kirk TV
-156) link=https://www.filmon.com/tv/janey-kirk-tv
+# 152) Janey Kirk TV
+152) link=https://www.filmon.com/tv/janey-kirk-tv
      chan_name="Janey Kirk" ;;
-# 157) FilmOn Jazz and Blues
-157) link=https://www.filmon.com/tv/filmon-jazz-and-blues
+# 153) FilmOn Jazz and Blues
+153) link=https://www.filmon.com/tv/filmon-jazz-and-blues
      chan_name="FilmOn Jazz and Blues" ;;
-# 158) FilmOn Rock TV
-158) link=https://www.filmon.com/tv/filmon-rock-tv
+# 154) FilmOn Rock TV
+154) link=https://www.filmon.com/tv/filmon-rock-tv
      chan_name="FilmOn Rock TV" ;;
-# 159) JCTV
-159) link=https://www.filmon.com/tv/jctv
+# 155) JCTV
+155) link=https://www.filmon.com/tv/jctv
      chan_name="JCTV" ;;
-# 160) Classic Arts Showcase
-160) link=https://www.filmon.com/tv/classic-arts-showcase
+# 156) Classic Arts Showcase
+156) link=https://www.filmon.com/tv/classic-arts-showcase
      chan_name="Classic Arts Showcase" ;;
-# 161) International Jazz Radio
-161) link=https://www.filmon.com/tv/international-jazz-radio
+# 157) International Jazz Radio
+157) link=https://www.filmon.com/tv/international-jazz-radio
      chan_name="International Jazz Radio" ;;
 ################# BIKINI BABE ########################
-# 162) Player TV
-162) link=https://www.filmon.com/tv/player-tv
+# 158) Player TV
+158) link=https://www.filmon.com/tv/player-tv
      chan_name="Player TV" ;;
-# 163) J CLub TV
-163) link=https://www.filmon.com/tv/j-club-tv
+# 159) J CLub TV
+159) link=https://www.filmon.com/tv/j-club-tv
      chan_name="J Club TV" ;;
-# 164) Bikini Down Under
-164) link=https://www.filmon.com/tv/bikini-down-under
+# 160) Bikini Down Under
+160) link=https://www.filmon.com/tv/bikini-down-under
      chan_name="Bikini Down Under" ;;
-# 165) America's Hottest Cheerleaders
-165) link=https://www.filmon.com/tv/americas-hottest-cheerleaders
+# 161) America's Hottest Cheerleaders
+161) link=https://www.filmon.com/tv/americas-hottest-cheerleaders
      chan_name="America's Hottest Cheerleaders" ;;
-# 166) Party Girls TV
-166) link=https://www.filmon.com/tv/party-girls-tv
+# 162) Party Girls TV
+162) link=https://www.filmon.com/tv/party-girls-tv
      chan_name="" ;;
-# 167) Bikini Girls Showing Off
-167) link=https://www.filmon.com/tv/bikini-girls-showing-off
+# 163) Bikini Girls Showing Off
+163) link=https://www.filmon.com/tv/bikini-girls-showing-off
      chan_name="Bikini Girls Showing Off" ;;    
-# 168) Bikini Girls Show and Tell
-168) link=https://www.filmon.com/tv/bikini-girls-show-and-tell
+# 164) Bikini Girls Show and Tell
+164) link=https://www.filmon.com/tv/bikini-girls-show-and-tell
      chan_name="Bikini Girls Show and Tell" ;;
-# 169) Miss Top of the World
-169) link=https://www.filmon.com/tv/miss-top-of-the-world
+# 165) Miss Top of the World
+165) link=https://www.filmon.com/tv/miss-top-of-the-world
      chan_name="Miss Top of the World" ;;
-# 170) Bikini TV
-170) link=https://www.filmon.com/tv/bikini-teevee
+# 166) Bikini TV
+166) link=https://www.filmon.com/tv/bikini-teevee
      chan_name="Bikini TV" ;;
-# 171) Bikini Kitchen
-171) link=https://www.filmon.com/tv/bikini-kitchen
+# 167) Bikini Kitchen
+167) link=https://www.filmon.com/tv/bikini-kitchen
      chan_name="Bikini Kitchen" ;;
-# 172) Miami TV
-172) link=https://www.filmon.com/tv/miamitv
+# 168) Miami TV
+168) link=https://www.filmon.com/tv/miamitv
      chan_name="Miami TV" ;;
 ################################### COMEDY ##########################
-# 173) ComiCZoo
-173) link=https://www.filmon.com/tv/comiczoo
+# 169) ComiCZoo
+169) link=https://www.filmon.com/tv/comiczoo
      chan_name="ComiCZoo" ;;
-# 174) The Placeholders
-174) link=https://www.filmon.com/tv/the-placeholders
+# 170) The Placeholders
+170) link=https://www.filmon.com/tv/the-placeholders
      chan_name="The Placeholders" ;;
-# 175) Lumbfilm Comedy
-175) link=https://www.filmon.com/tv/lumbfilm-comedy
+# 171) Lumbfilm Comedy
+171) link=https://www.filmon.com/tv/lumbfilm-comedy
      chan_name="Lumbfilm Comedy" ;;
-# 176) FimOn Comedy Classics
-176) link=https://www.filmon.com/tv/filmon-comedy-classics
+# 172) FimOn Comedy Classics
+172) link=https://www.filmon.com/tv/filmon-comedy-classics
      chan_name="FilmON Comedy Classics" ;;
-# 177) Spud's Funny Channel
-177) link=https://www.filmon.com/tv/spuds-funny-channel
+# 173) Spud's Funny Channel
+173) link=https://www.filmon.com/tv/spuds-funny-channel
      chan_name="Spud's Funny Channel" ;;
-# 178) Supa Pirate Booty Hunt
-178) link=https://www.filmon.com/tv/supa-pirate-booty-hunt
+# 174) Supa Pirate Booty Hunt
+174) link=https://www.filmon.com/tv/supa-pirate-booty-hunt
      chan_name="Supa Pirate Booty Hunt" ;;
-# 179) Fun Little Movies
-179) link=https://www.filmon.com/tv/fun-little-movies
+# 175) Fun Little Movies
+175) link=https://www.filmon.com/tv/fun-little-movies
      chan_name="Fun Little Movies" ;;
-# 180) Comedy Time TV
-180) link=https://www.filmon.com/tv/comedytime-tv
+# 176) Comedy Time TV
+176) link=https://www.filmon.com/tv/comedytime-tv
      chan_name="Comedy Time TV" ;;
-# 181) Eye for an Eye
-181) link=https://www.filmon.com/tv/eye-for-an-eye
+# 177) Eye for an Eye
+177) link=https://www.filmon.com/tv/eye-for-an-eye
      chan_name="Eye for an Eye" ;;    
 ################################## KIDS  ##################################    
-# 182) KIDS ZONE
-182) link=https://www.filmon.com/tv/kids-zone
+# 178) KIDS ZONE
+178) link=https://www.filmon.com/tv/kids-zone
      chan_name="KIDS ZONE" ;;
-# 183) Angels from the Attic ComicFlix
-183) link=https://www.filmon.com/tv/the-angels-from-the-attic-comicflix
+# 179) Angels from the Attic ComicFlix
+179) link=https://www.filmon.com/tv/the-angels-from-the-attic-comicflix
      chan_name="Angels from the Attic ComicFlix" ;;
-# 184) Super Geek Heroes
-184) link=https://www.filmon.com/tv/super-geek-heroes
+# 180) Super Geek Heroes
+180) link=https://www.filmon.com/tv/super-geek-heroes
      chan_name="Super Geek Heroes" ;;
-# 185) Angels from the Attic Create-Alongs
-185) link=https://www.filmon.com/tv/the-angels-from-the-attic-create-alongs
+# 181) Angels from the Attic Create-Alongs
+181) link=https://www.filmon.com/tv/the-angels-from-the-attic-create-alongs
      chan_name="Angels from the Attic Create" ;;
-# 186) Children's Reading Channel
-186) link=https://www.filmon.com/tv/childrens-reading-channel
+# 182) Children's Reading Channel
+182) link=https://www.filmon.com/tv/childrens-reading-channel
      chan_name="Children's Reading Channel" ;;
-# 187) OM NOM
-187) link=https://www.filmon.com/tv/om-nom
+# 183) OM NOM
+183) link=https://www.filmon.com/tv/om-nom
      chan_name="OM NOM" ;;
-# 188) Kids Rock TV
-188) link=https://www.filmon.com/tv/kids-rock-tv
+# 184) Kids Rock TV
+184) link=https://www.filmon.com/tv/kids-rock-tv
      chan_name="Kids Rock TV" ;;
-# 189) Tiny Pop
-189) link=https://www.filmon.com/tv/tiny-pop
+# 185) Tiny Pop
+185) link=https://www.filmon.com/tv/tiny-pop
      chan_name="Tiny Pop" ;;
-# 190) Kix!
-190) link=https://www.filmon.com/tv/kix
+# 186) Kix!
+186) link=https://www.filmon.com/tv/kix
      chan_name="Kix!" ;;
-# 191) Tails TV
-191) link=https://www.filmon.com/tv/tails-tv
+# 187) Tails TV
+187) link=https://www.filmon.com/tv/tails-tv
      chan_name="Tails TV" ;;
-# 192) POP
-192) link=https://www.filmon.com/tv/pop
+# 188) POP
+188) link=https://www.filmon.com/tv/pop
      chan_name="POP" ;;
-# 193) Popeye TV
-193) link=https://www.filmon.com/tv/popeye-tv
+# 189) Popeye TV
+189) link=https://www.filmon.com/tv/popeye-tv
      chan_name="Popeye TV" ;;
-# 194) Funny Company
-194) link=https://www.filmon.com/tv/funny-company-tv
+# 190) Funny Company
+190) link=https://www.filmon.com/tv/funny-company-tv
      chan_name="Funny Company" ;;
-# 195) Angels from the Attic Featurettes
-195) link=https://www.filmon.com/tv/the-angels-from-the-attic-featurettes
+# 191) Angels from the Attic Featurettes
+191) link=https://www.filmon.com/tv/the-angels-from-the-attic-featurettes
      chan_name="Angels from the Attic Featurettes" ;;
-# 196) Cat TV
-196) link=https://www.filmon.com/tv/cat-tv
+# 192) Cat TV
+192) link=https://www.filmon.com/tv/cat-tv
      chan_name="Cat TV" ;;
-# 197) CBeebies 
-197) link=https://www.filmon.com/tv/cbeebies
+# 193) CBeebies 
+193) link=https://www.filmon.com/tv/cbeebies
      chan_name="CBeebies" ;;
-# 198) CBBC
-198) link=https://www.filmon.com/tv/cbbc
+# 194) CBBC
+194) link=https://www.filmon.com/tv/cbbc
      chan_name="CBBC" ;;
-# 199) Tayla's Toddler Toy Review
-199) link=https://www.filmon.com/tv/taylas-toddler-toy-review
+# 195) Tayla's Toddler Toy Review
+195) link=https://www.filmon.com/tv/taylas-toddler-toy-review
      chan_name="Tayla's Toddler Toy Review" ;;
-# 200) Kartoon Klassics
-200) link=https://www.filmon.com/tv/kartoon-klassics
+# 196) Kartoon Klassics
+196) link=https://www.filmon.com/tv/kartoon-klassics
      chan_name="Kartoon Klassics" ;;
-# 201) Fun Little Kids
-201) link=https://www.filmon.com/tv/fun-little-kids
+# 197) Fun Little Kids
+197) link=https://www.filmon.com/tv/fun-little-kids
      chan_name="Fun Little Kids" ;;
-# 202) Tea Time with Tayla
-202) link=https://www.filmon.com/tv/tea-time-with-tayla
+# 198) Tea Time with Tayla
+198) link=https://www.filmon.com/tv/tea-time-with-tayla
      chan_name="Tea Time with Tayla" ;;
-# 203) Wild About Animals
-203) link=https://www.filmon.com/tv/wild-about-animals
+# 199) Wild About Animals
+199) link=https://www.filmon.com/tv/wild-about-animals
      chan_name="Wild About Animals" ;;
-# 204) FilmOn Kids
-204) link=https://www.filmon.com/tv/filmon-kids
+# 200) FilmOn Kids
+200) link=https://www.filmon.com/tv/filmon-kids
      chan_name="FilmOn Kids" ;;
-# 205) Smile of a Child
-205) link=https://www.filmon.com/tv/smile-of-child
+# 201) Smile of a Child
+201) link=https://www.filmon.com/tv/smile-of-child
      chan_name="Smile of a Child" ;;
-# 206) Mouse House Radio
-206) link=https://www.filmon.com/tv/mouse-house-radio
+# 202) Mouse House Radio
+202) link=https://www.filmon.com/tv/mouse-house-radio
      chan_name="Mouse House Radio" ;;
 ############################   BUSINESS TV    ############################
-# 207) Crowd Angels TV
-207) link=https://www.filmon.com/tv/crowd-angels-tv
+# 203) Crowd Angels TV
+203) link=https://www.filmon.com/tv/crowd-angels-tv
      chan_name="Crowd Angels TV" ;;
-# 208) Red Chip Money Report
-208) link=https://www.filmon.com/tv/red-chip-money-report
+# 204) Red Chip Money Report
+204) link=https://www.filmon.com/tv/red-chip-money-report
      chan_name="Red Chip Money Report" ;;
-# 209) Biz TV
-209) link=https://www.filmon.com/tv/biztv
+# 205) Biz TV
+205) link=https://www.filmon.com/tv/biztv
      chan_name="Biz TV" ;;
 ######################### Documentary #################################
-# 210) CCTV 9 Documentary
-210) link=https://www.filmon.com/tv/cctv9-documentary
+# 206) CCTV 9 Documentary
+206) link=https://www.filmon.com/tv/cctv9-documentary
      chan_name="CCTV 9 Documentary" ;;
-# 211) Fame TV
-211) link=https://www.filmon.com/tv/fame-tv
+# 207) Fame TV
+207) link=https://www.filmon.com/tv/fame-tv
      chan_name="Fame TV" ;;
-# 212) Locomotion TV
-212) link=https://www.filmon.com/tv/loco-motion-tv
+# 208) Locomotion TV
+208) link=https://www.filmon.com/tv/loco-motion-tv
      chan_name="Locomotion TV" ;;
-# 213) FBI Insider
-213) link=https://www.filmon.com/tv/fbi-insider
+# 209) FBI Insider
+209) link=https://www.filmon.com/tv/fbi-insider
      chan_name="FBI Insider" ;;
-# 214) FilmOn Documentary
-214) link=https://www.filmon.com/tv/filmon-documentary
+# 210) FilmOn Documentary
+210) link=https://www.filmon.com/tv/filmon-documentary
      chan_name="FilmOn Documentary" ;;
-# 215) UFO NEWS
-215) link=https://www.filmon.com/tv/ufo-news
+# 211) UFO NEWS
+211) link=https://www.filmon.com/tv/ufo-news
      chan_name="UFO NEWS" ;;
-# 216) WAKAJ TV
-216) link=https://www.filmon.com/tv/wkaj-tv
+# 212) WAKAJ TV
+212) link=https://www.filmon.com/tv/wkaj-tv
      chan_name="WAKAJ TV" ;;
-# 217) FilmOn Biography
-217) link=https://www.filmon.com/tv/filmon-biography-channel
+# 213) FilmOn Biography
+213) link=https://www.filmon.com/tv/filmon-biography-channel
      chan_name="FilmOn Biography" ;;
-# 218) Victory at Sea
-218) link=https://www.filmon.com/tv/victory-at-sea-tv
+# 214) Victory at Sea
+214) link=https://www.filmon.com/tv/victory-at-sea-tv
      chan_name="Victory at Sea" ;;
-# 219) FilmOn War
-219) link=https://www.filmon.com/tv/filmon-war-channel
+# 215) FilmOn War
+215) link=https://www.filmon.com/tv/filmon-war-channel
      chan_name="FilmOn War" ;;
-# 220) Ghost Hunters
-220) link=https://www.filmon.com/tv/ghost-hunters
+# 216) Ghost Hunters
+216) link=https://www.filmon.com/tv/ghost-hunters
      chan_name="Ghost Hunters" ;;
-# 221) Timeless Biographies
-221) link=https://www.filmon.com/tv/timeless-biographies
+# 217) Timeless Biographies
+217) link=https://www.filmon.com/tv/timeless-biographies
      chan_name="Timeless Biographies" ;;
-# 222) Real Life History
-222) link=https://www.filmon.com/tv/real-life-history-channel
+# 218) Real Life History
+218) link=https://www.filmon.com/tv/real-life-history-channel
      chan_name="Real Life History" ;;
-# 223) Living History
-223) link=https://www.filmon.com/tv/living-history-channel
+# 219) Living History
+219) link=https://www.filmon.com/tv/living-history-channel
      chan_name="Living History" ;;
-# 224) WW2 TV
-224) link=https://www.filmon.com/tv/war-crime-network
+# 220) WW2 TV
+220) link=https://www.filmon.com/tv/war-crime-network
      chan_name="WW2 TV" ;;
-# 225) Aliens and UFOs
-225) link=https://www.filmon.com/tv/aliens-and-ufos
+# 221) Aliens and UFOs
+221) link=https://www.filmon.com/tv/aliens-and-ufos
      chan_name="Aliens and UFOs" ;;
-# 226) Crime Inc.
-226) link=https://www.filmon.com/tv/crime-inc
+# 222) Crime Inc.
+222) link=https://www.filmon.com/tv/crime-inc
      chan_name="Crime Inc" ;;
-# 227) In Short a Lesson in Almost Everything
-227) link=https://www.filmon.com/tv/in-short-a-lesson-in-almost-everything
+# 223) In Short a Lesson in Almost Everything
+223) link=https://www.filmon.com/tv/in-short-a-lesson-in-almost-everything
      chan_name="In Short a Lesson in Almost Everything" ;;
 ###################### NEWS TV   #########################
-# 228) Newsy
-228) link=https://www.filmon.com/tv/newsy
+# 224) Newsy
+224) link=https://www.filmon.com/tv/newsy
      chan_name="Newsy" ;;
-# 229) CDTV
-229) link=https://www.filmon.com/tv/cdtv
+# 225) CDTV
+225) link=https://www.filmon.com/tv/cdtv
      chan_name="CDTV" ;;
-# 230) EIC TV
-230) link=https://www.filmon.com/tv/eic-tv
+# 226) EIC TV
+226) link=https://www.filmon.com/tv/eic-tv
      chan_name="EIC TV" ;;
-# 231) The Global Goals
-231) link=https://www.filmon.com/tv/the-global-goals
+# 227) The Global Goals
+227) link=https://www.filmon.com/tv/the-global-goals
      chan_name="The Global Goals" ;;
-# 232) Native Nations TV
-232) link=https://www.filmon.com/tv/native-nations-tv
+# 228) Native Nations TV
+228) link=https://www.filmon.com/tv/native-nations-tv
      chan_name="Native Nations TV" ;;
-# 233) France 24
-233) link=https://www.filmon.com/tv/france24
+# 229) France 24
+229) link=https://www.filmon.com/tv/france24
      chan_name="France 24" ;;
-# 234) Truth Files
-234) link=https://www.filmon.com/tv/truth-files
+# 230) Truth Files
+230) link=https://www.filmon.com/tv/truth-files
      chan_name="Truth Files" ;;
-# 235) NewsMax
-235) link=https://www.filmon.com/tv/newsmax
+# 231) NewsMax
+231) link=https://www.filmon.com/tv/newsmax
      chan_name="NEWSMAX" ;;
-# 236) TV 47
-236) link=https://www.filmon.com/tv/tv47
+# 232) TV 47
+232) link=https://www.filmon.com/tv/tv47
      chan_name="TV 47" ;;
-# 237) VOA
-237) link=https://www.filmon.com/tv/voa-english
+# 233) VOA
+233) link=https://www.filmon.com/tv/voa-english
      chan_name="VOA" ;;
-# 238) FilmOn Breaking NEWS
-238) link=https://www.filmon.com/tv/filmon-breaking-news
-     chan_name="" ;;
-# 239) Al Jazeera
-239) link=https://www.filmon.com/tv/al-jazeera
+# 234) FilmOn Breaking NEWS
+234) link=https://www.filmon.com/tv/filmon-breaking-news
+     chan_name="Breaking News" ;;
+# 235) Al Jazeera
+235) link=https://www.filmon.com/tv/al-jazeera
      chan_name="Al Jazeera" ;;
-# 240) Bloomberg
-240) link=https://www.filmon.com/tv/bloomberg
+# 236) Bloomberg
+236) link=https://www.filmon.com/tv/bloomberg
      chan_name="Bloomberg" ;;
-# 241) DW English
-241) link=https://www.filmon.com/tv/dw-english
+# 237) DW English
+237) link=https://www.filmon.com/tv/dw-english
      chan_name="DW English" ;;
-# 242) Russia Today
-242) link=https://www.filmon.com/tv/russia-today-2
+# 238) Russia Today
+238) link=https://www.filmon.com/tv/russia-today-2
      chan_name="Russia Today" ;;
-# 243) What America Thinks
-243) link=https://www.filmon.com/tv/what-america-thinks
+# 239) What America Thinks
+239) link=https://www.filmon.com/tv/what-america-thinks
      chan_name="What America Thinks" ;;
-# 244) CGTN
-244) link=https://www.filmon.com/tv/cctv-news
+# 240) CGTN
+240) link=https://www.filmon.com/tv/cctv-news
      chan_name="CGTN" ;;   
-# 245) DVIDs TV
-245) link=https://www.filmon.com/tv/dvids-tv
+# 241) DVIDs TV
+241) link=https://www.filmon.com/tv/dvids-tv
      chan_name="DVIDs TV" ;;     
-# 246) Press TV
-246) link=https://www.filmon.com/tv/press-tv
+# 242) Press TV
+242) link=https://www.filmon.com/tv/press-tv
      chan_name="Press TV" ;;     
-# 247) Job Channel
-247) link=https://www.filmon.com/tv/job-channel-network
+# 243) Job Channel
+243) link=https://www.filmon.com/tv/job-channel-network
      chan_name="Job Channel" ;;
-# 248) Unreliable Sources
-248) link=https://www.filmon.com/tv/unreliable-sources
+# 244) Unreliable Sources
+244) link=https://www.filmon.com/tv/unreliable-sources
      chan_name="Unreliable Sources" ;;
-# 249) Insider Exclusive
-249) link=https://www.filmon.com/tv/insider-exclusive-tv
+# 245) Insider Exclusive
+245) link=https://www.filmon.com/tv/insider-exclusive-tv
      chan_name="Insider Exclusive" ;;
 ############################### EXTREME SPORTS ####################
-# 250) GFL Combat Sports
-250) link=https://www.filmon.com/tv/gfl-combat-sports
+# 246) GFL Combat Sports
+246) link=https://www.filmon.com/tv/gfl-combat-sports
      chan_name="GFL Combat Sports" ;;
-# 251) XCORPS
-251) link=https://www.filmon.com/tv/xcorps
+# 247) XCORPS
+247) link=https://www.filmon.com/tv/xcorps
      chan_name="XCORPS" ;;
-# 252) MMA Now 360
-252) link=https://www.filmon.com/tv/mma-now-360
+# 248) MMA Now 360
+248) link=https://www.filmon.com/tv/mma-now-360
      chan_name="MMA Now 360" ;;
-# 253) GLORY Kickboxing
-253) link=https://www.filmon.com/tv/glory-kickboxing
+# 249) GLORY Kickboxing
+249) link=https://www.filmon.com/tv/glory-kickboxing
      chan_name="GLORY Kickboxing" ;;
-# 254) Sledhead 24/7
-254) link=https://www.filmon.com/tv/sledhead-247
+# 250) Sledhead 24/7
+250) link=https://www.filmon.com/tv/sledhead-247
      chan_name="Sledhead 24/7" ;;
-# 255) Destination X
-255) link=https://www.filmon.com/tv/destination-x
+# 251) Destination X
+251) link=https://www.filmon.com/tv/destination-x
      chan_name="Destination X" ;;
-# 256) Planet X Sport
-256) link=https://www.filmon.com/tv/planet-x-sport
+# 252) Planet X Sport
+252) link=https://www.filmon.com/tv/planet-x-sport
      chan_name="Planet X Sport" ;;     
-# 257) MMA Now
-257) link=https://www.filmon.com/tv/mmanow
+# 253) MMA Now
+253) link=https://www.filmon.com/tv/mmanow
      chan_name="MMA Now" ;;
-# 258) UFC Next
-258) link=https://www.filmon.com/tv/ufc-next
+# 254) UFC Next
+254) link=https://www.filmon.com/tv/ufc-next
      chan_name="UFC Next" ;;
-# 259) Sports Bloopers
-259) link=https://www.filmon.com/tv/sports-bloopers-tv
+# 255) Sports Bloopers
+255) link=https://www.filmon.com/tv/sports-bloopers-tv
      chan_name="Sports Bloopers" ;;
-# 260) Crash Bang Boom
-260) link=https://www.filmon.com/tv/crash-bang-boom
+# 256) Crash Bang Boom
+256) link=https://www.filmon.com/tv/crash-bang-boom
      chan_name="Crash Bang Boom" ;;
 ####################### URBAN  #############################
-# 261) Urban Firearms
-261) link=https://www.filmon.com/tv/urban-firearms-tv
+# 257) Urban Firearms
+257) link=https://www.filmon.com/tv/urban-firearms-tv
      chan_name="Urban Firearms" ;;
-# 262) Road 2 Fame
-262) link=https://www.filmon.com/tv/road2fame
+# 258) Road 2 Fame
+258) link=https://www.filmon.com/tv/road2fame
      chan_name="Road 2 Fame" ;;
-# 263) WWRTV
-263) link=https://www.filmon.com/tv/wwrtv
+# 259) WWRTV
+259) link=https://www.filmon.com/tv/wwrtv
      chan_name="WWRTV" ;;
-# 264) Irrefutable Evidence
-264) link=https://www.filmon.com/tv/irrefutable-evidence-tv
+# 260) Irrefutable Evidence
+260) link=https://www.filmon.com/tv/irrefutable-evidence-tv
      chan_name="Irrefutable Evidence" ;;
-# 265) Superfly Cinema
-265) link=https://www.filmon.com/tv/super-fly-cinema
+# 261) Superfly Cinema
+261) link=https://www.filmon.com/tv/super-fly-cinema
      chan_name="SuperFly Cinema" ;;
-# 266) Harlem Renaissance
-266) link=https://www.filmon.com/tv/harlem-renaissance
+# 262) Harlem Renaissance
+262) link=https://www.filmon.com/tv/harlem-renaissance
      chan_name="Harlem Renaissance" ;;
-# 267) TMTV
-267) link=https://www.filmon.com/tv/tmtv
+# 263) TMTV
+263) link=https://www.filmon.com/tv/tmtv
      chan_name="TMTV" ;;
-# 268) WHOMAG
-268) link=https://www.filmon.com/tv/whomag-tv
+# 264) WHOMAG
+264) link=https://www.filmon.com/tv/whomag-tv
      chan_name="WHOMAG" ;;
-# 269) WHOMAG VIDEOS
-269) link=https://www.filmon.com/tv/whomag-video-vision
+# 265) WHOMAG VIDEOS
+265) link=https://www.filmon.com/tv/whomag-video-vision
      chan_name="Whomag Videos" ;;
-# 270) New Star TV
-270) link=https://www.filmon.com/tv/new-star-tv
+# 266) New Star TV
+266) link=https://www.filmon.com/tv/new-star-tv
      chan_name="New Star TV" ;;
-# 271) Bone Thugs
-271) link=https://www.filmon.com/tv/bone-thugs-n-harmony
+# 267) Bone Thugs
+267) link=https://www.filmon.com/tv/bone-thugs-n-harmony
      chan_name="Bone Thugs" ;;
-# 272) RMC Live
-272) link=https://www.filmon.com/tv/rmc-live
+# 268) RMC Live
+268) link=https://www.filmon.com/tv/rmc-live
      chan_name="RMC Live" ;;
-# 273) The Raw Report
-273) link=https://www.filmon.com/tv/the-raw-report
+# 269) The Raw Report
+269) link=https://www.filmon.com/tv/the-raw-report
      chan_name="The Raw Report" ;;
-# 274) Linkct Network
-274) link=https://www.filmon.com/tv/linkct-network
+# 270) Linkct Network
+270) link=https://www.filmon.com/tv/linkct-network
      chan_name="Linkct Network" ;;
-# 275) Urban Music Network
-275) link=https://www.filmon.com/tv/urban-music-network
+# 271) Urban Music Network
+271) link=https://www.filmon.com/tv/urban-music-network
      chan_name="Urban Music Network" ;;
-# 276) Aspire Now
-276) link=https://www.filmon.com/tv/aspirenow-tv
+# 272) Aspire Now
+272) link=https://www.filmon.com/tv/aspirenow-tv
      chan_name="Aspire Now" ;;
-# 277) Amp TV
-277) link=https://www.filmon.com/tv/amp-tv
-     chan_name="Amp TV" ;;
-     
+# 273) Amp TV
+273) link=https://www.filmon.com/tv/amp-tv
+     chan_name="Amp TV" ;;    
 ###################### PARTY TV ##############################     
-# 278) Weedmaps
-278) link=https://www.filmon.com/tv/weedmaps-tv
-     chan_name="Weedmaps" ;;
-# 279) Buddy Plant
-279) link=https://www.filmon.com/tv/buddy-plant
+# 274) Weedmaps
+274) link=https://www.filmon.com/tv/weedmaps-tv
+   chan_name="Weedmaps" ;;
+# 275) Buddy Plant
+275) link=https://www.filmon.com/tv/buddy-plant
      chan_name="Buddy Plant" ;;
-# 280) PROHBTD
-280) link=https://www.filmon.com/tv/prohbtd
+# 276) PROHBTD
+276) link=https://www.filmon.com/tv/prohbtd
      chan_name="PROHBTD" ;;
-# 281) Sweet Leaf TV
-281) link=https://www.filmon.com/tv/sweet-leaf-tv
+# 277) Sweet Leaf TV
+277) link=https://www.filmon.com/tv/sweet-leaf-tv
      chan_name="Sweet Leaf TV" ;;
 ###################### LIFESTYLE #################################
-# 282) Health and Lifestyle
-282) link=https://www.filmon.com/tv/health-and-lifestyle
+# 278) Health and Lifestyle
+278) link=https://www.filmon.com/tv/health-and-lifestyle
      chan_name="Health and Lifestyle" ;;
-# 283) SOBA recovery
-283) link=https://www.filmon.com/tv/soba-network
+# 279) SOBA recovery
+279) link=https://www.filmon.com/tv/soba-network
      chan_name="SOBA Recovery" ;;
-# 284) Reader's Digest Lifetime
-284) link=https://www.filmon.com/tv/readers-digest-lifetime
+# 280) Reader's Digest Lifetime
+280) link=https://www.filmon.com/tv/readers-digest-lifetime
      chan_name="Reader's Digest Lifetime" ;;
-# 285) Home and Green Living
-285) link=https://www.filmon.com/tv/home-and-green-living
+# 281) Home and Green Living
+281) link=https://www.filmon.com/tv/home-and-green-living
      chan_name="Home and Green Living" ;;
-# 286) Safe TV
-286) link=https://www.filmon.com/tv/safe-tvr
+# 282) Safe TV
+282) link=https://www.filmon.com/tv/safe-tvr
      chan_name="Safe TV" ;;
-# 287) Bid America
-287) link=https://www.filmon.com/tv/bid-america
+# 283) Bid America
+283) link=https://www.filmon.com/tv/bid-america
      chan_name="Bid America" ;;
-# 288) MegaMe TV
-288) link=https://www.filmon.com/tv/megame-tv
+# 284) MegaMe TV
+284) link=https://www.filmon.com/tv/megame-tv
      chan_name="MegaMe TV" ;;
-# 289) Wonderful Living
-289) link=https://www.filmon.com/tv/wonderful-living-tv
+# 285) Wonderful Living
+285) link=https://www.filmon.com/tv/wonderful-living-tv
      chan_name="Wonderful Living" ;;
-# 290) Simply Me
-290) link=https://www.filmon.com/tv/simply-me
+# 286) Simply Me
+286) link=https://www.filmon.com/tv/simply-me
      chan_name="Simply Me" ;;
-# 291) The Walk
-291) link=https://www.filmon.com/tv/the-walk-tv
+# 287) The Walk
+287) link=https://www.filmon.com/tv/the-walk-tv
      chan_name="The Walk" ;;
-# 292) Time TV
-292) link=https://www.filmon.com/tv/time-tv
+# 288) Time TV
+288) link=https://www.filmon.com/tv/time-tv
      chan_name="Time TV" ;;
-# 293) DRTV
-293) link=https://www.filmon.com/tv/drtv
+# 289) DRTV
+289) link=https://www.filmon.com/tv/drtv
      chan_name="DRTV" ;;
-# 294) Medical News
-294) link=https://www.filmon.com/tv/medical-news-minute
+# 290) Medical News
+290) link=https://www.filmon.com/tv/medical-news-minute
      chan_name="Medical News" ;;
-# 295) Supreme Master
-295) link=https://www.filmon.com/tv/supreme-master-tv
+# 291) Supreme Master
+291) link=https://www.filmon.com/tv/supreme-master-tv
      chan_name="Supreme Master" ;;
      
 ######################## FILMON EXCLUSIVE ###############################     
-# 296) FOTV USA
-296) link=https://www.filmon.com/tv/fotv-usa
+# 292) FOTV USA
+292) link=https://www.filmon.com/tv/fotv-usa
      chan_name="FOTV USA" ;;
-# 297) FOTV Workout
-297) link=https://www.filmon.com/tv/360-fotv-workout
+# 293) FOTV Workout
+293) link=https://www.filmon.com/tv/360-fotv-workout
      chan_name="FOTV Workout" ;;
-# 298) FilmOn Sports
-298) link=https://www.filmon.com/tv/filmon-sports
+# 294) FilmOn Sports
+294) link=https://www.filmon.com/tv/filmon-sports
      chan_name="FilmOn Sports" ;;
-# 299) 360 Experimental
-299) link=https://www.filmon.com/tv/360-experimental
+# 295) 360 Experimental
+295) link=https://www.filmon.com/tv/360-experimental
      chan_name="360 Experimental" ;;
-# 300) BH Cam 360
-300) link=https://www.filmon.com/tv/bh-360-cam-2
+# 296) BH Cam 360
+296) link=https://www.filmon.com/tv/bh-360-cam-2
      chan_name="BH Cam 360" ;;
-# 301) R&B Live 
-301) link=https://www.filmon.com/tv/rnb-live-afterparty
+# 297) R&B Live 
+297) link=https://www.filmon.com/tv/rnb-live-afterparty
      chan_name="R&B Live" ;;
-# 302) Cast Out of Paradise
-302) link=https://www.filmon.com/tv/castoutofparadise-tv
+# 298) Cast Out of Paradise
+298) link=https://www.filmon.com/tv/castoutofparadise-tv
      chan_name="Cast Out of Paradise" ;;
-# 303) ROC Summer Explossion
-303) link=https://www.filmon.com/tv/roc-summer-explosion
+# 299) ROC Summer Explossion
+299) link=https://www.filmon.com/tv/roc-summer-explosion
      chan_name="ROC Summer Explosion" ;;
-# 304) FilmON Studio
-304) link=https://www.filmon.com/tv/filmon-studio
+# 300) FilmON Studio
+300) link=https://www.filmon.com/tv/filmon-studio
      chan_name="FilmON Studio" ;;
-# 305) TV Gold
-305) link=https://www.filmon.com/tv/tv-gold
+# 301) TV Gold
+301) link=https://www.filmon.com/tv/tv-gold
      chan_name="TV Gold" ;;
-# 306) Battle Rap
-306) link=https://www.filmon.com/tv/battle-rap
+# 302) Battle Rap
+302) link=https://www.filmon.com/tv/battle-rap
      chan_name="Battle Rap" ;;
-# 307) Tribe TV
-307) link=https://www.filmon.com/tv/tribe-tv
+# 303) Tribe TV
+303) link=https://www.filmon.com/tv/tribe-tv
      chan_name="Tribe TV" ;;
-# 308) FilmOn Reality
-308) link=https://www.filmon.com/tv/filmon-reality
+# 304) FilmOn Reality
+304) link=https://www.filmon.com/tv/filmon-reality
      chan_name="FilmOn Reality" ;;
-# 309) FilmOn Red Carpet 
-309) link=https://www.filmon.com/tv/filmon-red-carpet
+# 305) FilmOn Red Carpet 
+305) link=https://www.filmon.com/tv/filmon-red-carpet
      chan_name="FilmOn Red Carpet" ;;
-# 310) Christmas Channel
-310) link=https://www.filmon.com/tv/the-christmas-channel-by-zuzu-project
+# 306) Christmas Channel
+306) link=https://www.filmon.com/tv/the-christmas-channel-by-zuzu-project
      chan_name="Christmas Channel" ;;
-# 311) Nub TV
-311) link=https://www.filmon.com/tv/nub-tv
+# 307) Nub TV
+307) link=https://www.filmon.com/tv/nub-tv
      chan_name="Nub TV" ;;
-# 312) Chai Life TV
-312) link=https://www.filmon.com/tv/livefromthecenteroftheuniverse
+# 308) Chai Life TV
+308) link=https://www.filmon.com/tv/livefromthecenteroftheuniverse
      chan_name="Chai Life TV" ;;
-# 313) Joe Nation
-313) link=https://www.filmon.com/tv/joe-nation
+# 309) Joe Nation
+309) link=https://www.filmon.com/tv/joe-nation
      chan_name="Joe Nation" ;;
-# 314) OC Real Estate
-314) link=https://www.filmon.com/tv/oc-real-estate-tv
+# 310) OC Real Estate
+310) link=https://www.filmon.com/tv/oc-real-estate-tv
      chan_name="OC Real Estate" ;;
-# 315) MHL TV
-315) link=https://www.filmon.com/tv/mhl-tv
+# 311) MHL TV
+311) link=https://www.filmon.com/tv/mhl-tv
      chan_name="MHL TV" ;;
 ################################## FASHION ##########################
-# 316) RUNWAY TV
-316) link=https://www.filmon.com/tv/runway-tv
+# 312) RUNWAY TV
+312) link=https://www.filmon.com/tv/runway-tv
      chan_name="RUNWAY TV" ;;
-# 317) TEOS
-317) link=https://www.filmon.com/tv/teos-tv
+# 313) TEOS
+313) link=https://www.filmon.com/tv/teos-tv
      chan_name="TEOS" ;;
-# 318) TV ART LIVE
-318) link=https://www.filmon.com/tv/tv-art-live
+# 314) TV ART LIVE
+314) link=https://www.filmon.com/tv/tv-art-live
      chan_name="TV Art Live" ;;
-# 319) Runway TV 2016
-319) link=https://www.filmon.com/tv/runway-tv-2016
+# 315) Runway TV 2016
+315) link=https://www.filmon.com/tv/runway-tv-2016
      chan_name="Runway TV" ;;
-# 320) Chic
-320) link=https://www.filmon.com/tv/chic
+# 316) Chic
+316) link=https://www.filmon.com/tv/chic
      chan_name="Chic" ;;
 ########################## SCIENCE and TECH ###################################
-# 321) NASA TV
-321) link=https://www.filmon.com/tv/nasa-hd
+# 317) NASA TV
+317) link=https://www.filmon.com/tv/nasa-hd
      chan_name="NASA TV" ;;
 ####################### FRENCH TV ########################################
 
-# 322) ARTE Francais
-322) link=https://www.filmon.com/tv/arte-francais
+# 318) ARTE Francais
+318) link=https://www.filmon.com/tv/arte-francais
      chan_name="ARTE Francais" ;;
-# 323) France 0
-323) link=https://www.filmon.com/tv/france-0
+# 319) France 0
+319) link=https://www.filmon.com/tv/france-0
      chan_name="France 0" ;;
-# 324) France 3 Rhone Alpes
-324) link=https://www.filmon.com/tv/france-3-rhone-alpes
+# 320) France 3 Rhone Alpes
+320) link=https://www.filmon.com/tv/france-3-rhone-alpes
      chan_name="France 3 Rhone Alps" ;;
-# 325) France 3 Alpes
-325) link=https://www.filmon.com/tv/france-3-alpes
+# 321) France 3 Alpes
+321) link=https://www.filmon.com/tv/france-3-alpes
      chan_name="France 3 Alpes" ;;
-# 326) RTS UN
-326) link=https://www.filmon.com/tv/rts-un
+# 322) RTS UN
+322) link=https://www.filmon.com/tv/rts-un
      chan_name="RTS UN" ;;
-# 327) RTS Deux
-327) link=https://www.filmon.com/tv/rts-deux
+# 323) RTS Deux
+323) link=https://www.filmon.com/tv/rts-deux
      chan_name="RTS Deux" ;;
-#  328) BFM Business
-328) link=https://www.filmon.com/tv/bfm-business
+#  324) BFM Business
+324) link=https://www.filmon.com/tv/bfm-business
      chan_name="BFM Business" ;;
-# 329) BFM TV
-329) link=https://www.filmon.com/tv/bfm-tv
+# 325) BFM TV
+325) link=https://www.filmon.com/tv/bfm-tv
      chan_name="BFM TV" ;;
-# 330) FRANCE 2
-330) link=https://www.filmon.com/tv/france-2
+# 326) FRANCE 2
+326) link=https://www.filmon.com/tv/france-2
      chan_name="France 2" ;;
 ################################ GERMAN TV  #####################################
-# 331) HSE 2 
-331) link=https://www.filmon.com/tv/hse24-hd
+# 327) HSE 2 
+327) link=https://www.filmon.com/tv/hse24-hd
      chan_name="HSE 2" ;;
-# 332) HSE 2 Extra
-332) link=https://www.filmon.com/tv/hse24-extra
+# 328) HSE 2 Extra
+328) link=https://www.filmon.com/tv/hse24-extra
      chan_name="HSE 2 Extra" ;;
-# 333) Kika
-333) link=https://www.filmon.com/tv/kika
+# 329) Kika
+329) link=https://www.filmon.com/tv/kika
      chan_name="KIKA" ;;
-# 334) ZDF Infokanal
-334) link=https://www.filmon.com/tv/zdf-infokanal
+# 330) ZDF Infokanal
+330) link=https://www.filmon.com/tv/zdf-infokanal
      chan_name="ZDF Infokanal" ;;
 ########################## RUSSIAN TV ######################################
-# 335) RTR Planeta
-335) link=https://www.filmon.com/tv/rtr-planeta
+# 331) RTR Planeta
+331) link=https://www.filmon.com/tv/rtr-planeta
      chan_name="RTR Planeta" ;;
-# 336) Current Time TV
-336) link=https://www.filmon.com/tv/current-time-tv
+# 332) Current Time TV
+332) link=https://www.filmon.com/tv/current-time-tv
      chan_name="Current Time TV" ;;
-# 337) RT Documentary
-337) link=https://www.filmon.com/tv/rt-documentary
+# 333) RT Documentary
+333) link=https://www.filmon.com/tv/rt-documentary
      chan_name="RT Documentary" ;;
-# 338) Perviy Kanal Europa
-338) link=https://www.filmon.com/tv/perviy-kanal-europa
+# 334) Perviy Kanal Europa
+334) link=https://www.filmon.com/tv/perviy-kanal-europa
      chan_name="Perviy Kanal Europa" ;;
-# 339) Music Box Russia
-339) link=https://www.filmon.com/tv/music-box-russia
+# 335) Music Box Russia
+335) link=https://www.filmon.com/tv/music-box-russia
      chan_name="Music Box Russia" ;;
-# 340) Rossiya 24
-340) link=https://www.filmon.com/tv/rossiya-24
+# 336) Rossiya 24
+336) link=https://www.filmon.com/tv/rossiya-24
      chan_name="Rossiya 24" ;;
 ########################### INDIA TV  ##########################################
-# 341) Films of India
-341) link=https://www.filmon.com/tv/original-films-of-india
+# 337) Films of India
+337) link=https://www.filmon.com/tv/original-films-of-india
      chan_name="Films of India" ;;
-# 342) Live 9 TV
-342) link=https://www.filmon.com/tv/live9-tv
+# 338) Live 9 TV
+338) link=https://www.filmon.com/tv/live9-tv
      chan_name="Live 9 TV" ;;
-# 343) Delhi Aaj Tak
-343) link=https://www.filmon.com/tv/delhi-aaj-tak
+# 339) Delhi Aaj Tak
+339) link=https://www.filmon.com/tv/delhi-aaj-tak
      chan_name="Delhi Aaj Tak" ;;
-# 344) Aaj Tak
-344) link=https://www.filmon.com/tv/aaj-tak
+# 340) Aaj Tak
+340) link=https://www.filmon.com/tv/aaj-tak
      chan_name="Aaj Tak" ;;
-# 345) Tez TV
-345) link=https://www.filmon.com/tv/tez-tv
+# 341) Tez TV
+341) link=https://www.filmon.com/tv/tez-tv
      chan_name="Tez TV" ;;
-# 346) ABP News
-346) link=https://www.filmon.com/tv/abp-news
-     chan_name="ABP News" ;;
-     
+# 342) ABP News
+342) link=https://www.filmon.com/tv/abp-news
+     chan_name="ABP News" ;;  
 ######################## ITALIAN TV ############################################# 
-# 347) Italia Channel
-347) link=https://www.filmon.com/tv/canale-italia
+# 343) Italia Channel
+343) link=https://www.filmon.com/tv/canale-italia
      chan_name="Italia Channel" ;;
-# 348) Camera dei Deputati
-348) link=https://www.filmon.com/tv/camera-dei-deputati
+# 344) Camera dei Deputati
+344) link=https://www.filmon.com/tv/camera-dei-deputati
      chan_name="Camera dei Deputati" ;;
-# 349) QVC Italy
-349) link=https://www.filmon.com/tv/qvc-italia
+# 345) QVC Italy
+345) link=https://www.filmon.com/tv/qvc-italia
      chan_name="QVC Italy" ;;
 ####################### Middle East #############################
-# 350) Rotana Aflam
-350) link=https://www.filmon.com/tv/rotana-aflam
+# 346) Rotana Aflam
+346) link=https://www.filmon.com/tv/rotana-aflam
      chan_name="Rotana Aflam" ;;
-# 351) DW Arabia
-351) link=https://www.filmon.com/tv/dw-arabia
+# 347) DW Arabia
+347) link=https://www.filmon.com/tv/dw-arabia
      chan_name="DW Arabia" ;;
-# 352) Al Jazeera Documentary
-352) link=https://www.filmon.com/tv/al-jazeera-documentary
+# 348) Al Jazeera Documentary
+348) link=https://www.filmon.com/tv/al-jazeera-documentary
      chan_name="Al Jazeera Documentary" ;;
-# 353) Al Jazeera Mubasher
-353) link=https://www.filmon.com/tv/al-jazeera-mubasher
+# 349) Al Jazeera Mubasher
+349) link=https://www.filmon.com/tv/al-jazeera-mubasher
      chan_name="Al Jazeera Mubasher" ;;
-# 354) Al Jazeera Arabic
-354) link=https://www.filmon.com/tv/al-jazeera-arabic
+# 350) Al Jazeera Arabic
+350) link=https://www.filmon.com/tv/al-jazeera-arabic
      chan_name="Al Jazeera Arabic" ;;
-# 355) Saudi TV 2
-355) link=https://www.filmon.com/tv/saudi-arabian-tv-2
+# 351) Saudi TV 2
+351) link=https://www.filmon.com/tv/saudi-arabian-tv-2
      chan_name="Saudi TV 2" ;;
-# 356) Saudi TV Sports
-357) link=https://www.filmon.com/tv/saudi-arabian-tv-sports
+# 352) Saudi TV Sports
+352) link=https://www.filmon.com/tv/saudi-arabian-tv-sports
      chan_name="Saudi TV Sports" ;;
-# 357) Suryoyo Satalite
-357) link=https://www.filmon.com/tv/suryoyo-sat
+# 353) Suryoyo Satalite
+353) link=https://www.filmon.com/tv/suryoyo-sat
      chan_name="Suryoyo Sat" ;;
-# 358) Rotana
-358) link=https://www.filmon.com/tv/rotana
+# 354) Rotana
+354) link=https://www.filmon.com/tv/rotana
      chan_name="Rotana" ;;
-# 359) Rotana Clip
-359) link=https://www.filmon.com/tv/rotana-clip
+# 355) Rotana Clip
+355) link=https://www.filmon.com/tv/rotana-clip
      chan_name="Rotana Clip" ;;
-# 360) Rotana Khalijah
-360) link=https://www.filmon.com/tv/rotana-khalijiah
+# 356) Rotana Khalijah
+356) link=https://www.filmon.com/tv/rotana-khalijiah
      chan_name="Rotana Khalijah" ;;
-# 361) Rotana Classic
-361) link=https://www.filmon.com/tv/rotana-classic
+# 357) Rotana Classic
+357) link=https://www.filmon.com/tv/rotana-classic
      chan_name="Rotana classic" ;;
-# 362) Rotana Masriya
-362) link=https://www.filmon.com/tv/rotana-masriya
+# 358) Rotana Masriya
+358) link=https://www.filmon.com/tv/rotana-masriya
      chan_name="Rotana Masriya" ;;
-# 363) Rotana Cinema
-363) link=https://www.filmon.com/tv/rotana-cinema
+# 359) Rotana Cinema
+359) link=https://www.filmon.com/tv/rotana-cinema
      chan_name="Rotana Cinema" ;;
-# 364) Saudi TV 1
-364) link=https://www.filmon.com/tv/saudi-arabian-tv-1
+# 360) Saudi TV 1
+360) link=https://www.filmon.com/tv/saudi-arabian-tv-1
      chan_name="Saudi TV 1" ;;
-# 365) Noor Dubai
-365) link=https://www.filmon.com/tv/noor-dubai
+# 361) Noor Dubai
+361) link=https://www.filmon.com/tv/noor-dubai
      chan_name="Noor Dubai" ;;
-# 366) iFilm
-366) link=https://www.filmon.com/tv/ifilm
+# 362) iFilm
+362) link=https://www.filmon.com/tv/ifilm
      chan_name="iFilm" ;;
-# 367) Dubai Sports
-367) link=https://www.filmon.com/tv/dubai-sports
+# 363) Dubai Sports
+363) link=https://www.filmon.com/tv/dubai-sports
      chan_name="Dubai Sports" ;;
 ########################## SWISS TV  ############################################       
-# 368) SRF 1
-368) link=https://www.filmon.com/tv/srf-1
+# 364) SRF 1
+364) link=https://www.filmon.com/tv/srf-1
      chan_name="SRF 1" ;;
-# 369) RSI LA 1
-369) link=https://www.filmon.com/tv/rsi-la-1
+# 365) RSI LA 1
+365) link=https://www.filmon.com/tv/rsi-la-1
      chan_name="RSI LA 1" ;;
-# 370) Raido Chico
-370) link=https://www.filmon.com/tv/radio-chico
+# 366) Raido Chico
+366) link=https://www.filmon.com/tv/radio-chico
      chan_name="Radio Chico" ;;
 ########################### LATINO  #############################################3
-# 371) Peliculas FilmON
-371) link=https://www.filmon.com/tv/peliculas-de-filmon
+# 367) Peliculas FilmON
+367) link=https://www.filmon.com/tv/peliculas-de-filmon
      chan_name="Peliculas FilmON" ;;
-# 372) Catwalk Espanol
-372) link=https://www.filmon.com/tv/catwalk-en-espanol
+# 368) Catwalk Espanol
+368) link=https://www.filmon.com/tv/catwalk-en-espanol
      chan_name="Catwalk Espanol" ;;
-# 373) Animacion de FilmOn
-373) link=https://www.filmon.com/tv/animacion-de-filmon
+# 369) Animacion de FilmOn
+369) link=https://www.filmon.com/tv/animacion-de-filmon
      chan_name="Animacion de FilmOn" ;;
-# 374) Planet Fashion
-374) link=https://www.filmon.com/tv/planet-fashion-en-espanol
+# 370) Planet Fashion
+370) link=https://www.filmon.com/tv/planet-fashion-en-espanol
      chan_name="Planet Fashion" ;;
-# 375) HispanTV
-375) link=https://www.filmon.com/tv/hispan-tv
+# 371) HispanTV
+371) link=https://www.filmon.com/tv/hispan-tv
      chan_name="HispanTV" ;;
-# 376) Telenovelas
-376) link=https://www.filmon.com/tv/telenovelas-tv
+# 372) Telenovelas
+372) link=https://www.filmon.com/tv/telenovelas-tv
      chan_name="Telenovelas" ;;
-# 377) RT Espanol
-377) link=https://www.filmon.com/tv/rt-espanol
+# 373) RT Espanol
+373) link=https://www.filmon.com/tv/rt-espanol
      chan_name="RT Espanol" ;;
-# 378) DW Latino America
-378) link=https://www.filmon.com/tv/dw-latinoamerica
+# 374) DW Latino America
+374) link=https://www.filmon.com/tv/dw-latinoamerica
      chan_name="DW Latino America" ;;
-# 379) Televideo Latino
-379) link=https://www.filmon.com/tv/televideo-latino
+# 375) Televideo Latino
+375) link=https://www.filmon.com/tv/televideo-latino
      chan_name="Televido Latino" ;;
 ############################# CLASSIC TV  ####################################
-# 380) The Lucy Show
-380) link=https://www.filmon.com/tv/the-lucy-show
+# 376) The Lucy Show
+376) link=https://www.filmon.com/tv/the-lucy-show
      chan_name="The Lucy Show" ;;
-# 381) Date With the Angels TV
-381) link=https://www.filmon.com/tv/date-with-angels-tv
+# 377) Date With the Angels TV
+377) link=https://www.filmon.com/tv/date-with-angels-tv
      chan_name="Date with the Angels" ;;
-# 382) Man with a Camera
-382) link=https://www.filmon.com/tv/man-with-a-camera-tv
+# 378) Man with a Camera
+378) link=https://www.filmon.com/tv/man-with-a-camera-tv
      chan_name="Man with a Camera" ;;
-# 383) Colgate Comedy Hour
-383) link=https://www.filmon.com/tv/the-colgate-comedy-hour
+# 379) Colgate Comedy Hour
+379) link=https://www.filmon.com/tv/the-colgate-comedy-hour
      chan_name="Colgate Comedy Hour" ;;
-# 384) Catwalk
-384) link=https://www.filmon.com/tv/catwalk
+# 380) Catwalk
+380) link=https://www.filmon.com/tv/catwalk
      chan_name="Catwalk" ;;
-# 385) Life of Riley
-385) link=https://www.filmon.com/tv/the-life-of-riley-tv
+# 381) Life of Riley
+381) link=https://www.filmon.com/tv/the-life-of-riley-tv
      chan_name="Life of Riley" ;;
-# 386) Strange Paradise
-386) link=https://www.filmon.com/tv/strange-paradise
+# 382) Strange Paradise
+382) link=https://www.filmon.com/tv/strange-paradise
      chan_name="Strange Paradise" ;;
-# 387) Red Skeleton
-387) link=https://www.filmon.com/tv/the-red-skelton-show-tv
+# 383) Red Skeleton
+383) link=https://www.filmon.com/tv/the-red-skelton-show-tv
      chan_name="Red Skeleton" ;;
-# 388) Dragnet
-388) link=https://www.filmon.com/tv/dragnet-tv
+# 384) Dragnet
+384) link=https://www.filmon.com/tv/dragnet-tv
      chan_name="Dragnet" ;;
-# 389) Private Secretary
-389) link=https://www.filmon.com/tv/private-secretary-tv
+# 385) Private Secretary
+385) link=https://www.filmon.com/tv/private-secretary-tv
      chan_name="Private Secretary" ;;
-# 390) Suspense TV
-390) link=https://www.filmon.com/tv/suspense-tv
+# 386) Suspense TV
+386) link=https://www.filmon.com/tv/suspense-tv
      chan_name="Suspense TV" ;;
-# 391) Timeless Westerns
-391) link=https://www.filmon.com/tv/timeless-westerns
+# 387) Timeless Westerns
+387) link=https://www.filmon.com/tv/timeless-westerns
      chan_name="Timeless Westerns" ;;
-# 392) You bet your Life
-392) link=https://www.filmon.com/tv/you-bet-your-life-tv
+# 388) You bet your Life
+388) link=https://www.filmon.com/tv/you-bet-your-life-tv
      chan_name="You Bet Your Life" ;;
-# 393) Flash Gordon
-393) link=https://www.filmon.com/tv/flash-gordon
+# 389) Flash Gordon
+389) link=https://www.filmon.com/tv/flash-gordon
      chan_name="Flash Gordon" ;;
-# 394) Betty Boop
-394) link=https://www.filmon.com/tv/betty-boop-tv
+# 390) Betty Boop
+390) link=https://www.filmon.com/tv/betty-boop-tv
      chan_name="Betty Boop" ;;
-# 395) Fury TV
-395) link=https://www.filmon.com/tv/fury-tv
+# 391) Fury TV
+391) link=https://www.filmon.com/tv/fury-tv
      chan_name="Fury TV" ;;
-# 396) Cisco Kid
-396) link=https://www.filmon.com/tv/cisco-kid-tv
+# 392) Cisco Kid
+392) link=https://www.filmon.com/tv/cisco-kid-tv
      chan_name="Cisco Kid" ;;
-# 397) Bonanza
-397) link=https://www.filmon.com/tv/filmon-binge-bonanza
+# 393) Bonanza
+393) link=https://www.filmon.com/tv/filmon-binge-bonanza
      chan_name="Bonanza" ;;
-# 398) Ozzie and Harriet
-398) link=https://www.filmon.com/tv/filmon-binge-ozzie-harriet
+# 394) Ozzie and Harriet
+394) link=https://www.filmon.com/tv/filmon-binge-ozzie-harriet
      chan_name="Ozzie and Harriet" ;;
-# 399) One Step Beyond
-399) link=https://www.filmon.com/tv/filmon-binge-one-step-beyond
+# 395) One Step Beyond
+395) link=https://www.filmon.com/tv/filmon-binge-one-step-beyond
      chan_name="One Step Beyond" ;;
-# 400) Charlie Chaplin
-400) link=https://www.filmon.com/tv/filmon-binge-charlie-chaplin
+# 396) Charlie Chaplin
+396) link=https://www.filmon.com/tv/filmon-binge-charlie-chaplin
      chan_name="Charlie Chaplin" ;;
-# 401) The Beverly Hillbillies
-401) link=https://www.filmon.com/tv/filmon-binge-the-beverly-hillbillies
+# 397) The Beverly Hillbillies
+397) link=https://www.filmon.com/tv/filmon-binge-the-beverly-hillbillies
      chan_name="The Beverly Hillbilies" ;;
-# 402) Robin Hood
-402) link=https://www.filmon.com/tv/filmon-binge-adventures-of-robin-hood
+# 398) Robin Hood
+398) link=https://www.filmon.com/tv/filmon-binge-adventures-of-robin-hood
      chan_name="Robin Hood" ;;
-# 403) Timeless TV
-403) link=https://www.filmon.com/tv/timeless-television
+# 399) Timeless TV
+399) link=https://www.filmon.com/tv/timeless-television
      chan_name="Timeless TV" ;;
-# 404) Spud's Crime and Punishment
-404) link=https://www.filmon.com/tv/spuds-crime-and-punishment-channel
+# 400) Spud's Crime and Punishment
+400) link=https://www.filmon.com/tv/spuds-crime-and-punishment-channel
      chan_name="Spud's Crime and Punishment" ;;
-# 405) The Dick Van Dyke Show
-405) link=https://www.filmon.com/tv/the-dick-van-dyke-show
+# 401) The Dick Van Dyke Show
+401) link=https://www.filmon.com/tv/the-dick-van-dyke-show
      chan_name="The Dick Van Dyke Show" ;;
 ####################### SHORT FILMS ####################################
-# 406) Funny Shorts
-406) link=https://www.filmon.com/tv/funny-shorts
+# 402) Funny Shorts
+402) link=https://www.filmon.com/tv/funny-shorts
      chan_name="Funny Shorts" ;;
-# 407) Movies
-407) link=https://www.filmon.com/tv/movies
+# 403) Movies
+403) link=https://www.filmon.com/tv/movies
      chan_name="Movies" ;;
-# 408) Dancing Shorts
-408) link=https://www.filmon.com/tv/dancing-shorts
+# 404) Dancing Shorts
+404) link=https://www.filmon.com/tv/dancing-shorts
      chan_name="Dancing Shorts" ;;
-# 409) Reality Shorts
-409) link=https://www.filmon.com/tv/reality-shorts
+# 405) Reality Shorts
+405) link=https://www.filmon.com/tv/reality-shorts
      chan_name="Reality Shorts" ;;
-# 410) Acid TV
-410) link=https://www.filmon.com/tv/acid-tv
+# 406) Acid TV
+406) link=https://www.filmon.com/tv/acid-tv
      chan_name="Acid TV" ;;
-# 411) Horror TV
-411) link=https://www.filmon.com/tv/horror-tv
+# 407) Horror TV
+407) link=https://www.filmon.com/tv/horror-tv
      chan_name="Horror TV" ;;
-# 412) Music Videos
-412) link=https://www.filmon.com/tv/music-videos
+# 408) Music Videos
+408) link=https://www.filmon.com/tv/music-videos
      chan_name="Music Videos" ;;
-# 413) Sci Fi
-413) link=https://www.filmon.com/tv/sci-fi
+# 409) Sci Fi
+409) link=https://www.filmon.com/tv/sci-fi
      chan_name="Sci Fi" ;;
-# 414) Micro Shorts
-414) link=https://www.filmon.com/tv/micro-shorts
+# 410) Micro Shorts
+410) link=https://www.filmon.com/tv/micro-shorts
      chan_name="Micro Shorts" ;;
-# 415) Sproklets and Splices
-415) link=https://www.filmon.com/tv/sprockets-and-splices-tv
+# 411) Sproklets and Splices
+411) link=https://www.filmon.com/tv/sprockets-and-splices-tv
      chan_name="Sprokets and Splices" ;;
-# 416) Teen Shorts
-416) link=https://www.filmon.com/tv/teen-shorts
+# 412) Teen Shorts
+412) link=https://www.filmon.com/tv/teen-shorts
      chan_name="Teen Shorts" ;;
-# 417) Drama Shorts
-417) link=https://www.filmon.com/tv/drama-shorts
+# 413) Drama Shorts
+413) link=https://www.filmon.com/tv/drama-shorts
      chan_name="Drama Shorts" ;;
-# 418) Digital Animation
-418) link=https://www.filmon.com/tv/digital-animation
+# 414) Digital Animation
+414) link=https://www.filmon.com/tv/digital-animation
      chan_name="Digital Animation" ;;
-# 419) Documentary
-419) link=https://www.filmon.com/tv/documentary
+# 415) Documentary
+415) link=https://www.filmon.com/tv/documentary
      chan_name="Documentary" ;;
      
 ######################## OUTDOORS   ########################################33
-# 420) Bayou Country
-420) link=https://www.filmon.com/tv/bayou-country-outdoors
+# 416) Bayou Country
+416) link=https://www.filmon.com/tv/bayou-country-outdoors
      chan_name="Bayou Country" ;;
-# 421) Student of the Gun
-421) link=https://www.filmon.com/tv/student-of-the-gun
+# 417) Student of the Gun
+417) link=https://www.filmon.com/tv/student-of-the-gun
      chan_name="Student of the Gun" ;;
-# 422) Ultimate Outdoors
-422) link=https://www.filmon.com/tv/ultimate-outdoors
+# 418) Ultimate Outdoors
+418) link=https://www.filmon.com/tv/ultimate-outdoors
      chan_name="Ultimater Outdoors" ;;
-# 423) Hunt Channel
-423) link=https://www.filmon.com/tv/hunt-channel
+# 419) Hunt Channel
+419) link=https://www.filmon.com/tv/hunt-channel
      chan_name="Hunt Channel" ;;
-# 424) Thouroughbred World Show
-424) link=https://www.filmon.com/tv/thoroughbred-show
+# 420) Thouroughbred World Show
+420) link=https://www.filmon.com/tv/thoroughbred-show
      chan_name="Thouroughbred World Show" ;;
-# 425) Wilderness Channel
-425) link=https://www.filmon.com/tv/wilderness-channel
+# 421) Wilderness Channel
+421) link=https://www.filmon.com/tv/wilderness-channel
      chan_name="Wilderness Channel" ;;
-# 426) Pursuit
-426) link=https://www.filmon.com/tv/pursuit-channel
+# 422) Pursuit
+422) link=https://www.filmon.com/tv/pursuit-channel
      chan_name="Pursuit" ;;
 ##################### TRAVEL ###########################
-# 427) HWC
-427) link=https://www.filmon.com/tv/hwc-network
+# 423) HWC
+423) link=https://www.filmon.com/tv/hwc-network
      chan_name="HWC" ;;
-# 428) The Jet Set Channel
-428) link=https://www.filmon.com/tv/the-jet-set-channel
+# 424) The Jet Set Channel
+424) link=https://www.filmon.com/tv/the-jet-set-channel
      chan_name="The Jet Set Channel" ;;
-# 429) Discover Malta
-429) link=https://www.filmon.com/tv/discover-malta
+# 425) Discover Malta
+425) link=https://www.filmon.com/tv/discover-malta
      chan_name="Discover Malta" ;;
-# 430) Mega Destinations
-430) link=https://www.filmon.com/tv/mega-destinations
+# 426) Mega Destinations
+426) link=https://www.filmon.com/tv/mega-destinations
      chan_name="Mega Destinations" ;;
-# 431) 30A TV
-431) link=https://www.filmon.com/tv/30a-tv
+# 427) 30A TV
+427) link=https://www.filmon.com/tv/30a-tv
      chan_name="30A TV" ;;
-# 432) OBX TV
-432) link=https://www.filmon.com/tv/obxtv
+# 428) OBX TV
+428) link=https://www.filmon.com/tv/obxtv
      chan_name="OBX TV" ;;
-# 433) Travel Channel
-433) link=https://www.filmon.com/tv/travel-channel1
+# 429) Travel Channel
+429) link=https://www.filmon.com/tv/travel-channel1
      chan_name="Travel Channel" ;;
-# 434) Landmarks
-434) link=https://www.filmon.com/tv/landmarks
+# 430) Landmarks
+430) link=https://www.filmon.com/tv/landmarks
      chan_name="Landmarks" ;;
-# 435) Infamous Places
-435) link=https://www.filmon.com/tv/infamous-places
+# 431) Infamous Places
+431) link=https://www.filmon.com/tv/infamous-places
      chan_name="Infamous Places" ;;  
 ############################ SOMALI TV ####################################     
-# 436) Somalia SNL TV
-436) link=https://www.filmon.com/tv/snltv-somaliland-national-tv
+# 432) Somalia SNL TV
+432) link=https://www.filmon.com/tv/snltv-somaliland-national-tv
      chan_name="SNL TV Somalia" ;;
-# 437) Universal TV Somalia
-437) link=https://www.filmon.com/tv/universaltv-somali-television
+# 433) Universal TV Somalia
+433) link=https://www.filmon.com/tv/universaltv-somali-television
      chan_name="Universal TV Somalia" ;;
-# 438) Somali National TV
-438) link=https://www.filmon.com/tv/somali-national-tv
+# 434) Somali National TV
+434) link=https://www.filmon.com/tv/somali-national-tv
      chan_name="Somali National TV" ;;
-# 439) Horn Cable Somalia
-439) link=https://www.filmon.com/tv/horn-cable-tv
+# 435) Horn Cable Somalia
+435) link=https://www.filmon.com/tv/horn-cable-tv
      chan_name="Horn Cable Somalia" ;;
-# 440) ESTV Somali Ethiopia
-440) link=https://www.filmon.com/tv/estv-somali-ethiopia-tv
+# 436) ESTV Somali Ethiopia
+436) link=https://www.filmon.com/tv/estv-somali-ethiopia-tv
      chan_name="ESTV Somali Ethiopia" ;;
-# 441) Kalsan TV Somali
-441) link=https://www.filmon.com/tv/kalsan-tv-somali
+# 437) Kalsan TV Somali
+437) link=https://www.filmon.com/tv/kalsan-tv-somali
      chan_name="Kalsan TV Somali" ;;
 ######################## GREEK ###############################################
-# 442) RIK Greek
-442) link=https://www.filmon.com/tv/rik
+# 438) RIK Greek
+438) link=https://www.filmon.com/tv/rik
      chan_name="RIK Greece" ;;
 ############################# RELIGION
-
-# 443) Hispanic American Faith
-443) link=https://www.filmon.com/tv/hispanic-american-faith-tv
+# 439) Hispanic American Faith
+439) link=https://www.filmon.com/tv/hispanic-american-faith-tv
      chan_name="Hispanic American Faith" ;;
-# 444) You Shall Live
-444) link=https://www.filmon.com/tv/you-shall-live
+# 440) You Shall Live
+440) link=https://www.filmon.com/tv/you-shall-live
      chan_name="You Shall Live" ;;
-# 445) Preach the Word
-445) link=https://www.filmon.com/tv/preach-the-word
+# 441) Preach the Word
+441) link=https://www.filmon.com/tv/preach-the-word
      chan_name="Preach the Word" ;;
-# 446) Audio Scripture
-446) link=https://www.filmon.com/tv/audio-scripture-channel
+# 442) Audio Scripture
+442) link=https://www.filmon.com/tv/audio-scripture-channel
      chan_name="Audio Scripture" ;;
-# 447) Cyber Church
-447) link=https://www.filmon.com/tv/cyber-church-tv
+# 443) Cyber Church
+443) link=https://www.filmon.com/tv/cyber-church-tv
      chan_name="Cyber Church" ;;
-# 448) Faith Cinema
-448) link=https://www.filmon.com/tv/faith-cinema
+# 444) Faith Cinema
+444) link=https://www.filmon.com/tv/faith-cinema
      chan_name="Faith Cinema" ;;
-# 449) NRB
-449) link=https://www.filmon.com/tv/nrb
+# 445) NRB
+445) link=https://www.filmon.com/tv/nrb
      chan_name="NRB" ;;
-# 450) Glory TV
-450) link=https://www.filmon.com/tv/glory-tv
+# 446) Glory TV
+446) link=https://www.filmon.com/tv/glory-tv
      chan_name="Glory TV" ;;
-# 451) Dunamis Radio TV
-451) link=https://www.filmon.com/tv/dunamis-radio-tv
+# 447) Dunamis Radio TV
+447) link=https://www.filmon.com/tv/dunamis-radio-tv
      chan_name="Dunamis Radio" ;;
-# 452) Global Music TV
-452) link=https://www.filmon.com/tv/global-music-tv
+# 448) Global Music TV
+448) link=https://www.filmon.com/tv/global-music-tv
      chan_name="Global Music TV" ;;
-# 453) The Church Channel
-453) link=https://www.filmon.com/tv/the-church-channel
+# 449) The Church Channel
+449) link=https://www.filmon.com/tv/the-church-channel
      chan_name="The Church Channel" ;;
-# 454) TBN
-454) link=https://www.filmon.com/tv/tbn
+# 450) TBN
+450) link=https://www.filmon.com/tv/tbn
      chan_name="TBN" ;;
-# 455) Daystar
-455) link=https://www.filmon.com/tv/daystar
+# 451) Daystar
+451) link=https://www.filmon.com/tv/daystar
      chan_name="Daystar" ;;
-# 456) Catholic TV
-456) link=https://www.filmon.com/tv/catholic-tv
+# 452) Catholic TV
+452) link=https://www.filmon.com/tv/catholic-tv
      chan_name="Catholic TV" ;;
 ################################ CELEBRITY TV 
-# 457) Scenester TV
-457) link=https://www.filmon.com/tv/scenestertv
+# 453) Scenester TV
+453) link=https://www.filmon.com/tv/scenestertv
      chan_name="Scenester TV" ;;
-# 458) Celeberity Action Network
-458) link=https://www.filmon.com/tv/celebrity-action-network
+# 454) Celeberity Action Network
+454) link=https://www.filmon.com/tv/celebrity-action-network
      chan_name="Celebrity Action Network" ;;
-# 459) Dame Dash TV
-459) link=https://www.filmon.com/tv/dame-dash-tv
+# 455) Dame Dash TV
+455) link=https://www.filmon.com/tv/dame-dash-tv
      chan_name="Dame Dash TV" ;;
-# 460) Nik Richie Network
-460) link=https://www.filmon.com/tv/nik-richie-network
+# 456) Nik Richie Network
+456) link=https://www.filmon.com/tv/nik-richie-network
      chan_name="Nik Richie Network" ;;
-# 461) Celebrity Icons
-461) link=https://www.filmon.com/tv/celebrity-icons-tv
+# 457) Celebrity Icons
+457) link=https://www.filmon.com/tv/celebrity-icons-tv
      chan_name="Celebrity Icons" ;;
-# 462) Andy Dick
-462) link=https://www.filmon.com/tv/andy-dick
+# 458) Andy Dick
+458) link=https://www.filmon.com/tv/andy-dick
      chan_name="Andy Dick" ;;
-# 463) Janice TV
-463) link=https://www.filmon.com/tv/janice-tv
+# 459) Janice TV
+459) link=https://www.filmon.com/tv/janice-tv
      chan_name="Janice TV" ;;
-# 464) Kato Katelin
-464) link=https://www.filmon.com/tv/kato
+# 460) Kato Katelin
+460) link=https://www.filmon.com/tv/kato
      chan_name="Kato Katelin" ;;
-# 465) PPV Celebrity Fight
-465) link=https://www.filmon.com/tv/ppv-celebrity-fight
+# 461) PPV Celebrity Fight
+461) link=https://www.filmon.com/tv/ppv-celebrity-fight
      chan_name="PPV Celebrity Fight" ;;
-# 466) Vertro Live
-466) link=https://www.filmon.com/tv/vertrolive
+# 462) Vertro Live
+462) link=https://www.filmon.com/tv/vertrolive
      chan_name="Vertro Live" ;;
-# 467) Star Shop
-467) link=https://www.filmon.com/tv/starshop
+# 463) Star Shop
+463) link=https://www.filmon.com/tv/starshop
      chan_name="Star Shop" ;;  
 ############################# FOOD #########################################
-# 468) Wine RAM
-468) link=https://www.filmon.com/tv/wineram
+# 464) Wine RAM
+464) link=https://www.filmon.com/tv/wineram
      chan_name="Wine Ram" ;;
-# 469) World of Wine
-469) link=https://www.filmon.com/tv/world-of-wine
+# 465) World of Wine
+465) link=https://www.filmon.com/tv/world-of-wine
      chan_name="World of Wine" ;;
-# 470) The Chef Roc Show
-470) link=https://www.filmon.com/tv/the-chef-roc-tv-show
+# 466) The Chef Roc Show
+466) link=https://www.filmon.com/tv/the-chef-roc-tv-show
      chan_name="The Chef Roc Show" ;;
-# 471) Food Network Plus 1
-471) link=https://www.filmon.com/tv/food-network-plus-1
+# 467) Food Network Plus 1
+467) link=https://www.filmon.com/tv/food-network-plus-1
      chan_name=Food Network + 1"" ;;
-# 472) World Food Championships
-472) link=https://www.filmon.com/tv/world-food-championships
+# 468) World Food Championships
+468) link=https://www.filmon.com/tv/world-food-championships
      chan_name="World Food Championships" ;;
-# 473) Dude Food
-473) link=https://www.filmon.com/tv/dude-food
+# 469) Dude Food
+469) link=https://www.filmon.com/tv/dude-food
      chan_name="Dude Food" ;;
-# 474) Food Network
-474) link=https://www.filmon.com/tv/food-network
+# 470) Food Network
+470) link=https://www.filmon.com/tv/food-network
      chan_name="Food Network" ;;
-# 475) iFood TV
-475) link=https://www.filmon.com/tv/ifood-tv
+# 471) iFood TV
+471) link=https://www.filmon.com/tv/ifood-tv
      chan_name="iFood TV" ;;
-# 476) Indian Recipes
-476) link=https://www.filmon.com/tv/indian-recipes
+# 472) Indian Recipes
+472) link=https://www.filmon.com/tv/indian-recipes
      chan_name="Indian Recipes" ;;
-# 477) Wine Oh TV 
-477) link=https://www.filmon.com/tv/wine-oh-tv
+# 473) Wine Oh TV 
+473) link=https://www.filmon.com/tv/wine-oh-tv
      chan_name="Wine Oh TV" ;;
-# 478) Gastrolab
-478) link=https://www.filmon.com/tv/gastrolab
+# 474) Gastrolab
+474) link=https://www.filmon.com/tv/gastrolab
      chan_name="Gastrolab" ;;
-# 479) Outdoor Cooking Channel
-479) link=https://www.filmon.com/tv/outdoor-cooking-channel
+# 475) Outdoor Cooking Channel
+475) link=https://www.filmon.com/tv/outdoor-cooking-channel
      chan_name="Outdoor Cooking Channel" ;;
-# 480) Wine Channel TV
-480) link=https://www.filmon.com/tv/wine-channel-tv
+# 476) Wine Channel TV
+476) link=https://www.filmon.com/tv/wine-channel-tv
      chan_name="Wine Channel TV" ;;
-# 481) ECO RICO
-481) link=https://www.filmon.com/tv/eco-rico
+# 477) ECO RICO
+477) link=https://www.filmon.com/tv/eco-rico
      chan_name="Eco Rico" ;;
-# 482) Veg TV
-482) link=https://www.filmon.com/tv/veg-tv
+# 478) Veg TV
+478) link=https://www.filmon.com/tv/veg-tv
      chan_name="Veg TV" ;;
      
 ############################## CARS AUTO
-#  483) Auto Channel
-483) link=https://www.filmon.com/tv/auto-channel
+#  479) Auto Channel
+479) link=https://www.filmon.com/tv/auto-channel
      chan_name="Auto Channel" ;;
-# 484) Raceline TV
-484) link=https://www.filmon.com/tv/raceline-tv
+# 480) Raceline TV
+480) link=https://www.filmon.com/tv/raceline-tv
      chan_name="Raceline TV" ;;
-# 485) Race Central
-485) link=https://www.filmon.com/tv/race-central-tv
+# 481) Race Central
+481) link=https://www.filmon.com/tv/race-central-tv
      chan_name="Race Central" ;;
-# 486) Honda HPD
-486) link=https://www.filmon.com/tv/honda-hpd
+# 482) Honda HPD
+482) link=https://www.filmon.com/tv/honda-hpd
      chan_name="Honda HPD" ;;
-# 487) Torque and Tush
-487) link=https://www.filmon.com/tv/torque-and-tush
+# 483) Torque and Tush
+483) link=https://www.filmon.com/tv/torque-and-tush
      chan_name="Torque and Tush" ;;
-# 488) MotorZ
-488) link=https://www.filmon.com/tv/motorz
+# 484) MotorZ
+484) link=https://www.filmon.com/tv/motorz
      chan_name="MotorZ" ;;
-# 489) Steel Dreams
-489) link=https://www.filmon.com/tv/steel-dreams
+# 485) Steel Dreams
+485) link=https://www.filmon.com/tv/steel-dreams
      chan_name="Steel Dreams" ;;
-# 490) Distant Roads
-490) link=https://www.filmon.com/tv/distant-roads
+# 486) Distant Roads
+486) link=https://www.filmon.com/tv/distant-roads
      chan_name="Distant Roads" ;;
 ############################# EDUCATION
-# 491) The Florida Channel
-491) link=https://www.filmon.com/tv/the-florida-channel
+# 487) The Florida Channel
+487) link=https://www.filmon.com/tv/the-florida-channel
      chan_name="The Florida Channel" ;;
-# 492) Make Your Move
-492) link=https://www.filmon.com/tv/make-your-move
+# 488) Make Your Move
+488) link=https://www.filmon.com/tv/make-your-move
      chan_name="Make Your Move" ;;
-# 493) Smarts TV
-493) link=https://www.filmon.com/tv/smarts-tv
+# 489) Smarts TV
+489) link=https://www.filmon.com/tv/smarts-tv
      chan_name="Smarts TV" ;;
-# 494) Parenting International
-494) link=https://www.filmon.com/tv/parenting-international-tv
+# 490) Parenting International
+490) link=https://www.filmon.com/tv/parenting-international-tv
      chan_name="Parenting International" ;;
 ########################## SHOPPING
-# 495) Jewlery TV
-495) link=https://www.filmon.com/tv/jewelry-tv
+# 491) Jewlery TV
+491) link=https://www.filmon.com/tv/jewelry-tv
      chan_name="Jewlery TV" ;;
-# 496) QVC HD 
-496) link=https://www.filmon.com/tv/qvc-hd
+# 492) QVC HD 
+492) link=https://www.filmon.com/tv/qvc-hd
      chan_name="QVC HD" ;;
-# 497) Shop N Give
-497) link=https://www.filmon.com/tv/shop-n-give
+# 493) Shop N Give
+493) link=https://www.filmon.com/tv/shop-n-give
      chan_name="Shop N Give" ;;
-# 498) Deals TV
-498) link=https://www.filmon.com/tv/deals-tv
+# 494) Deals TV
+494) link=https://www.filmon.com/tv/deals-tv
      chan_name="Deals TV" ;;
-# 499) Beauty IQ
-499) link=https://www.filmon.com/tv/beauty-iq
+# 495) Beauty IQ
+495) link=https://www.filmon.com/tv/beauty-iq
      chan_name="Beauty IQ" ;;
-# 500) QVC
-500) link=https://www.filmon.com/tv/qvc
+# 496) QVC
+496) link=https://www.filmon.com/tv/qvc
      chan_name="QVC" ;;
-# 501)  American Auctions
-501) link=https://www.filmon.com/tv/americas-auction-network
+# 497)  American Auctions
+497) link=https://www.filmon.com/tv/americas-auction-network
      chan_name="American Auction" ;;
-# 502) Caribbean Shopping
-502) link=https://www.filmon.com/tv/caribbean-shopping-channel
+# 498) Caribbean Shopping
+498) link=https://www.filmon.com/tv/caribbean-shopping-channel
      chan_name="Caribbean Shopping" ;;
-# 503) Product Showcase
-503) link=https://www.filmon.com/tv/product-showcase-network
+# 499) Product Showcase
+499) link=https://www.filmon.com/tv/product-showcase-network
      chan_name="Product Showcase Network" ;;
 ############################### CARIBBEAN
-# 504) Calabash TV
-504) link=https://www.filmon.com/tv/calabash-tv
+# 500) Calabash TV
+500) link=https://www.filmon.com/tv/calabash-tv
      chan_name="Calabash TV" ;;
-# 505) Caribbean Lifestyle
-505) link=https://www.filmon.com/tv/caribbean-lifestyle-channel
+# 501) Caribbean Lifestyle
+501) link=https://www.filmon.com/tv/caribbean-lifestyle-channel
      chan_name="Caribbean Lifestyle" ;;
-# 506) Scruffy TV
-506) link=https://www.filmon.com/tv/scruffy-tv
+# 502) Scruffy TV
+502) link=https://www.filmon.com/tv/scruffy-tv
      chan_name="Scruffy TV" ;;
 ############################### ASIAN
-# 507) Arirang TV Korea
-507) link=https://www.filmon.com/tv/arirang-tv
+# 503) Arirang TV Korea
+503) link=https://www.filmon.com/tv/arirang-tv
      chan_name="Ariran TV Korea" ;;
-# 508) VTC 10
-508) link=https://www.filmon.com/tv/vtc-10
+# 504) VTC 10
+504) link=https://www.filmon.com/tv/vtc-10
      chan_name="VTC 10" ;;
-# 509) Voice of America Weishi
-509) link=https://www.filmon.com/tv/voa-weishi
+# 505) Voice of America Weishi
+505) link=https://www.filmon.com/tv/voa-weishi
      chan_name="Voice of America Weishi" ;;
 ################################ AFRICAN
-# 510) Eri Eritrea TV Africa
-510) link=https://www.filmon.com/tv/eri-tv
+# 506) Eri Eritrea TV Africa
+506) link=https://www.filmon.com/tv/eri-tv
      chan_name="Eri TV Eritrea";;
-# 511) Nollywood Nigeria
-511) link=https://www.filmon.com/tv/nollywood
+# 507) Nollywood Nigeria
+507) link=https://www.filmon.com/tv/nollywood
      chan_name="Nollywood" ;;
-# 512) Igboro TV
-512) link=https://www.filmon.com/tv/igboro-tv
+# 508) Igboro TV
+508) link=https://www.filmon.com/tv/igboro-tv
      chan_name="I Goboro TV" ;;
 ######################### KAZAKH
-# 513) KAZAKH
-513) link=https://www.filmon.com/tv/kazakh-tv
+# 509) KAZAKH
+509) link=https://www.filmon.com/tv/kazakh-tv
      chan_name="Kazakh TV" ;;
 ####################### RADIO   ##########################################     
-# 514) The Marko Polka Show
-514) link=https://www.filmon.com/tv/the-marko-polka-show
+# 510) The Marko Polka Show
+510) link=https://www.filmon.com/tv/the-marko-polka-show
      chan_name="The Marko Polka Show" ;;
-# 515) V104 Live
-515) link=https://www.filmon.com/tv/v104-live
+# 511) V104 Live
+511) link=https://www.filmon.com/tv/v104-live
      chan_name="V104 Live" ;;
-# 516) Daytona's Surf
-516) link=https://www.filmon.com/tv/daytonas-surf
+# 512) Daytona's Surf
+512) link=https://www.filmon.com/tv/daytonas-surf
      chan_name="Daytona's Surf" ;;
-# 517) Classic Oldies Jukebox
-517) link=https://www.filmon.com/tv/classic-oldies-jukebox-hd-internet-radio
+# 513) Classic Oldies Jukebox
+513) link=https://www.filmon.com/tv/classic-oldies-jukebox-hd-internet-radio
      chan_name="Classic Oldies Jukebox" ;;
-# 518) Radio 337 The Cajun
-518) link=https://www.filmon.com/tv/radio337-the-cajun
+# 514) Radio 337 The Cajun
+514) link=https://www.filmon.com/tv/radio337-the-cajun
      chan_name="Radio 337 The Cajun" ;;
-# 519) J and J FM
-519) link=https://www.filmon.com/tv/j-and-j-fm
+# 515) J and J FM
+515) link=https://www.filmon.com/tv/j-and-j-fm
      chan_name="J and J FM" ;;
-# 520) U Matter 2 Radio
-520) link=https://www.filmon.com/tv/u-matter-2-radio
+# 516) U Matter 2 Radio
+516) link=https://www.filmon.com/tv/u-matter-2-radio
      chan_name="U Matter 2 Radio" ;;
-# 521) WXEA 94.7
-521) link=https://www.filmon.com/tv/wxea-947-1071
+# 517) WXEA 94.7
+517) link=https://www.filmon.com/tv/wxea-947-1071
      chan_name="WXEA 94.7" ;;
-# 522) The Wise Choice
-522) link=https://www.filmon.com/tv/the-wise-choice
+# 518) The Wise Choice
+518) link=https://www.filmon.com/tv/the-wise-choice
      chan_name="The Wise Choice" ;;
-# 523) FONYE Dance
-523) link=https://www.filmon.com/tv/fonye-dance
+# 519) FONYE Dance
+519) link=https://www.filmon.com/tv/fonye-dance
      chan_name="FONYE Dance" ;;
-# 524) Key 56 Internet Radio
-524) link=https://www.filmon.com/tv/key56-internet-radio
+# 520) Key 56 Internet Radio
+520) link=https://www.filmon.com/tv/key56-internet-radio
      chan_name="Key 56 Internet Radio" ;;
-# 525) A-1 Bluegrass Favorites
-525) link=https://www.filmon.com/tv/a-1-bluegrass-favorites
+# 521) A-1 Bluegrass Favorites
+521) link=https://www.filmon.com/tv/a-1-bluegrass-favorites
      chan_name="A-1 Bluegrass Favorites" ;;
-# 526) WZQR Talks
-526) link=https://www.filmon.com/tv/wzqr-talks
+# 522) WZQR Talks
+522) link=https://www.filmon.com/tv/wzqr-talks
      chan_name="WZQR Talks" ;;
 esac
 }
+
+# initialize menu value
+menu="m"
 
 # Function to check the menu status
 menu_status()
@@ -1975,12 +1965,15 @@ input=$1
 if [ $input == "q" ]
 then
 menstat="yes"
+menu="q"
 elif [ $input == "n" ]
 then 
 menstat="yes"
+menu="n"
 elif [ $input == "m" ]
 then
 menstat="yes"
+menu="m"
 else
 menstat="no"
 fi
@@ -2008,15 +2001,14 @@ then
 channel_select $num
 echo "$chan_name"
 firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
 # clear the cookie
 echo " " > "$cookie"
-channel_matrix 
+menu_switch "$menu"
 echo "You were watching "$chan_name" on Channel "$num" "
-echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
 read entry
 else 
-menu_switch $num
+menu_switch $menu
 read entry
 fi
 
@@ -2028,19 +2020,17 @@ then
 channel_select $entry
 echo "$chan_name"
 firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1 
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
+firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
 # clear the cookie
 echo " " > "$cookie"
-channel_matrix 
+menu_switch "$menu"
 echo "You were watching "$chan_name" on Channel "$entry" "
-echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:"
 read entry
 else 
-menu_switch $entry
+menu_switch "$menu"
 read entry
 fi
 done
-
 
 
 echo "Type endstream to open a new stream."
