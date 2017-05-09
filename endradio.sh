@@ -149,48 +149,48 @@ use_cookies="no"
 channel_matrix()
 {
    echo "==================================================================      ENDRADIO "$version"   =================================================================================="
-   echo "||        NEWS         ||      COLUMN 2       ||      COLUMN 3       ||     COLUMN 4    ||   COLUMN 5        ||     COLUMN 6   ||      COLUMN 7      ||"
+   echo "||        NEWS         ||      CBC Canada     ||      CBC Canada       ||     COLUMN 4    ||   COLUMN 5        ||     COLUMN 6   ||      COLUMN 7      ||"
    echo "==========================================================================================================================================================================="
-   echo "1) BBC World Service   41) ---------------  80) ---------------   119) --------------- 159) ---------------  198) ---------------   236) ---------------"    
-   echo "2) NPR                 42) ---------------  81) ---------------   120) --------------- 160) ---------------  199) ---------------   237) ---------------" 
-   echo "3) MPR News            43) ---------------  82) ---------------   121) --------------- 161) ---------------  200) ---------------   238) --------------- "  
-   echo "4) WKSU News           44) ---------------  83) ---------------   122) --------------- 162) ---------------  201) ---------------   239) --------------- "             
-   echo "5) Infowars            45) ---------------  84) ---------------   123) --------------- 163) ---------------  202) ---------------   240) --------------- "  
-   echo "6) BBC Radio 1         46) ---------------  85) ---------------   124) --------------- 164) ---------------  203) ---------------   241) --------------- "  
-   echo "7) BBC Radio 2         47) ---------------  86) ---------------   125) --------------- 165) ---------------  204) ---------------   242) --------------- "
-   echo "8) BBC Radio 3         48) ---------------  87) ---------------   126) --------------- 166) ---------------  205) ---------------   243) ---------------"
-   echo "9) BBC Radio 4         49) ---------------  88) ---------------   127) --------------- 167) ---------------  206) ---------------   244) ---------------"
-   echo "10) BBC Radio 5        50) ---------------  89) ---------------   128) --------------- 168) ---------------  207) ---------------   245) ---------------"
-   echo "11) BBC Radio 6        51) ---------------  90) ---------------   129) --------------- 169) ---------------  208) ---------------   246) ---------------"
-   echo "12) BBC Radio 1 Extra  52) ---------------  91) ---------------   130) --------------- 170) ---------------  209) ---------------   247) --------------- "
-   echo "13) BBC Radio 4 Extra  53) ---------------  92) ---------------   131) --------------- 171) ---------------  209) ---------------   248) ---------------"
-   echo "14) BBC Radio Sports   54) ---------------  93) ---------------   132) --------------- 172) ---------------  210) ---------------   249) ---------------"
-   echo "15) BBC Radio Asian    55) ---------------  94) ---------------   133) --------------- 173) ---------------  211) ---------------   250) ---------------"  
-   echo "16) BBC World Service  56) ---------------  95) ---------------   134) --------------- 174) ---------------  212) ---------------   251) ---------------"
-   echo "17) Lounge Radio       57) ---------------  96) ---------------   135) --------------- 175) ---------------  213) ---------------   252) ---------------  "
-   echo "18) ---------------    58) ---------------  97) ---------------   136) --------------- 176)---------------   214) ---------------   253) --------------- "	
-   echo "19) ---------------    59) ---------------  98) ---------------   137) --------------- 177) ---------------  215) ---------------   254) --------------- "
-   echo "20) ---------------    60) ---------------  99) ---------------   138) --------------- 178) ---------------  216) ---------------   255) ---------------"  
-   echo "21) ---------------    61) ---------------  100) ---------------  139) --------------- 179) ---------------  217) ---------------   256) --------------- "
-   echo "22) ---------------    62) ---------------  101) ---------------  140) --------------- 180) ---------------  219) ---------------   257) ---------------"       
-   echo "23) ---------------    63) ---------------  102) ---------------  141) --------------- 180) ---------------  218) ---------------   258) ---------------"  
-   echo "24) ---------------    64) ---------------  103) ---------------  142) --------------- 181) ---------------  219) ---------------   259) --------------- "
-   echo "25) ---------------    65) ---------------  104) ---------------  143) --------------- 182) ---------------  220) ---------------   260) --------------- " 
-   echo "26) ---------------    66) ---------------  105) ---------------  144) --------------- 183) ---------------  221) ---------------   261) ---------------"
-   echo "27) ---------------    68) ---------------  105) ---------------  145) --------------- 184) ---------------  222) ---------------   262) --------------- "
-   echo "28) ---------------    67) ---------------  106) ---------------  146) --------------- 185) ---------------  223) ---------------   263) ---------------"
-   echo "29) ---------------    68) ---------------  107) ---------------  147) --------------- 186) ---------------  224) ---------------   264) --------------- "
-   echo "30) ---------------    69) ---------------  108) ---------------  148) --------------- 187) ---------------  225) ---------------   265) ---------------  "    
-   echo "31) ---------------    70) ---------------  109) ---------------  149) --------------- 188) ---------------  226) ---------------   266) --------------- "
-   echo "32) ---------------    71) ---------------  110) ---------------  150) --------------- 189) ---------------  227) ---------------   267) ---------------"
-   echo "33) ---------------    72) ---------------  111) ---------------  151) --------------- 190) ---------------  228) ---------------   268) --------------- " 
-   echo "34) ---------------    73) ---------------  112) ---------------  152) --------------- 191) ---------------  229) ---------------   269) --------------- "  
-   echo "35) ---------------    74) ---------------  113) ---------------  153) --------------- 192) ---------------  230) ---------------   270) --------------- "
-   echo "36) ---------------    75) ---------------  114) ---------------  154) --------------- 193) ---------------  231) ---------------   271) ---------------  "
-   echo "37) ---------------    76) ---------------  115) ---------------  155) --------------- 194) ---------------  232) ---------------   272) --------------- "
-   echo "38) ---------------    77) ---------------  116) ---------------  156) --------------- 195) ---------------  233) ---------------   273) ---------------"	
-   echo "39) ---------------    78) ---------------  117) ---------------  157) --------------- 196) ---------------  234) ---------------   274) --------------- "
-   echo "40) ---------------    79) ---------------  118) ---------------  158)---------------  197) ---------------  235) ---------------   275) --------------- "
+   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    119) --------------- 159) ---------------  198) ---------------   236) ---------------"    
+   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   120) --------------- 160) ---------------  199) ---------------   237) ---------------" 
+   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  121) --------------- 161) ---------------  200) ---------------   238) --------------- "  
+   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  122) --------------- 162) ---------------  201) ---------------   239) --------------- "             
+   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  123) --------------- 163) ---------------  202) ---------------   240) --------------- "  
+   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   124) --------------- 164) ---------------  203) ---------------   241) --------------- "  
+   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   125) --------------- 165) ---------------  204) ---------------   242) --------------- "
+   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   126) --------------- 166) ---------------  205) ---------------   243) ---------------"
+   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  127) --------------- 167) ---------------  206) ---------------   244) ---------------"
+   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  128) --------------- 168) ---------------  207) ---------------   245) ---------------"
+   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  129) --------------- 169) ---------------  208) ---------------   246) ---------------"
+   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  130) --------------- 170) ---------------  209) ---------------   247) --------------- "
+   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  131) --------------- 171) ---------------  209) ---------------   248) ---------------"
+   echo "14) BBC Radio Sports   54) CBC 1 London       94) ---------------  132) --------------- 172) ---------------  210) ---------------   249) ---------------"
+   echo "15) BBC Radio Asian    55) CBC 1 Ottawa       95) ---------------  133) --------------- 173) ---------------  211) ---------------   250) ---------------"  
+   echo "16) BBC World Service  56) CBC 1 Sudbury      96) --------------   134) --------------- 174) ---------------  212) ---------------   251) ---------------"
+   echo "17) ---------------    57) CBC 1 Thunder Bay  97) ---------------  135) --------------- 175) ---------------  213) ---------------   252) ---------------  "
+   echo "18) ---------------    58) CBC 1 Toronto      98) ---------------  136) --------------- 176)---------------   214) ---------------   253) --------------- "	
+   echo "19) ---------------    59) CBC 1 Windsor      99) ---------------  137) --------------- 177) ---------------  215) ---------------   254) --------------- "
+   echo "20) ---------------    60) CBC 1 Montreal     100) --------------  138) --------------- 178) ---------------  216) ---------------   255) ---------------"  
+   echo "21) ---------------    61) CBC 1 Nord Quebec  101) --------------  139) --------------- 179) ---------------  217) ---------------   256) --------------- "
+   echo "22) ---------------    62) CBC 1 Quebec City  102) --------------  140) --------------- 180) ---------------  219) ---------------   257) ---------------"       
+   echo "23) ---------------    63) CBC 1 Fredericton  103) --------------  141) --------------- 180) ---------------  218) ---------------   258) ---------------"  
+   echo "24) ---------------    64) CBC 1 Moncton      104) --------------  142) --------------- 181) ---------------  219) ---------------   259) --------------- "
+   echo "25) ---------------    65) CBC 1 Saint John   105) --------------  143) --------------- 182) ---------------  220) ---------------   260) --------------- " 
+   echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  144) --------------- 183) ---------------  221) ---------------   261) ---------------"
+   echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  145) --------------- 184) ---------------  222) ---------------   262) --------------- "
+   echo "28) ---------------    68) CBC 1 Halifax      108) --------------  146) --------------- 185) ---------------  223) ---------------   263) ---------------"
+   echo "29) ---------------    69) CBC 1 Corner Brook 109) --------------  147) --------------- 186) ---------------  224) ---------------   264) --------------- "
+   echo "30) ---------------    70) CBC 1 Grand Falls  110) --------------  148) --------------- 187) ---------------  225) ---------------   265) ---------------  "    
+   echo "31) ---------------    71) CBC 1 Labrador     111) --------------  149) --------------- 188) ---------------  226) ---------------   266) --------------- "
+   echo "32) ---------------    72) CBC 1 St. Johns    112) --------------  150) --------------- 189) ---------------  227) ---------------   267) ---------------"
+   echo "33) ---------------    73) CBC 1 Inuvik       113) -------------   151) --------------- 190) ---------------  228) ---------------   268) --------------- " 
+   echo "34) ---------------    74) CBC 1 Yellowknife  114) -------------   152) --------------- 191) ---------------  229) ---------------   269) --------------- "  
+   echo "35) ---------------    75) CBC 2 Halifax      115) -------------   153) --------------- 192) ---------------  230) ---------------   270) --------------- "
+   echo "36) ---------------    76) CBC 2 Toronto      116) --------------  154) --------------- 193) ---------------  231) ---------------   271) ---------------  "
+   echo "37) ---------------    77) CBC 2 Winnipeg     117) -------------   155) --------------- 194) ---------------  232) ---------------   272) --------------- "
+   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   156) --------------- 195) ---------------  233) ---------------   273) ---------------"	
+   echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    157) --------------- 196) ---------------  234) ---------------   274) --------------- "
+   echo "40) ---------------    80) CBC 2 Pacific      120) -------------   158)---------------  197) ---------------  235) ---------------   275) --------------- "
    echo "========================================================================================================================================================================"
 echo " " 
 }	
@@ -198,7 +198,7 @@ echo " "
 channel_matrix_2()
 {
    echo "==================================================================      ENDRADIO  "$version"   =================================================================================="
-   echo "||      LOCATIONS         ||      SUPER         ||         DUPER        ||       MEGA        ||       ULTRA        ||        SAIAJIN        ||      GOD MODE     ||"
+   echo "||      COLUMN 8         ||   COLUMN 9         ||   COLUMN 10       ||     COLUMN 11        ||    COLUMN 12       ||        COLUMN 13        ||      COLUMN 14    ||"
    echo "============================================================================================================================================================================"
    echo "276) ---------------      316) -------------   356) ---------------      396) -----------     436) -----------       476) -------------      516) --------------"    
    echo "277) ---------------      317) -------------   357) ---------------      397) -----------     437) -----------       477) -------------      517) --------------" 
@@ -391,11 +391,179 @@ chan_name=" BBC Radio Asian Extra";;
 16) link=http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk_backup
 use_paylist="no"
 chan_name="BBC World Service";;
-# 17)  Lounge Radio
-17) link=http://77.235.42.90:80/listen.pls
+
+######## CBC RADIO CANADA #################
+
+########## CBC RADIO 1
+# 41) CBC Radio 1 Kamloops BC Canada
+41) link=http://cbc_r1_kam.akacast.akamaistream.net/7/440/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kam
 use_paylist="no"
-chan_name="Lounge Radio";;
+chan_name="CBC Radio 1 Kamloops,BC";;	
+# 42) CBC Radio 1 Kelowna BC Canada
+42) link=http://cbc_r1_kel.akacast.akamaistream.net/7/229/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kel
+use_paylist="no"
+chan_name="CBC Radio 1 Kelowna,BC";;	
+# 43) CBC Radio 1 Prince George BC Canada
+43) link=http://cbc_r1_prg.akacast.akamaistream.net/7/966/451661/v1/rc.akacast.akamaistream.net/cbc_r1_prg
+use_paylist="no"
+chan_name="CBC Radio 1 Prince George,BC";;	
+# 44) CBC Radio 1 Vancouver BC Canada
+44) link=http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr
+use_paylist="no"
+chan_name="CBC Radio 1 Vancouver,BC";;	
+# 45) CBC Radio 1 Victoria BC Canada
+45) link=http://cbc_r1_vic.akacast.akamaistream.net/7/728/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vic
+use_paylist="no"
+chan_name="CBC Radio 1 Victoria,BC";;
+# 46) CBC Radio 1 Whitehorse BC Canada
+46) link=http://cbc_r1_whs.akacast.akamaistream.net/7/319/451661/v1/rc.akacast.akamaistream.net/cbc_r1_whs
+use_paylist="no"
+chan_name="CBC Radio 1 ,Whitehorse,YK";;
+# 47) CBC Radio 1 Calgary AB Canada
+47) link=http://cbc_r1_cgy.akacast.akamaistream.net/7/298/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cgy
+use_paylist="no"
+chan_name="CBC Radio 1 Calgary,AB";;
+# 48) CBC Radio 1 Edmonton AB Canada
+48) link=http://cbc_r1_edm.akacast.akamaistream.net/7/904/451661/v1/rc.akacast.akamaistream.net/cbc_r1_edm
+use_paylist="no"
+chan_name="CBC Radio 1 Edmonton,AB";;
+# 49) CBC Radio 1 Regina AB Canada
+49) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
+use_paylist="no"
+chan_name="CBC Radio 1 Regina,AB";;
+# 50) CBC Radio 1 Saskatoon SK Canada
+50) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
+use_paylist="no"
+chan_name="CBC Radio 1 Saskatoon,SK";;
+# 51) CBC Radio 1 Winnipeg MB Canada
+51) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
+use_paylist="no"
+chan_name="CBC Radio 1 Winnipeg,MB";;	
+# 52) CBC Radio 1 Iqaluit
+52) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
+use_paylist="no"
+chan_name="CBC Radio 1 Iqaluit,IN";;
+# 53) CBC Radio 1 Kitchener-Waterloo ON Canada
+53) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
+use_paylist="no"
+chan_name="CBC Radio 1 Kitchner-Waterloo,ON";;
+# 54) CBC Radio 1 London ON Canada
+54) link=http://cbc_r1_ldn.akacast.akamaistream.net/7/104/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ldn
+use_paylist="no"
+chan_name="CBC Radio 1 London,ON";;
+# 55) CBC Radio 1 Ottawa ON Canada
+55) link=http://cbc_r1_ott.akacast.akamaistream.net/7/613/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ott
+use_paylist="no"
+chan_name="CBC Radio 1 Ottawa,ON";;
+# 56) CBC Radio 1 Sudbury ON Canada
+56) link=http://cbc_r1_sud.akacast.akamaistream.net/7/380/451661/v1/rc.akacast.akamaistream.net/cbc_r1_sud
+use_paylist="no"
+chan_name="CBC Radio 1 Sudbury,ON";;
+# 57) CBC Radio 1 Thunder Bay ON Canada
+57) link=http://cbc_r1_tba.akacast.akamaistream.net/7/245/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tba
+use_paylist="no"
+chan_name="CBC Radio 1 Thunder Bay ,ON";;
+# 58) CBC Radio 1 Toronto ON Canada
+58) link=http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
+use_paylist="no"
+chan_name="CBC Radio 1 Toronto,ON";;
+# 59) CBC Radio 1 Windsor ON Canada
+59) link=http://cbc_r1_wdr.akacast.akamaistream.net/7/813/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wdr
+use_paylist="no"
+chan_name="CBC Radio 1 Windsor,ON";;
+# 60) CBC Radio 1 Montreal QC Canada
+60) link=http://cbc_r1_mtl.akacast.akamaistream.net/7/35/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mtl
+use_paylist="no"
+chan_name="CBC Radio 1 Montreal, QC";;
+# 61) CBC Radio 1  Nord Quebec QC Canada
+61) link=http://cbc_r1_n_mtl.akacast.akamaistream.net/7/823/451661/v1/rc.akacast.akamaistream.net/cbc_r1_n_mtl
+use_paylist="no"
+chan_name="CBC Radio 1 Nord Quebec, QC";;
+# 62) CBC Radio 1 Quebec City QC Canada
+62) link=http://cbc_r1_qqu.akacast.akamaistream.net/7/29/451661/v1/rc.akacast.akamaistream.net/cbc_r1_qqu
+use_paylist="no"
+chan_name="CBC Radio 1 Quebec City,QC";;
+# 63) CBC Radio 1 Fredericton NB Canada
+63) link=http://cbc_r1_frd.akacast.akamaistream.net/7/553/451661/v1/rc.akacast.akamaistream.net/cbc_r1_frd
+use_paylist="no"
+chan_name="CBC Radio 1 Fredericton,NB";;
+# 64) CBC Radio 1 Moncton NB Canada
+64) link=http://cbc_r1_mct.akacast.akamaistream.net/7/383/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mct
+use_paylist="no"
+chan_name="CBC Radio 1 Moncton, NB";;
+# 65) CBC Radio 1 Saint John NB Canada
+65) link=http://cbc_r1_snb.akacast.akamaistream.net/7/754/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snb
+use_paylist="no"
+chan_name="CBC Radio 1 Saint John, NB";;
+# 66) CBC Radio 1 Charlottetown NB Canada
+66) link=http://cbc_r1_chr.akacast.akamaistream.net/7/169/451661/v1/rc.akacast.akamaistream.net/cbc_r1_chr
+use_paylist="no"
+chan_name="CBC Radio 1 Charlottetown, NB";;
+# 67) CBC Radio 1 Cape Breton NB Canada
+67) link=http://cbc_r1_syd.akacast.akamaistream.net/7/897/451661/v1/rc.akacast.akamaistream.net/cbc_r1_syd
+use_paylist="no"
+chan_name="CBC Radio 1 Cape Breton, NB";;	
+# 68) CBC Radio 1 Halifax NFL Canada
+68) link=http://cbc_r1_hfx.akacast.akamaistream.net/7/981/451661/v1/rc.akacast.akamaistream.net/cbc_r1_hfx
+use_paylist="no"
+chan_name="CBC Radio 1 Halifax, NFL";;
+# 69) CBC Radio 1 Corner Brook NFL Canada
+69) link=http://cbc_r1_cor.akacast.akamaistream.net/7/550/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cor
+use_paylist="no"
+chan_name="CBC Radio 1 Corner Brook , NFL";;
+# 70) CBC Radio 1 Grand Falls/Gander NFL Canada
+70) link=http://cbc_r1_gfa.akacast.akamaistream.net/7/492/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gfa
+use_paylist="no"
+chan_name="CBC Radio 1 Grand Falls/Gander, NFL";;
+# 71) CBC Radio 1  Labrador NFL Canada
+71) link=http://cbc_r1_gba.akacast.akamaistream.net/7/274/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gba
+use_paylist="no"
+chan_name="CBC Radio 1  Labrador, NFL";;
+# 72) CBC Radio 1  St. Johns NFL Canada
+72) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
+use_paylist="no"
+chan_name="CBC Radio 1 St. Johns, NFL";;
+# 73) CBC Radio 1  Inuvik IN Canada
+73) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
+use_paylist="no"
+chan_name="CBC Radio 1 Inuvik,IN";;
+# 74) CBC Radio 1  Yellowknife YK Canada
+74) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
+use_paylist="no"
+chan_name="CBC Radio 1 Yellowknife, YK";;
+############### CBC Radio 2
+# 75) CBC Radio 2 Halifax NFL Canada
+75) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
+use_paylist="no"
+chan_name="CBC Radio 1, Halifax NFL";;
+# 76) CBC Radio 2 Toronto ON Canada
+76) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
+use_paylist="no"
+chan_name="CBC Radio 1, Toronto ON";;
+# 77) CBC Radio 2 Winnipeg MB Canada
+77) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
+use_paylist="no"
+chan_name="CBC Radio 1, Winnipeg MB";;
+# 78) CBC Radio 2 Edmonton AB Canada
+78) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
+use_paylist="no"
+chan_name="CBC Radio 1, Edmonton AB";;
+# 79) CBC Radio 2 Vancouver BC Canada
+79) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
+use_paylist="no"
+chan_name="CBC Radio 1, Vancouver BC";;
+# 80) CBC Radio 2 Pacific Canada
+80) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
+use_paylist="no"
+chan_name="CBC Radio 1, Pacific BC";;
+# 81) CBC Radio 2 Eastern Canada
+81) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
+use_paylist="no"
+chan_name="CBC Radio 1, Eastern";;	
+
+
 esac
+
 }
 
 # initialize menu
@@ -488,7 +656,7 @@ read entry
 fi
 done
 
-echo "Type endstream to open a new stream."
+echo "Type endradio to open a new streaming session."
 
 if [ -e "$cookie" ]
 then
