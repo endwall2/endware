@@ -5,24 +5,24 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.01
-# Revision Date: May 7, 2017
+# Version: 0.02
+# Revision Date: May 9, 2017
 #
 # Recent Changes: - forked from endstream 0.26
-#                 - Channel menu stays on previous selection + English Channel Rearrange
+#                 - Channel menu stays on previous selection 
 #####################################################################
 # Dependencies: mpv, ffmpeg, read , firejail, curl, torsocks
 #####################################################################
 # Instructions:  make a directory ~/bin and copy this file there, add this to the $PATH
 #                then make the file executable and run it.
 # $ mkdir ~/bin
-# $ cp endstream.sh ~/bin/endstream
+# $ cp endradio.sh ~/bin/endradio
 # $ cd ~/bin
-# $ chmod u+wrx endstream
+# $ chmod u+wrx endradio
 # $ export PATH=~/bin:"$PATH"
 #
-# Run ENDSTREAM
-# $ endstream
+# Run ENDRADIO
+# $ endradio
 #
 ####################################################################
 #############################################################################################################################################################################
@@ -135,12 +135,12 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.01"
-rev_date="07/05/2017"
+version="0.02"
+rev_date="09/05/2017"
 branch="gnu/linux"
 ##################################################
 
-chan_columns="$HOME/bin/streams.txt"
+chan_columns="$HOME/bin/radiostations.txt"
 cookie="$HOME/bin/cookies.txt"
 cache_size="4096"
 use_cookies="no"
@@ -149,27 +149,27 @@ use_cookies="no"
 channel_matrix()
 {
    echo "==================================================================      ENDRADIO "$version"   =================================================================================="
-   echo "||        NEWS         ||      CBC Canada     ||      CBC Canada       ||     COLUMN 4    ||   COLUMN 5        ||     COLUMN 6   ||      COLUMN 7      ||"
+   echo "||        NEWS         ||      CBC Canada     ||                   ||        French     ||       COLUMN 5     ||        MUSIC        ||      Drama      ||"
    echo "==========================================================================================================================================================================="
-   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    119) --------------- 159) ---------------  198) ---------------   236) ---------------"    
-   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   120) --------------- 160) ---------------  199) ---------------   237) ---------------" 
-   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  121) --------------- 161) ---------------  200) ---------------   238) --------------- "  
-   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  122) --------------- 162) ---------------  201) ---------------   239) --------------- "             
-   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  123) --------------- 163) ---------------  202) ---------------   240) --------------- "  
-   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   124) --------------- 164) ---------------  203) ---------------   241) --------------- "  
-   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   125) --------------- 165) ---------------  204) ---------------   242) --------------- "
-   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   126) --------------- 166) ---------------  205) ---------------   243) ---------------"
-   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  127) --------------- 167) ---------------  206) ---------------   244) ---------------"
-   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  128) --------------- 168) ---------------  207) ---------------   245) ---------------"
-   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  129) --------------- 169) ---------------  208) ---------------   246) ---------------"
-   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  130) --------------- 170) ---------------  209) ---------------   247) --------------- "
-   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  131) --------------- 171) ---------------  209) ---------------   248) ---------------"
+   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    119) France Info     159) ---------------  198) Pulse Radio       236) Old Time Radio"    
+   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   120) France Inter    160) ---------------  199) ---------------   237) ---------------" 
+   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  121) RFI Monde       161) ---------------  200) ---------------   238) --------------- "  
+   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  122) RFI Afrique     162) ---------------  201) ---------------   239) --------------- "             
+   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  123) Africa no 1     163) ---------------  202) ---------------   240) --------------- "  
+   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   124) Alta Frequenza  164) ---------------  203) ---------------   241) --------------- "  
+   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   125) BFM Paris       165) ---------------  204) ---------------   242) --------------- "
+   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   126) Europe 1        166) ---------------  205) ---------------   243) ---------------"
+   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  127) Kernews         167) ---------------  206) ---------------   244) ---------------"
+   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  128) Radio Ici       168) ---------------  207) ---------------   245) ---------------"
+   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  129) Première Chaîne 169) ---------------  208) ---------------   246) ---------------"
+   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  130) Espace Musique  170) ---------------  209) ---------------   247) --------------- "
+   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  131) RDI             171) ---------------  209) ---------------   248) ---------------"
    echo "14) BBC Radio Sports   54) CBC 1 London       94) ---------------  132) --------------- 172) ---------------  210) ---------------   249) ---------------"
    echo "15) BBC Radio Asian    55) CBC 1 Ottawa       95) ---------------  133) --------------- 173) ---------------  211) ---------------   250) ---------------"  
    echo "16) BBC World Service  56) CBC 1 Sudbury      96) --------------   134) --------------- 174) ---------------  212) ---------------   251) ---------------"
-   echo "17) ---------------    57) CBC 1 Thunder Bay  97) ---------------  135) --------------- 175) ---------------  213) ---------------   252) ---------------  "
-   echo "18) ---------------    58) CBC 1 Toronto      98) ---------------  136) --------------- 176)---------------   214) ---------------   253) --------------- "	
-   echo "19) ---------------    59) CBC 1 Windsor      99) ---------------  137) --------------- 177) ---------------  215) ---------------   254) --------------- "
+   echo "17) RTE Dublin         57) CBC 1 Thunder Bay  97) ---------------  135) --------------- 175) ---------------  213) ---------------   252) ---------------  "
+   echo "18) RTE Extra Dublin   58) CBC 1 Toronto      98) ---------------  136) --------------- 176)---------------   214) ---------------   253) --------------- "	
+   echo "19) 106-108 Talk Dublin59) CBC 1 Windsor      99) ---------------  137) --------------- 177) ---------------  215) ---------------   254) --------------- "
    echo "20) ---------------    60) CBC 1 Montreal     100) --------------  138) --------------- 178) ---------------  216) ---------------   255) ---------------"  
    echo "21) ---------------    61) CBC 1 Nord Quebec  101) --------------  139) --------------- 179) ---------------  217) ---------------   256) --------------- "
    echo "22) ---------------    62) CBC 1 Quebec City  102) --------------  140) --------------- 180) ---------------  219) ---------------   257) ---------------"       
@@ -327,22 +327,26 @@ chan_name="Minnesota Public Radio News ";;
 use_playlist="no"
 chan_name="WKSU News";;
 # 5) Infowars
-5) link=http://50.7.130.118:80
- 
-#http://50.7.130.118:80
-#http://50.7.130.116:80
-#http://50.7.130.117:80
-#http://50.7.79.18:80
-#http://50.7.79.19:80
-#http://50.7.130.114:80
-#http://50.7.128.194:80
-#http://50.7.128.195:80
-#http://50.7.130.115:80
-#http://50.7.79.92:80
-#http://50.7.79.94:80
-#http://50.7.79.93:80
-#http://50.7.79.91:80
-#http://50.7.79.90:80
+5) 
+
+ rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
+ case $rnum in 
+ 0) link=http://50.7.130.118:80 ;;
+ 1) link=http://50.7.130.118:80 ;;
+ 2) link=http://50.7.130.116:80 ;;
+ 3) link=http://50.7.130.117:80 ;;
+ 4) link=http://50.7.79.18:80 ;;
+ 5) link=http://50.7.79.19:80 ;;
+ 6) link=http://50.7.130.114:80 ;;
+ 7) link=http://50.7.128.194:80 ;;
+ 8) link=http://50.7.128.195:80 ;;
+ 9) link=http://50.7.130.115:80 ;;
+ 10) link=http://50.7.79.92:80 ;;
+ 11) link=http://50.7.79.94:80 ;;
+ 12) link=http://50.7.79.93:80 ;;
+ 13) link=http://50.7.79.91:80 ;;
+ 14) link=http://50.7.79.90:80 ;;
+ esac
 
 use_playlist="no"
 chan_name="Infowars";;
@@ -391,6 +395,22 @@ chan_name=" BBC Radio Asian Extra";;
 16) link=http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk_backup
 use_paylist="no"
 chan_name="BBC World Service";;
+# 16) RTE Radio 1 Dublin
+16) link=http://www.listenlive.eu/rte1.m3u
+use_paylist="no"
+chan_name="RTE Radio 1 Dublin";;
+# 17) RTE Radio 1 Extra Dublin
+17) link=http://www.listenlive.eu/rte1extra.m3u
+use_paylist="no"
+chan_name="RTE Radio 1 Extra Dublin";;
+# 18) RTE Radio 1 Extra Dublin
+18) link=http://www.listenlive.eu/rte1extra.m3u
+use_paylist="no"
+chan_name="RTE Radio 1 Extra Dublin";;
+# 19) News Talk 106-108 Dublin
+19) link=http://communicorp.mp3.miisolutions.net:8000/communicorp/Newstalk_low.m3u
+use_paylist="no"
+chan_name="News Talk 106-108 Dublin";;
 
 ######## CBC RADIO CANADA #################
 
@@ -561,6 +581,74 @@ chan_name="CBC Radio 1, Pacific BC";;
 use_paylist="no"
 chan_name="CBC Radio 1, Eastern";;	
 
+########################################
+
+# 119) France Info
+119) link=http://www.listenlive.eu/fr_franceinfo128.m3u
+use_paylist="no"
+chan_name="France Info";;	
+# 120) France Info
+120) link=http://www.listenlive.eu/fr_franceinter128.m3u
+use_paylist="no"
+chan_name="France Info";;
+# 121) RFI Monde
+121) link=http://www.listenlive.eu/rfimonde.m3u
+use_paylist="no"
+chan_name="RFI Monde";;
+# 122) RFI Afrique
+122) link=http://www.listenlive.eu/rfiafrique.m3u
+use_paylist="no"
+chan_name="RFI Afrique";;
+# 123) Africa no 1
+123) link=http://african1paris.ice.infomaniak.ch/african1paris-128.mp3.m3u
+use_paylist="no"
+chan_name="Africa no 1";;
+# 124) Alta Frequenza Ajaccio 
+124) link=http://str80.streamakaci.com:7020/listen.pls
+use_paylist="no"
+chan_name="Alta Frequenza Ajaccio";;
+# 125) BFM Paris 
+125) link=http://www.listenlive.eu/bfm.m3u
+use_paylist="no"
+chan_name="BFM Paris";;
+# 126) Europe 1 
+126) link=http://www.listenlive.eu/europe1.m3u
+use_paylist="no"
+chan_name="Europe 1";;
+# 127) Kernews  
+127) link=http://statslive.infomaniak.ch/playlist/kernews/kernews-128.aac/playlist.m3u
+use_paylist="no"
+chan_name="Kernews";;
+ # 128) Radio Ici Maintenant Paris 
+128) link=http://radio.rim952.fr:8000/stream.mp3.m3u
+use_paylist="no"
+chan_name="Radio Ici Maintenant Paris";;
+
+################# Radio Canada ################################
+# 129) Radio Canada Première Chaîne
+129) link=http://2QMTL0.akacast.akamaistream.net:80/7/953/177387/v1/rc.akacast.akamaistream.net/2QMTL0
+use_paylist="no"
+chan_name="Radio Canada Première Chaîne";;
+# 130) Radio Canada Espace Musique
+130) link=http://7qmtl0.akacast.akamaistream.net/7/445/177407/v1/rc.akacast.akamaistream.net/7QMTL0
+use_paylist="no"
+chan_name="Radio Canada Espace Musique";;
+# 131) Radio Canada RDI
+131) link=http://RDIRADIO.akacast.akamaistream.net:80/7/501/177423/v1/rc.akacast.akamaistream.net/RDIRADIO
+use_paylist="no"
+chan_name="Radio Canada RDI";;
+
+
+
+# 198) Pulse Radio
+198) link=http://stream.pulsradio.com:5000/
+use_paylist="no"
+chan_name="Old Time Radio";;
+
+# 236) Old Time Radio
+236) link=http://www.otrfan.com:8000/stream.m3u 
+use_paylist="no"
+chan_name="Old Time Radio";;
 
 esac
 
@@ -598,12 +686,12 @@ menu_switch()
 {
 input=$1
 case "$input" in
-q) echo "Type endtv to restart program. Bye."
+q) echo "Type endradio to restart program. Bye."
 exit "$?" ;;
 m) channel_matrix
-echo "Please Select a Number corresponding to a YouTube Live Stream, press n for the next menu, or press q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press n for the next menu, or press q to quit:" ;;
 n) channel_matrix_2
-echo "Please Select a Number corresponding to a YouTube Live Stream, press m for the main menu, or press q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press m for the main menu, or press q to quit:" ;;
 esac
 }
 
