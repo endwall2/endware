@@ -5,10 +5,11 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.02
-# Revision Date: May 9, 2017
+# Version: 0.03
+# Revision Date: May 12, 2017
 #
-# Recent Changes: - forked from endstream 0.26
+# Recent Changes: - Add multi language channels
+#                 - forked from endstream 0.26
 #                 - Channel menu stays on previous selection 
 #####################################################################
 # Dependencies: mpv, ffmpeg, read , firejail, curl, torsocks
@@ -135,8 +136,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.02"
-rev_date="09/05/2017"
+version="0.03"
+rev_date="12/05/2017"
 branch="gnu/linux"
 ##################################################
 
@@ -149,48 +150,48 @@ use_cookies="no"
 channel_matrix()
 {
    echo "==================================================================      ENDRADIO "$version"   =================================================================================="
-   echo "||        NEWS         ||      CBC Canada     ||                   ||        French     ||       COLUMN 5     ||        MUSIC        ||      Drama      ||"
+   echo "||        NEWS         ||      CBC Canada     ||                   ||       French      ||       German       ||     Spanish            ||    Spanish / Italian   ||"
    echo "==========================================================================================================================================================================="
-   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    119) France Info     159) ---------------  198) Pulse Radio       236) Old Time Radio"    
-   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   120) France Inter    160) ---------------  199) ---------------   237) ---------------" 
-   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  121) RFI Monde       161) ---------------  200) ---------------   238) --------------- "  
-   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  122) RFI Afrique     162) ---------------  201) ---------------   239) --------------- "             
-   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  123) Africa no 1     163) ---------------  202) ---------------   240) --------------- "  
-   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   124) Alta Frequenza  164) ---------------  203) ---------------   241) --------------- "  
-   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   125) BFM Paris       165) ---------------  204) ---------------   242) --------------- "
-   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   126) Europe 1        166) ---------------  205) ---------------   243) ---------------"
-   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  127) Kernews         167) ---------------  206) ---------------   244) ---------------"
-   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  128) Radio Ici       168) ---------------  207) ---------------   245) ---------------"
-   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  129) Première Chaîne 169) ---------------  208) ---------------   246) ---------------"
-   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  130) Espace Musique  170) ---------------  209) ---------------   247) --------------- "
-   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  131) RDI             171) ---------------  209) ---------------   248) ---------------"
-   echo "14) BBC Radio Sports   54) CBC 1 London       94) ---------------  132) --------------- 172) ---------------  210) ---------------   249) ---------------"
-   echo "15) BBC Radio Asian    55) CBC 1 Ottawa       95) ---------------  133) --------------- 173) ---------------  211) ---------------   250) ---------------"  
-   echo "16) BBC World Service  56) CBC 1 Sudbury      96) --------------   134) --------------- 174) ---------------  212) ---------------   251) ---------------"
-   echo "17) RTE Dublin         57) CBC 1 Thunder Bay  97) ---------------  135) --------------- 175) ---------------  213) ---------------   252) ---------------  "
-   echo "18) RTE Extra Dublin   58) CBC 1 Toronto      98) ---------------  136) --------------- 176)---------------   214) ---------------   253) --------------- "	
-   echo "19) 106-108 Talk Dublin59) CBC 1 Windsor      99) ---------------  137) --------------- 177) ---------------  215) ---------------   254) --------------- "
-   echo "20) ---------------    60) CBC 1 Montreal     100) --------------  138) --------------- 178) ---------------  216) ---------------   255) ---------------"  
-   echo "21) ---------------    61) CBC 1 Nord Quebec  101) --------------  139) --------------- 179) ---------------  217) ---------------   256) --------------- "
-   echo "22) ---------------    62) CBC 1 Quebec City  102) --------------  140) --------------- 180) ---------------  219) ---------------   257) ---------------"       
-   echo "23) ---------------    63) CBC 1 Fredericton  103) --------------  141) --------------- 180) ---------------  218) ---------------   258) ---------------"  
-   echo "24) ---------------    64) CBC 1 Moncton      104) --------------  142) --------------- 181) ---------------  219) ---------------   259) --------------- "
-   echo "25) ---------------    65) CBC 1 Saint John   105) --------------  143) --------------- 182) ---------------  220) ---------------   260) --------------- " 
-   echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  144) --------------- 183) ---------------  221) ---------------   261) ---------------"
-   echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  145) --------------- 184) ---------------  222) ---------------   262) --------------- "
-   echo "28) ---------------    68) CBC 1 Halifax      108) --------------  146) --------------- 185) ---------------  223) ---------------   263) ---------------"
-   echo "29) ---------------    69) CBC 1 Corner Brook 109) --------------  147) --------------- 186) ---------------  224) ---------------   264) --------------- "
-   echo "30) ---------------    70) CBC 1 Grand Falls  110) --------------  148) --------------- 187) ---------------  225) ---------------   265) ---------------  "    
-   echo "31) ---------------    71) CBC 1 Labrador     111) --------------  149) --------------- 188) ---------------  226) ---------------   266) --------------- "
-   echo "32) ---------------    72) CBC 1 St. Johns    112) --------------  150) --------------- 189) ---------------  227) ---------------   267) ---------------"
-   echo "33) ---------------    73) CBC 1 Inuvik       113) -------------   151) --------------- 190) ---------------  228) ---------------   268) --------------- " 
-   echo "34) ---------------    74) CBC 1 Yellowknife  114) -------------   152) --------------- 191) ---------------  229) ---------------   269) --------------- "  
-   echo "35) ---------------    75) CBC 2 Halifax      115) -------------   153) --------------- 192) ---------------  230) ---------------   270) --------------- "
-   echo "36) ---------------    76) CBC 2 Toronto      116) --------------  154) --------------- 193) ---------------  231) ---------------   271) ---------------  "
-   echo "37) ---------------    77) CBC 2 Winnipeg     117) -------------   155) --------------- 194) ---------------  232) ---------------   272) --------------- "
-   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   156) --------------- 195) ---------------  233) ---------------   273) ---------------"	
-   echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    157) --------------- 196) ---------------  234) ---------------   274) --------------- "
-   echo "40) ---------------    80) CBC 2 Pacific      120) -------------   158)---------------  197) ---------------  235) ---------------   275) --------------- "
+   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    121) France Info     161) SRF 1 Basel      201)Nacional d'Andorra   241) Nervión Bilbao  "    
+   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   122) France Inter    162) SRF 1 Aargau     202)RNE Madrid           242) Popular de Bilbao" 
+   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  123) RFI Monde       163) SRF 1 Baselland  203)RNE Classica Madrid  243) Rioja Cadena "  
+   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  124) RFI Afrique     164) SRF 1 Bern       204)RNE 3 Madrid         244) RCM  "             
+   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  125) Africa no 1     165) SRF 1 Ostschweiz 205)RNE 4 Barcelona      245) RTVA Seville"  
+   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   126) Alta Frequenza  166) SRF 1 Zentralsch 206)RNE 5 Todo Noticias  246) RSI Uno Lugano "  
+   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   127) BFM Paris       167) SRF 1 Zürich     207)ABC Punto            247) RSI Due Lugano "
+   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   128) Europe 1        168) SRF 2 Kultur     208)Aragón Radio         248) RSI Tre Lugano"
+   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  129) Kernews         169) SRF 3            209)Cadena Barcelona     249) ---------------"
+   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  130) Radio Ici       170) SRF 4 News       210)Cadena Bilbao        250) ---------------"
+   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  131) Première Chaîne 171) SRF Virus        211)Cadena Sevilla       251) ---------------"
+   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  132) Espace Musique  172) SRF Musikwelle   212)Cadena Badajoz       252) --------------- "
+   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  133) RDI Montreal    173) Argovia Aarau    213)Cadena Valencia      253) ---------------"
+   echo "14) BBC Radio Sports   54) CBC 1 London       94) ---------------  134) Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca      254) ---------------"
+   echo "15) BBC Radio Asian    55) CBC 1 Ottawa       95) ---------------  135) DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla       255) ---------------"  
+   echo "16) BBC World Service  56) CBC 1 Sudbury      96) --------------   136) RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia        256) ---------------"
+   echo "17) RTE Dublin         57) CBC 1 Thunder Bay  97) ---------------  137) RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona      257) ---------------  "
+   echo "18) RTE Extra Dublin   58) CBC 1 Toronto      98) ---------------  138) RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife      258) --------------- "	
+   echo "19) 106-108 Talk Dublin59) CBC 1 Windsor      99) ---------------  139) RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza      259) --------------- "
+   echo "20) BFBS UK            60) CBC 1 Montreal     100) --------------  140) RSR Option      180)hr-info Frankfurt 220)Cadena Santander     260) ---------------"  
+   echo "21) LBC 1152 AM London 61) CBC 1 Nord Quebec  101) --------------  141) RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo        261) --------------- "
+   echo "22) LBC 97.3 FM London 62) CBC 1 Quebec City  102) --------------  142) --------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid    262) ---------------"       
+   echo "23) Isles FM Stornoway 63) CBC 1 Fredericton  103) --------------  143) --------------- 183)MDR 1 Erfurt      223)Cadena Ceuta         263) ---------------"  
+   echo "24) ---------------    64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
+   echo "25) ---------------    65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
+   echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
+   echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
+   echo "28) ---------------    68) CBC 1 Halifax      108) --------------  148) --------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote   268) ---------------"
+   echo "29) ---------------    69) CBC 1 Corner Brook 109) --------------  149) --------------- 189)NDR 1 Flensburg   229)esRadio Madrid       269) --------------- "
+   echo "30) ---------------    70) CBC 1 Grand Falls  110) --------------  150) --------------- 190)NDR Kultur        230)esRadio Guadalajara  270) ---------------  "    
+   echo "31) ---------------    71) CBC 1 Labrador     111) --------------  151) --------------- 191)NDR Info          231)Onda Cero Madrid     271) --------------- "
+   echo "32) ---------------    72) CBC 1 St. Johns    112) --------------  152) --------------- 192)NDR INDR          232)Onda Cero Noroeste   272) ---------------"
+   echo "33) ---------------    73) CBC 1 Inuvik       113) -------------   153) --------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao    273) --------------- " 
+   echo "34) ---------------    74) CBC 1 Yellowknife  114) -------------   154) --------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona      274) --------------- "  
+   echo "35) ---------------    75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
+   echo "36) ---------------    76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
+   echo "37) ---------------    77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
+   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
+   echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
+   echo "40) ---------------    80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
    echo "========================================================================================================================================================================"
 echo " " 
 }	
@@ -198,48 +199,48 @@ echo " "
 channel_matrix_2()
 {
    echo "==================================================================      ENDRADIO  "$version"   =================================================================================="
-   echo "||      COLUMN 8         ||   COLUMN 9         ||   COLUMN 10       ||     COLUMN 11        ||    COLUMN 12       ||        COLUMN 13        ||      COLUMN 14    ||"
+   echo "||      Entertainment    ||        Russian        ||       BBC Regional   ||    BBC Regional   ||      COLUMN 12     ||      COLUMN 13       ||       COLUMN 14    ||"
    echo "============================================================================================================================================================================"
-   echo "276) ---------------      316) -------------   356) ---------------      396) -----------     436) -----------       476) -------------      516) --------------"    
-   echo "277) ---------------      317) -------------   357) ---------------      397) -----------     437) -----------       477) -------------      517) --------------" 
-   echo "278) ---------------      318) -------------   358) ---------------      398) -----------     438) -----------       478) -------------      518) --------------"  
-   echo "279) ---------------      319) -------------   359) ---------------      399) -----------     439) -----------       479) -------------      519) --------------"             
-   echo "280) ---------------      320) -------------   360) ---------------      400) -----------     440) -----------       480) -------------      520) --------------"  
-   echo "281) ---------------      321) -------------   361) ---------------      401) -----------     441) -----------       481) -------------      521) --------------"  
-   echo "282) ---------------      322) -------------   362) ---------------      402) -----------     442) -----------       482) -------------      522) --------------"
-   echo "283) ---------------      323) -------------   363) ---------------      403) -----------     443) -----------       483) -------------      523) --------------"
-   echo "284) ---------------      324) -------------   364) ---------------      404) -----------     444) -----------       484) ------------       524) --------------"
-   echo "285) ---------------      325) -------------   365) ---------------      405) -----------     445) -----------       485) ------------       525) --------------"
-   echo "286) ---------------      326) -------------   366) ---------------      406) -----------     446) -----------       486) ------------       526) --------------"
-   echo "287) ---------------      327) -------------   367) ---------------      407) -----------     447) -----------       487) ------------       527) --------------"
-   echo "288) ---------------      328) -------------   368) ---------------      408) -----------     448) -----------       488) ------------       528) --------------"
-   echo "289) ---------------      329) -------------   369) ---------------      409) -----------     449) -----------       489) ------------       529) --------------"
-   echo "290) ---------------      330) -------------   370) ---------------      410) -----------     450) -----------       490) ------------       530) --------------"  
-   echo "291) ---------------      331) -------------   371) ---------------      411) -----------     451) -----------       491) ------------       531) --------------"
-   echo "292) ---------------      332) -------------   372) ---------------      412) -----------     452) -----------       492) -------------      532) --------------"
-   echo "293) ---------------      333) -------------   373) ---------------      413) -----------     453) -----------       493) -------------      533) --------------"	
-   echo "294) ---------------      334) -------------   374) ---------------      414) -----------     454) -----------       494) -------------      534) --------------"
-   echo "295) ---------------      335) -------------   375) ---------------      415) -----------     455) -----------       495) -------------      535) --------------"  
-   echo "296) ---------------      336) -------------   376) ---------------      416) -----------     456) -----------       496) -------------      536) --------------"
-   echo "297) ---------------      337) -------------   377) ---------------      417) -----------     457) -----------       497) -------------      537) --------------"       
-   echo "298) ---------------      338) -------------   378) ---------------      418) -----------     458) -----------       498) -------------      538) --------------"  
-   echo "299) ---------------      339) -------------   379) ---------------      419) -----------     459) -----------       499) -------------      540) --------------"
-   echo "300) ---------------      340) -------------   380) ---------------      420) -----------     460) -----------       500) -------------      541) --------------"  
-   echo "301) ---------------      341) -------------   381) ---------------      421) -----------     461) -----------       501) -------------      542) --------------"
-   echo "302) ---------------      342) -------------   382) ---------------      422) -----------     462) ------------      502) -------------      543) --------------"
-   echo "303) ---------------      343) -------------   383) ---------------      423) -----------     463) ------------      503) -------------      544) --------------"
-   echo "304) ---------------      344) --------------  384) ---------------      424) -----------     464) ------------      504) -------------      545) --------------"
-   echo "305) ---------------      345) --------------  385) ---------------      425) -----------     465) ------------      505) -------------      546) --------------"    
-   echo "306) ---------------      346) --------------  386) ---------------      426) -----------     466) ------------      506) -------------      547) --------------"
-   echo "307) ---------------      347) --------------  387) ---------------      427) -----------     467) ------------      507) -------------      548) --------------"
-   echo "308) ---------------      348) --------------  388) ---------------      428) -----------     468) ------------      508) -------------      549) --------------" 
-   echo "309) ---------------      349) --------------  389) ---------------      429) -----------     469) ------------      509) -------------      550) --------------"  
-   echo "310) ---------------      350) --------------  390) ---------------      430) -----------     470) ------------      510) -------------      551) --------------"
-   echo "311) ---------------      351) --------------  391) ---------------      431) -----------     471) ------------      511) -------------      552) --------------"
-   echo "312) ---------------      352) --------------  392) ---------------      432) -----------     472) ------------      512) -------------      553) --------------"
-   echo "313) ---------------      353) --------------  393) ---------------      433) -----------     473) ------------      513) -------------      554) --------------"	
-   echo "314) ---------------      354) --------------  394) ---------------      434) -----------     474) ------------      514) -------------      555) ------------- "
-   echo "315) ---------------      355) --------------  395) ---------------      435) -----------     475) ------------      515) -------------      556) ------------- "
+   echo "281)  Old Time Radio      321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------       481) -------------      521) --------------"    
+   echo "282)  Pulse Radio         322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------       482) -------------      522) --------------" 
+   echo "283) ---------------      323)Radio Culture Moscow363) BBC Radio 3        403) BBC Somerset    443) -----------       483) -------------      523) --------------"  
+   echo "284) ---------------      324)Vesti FM Moscow     364) BBC Radio 4        404) BBC Stoke       444) -----------       484) -------------      524) --------------"             
+   echo "285) ---------------      325)Business FM Moscow  365) BBC Radio 4 LW     405) BBC Suffolk     445) -----------       485) -------------      525) --------------"  
+   echo "286) ---------------      326)107.4 St Petersburg 366) BBC Radio 4 Extra  406) BBC Sussex      446) -----------       486) -------------      526) --------------"  
+   echo "287) ---------------      327)107.5 Ufa           367) BBC 5 Live         407) BBC Tees        447) -----------       487) -------------      527) --------------"
+   echo "288) ---------------      328)Gorod FM            368) BBC 5 Live Sports  408) BBC 3 Counties  448) -----------       488) -------------      528) --------------"
+   echo "289) ---------------      329)Kommersant          369) BBC 6 Music        409) BBC Wiltshire   449) -----------       489) ------------       529) --------------"
+   echo "290) ---------------      330)Moskva FM Moscow    370) BBC 1Xtra          410) BBC WM 95.6     450) -----------       490) ------------       530) --------------"
+   echo "291) ---------------      331)NN Radio Nizhny     371) BBC Asian          411) BBC York        451) -----------       491) ------------       531) --------------"
+   echo "292) ---------------      332)Radio Moskvy        372) BBC World Service  412) BBC Scotland    452) -----------       492) ------------       532) --------------"
+   echo "293) ---------------      333)RSN Moscow          373) BBC Berkshire      413) BBC nan Gaidheal453) -----------       493) ------------       533) --------------"
+   echo "294) ---------------      334)UR-1 Kyiv           374) BBC Bristol        414) BBC Ulster      454) -----------       494) ------------       534) --------------"
+   echo "295) ---------------      335)UR-2 Promin Kyiv    375) BBC Cambridgeshire 415) BBC Foyle       455) -----------       495) ------------       535) --------------"  
+   echo "296) ---------------      336)UR-3 Kultura Kyiv   376) BBC Cornwall       416) BBC Wales       456) -----------       496) ------------       536) --------------"
+   echo "297) ---------------      337)UR-4 Int Kyiv       377) BBC Coventry       417) -----------     457) -----------       497) -------------      537) --------------"
+   echo "298) ---------------      338)Business Radio Kyiv 378) BBC Cumbria        418) -----------     458) -----------       498) -------------      538) --------------"	
+   echo "299) ---------------      339)Ekvator FM Shpola   379) BBC Derby          419) -----------     459) -----------       499) -------------      539) --------------"
+   echo "300) ---------------      340)Golos Stolytsi Kyiv 380) BBC Devon          420) -----------     460) -----------       500) -------------      540) --------------"  
+   echo "301) ---------------      341)Radio ES Kyiv       381) BBC Essex          421) -----------     461) -----------       501) -------------      541) --------------"
+   echo "302) ---------------      342)Radio Vesti Kyiv    382) BBC Gloucestershire422) -----------     462) -----------       502) -------------      542) --------------"       
+   echo "303) ---------------      343) -------------      383) BBC Guernsey       423) -----------     463) -----------       503) -------------      543) --------------"  
+   echo "304) ---------------      344) -------------      384) BBC Hereford       424) -----------     464) -----------       504) -------------      544) --------------"
+   echo "305) ---------------      345) -------------      385) BBC Humberside     425) -----------     465) -----------       505) -------------      545) --------------"  
+   echo "306) ---------------      346) -------------      386) BBC Jersey         426) -----------     466) -----------       506) -------------      546) --------------"
+   echo "307) ---------------      347) -------------      387) BBC Kent           427) -----------     467) ------------      507) -------------      547) --------------"
+   echo "308) ---------------      348) -------------      388) BBC Lancashire     428) -----------     468) ------------      508) -------------      548) --------------"
+   echo "309) ---------------      349) --------------     389) BBC Leeds          429) -----------     469) ------------      509) -------------      549) --------------"
+   echo "310) ---------------      350) --------------     390) BBC Leicester      430) -----------     470) ------------      510) -------------      550) --------------"    
+   echo "311) ---------------      351) --------------     391) BBC Lincolnshire   431) -----------     471) ------------      511) -------------      551) --------------"
+   echo "312) ---------------      352) --------------     392) BBC London 94.9    432) -----------     472) ------------      512) -------------      552) --------------"
+   echo "313) ---------------      353) --------------     393) BBC Manchester     433) -----------     473) ------------      513) -------------      553) --------------" 
+   echo "314) ---------------      354) --------------     394) BBC Merseyside     434) -----------     474) ------------      514) -------------      554) --------------"  
+   echo "315) ---------------      355) --------------     395) BBC Newcastle      435) -----------     475) ------------      515) -------------      555) --------------"
+   echo "316) ---------------      356) --------------     396) BBC Norfolk        436) -----------     476) ------------      516) -------------      556) --------------"
+   echo "317) ---------------      357) --------------     397) BBC Northampton    437) -----------     477) ------------      517) -------------      557) --------------"
+   echo "318) ---------------      358) --------------     398) BBC Nottingham     438) -----------     478) ------------      518) -------------      558) --------------"	
+   echo "319) ---------------      359) --------------     399) BBC Oxford         439) -----------     479) ------------      519) -------------      559) ------------- "
+   echo "320) ---------------      360) --------------     400) BBC Sheffield      440) -----------     480) ------------      520) -------------      560) ------------- "
    echo "========================================================================================================================================================================"
 echo " " 
 }	
@@ -374,7 +375,7 @@ chan_name=" BBC Radio 5";;
 # 11)  BBC Radio 6
 11) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 1 Extra";;
+chan_name=" BBC Radio 6";;
 # 12)  BBC Radio 1 Extra
 12) link=http://www.bbc.co.uk/radio/listen/live/r1x_aaclca.pls
 use_playlist="no"
@@ -411,6 +412,38 @@ chan_name="RTE Radio 1 Extra Dublin";;
 19) link=http://communicorp.mp3.miisolutions.net:8000/communicorp/Newstalk_low.m3u
 use_paylist="no"
 chan_name="News Talk 106-108 Dublin";;
+# 20) BFBS UK
+20) link=http://icy-e-04.sharp-stream.com/ssvcbfbs1.mp3.m3u
+use_paylist="no"
+chan_name="BFBS UK";;
+# 21) LBC 1152 AM London
+21) link=http://media-ice.musicradio.com:80/LBC1152.m3u
+use_paylist="no"
+chan_name="LBC 1152 AM London";;
+# 22) LBC 97.3 FM London
+22) link=http://media-ice.musicradio.com/LBC973.m3u
+use_paylist="no"
+chan_name="LBC 97.3 FM London";;
+# 23) Isles FM Stornoway
+23) link=http://hebrides.tv:8000/islesfm.m3u
+use_paylist="no"
+chan_name="Isles FM Stornoway";;
+
+
+#################### BROKEN
+# 25) World Radio Switzerland Geneva
+25) link=http://direct.sharp-stream.com/radiofrontier.mp3.m3u
+use_paylist="no"
+chan_name="World Radio Switzerland Geneva";;
+# 26) Onda Cero International Marbella
+26) link=mms://a1365.l507241200.c5072.l.lm.akamaistream.net/D/1365/5072/v0001/reflector:41200
+use_paylist="no"
+chan_name="Onda Cero International Marbella";;
+# 27) UK Away FM Lanzarote
+27) link=http://ukaway.serverroom.us/ukaway
+use_paylist="no"
+chan_name="UK Away FM Lanzarote";;
+#########################################
 
 ######## CBC RADIO CANADA #################
 
@@ -582,74 +615,777 @@ use_paylist="no"
 chan_name="CBC Radio 1, Eastern";;	
 
 ########################################
-
-# 119) France Info
-119) link=http://www.listenlive.eu/fr_franceinfo128.m3u
+# 121) France Info
+121) link=http://www.listenlive.eu/fr_franceinfo128.m3u
 use_paylist="no"
 chan_name="France Info";;	
-# 120) France Info
-120) link=http://www.listenlive.eu/fr_franceinter128.m3u
+# 122) France Info
+122) link=http://www.listenlive.eu/fr_franceinter128.m3u
 use_paylist="no"
 chan_name="France Info";;
-# 121) RFI Monde
-121) link=http://www.listenlive.eu/rfimonde.m3u
+# 123) RFI Monde
+123) link=http://www.listenlive.eu/rfimonde.m3u
 use_paylist="no"
 chan_name="RFI Monde";;
-# 122) RFI Afrique
-122) link=http://www.listenlive.eu/rfiafrique.m3u
+# 124) RFI Afrique
+124) link=http://www.listenlive.eu/rfiafrique.m3u
 use_paylist="no"
 chan_name="RFI Afrique";;
-# 123) Africa no 1
-123) link=http://african1paris.ice.infomaniak.ch/african1paris-128.mp3.m3u
+# 125) Africa no 1
+125) link=http://african1paris.ice.infomaniak.ch/african1paris-128.mp3.m3u
 use_paylist="no"
 chan_name="Africa no 1";;
-# 124) Alta Frequenza Ajaccio 
-124) link=http://str80.streamakaci.com:7020/listen.pls
+# 126) Alta Frequenza Ajaccio 
+126) link=http://str80.streamakaci.com:7020/listen.pls
 use_paylist="no"
 chan_name="Alta Frequenza Ajaccio";;
-# 125) BFM Paris 
-125) link=http://www.listenlive.eu/bfm.m3u
+# 127) BFM Paris 
+127) link=http://www.listenlive.eu/bfm.m3u
 use_paylist="no"
 chan_name="BFM Paris";;
-# 126) Europe 1 
-126) link=http://www.listenlive.eu/europe1.m3u
+# 128) Europe 1 
+128) link=http://www.listenlive.eu/europe1.m3u
 use_paylist="no"
 chan_name="Europe 1";;
-# 127) Kernews  
-127) link=http://statslive.infomaniak.ch/playlist/kernews/kernews-128.aac/playlist.m3u
+# 129) Kernews  
+129) link=http://statslive.infomaniak.ch/playlist/kernews/kernews-128.aac/playlist.m3u
 use_paylist="no"
 chan_name="Kernews";;
- # 128) Radio Ici Maintenant Paris 
-128) link=http://radio.rim952.fr:8000/stream.mp3.m3u
+ # 130) Radio Ici Maintenant Paris 
+130) link=http://radio.rim952.fr:8000/stream.mp3.m3u
 use_paylist="no"
 chan_name="Radio Ici Maintenant Paris";;
 
 ################# Radio Canada ################################
-# 129) Radio Canada Première Chaîne
-129) link=http://2QMTL0.akacast.akamaistream.net:80/7/953/177387/v1/rc.akacast.akamaistream.net/2QMTL0
+# 131) Radio Canada Première Chaîne
+131) link=http://2QMTL0.akacast.akamaistream.net:80/7/953/177387/v1/rc.akacast.akamaistream.net/2QMTL0
 use_paylist="no"
 chan_name="Radio Canada Première Chaîne";;
-# 130) Radio Canada Espace Musique
-130) link=http://7qmtl0.akacast.akamaistream.net/7/445/177407/v1/rc.akacast.akamaistream.net/7QMTL0
+# 132) Radio Canada Espace Musique
+132) link=http://7qmtl0.akacast.akamaistream.net/7/445/177407/v1/rc.akacast.akamaistream.net/7QMTL0
 use_paylist="no"
 chan_name="Radio Canada Espace Musique";;
-# 131) Radio Canada RDI
-131) link=http://RDIRADIO.akacast.akamaistream.net:80/7/501/177423/v1/rc.akacast.akamaistream.net/RDIRADIO
+# 133) Radio Canada RDI
+133) link=http://RDIRADIO.akacast.akamaistream.net:80/7/501/177423/v1/rc.akacast.akamaistream.net/RDIRADIO
 use_paylist="no"
 chan_name="Radio Canada RDI";;
+###################################################################
+# 134) Bel RTL Brussels Belgium 
+134) link=http://www.listenlive.eu/belrtl.m3u
+use_paylist="no"
+chan_name="Bel RTL Brussels Belgium";;
+# 135)DH Radio Brussels Belgium 
+135) link=http://www.listenlive.eu/dhradio.m3u
+use_paylist="no"
+chan_name="DH Radio Brussels Belgium";;
+# 136) RMC Info Monaco 
+136) link=http://www.listenlive.eu/rmc.m3u
+use_paylist="no"
+chan_name="RMC Info Monaco";;
+# 137) RSR La Premiere Lausanne
+137) link=http://stream.srg-ssr.ch/la-1ere/mp3_128.m3u
+use_paylist="no"
+chan_name="RSR La Premiere Lausanne";;
+# 138) RSR Espace 2 Lausanne
+138) link=http://stream.srg-ssr.ch/espace-2/mp3_128.m3u
+use_paylist="no"
+chan_name="RSR Espace 2 Lausanne";;
+# 139) RSR Couleur 3  
+139) link=http://stream.srg-ssr.ch/couleur3/mp3_128.m3u
+use_paylist="no"
+chan_name="RSR Couleur 3";;
+# 140) RSR Option Musique
+140) link=http://stream.srg-ssr.ch/option-musique/mp3_128.m3u
+use_paylist="no"
+chan_name="RSR Option Musique";;
+# 141) RTL Radio Lëtzebuerg Luxembourg
+141) link=http://radio.rtl.lu/mp3.pls
+use_paylist="no"
+chan_name="RTL Radio Lëtzebuerg Luxembourg";;
 
+################# Deutsche ###############################
+# Deutsche Schweiz
+# 161)  Radio SRF 1 Basel
+161) link=http://stream.srg-ssr.ch/drs1/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Basel";;
+# 162) Radio SRF 1 Aargau Solothurn 
+162) link=http://stream.srg-ssr.ch/regi_ag_so/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Aargau Solothurn";;
+# 163) Radio SRF 1 Basel Baselland
+163) link=http://stream.srg-ssr.ch/regi_bs_bl/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Basel Baselland";;
+# 164) Radio SRF 1 Bern Freibourg Wallis 
+164) link=http://stream.srg-ssr.ch/regi_be_fr_vs/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Bern Freibourg Wallis";;
+# 165) Radio SRF 1 Ostschweiz
+165) link=http://stream.srg-ssr.ch/regi_ost/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Ostschweiz";;
+# 166) Radio SRF 1 Zentralschweiz
+166) link=http://stream.srg-ssr.ch/regi_zentr/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Zentralschweiz";;
+# 167) Radio SRF 1 Zürich Schaffhausen
+167) link=http://stream.srg-ssr.ch/regi_zh_sh/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 1 Zürich Schaffhausen";;
+# 168) Radio SRF 2 Kultur
+168) link=http://stream.srg-ssr.ch/drs1/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 2 Kultur";;
+# 169) Radio SRF 3 
+169) link=http://stream.srg-ssr.ch/drs3/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 3";;
+# 170) Radio SRF 4 News
+170) link=http://stream.srg-ssr.ch/drs4news/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF 4 News";;
+# 171) Radio SRF Virus
+171) link=http://stream.srg-ssr.ch/drsvirus/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF Virus";;
+# 172) Radio SRF Musikwelle
+172) link=http://stream.srg-ssr.ch/drsmw/mp3_128.m3u
+use_paylist="no"
+chan_name="Radio SRF Musikwelle";;
+# 173) Argovia News Aarau
+173) link=http://icecast.argovia.ch/argovianews.m3u
+use_paylist="no"
+chan_name="Argovia News Aarau";;
+# 174) Bayern 1 Munich
+174) link=http://streams.br-online.de/bayern1_2.m3u
+use_paylist="no"
+chan_name="Bayern 1  Munich";;
+# 175) Bayern 2 Munich
+175) link=http://streams.br-online.de/bayern2_2.m3u
+use_paylist="no"
+chan_name="Bayern 2  Munich";;
+# 176) B5 Aktuell Munich
+176) link=http://streams.br-online.de/b5aktuell_2.m3u
+use_paylist="no"
+chan_name="B5 Aktuell Munich";;	
+# 177) B5 Plus Munich 
+177) link=http://streams.br-online.de/b5plus_2.m3u
+use_paylist="no"
+chan_name="B5 Plus Munich";;	
+# 178) Deutschlandfunk Cologne
+178) link=http://www.dradio.de/streaming/dlf.m3u
+use_paylist="no"
+chan_name="Deutschlandfunk Cologne";;
+# 179) Deutschlandradiokultur Berlin
+179) link=http://www.dradio.de/streaming/dkultur.m3u
+use_paylist="no"
+chan_name="Deutschlandradiokultur Berlin";;
+# 180) hr-info Frankfurt
+180) link=http://metafiles.gl-systemhaus.de/hr/hrinfo_2.m3u
+use_paylist="no"
+chan_name="hr-info Frankfurt";;
+# 181) MDR 1 Radio Sachsen Dresden 
+181) link=http://avw.mdr.de/livestreams/mdr1_radio_sachsen_live_128.m3u
+use_paylist="no"
+chan_name="MDR 1 Radio Sachsen Dresden";;
+# 182) MDR 1 Radio Sachsen-Anhalt Magdeburg 
+182) link=http://avw.mdr.de/livestreams/mdr1_radio_sachsen-anhalt_live_128.m3u
+use_paylist="no"
+chan_name="MDR 1 Radio Sachsen-Anhalt Magdeburg";;
+# 183) MDR 1 Radio Thüringen Erfurt 
+183) link=http://avw.mdr.de/livestreams/mdr1_radio_thueringen_live_128.m3u
+use_paylist="no"
+chan_name="MDR 1 Radio Thüringen Erfurt";;
+# 184) MDR AKTUELL Livestream Leipzig 
+184) link=http://avw.mdr.de/livestreams/mdr_aktuell_live_128.m3u
+use_paylist="no"
+chan_name="MDR AKTUELL Livestream Leipzig";;
+# 185) MDR KULTUR Livestream Halle  
+185) link=http://avw.mdr.de/livestreams/mdr_kultur_live_128.m3u
+use_paylist="no"
+chan_name="MDR KULTUR Livestream Halle";;
+# 186) NDR 90,3 Hamburg   
+186) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndr903.m3u
+use_paylist="no"
+chan_name="NDR 90,3 Hamburg";;
+# 187) NDR 1 Niedersachsen Hannover
+187) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndr1niedersachsen.m3u
+use_paylist="no"
+chan_name="NDR 1 Niedersachsen Hannover";;
+# 188) NDR 1 Radio MV Schwerin
+188) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndr1radiomv.m3u
+use_paylist="no"
+chan_name="NDR 1 Radio MV Schwerin";;
+# 189) NDR 1 Welle Nord Flensburg 
+189) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndr1wellenord.m3u
+use_paylist="no"
+chan_name="NDR 1 Welle Nord Flensburg";;
+# 190) NDR Kultur Hamburg  
+190) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndrkultur.m3u
+use_paylist="no"
+chan_name="NDR Kultur Hamburg" ;;
+# 191) NDR Info Hamburg 
+191) link=http://www.ndr.de/resources/metadaten/audio/m3u/ndrinfo.m3u
+use_paylist="no"
+chan_name="NDR Info Hamburg" ;;
+# 192) NDR INDR Info Spezia Hamburg 
+192) link=http://ndrstream.ic.llnwd.net/stream/ndrstream_ndrinfo_spezial_hi_mp3.m3u
+use_paylist="no"
+chan_name="NDR INDR Info Spezia Hamburg" ;;
+# 193) RBB InfoRadio Berlin 
+193) link=http://www.inforadio.de/live.m3u
+use_paylist="no"
+chan_name="RBB InfoRadio Berlin" ;; 
+# 194) SR 3 Saarlandwelle Saarbrücken 
+194) link=http://streaming01.sr-online.de/sr3_2.m3u
+use_paylist="no"
+chan_name="SR 3 Saarlandwelle Saarbrücken" ;; 
+# 195) SWR RP Mainz 
+195) link=http://mp3-live.swr.de/swr1rp_m.m3u
+use_paylist="no"
+chan_name="SWR RP Mainz" ;; 
+# 196) SWR1 BW Stuttgart 
+196) link=http://mp3-live.swr.de/swr1bw_m.m3u
+use_paylist="no"
+chan_name="SWR1 BW Stuttgart" ;; 
+# 197) SWR2 Stuttgart 
+197) link=http://mp3-live.swr.de/swr2_m.m3u
+use_paylist="no"
+chan_name="SWR2 Stuttgart" ;; 
+# 198) WDR5 Cologne 
+198) link=http://www.wdr.de/wdrlive/media/wdr5.m3u
+use_paylist="no"
+chan_name="WDR5 Cologne" ;; 
+# 199) Wüste Welle Tübingen 
+199) link=http://livestream.wueste-welle.de:8000/mp3.m3u
+use_paylist="no"
+chan_name="Wüste Welle Tübingen" ;; 
 
+#################### SPANISH ###############################
+# 201) Radio Nacional d'Andorra Andorra la Vella
+201) link=mms://194.158.91.91/Rna
+use_paylist="no"
+chan_name="Radio Nacional d'Andorra Andorra la Vella";; 
+# 202) RNE Radio Nacional Madrid
+202) link=http://www.listenlive.eu/rneradio1.m3u
+use_paylist="no"
+chan_name="RNE Radio Nacional Madrid";;
+# 203) RNE Radio Clásica Madrid
+203) link=http://www.listenlive.eu/rneradioclasica.m3u
+use_paylist="no"
+chan_name="RNE Radio Clásica Madrid";;
+# 204) RNE Radio 3 Madrid
+204) link=http://www.listenlive.eu/rneradio3.m3u
+use_paylist="no"
+chan_name="RNE Radio 3 Madrid";;
+# 205) RNE Ràdio 4 Barcelona
+205) link=http://www.listenlive.eu/rneradio4.m3u
+use_paylist="no"
+chan_name="RNE Ràdio 4 Barcelona";;
+# 206) RNE Radio 5 Todo Noticias Madrid
+206) link=http://www.listenlive.eu/rneradio5.m3u
+use_paylist="no"
+chan_name="RNE Radio 5 Todo Noticias Madrid";;
+# 207) ABC Punto Radio Tenerife
+207) link=http://94.23.22.181:8031/listen.pls
+use_paylist="no"
+chan_name="ABC Punto Radio Tenerife";;
+# 208) Aragón Radio Zaragoza
+208) link=mms://aragonfmwmlive.fplive.net/aragonfmwmlive-live/aragonradio01
+use_paylist="no"
+chan_name="Aragón Radio Zaragoza";;
+# 209) Cadena Ser Radio Barcelona
+209) link=http://playerservices.streamtheworld.com/pls/SER_BARCELONA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Barcelona";;
+# 210) Cadena Ser Radio Bilbao
+210) link=http://provisioning.streamtheworld.com/pls/SER_BILBAO.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Bilbao";;
+# 211) Cadena Ser Radio Sevilla
+211) link=http://provisioning.streamtheworld.com/pls/SER_SEVILLA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Sevilla";;
+# 212) Cadena Ser Extremadura Badajoz
+212) link=http://provisioning.streamtheworld.com/pls/SER_Extremadura.pls
+use_paylist="no"
+chan_name="Cadena Ser Extremadura Badajoz";;
+# 213) Cadena Ser Radio Valencia
+213) link=http://provisioning.streamtheworld.com/pls/SER_VALENCIA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Valencia";;
+# 214) Cadena Ser I.Ballears Mallorca 
+214) link=http://provisioning.streamtheworld.com/pls/SER_MALLORCA.pls
+use_paylist="no"
+chan_name="Cadena Ser I.Ballears Mallorca";;
+# 215) Cadena Ser Radio Melilla
+215) link=http://provisioning.streamtheworld.com/pls/SER_MELILLA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Melilla";;
+# 216) Cadena Ser Radio Murcia
+216) link=http://provisioning.streamtheworld.com/pls/SER_MURCIA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Murcia";;
+# 217) Cadena Ser Radio Pamplona Pamplona
+217) link=http://provisioning.streamtheworld.com/pls/SER_PAMPLONA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Pamplona Pamplona";;
+# 218) Cadena Ser Radio Club Tenerife Santa Cruz de Tenerife
+218) link=http://provisioning.streamtheworld.com/pls/SER_TENERIFE.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Club Tenerife Santa Cruz de Tenerife";;
+# 219) Cadena Ser Radio Zaragoza
+219) link=http://provisioning.streamtheworld.com/pls/SER_ZARAGOZA.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Zaragoza";;
+# 220) Cadena Ser Santander 
+220) link=http://provisioning.streamtheworld.com/pls/SER_SANTANDER.pls
+use_paylist="no"
+chan_name="Cadena Ser Santander";;
+# 221) Cadena Ser Toledo
+221) link=http://provisioning.streamtheworld.com/pls/SER_TOLEDO.pls
+use_paylist="no"
+chan_name="Cadena Ser Toledo";;
+# 222) Cadena Ser Radio Valladolid Valladolid
+222) link=http://provisioning.streamtheworld.com/pls/SER_VALLADOLID.pls
+use_paylist="no"
+chan_name="Cadena Ser Radio Valladolid Valladolid";;
+# 223) Cadena Ser Ceuta
+223) link=http://provisioning.streamtheworld.com/pls/SER_CEUTA.pls
+use_paylist="no"
+chan_name="Cadena Ser Ceuta";;
+# 224) Catalunya Ràdio Barcelona
+224) link=http://www.catradio.cat/directes/catradio_http.m3u
+use_paylist="no"
+chan_name="Catalunya Ràdio Barcelona";;
+# 225) Catalunya Informació
+225) link=http://www.catradio.cat/directes/catinfo_http.m3u
+use_paylist="no"
+chan_name="Catalunya Informació";;
+# 226) COM Radio Barcelona
+226) link=http://comradio-streaming.gnuine.com:8100/mac22.m3u
+use_paylist="no"
+chan_name="COM Radio Barcelona";;
+# 227) COPE Cantabria Santander
+227) link=http://www.deportescopecantabria.com:8000/listen.pls
+use_paylist="no"
+chan_name="COPE Cantabria Santander";;
+# 228) Crónicas Radio Lanzarote
+228) link=http://85.48.192.60:8000/listen.pls
+use_paylist="no"
+chan_name="Crónicas Radio Lanzarote";;
+# 229) esRadio Madrid
+229) link=http://livestreaming3.esradio.fm/stream64.mp3.m3u
+use_paylist="no"
+chan_name="esRadio Madrid";;
+# 230) esRadio Guadalajara
+230) link=http://91.121.68.52:8054/listen.pls
+use_paylist="no"
+chan_name="esRadio Guadalajara";;
+# 231) Onda Cero Radio Madrid
+231) link=http://ondacerolivewm.fplive.net/ondacerowmlive-live/oc_madrid
+use_paylist="no"
+chan_name="Onda Cero Radio Madrid";;
+# 232) Onda Cero Noroeste
+232) link=http://escuchar.ondaceronoroeste.es/playlists/ondacero.m3u
+use_paylist="no"
+chan_name="Onda Cero Noroeste";;
+# 233) Onda Vasca Bilbao
+233) link=http://shoutcast.zeroa.stream.ntteo.flumotion.com/zeroa/shoutcast.mp3.m3u
+use_paylist="no"
+chan_name="Onda Vasca Bilbao";;
+# 234) RAC 1 Barcelona
+234) link=http://www.rac1.org/audio/Player/nou_rac1.pls
+use_paylist="no"
+chan_name="RAC 1 Barcelona";;
+# 235) Radio Asturias SER Oviedo
+235) link=http://194.169.201.177:8085/radioasturias.m3u
+use_paylist="no"
+chan_name="Radio Asturias SER Oviedo";;
+# 236) Radio Bierzo Ponferrada
+236) link=mms://80.34.10.12:7007/
+use_paylist="no"
+chan_name="Radio Bierzo Ponferrada";;
+# 237) Radio Galega Santiago de Compostela
+237) link=http://85.91.64.29/listen.pls?sid=1
+use_paylist="no"
+chan_name="Radio Galega Santiago de Compostela";;
+# 238) Radio Galega Música Santiago de Compostela
+238) link=http://85.91.64.29/listen.pls?sid=2
+use_paylist="no"
+chan_name="Radio Galega Música Santiago de Compostela";;
+# 239) Radio Marca Barcelona
+239) link=http://radioweb.radiomarcabarcelona.com:9000/stream.m3u
+use_paylist="no"
+chan_name="Radio Marca Barcelona";;
+# 240) Radio Menorca SER Mahón
+240) link=http://server7.20comunicacion.com:8040/listen.pls
+use_paylist="no"
+chan_name="Radio Menorca SER Mahón";;
+# 241) Radio Nervión Bilbao
+241) link=http://radionervion.streaming-pro.com:8010/listen.pls
+use_paylist="no"
+chan_name="Radio Nervión Bilbao";;
+# 242) Radio Popular de Bilbao
+242) link=http://centova.nsprimario.com/tunein.php/radiopopular/playlist.pls
+use_paylist="no"
+chan_name="Radio Popular de Bilbao";;
+# 243) Radio Rioja Cadena Ser
+243) link=http://streaming.radiorioja.es:9996/listen.pls
+use_paylist="no"
+chan_name="Radio Rioja Cadena Ser";;
+# 244) RCM
+244) link=http://podcast.rtvcm.es:8000/stream.m3u
+use_paylist="no"
+chan_name="RCM";;
+# 245) RTVA Radio Andalucía Información Seville
+245) link=http://radioandalucia.rtva.stream.flumotion.com/rtva/radioandalucia.mp3.m3u
+use_paylist="no"
+chan_name="RTVA Radio Andalucía Información Seville";;
+################## ITALIAN ##################################
+# Svizzera Italiana:
+# 246) RSI Rete Uno Lugano
+246) link=http://stream.srg-ssr.ch/reteuno/mp3_128.m3u
+use_paylist="no"
+chan_name="RSI Rete Uno Lugano";;
+# 247) RSI Rete Due Lugano
+247) link=http://stream.srg-ssr.ch/retedue/mp3_128.m3u
+use_paylist="no"
+chan_name="RSI Rete Due Lugano";;
+# 248) RSI Rete Tre Lugano
+248) link=http://stream.srg-ssr.ch/retetre/mp3_128.m3u
+use_paylist="no"
+chan_name="RSI Rete Tre Lugano";;
+##########################################################################
 
-# 198) Pulse Radio
-198) link=http://stream.pulsradio.com:5000/
+# 281) Pulse Radio
+281) link=http://stream.pulsradio.com:5000/
+use_paylist="no"
+chan_name="Old Time Radio";;
+# 282) Old Time Radio
+282) link=http://www.otrfan.com:8000/stream.m3u 
 use_paylist="no"
 chan_name="Old Time Radio";;
 
-# 236) Old Time Radio
-236) link=http://www.otrfan.com:8000/stream.m3u 
+############################################################################
+###################### RUSSIAN #########################################
+# 321) Radio Mayak Moscow
+321) link=http://www.listenlive.eu/ru_mayak.m3u 
 use_paylist="no"
-chan_name="Old Time Radio";;
+chan_name="Radio Mayak Moscow";;
+# 322) Radio Russia Moscow 
+322) link=http://www.listenlive.eu/ru_rus.m3u 
+use_paylist="no"
+chan_name="Radio Russia Moscow";;
+# 323) Radio Culture Moscow
+323) link=http://www.listenlive.eu/ru_kultura.m3u 
+use_paylist="no"
+chan_name="Radio Culture Moscow";;
+# 324) Vesti FM Moscow
+324) link=http://www.listenlive.eu/ru_vestifm.m3u 
+use_paylist="no"
+chan_name="Vesti FM Moscow";;
+# 325) Business FM Moscow
+325) link=http://m1.bfm.ru:8000/fm64.m3u 
+use_paylist="no"
+chan_name="Business FM Moscow";;
+# 326) Business FM 107.4 St Petersburg
+326) link=http://www.listenlive.eu/businessfmspb.m3u 
+use_paylist="no"
+chan_name="Business FM 107.4 St Petersburg";;
+# 327) Business FM 107.5 Ufa
+327) link=http://92.50.139.190:8000/listen.pls 
+use_paylist="no"
+chan_name="Business FM 107.5 Ufa";;
+# 328) Gorod FM Ekaterinburg
+328) link=http://radio.gorodfm.ru:8000/gorodfm.m3u 
+use_paylist="no"
+chan_name="Gorod FM Ekaterinburg";;
+# 329) Kommersant FM Moscow
+329) link=http://www.listenlive.eu/kommersant.m3u 
+use_paylist="no"
+chan_name="Kommersant FM Moscow";;
+# 330) Moskva FM Moscow
+330) link=http://livestream.rfn.ru:8080/moscowfm128.m3u 
+use_paylist="no"
+chan_name="Moskva FM Moscow";;
+# 331) NN Radio Nizhny Novgorod
+331) link=http://cast.r52.ru:8000/nrd.m3u 
+use_paylist="no"
+chan_name="NN Radio Nizhny Novgorod";;
+# 332) Radio Moskvy Moscow
+332) link=http://livestream.rfn.ru:8080/moscowtalk128.m3u 
+use_paylist="no"
+chan_name="Radio Moskvy Moscow";;
+# 333) Radio RSN Moscow
+333) link=http://www.listenlive.eu/radiorsn.m3u 
+use_paylist="no"
+chan_name="Radio RSN Moscow";;
 
+############## UKRAINE
+# 334) UR-1 Kyiv 
+334) link=http://nrcu.gov.ua:8000/ur1-mp3.m3u 
+use_paylist="no"
+chan_name="UR-1 Kyiv";;
+# 335) UR-2 Promin Kyiv 
+335) link=http://nrcu.gov.ua:8000/ur2-mp3.m3u 
+use_paylist="no"
+chan_name="UR-2 Promin Kyiv";;
+# 336) UR-3 Kultura Kyiv 
+336) link=http://nrcu.gov.ua:8000/ur3-mp3.m3u 
+use_paylist="no"
+chan_name="UR-3 Kultura Kyiv";;
+# 337) UR-4 International Kyiv 
+337) link=http://nrcu.gov.ua:8000/ur4-mp3.m3u 
+use_paylist="no"
+chan_name="UR-4 International Kyiv";;
+# 338) Business Radio Kyiv 
+338) link=http://217.20.164.163:8018/listen.pls 
+use_paylist="no"
+chan_name="Business Radio Kyiv";;
+# 339) Ekvator FM Shpola
+339) link=http://212.1.95.94:8000/EkvatorFM.m3u 
+use_paylist="no"
+chan_name="Ekvator FM Shpola";;
+# 340) Golos Stolytsi Kyiv
+340) link=http://cast.radiogroup.com.ua:8000/106fm.m3u 
+use_paylist="no"
+chan_name="Golos Stolytsi Kyiv";;
+# 341) Radio ES Kyiv 
+341) link=http://live.galaradio.com:8000/kiev.m3u 
+use_paylist="no"
+chan_name="Radio ES Kyiv";;
+# 342) Radio Vesti Kyiv  
+342) link=http://212.26.132.60:8000/vesti_mp3.m3u
+use_paylist="no"
+chan_name="Radio Vesti Kyiv";;
+
+############### BBC Regional ##########################
+# 361) BBC Radio 1 
+361) link=http://www.listenlive.eu/bbcradio1.m3u 
+use_paylist="no"
+chan_name="BBC Radio 1 ";;
+# 362) BBC Radio 2 
+362) link=http://www.listenlive.eu/bbcradio2.m3u 
+use_paylist="no"
+chan_name="BBC Radio 2 ";;
+# 363) BBC Radio 3 
+363) link=http://www.listenlive.eu/bbcradio3.m3u 
+use_paylist="no"
+chan_name="BBC Radio 3 ";;
+# 364) BBC Radio 4 
+364) link=http://www.listenlive.eu/bbcradio4.m3u 
+use_paylist="no"
+chan_name="BBC Radio 4 ";;
+# 365) BBC Radio 4 LW 
+365) link=http://www.listenlive.eu/bbcradio4lw.m3u 
+use_paylist="no"
+chan_name="BBC Radio 4 LW";;
+# 366) BBC Radio 4 Extra
+366) link=http://www.listenlive.eu/bbcradio4extra.m3u 
+use_paylist="no"
+chan_name="BBC Radio 4 Extra";;
+# 367) BBC 5 Live 
+367) link=http://www.listenlive.eu/bbc5live.m3u 
+use_paylist="no"
+chan_name="BBC 5 Live";;
+# 368) BBC 5 Live Sports Extra 
+368) link=http://www.listenlive.eu/bbc5liveextra.m3u 
+use_paylist="no"
+chan_name="BBC 5 Live Sports Extra ";;
+# 369) BBC 6 Music 
+369) link=http://www.listenlive.eu/bbc6music.m3u 
+use_paylist="no"
+chan_name="BBC 6 Music";;
+# 370) BBC 1Xtra
+370) link=http://www.listenlive.eu/bbc1xtra.m3u 
+use_paylist="no"
+chan_name="BBC 1Xtra";;
+# 371) BBC Asian Network
+371) link=http://www.listenlive.eu/bbcasian.m3u  
+use_paylist="no"
+chan_name="BBC Asian Network";;
+# 372) BBC World Service 
+372) link=http://www.bbc.co.uk/worldservice/meta/live/mp3/eneuk.pls  
+use_paylist="no"
+chan_name="BBC World Service";;
+# 373) BBC Radio Berkshire Reading 
+373) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_berkshire/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Berkshire Reading";;
+# 374) BBC Radio Bristol 
+374) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_bristol/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Bristol";;
+# 375) BBC Radio Cambridgeshire 
+375) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_cambridge/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Cambridgeshire";;
+# 376) BBC Radio Cornwall Truro 
+376) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_cornwall/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Cornwall Truro";;
+# 377) BBC Coventry and Warwickshire 
+377) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_coventry_warwickshire/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Coventry and Warwickshire";;
+# 378) BBC Radio Cumbria Carlisle 
+378) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_cumbria/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Cumbria Carlisle";;
+# 379) BBC Radio Derby 
+379) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_derby/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Derby";;
+# 380) BBC Radio Devon Plymouth 
+380) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_devon/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Devon Plymouth";;
+# 381) BBC Essex Chelmsford 
+381) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_essex/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Essex Chelmsford";;
+# 382) BBC Radio Gloucestershire 
+382) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_gloucestershire/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Gloucestershire";;
+# 383) BBC Radio Guernsey St Sampson's 
+383) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_guernsey/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Radio Guernsey St Sampson's";;
+# 384) BBC Hereford/Worcester
+384) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_hereford_worcester/format/pls.pls  
+use_paylist="no"
+chan_name="BBC Hereford/Worcester";;
+# 385) BBC Radio Humberside 
+385) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_humberside/format/pls.pls 
+use_paylist="no"
+chan_name="BBC Radio Humberside";;
+# 386)BBC Radio Jersey St.Helier 
+386) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_jersey/format/pls.pls 
+use_paylist="no"
+chan_name="BBC Radio Jersey St.Helier";;
+# 387) BBC Radio Kent Maidstone 
+387) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_kent/format/pls.pls 
+use_paylist="no"
+chan_name="BBC Radio Kent Maidstone";;
+# 388) BBC Radio Lancashire 
+388) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_lancashire/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Lancashire";;
+# 389) BBC Radio Leeds  
+389) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_leeds/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Leeds";;
+# 390) BBC Radio Leicester 
+390) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_leicester/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Leicester";;
+# 391) BBC Radio Lincolnshire 
+391) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_lincolnshire/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Lincolnshire";;
+# 392) BBC London 94.9 
+392) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_london/format/pls.pls
+use_paylist="no"
+chan_name="BBC London 94.9";;
+# 393) BBC Radio Manchester 
+393) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_manchester/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Manchester";;
+# 394) BBC Radio Merseyside
+394) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_merseyside/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Merseyside";;
+# 395) BBC Newcastle
+395) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_newcastle/format/pls.pls
+use_paylist="no"
+chan_name="BBC Newcastle";;
+# 396) BBC Radio Norfolk 
+396) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_norfolk/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Norfolk";;
+# 397) BBC Radio Northampton 
+397) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_northampton/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Northampton";;
+# 398) BBC Radio Nottingham 
+398) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_nottingham/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Nottingham";;
+# 399) BBC Radio Oxford 
+399) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_oxford/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Oxford";;
+# 400) BBC Radio Sheffield 
+400) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_sheffield/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Sheffield";;
+# 401) BBC Radio Shropshire 
+401) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_shropshire/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Shropshire";;
+# 402) BBC Radio Solent 
+402) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_solent/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Solent";;
+# 403) BBC Somerset 
+403) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_somerset_sound/format/pls.pls
+use_paylist="no"
+chan_name="BBC Somerset";;
+# 404) BBC Radio Stoke 
+404) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_stoke/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Stoke";;
+# 405) BBC Radio Suffolk
+405) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_suffolk/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Suffolk";;
+# 406) BBC Sussex
+406) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_sussex/format/pls.pls
+use_paylist="no"
+chan_name="BBC Sussex";;
+# 407) BBC Tees 
+407) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_tees/format/pls.pls
+use_paylist="no"
+chan_name="BBC Tees";;
+# 408) BBC Three Counties Radio 
+408) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_three_counties_radio/format/pls.pls
+use_paylist="no"
+chan_name="BBC Three Counties Radio";;
+# 409) BBC Wiltshire 
+409) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_wiltshire/format/pls.pls
+use_paylist="no"
+chan_name="BBC Wiltshire";;
+# 410) BBC WM 95.6  
+410) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_wm/format/pls.pls
+use_paylist="no"
+chan_name="BBC WM 95.6";;
+# 411)  BBC Radio York 
+411) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_york/format/pls.pls
+use_paylist="no"
+chan_name="BC Radio York";;
+# 412) BBC Radio Scotland 
+412) link=http://www.listenlive.eu/bbcradioscotland.m3u
+use_paylist="no"
+chan_name="BBC Radio Scotland";;
+# 413) BBC Radio nan Gaidheal 
+413) link=http://www.listenlive.eu/bbcradionangaidheal.m3u
+use_paylist="no"
+chan_name="BBC Radio nan Gaidheal";;
+# 414) BBC Radio Ulster 
+414) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_ulster/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Ulster";;
+# 415) BBC Radio Foyle 
+415) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-mp3-a/vpid/bbc_radio_foyle/format/pls.pls
+use_paylist="no"
+chan_name="BBC Radio Foyle";;
+# 416) BBC Radio Wales 
+415) link=http://www.listenlive.eu/bbcradiowales.m3u
+use_paylist="no"
+chan_name="BBC Radio Wales";;
 esac
 
 }
