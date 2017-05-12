@@ -249,22 +249,22 @@ for arg in $@
 do 
  if [ "$arg" == "--help" ]
  then
-   echo "ENDSTREAM: watch news live-streams in CLEARNET from youtube using youtube-dl mpv using"
-   echo "Type in the terminal $ endstream "
+   echo "ENDRADIO: listen to online radio streams behind tor using mpv"
+   echo "Type in the terminal $ endradio "
    echo "Now read the list and pick a number,input it and press enter."
    echo ""
    echo "USAGE:"
-   echo "$ endstream --help         # usage messages"
-   echo "$ endstream --version      # print version information"
-   echo "$ endstream --list-matrix  # channel list in matrix format"
-   echo "$ endstream --list-all     # channel list in column format"
-   echo "$ endstream  55            # use channel number in command line"  
-   echo "$ endstream  "
+   echo "$ endradio --help         # usage messages"
+   echo "$ endradio --version      # print version information"
+   echo "$ endradio --list-matrix  # channel list in matrix format"
+   echo "$ endradio --list-all     # channel list in column format"
+   echo "$ endradio  55            # use channel number in command line"  
+   echo "$ endradio  "
    shift
    exit 0
    elif [ "$arg" == "--version" ]
    then
-   echo "ENDSTREAM: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
+   echo "ENDRADIO: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
    echo "Copyright: The Endware Development Team, 2016"
    shift
    exit 0
@@ -396,14 +396,10 @@ chan_name=" BBC Radio Asian Extra";;
 16) link=http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk_backup
 use_paylist="no"
 chan_name="BBC World Service";;
-# 16) RTE Radio 1 Dublin
-16) link=http://www.listenlive.eu/rte1.m3u
+# 17) RTE Radio 1 Dublin
+17) link=http://www.listenlive.eu/rte1.m3u
 use_paylist="no"
 chan_name="RTE Radio 1 Dublin";;
-# 17) RTE Radio 1 Extra Dublin
-17) link=http://www.listenlive.eu/rte1extra.m3u
-use_paylist="no"
-chan_name="RTE Radio 1 Extra Dublin";;
 # 18) RTE Radio 1 Extra Dublin
 18) link=http://www.listenlive.eu/rte1extra.m3u
 use_paylist="no"
