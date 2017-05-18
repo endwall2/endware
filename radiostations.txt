@@ -1,0 +1,256 @@
+################## ENDRADIO 0.03 #####################
+# 1) BBC World Service 
+# 2) NPR National Public Radio
+# 3)  MPR News
+# 4) WKSU News
+# 5) Infowars
+# 6) BBC Radio 1
+# 7) BBC Radio 2
+# 8) BBC Radio 3
+# 9) BBC Radio 4
+# 10) BBC Radio 5
+# 11) BBC Radio 6
+# 12) BBC Radio 1 Extra
+# 13) BBC Radio 4 Extra
+# 14) BBC Radio 5 Live Sports Extra
+# 15) BBC Radio Asian Extra
+# 16) BBC World Service Backup
+# 17) RTE Radio 1 Dublin
+# 18) RTE Radio 1 Extra Dublin
+# 19) News Talk 106-108 Dublin
+# 20) BFBS UK
+# 21) LBC 1152 AM London
+# 22) LBC 97.3 FM London
+# 23) Isles FM Stornoway
+# 25) World Radio Switzerland Geneva
+# 26) Onda Cero International Marbella
+# 27) UK Away FM Lanzarote
+# 41) CBC Radio 1 Kamloops BC Canada
+# 42) CBC Radio 1 Kelowna BC Canada
+# 43) CBC Radio 1 Prince George BC Canada
+# 44) CBC Radio 1 Vancouver BC Canada
+# 45) CBC Radio 1 Victoria BC Canada
+# 46) CBC Radio 1 Whitehorse BC Canada
+# 47) CBC Radio 1 Calgary AB Canada
+# 48) CBC Radio 1 Edmonton AB Canada
+# 49) CBC Radio 1 Regina AB Canada
+# 50) CBC Radio 1 Saskatoon SK Canada
+# 51) CBC Radio 1 Winnipeg MB Canada
+# 52) CBC Radio 1 Iqaluit NU Canada
+# 53) CBC Radio 1 Kitchener-Waterloo ON Canada
+# 54) CBC Radio 1 London ON Canada
+# 55) CBC Radio 1 Ottawa ON Canada
+# 56) CBC Radio 1 Sudbury ON Canada
+# 57) CBC Radio 1 Thunder Bay ON Canada
+# 58) CBC Radio 1 Toronto ON Canada
+# 59) CBC Radio 1 Windsor ON Canada
+# 60) CBC Radio 1 Montreal QC Canada
+# 61) CBC Radio 1 Nord Quebec QC Canada
+# 62) CBC Radio 1 Quebec City QC Canada
+# 63) CBC Radio 1 Fredericton NB Canada
+# 64) CBC Radio 1 Moncton NB Canada
+# 65) CBC Radio 1 Saint John NB Canada
+# 66) CBC Radio 1 Charlottetown NB Canada
+# 67) CBC Radio 1 Cape Breton NB Canada
+# 68) CBC Radio 1 Halifax NFL Canada
+# 69) CBC Radio 1 Corner Brook NFL Canada
+# 70) CBC Radio 1 Grand Falls/Gander NFL Canada
+# 71) CBC Radio 1 Labrador NFL Canada
+# 72) CBC Radio 1 St. Johns NFL Canada
+# 73) CBC Radio 1 Inuvik NWT Canada
+# 74) CBC Radio 1 Yellowknife YK Canada
+# 75) CBC Radio 2 Halifax NFL Canada
+# 76) CBC Radio 2 Toronto ON Canada
+# 77) CBC Radio 2 Winnipeg MB Canada
+# 78) CBC Radio 2 Edmonton AB Canada
+# 79) CBC Radio 2 Vancouver BC Canada
+# 80) CBC Radio 2 Pacific Canada
+# 81) CBC Radio 2 Eastern Canada
+# 121) France Info
+# 122) France Info
+# 123) RFI Monde
+# 124) RFI Afrique
+# 125) Africa no 1
+# 126) Alta Frequenza Ajaccio 
+# 127) BFM Paris 
+# 128) Europe 1 
+# 129) Kernews  
+# 130) Radio Ici Maintenant Paris 
+# 131) Radio Canada Première Chaîne
+# 132) Radio Canada Espace Musique
+# 133) Radio Canada RDI
+# 134) Bel RTL Brussels Belgium 
+# 135) DH Radio Brussels Belgium 
+# 136) RMC Info Monaco 
+# 137) RSR La Premiere Lausanne
+# 138) RSR Espace 2 Lausanne
+# 139) RSR Couleur 3  
+# 140) RSR Option Musique
+# 141) RTL Radio Lëtzebuerg Luxembourg
+# 161) Radio SRF 1 Basel
+# 162) Radio SRF 1 Aargau Solothurn 
+# 163) Radio SRF 1 Basel Baselland
+# 164) Radio SRF 1 Bern Freibourg Wallis 
+# 165) Radio SRF 1 Ostschweiz
+# 166) Radio SRF 1 Zentralschweiz
+# 167) Radio SRF 1 Zürich Schaffhausen
+# 168) Radio SRF 2 Kultur
+# 169) Radio SRF 3 
+# 170) Radio SRF 4 News
+# 171) Radio SRF Virus
+# 172) Radio SRF Musikwelle
+# 173) Argovia News Aarau
+# 174) Bayern 1 Munich
+# 175) Bayern 2 Munich
+# 176) B5 Aktuell Munich
+# 177) B5 Plus Munich 
+# 178) Deutschlandfunk Cologne
+# 179) Deutschlandradiokultur Berlin
+# 180) hr-info Frankfurt
+# 181) MDR 1 Radio Sachsen Dresden 
+# 182) MDR 1 Radio Sachsen-Anhalt Magdeburg 
+# 183) MDR 1 Radio Thüringen Erfurt 
+# 184) MDR AKTUELL Livestream Leipzig 
+# 185) MDR KULTUR Livestream Halle  
+# 186) NDR 90,3 Hamburg   
+# 187) NDR 1 Niedersachsen Hannover
+# 188) NDR 1 Radio MV Schwerin
+# 189) NDR 1 Welle Nord Flensburg 
+# 190) NDR Kultur Hamburg  
+# 191) NDR Info Hamburg 
+# 192) NDR INDR Info Spezia Hamburg 
+# 193) RBB InfoRadio Berlin 
+# 194) SR 3 Saarlandwelle Saarbrücken 
+# 195) SWR RP Mainz 
+# 196) SWR1 BW Stuttgart 
+# 197) SWR2 Stuttgart 
+# 198) WDR5 Cologne 
+# 199) Wüste Welle Tübingen 
+# 201) Radio Nacional d'Andorra Andorra la Vella
+# 202) RNE Radio Nacional Madrid
+# 203) RNE Radio Clásica Madrid
+# 204) RNE Radio 3 Madrid
+# 205) RNE Ràdio 4 Barcelona
+# 206) RNE Radio 5 Todo Noticias Madrid
+# 207) ABC Punto Radio Tenerife
+# 208) Aragón Radio Zaragoza
+# 209) Cadena Ser Radio Barcelona
+# 210) Cadena Ser Radio Bilbao
+# 211) Cadena Ser Radio Sevilla
+# 212) Cadena Ser Extremadura Badajoz
+# 213) Cadena Ser Radio Valencia
+# 214) Cadena Ser I.Ballears Mallorca 
+# 215) Cadena Ser Radio Melilla
+# 216) Cadena Ser Radio Murcia
+# 217) Cadena Ser Radio Pamplona Pamplona
+# 218) Cadena Ser Radio Club Tenerife Santa Cruz de Tenerife
+# 219) Cadena Ser Radio Zaragoza
+# 220) Cadena Ser Santander 
+# 221) Cadena Ser Toledo
+# 222) Cadena Ser Radio Valladolid Valladolid
+# 223) Cadena Ser Ceuta
+# 224) Catalunya Ràdio Barcelona
+# 225) Catalunya Informació
+# 226) COM Radio Barcelona
+# 227) COPE Cantabria Santander
+# 228) Crónicas Radio Lanzarote
+# 229) esRadio Madrid
+# 230) esRadio Guadalajara
+# 231) Onda Cero Radio Madrid
+# 232) Onda Cero Noroeste
+# 233) Onda Vasca Bilbao
+# 234) RAC 1 Barcelona
+# 235) Radio Asturias SER Oviedo
+# 236) Radio Bierzo Ponferrada
+# 237) Radio Galega Santiago de Compostela
+# 238) Radio Galega Música Santiago de Compostela
+# 239) Radio Marca Barcelona
+# 240) Radio Menorca SER Mahón
+# 241) Radio Nervión Bilbao
+# 242) Radio Popular de Bilbao
+# 243) Radio Rioja Cadena Ser
+# 244) RCM
+# 245) RTVA Radio Andalucía Información Seville
+# 246) RSI Rete Uno Lugano
+# 247) RSI Rete Due Lugano
+# 248) RSI Rete Tre Lugano
+# 281) Pulse Radio
+# 282) Old Time Radio
+# 321) Radio Mayak Moscow
+# 322) Radio Russia Moscow 
+# 323) Radio Culture Moscow
+# 324) Vesti FM Moscow
+# 325) Business FM Moscow
+# 326) Business FM 107.4 St Petersburg
+# 327) Business FM 107.5 Ufa
+# 328) Gorod FM Ekaterinburg
+# 329) Kommersant FM Moscow
+# 330) Moskva FM Moscow
+# 331) NN Radio Nizhny Novgorod
+# 332) Radio Moskvy Moscow
+# 333) Radio RSN Moscow
+# 334) UR-1 Kyiv 
+# 335) UR-2 Promin Kyiv 
+# 336) UR-3 Kultura Kyiv 
+# 337) UR-4 International Kyiv 
+# 338) Business Radio Kyiv 
+# 339) Ekvator FM Shpola
+# 340) Golos Stolytsi Kyiv
+# 341) Radio ES Kyiv 
+# 342) Radio Vesti Kyiv  
+# 361) BBC Radio 1 
+# 362) BBC Radio 2 
+# 363) BBC Radio 3 
+# 364) BBC Radio 4 
+# 365) BBC Radio 4 LW 
+# 366) BBC Radio 4 Extra
+# 367) BBC 5 Live 
+# 368) BBC 5 Live Sports Extra 
+# 369) BBC 6 Music 
+# 370) BBC 1Xtra
+# 371) BBC Asian Network
+# 372) BBC World Service 
+# 373) BBC Radio Berkshire Reading 
+# 374) BBC Radio Bristol 
+# 375) BBC Radio Cambridgeshire 
+# 376) BBC Radio Cornwall Truro 
+# 377) BBC Coventry and Warwickshire 
+# 378) BBC Radio Cumbria Carlisle 
+# 379) BBC Radio Derby 
+# 380) BBC Radio Devon Plymouth 
+# 381) BBC Essex Chelmsford 
+# 382) BBC Radio Gloucestershire 
+# 383) BBC Radio Guernsey St Sampson's 
+# 384) BBC Hereford/Worcester
+# 385) BBC Radio Humberside 
+# 386) BBC Radio Jersey St.Helier 
+# 387) BBC Radio Kent Maidstone 
+# 388) BBC Radio Lancashire 
+# 389) BBC Radio Leeds  
+# 390) BBC Radio Leicester 
+# 391) BBC Radio Lincolnshire 
+# 392) BBC London 94.9 
+# 393) BBC Radio Manchester 
+# 394) BBC Radio Merseyside
+# 395) BBC Newcastle
+# 396) BBC Radio Norfolk 
+# 397) BBC Radio Northampton 
+# 398) BBC Radio Nottingham 
+# 399) BBC Radio Oxford 
+# 400) BBC Radio Sheffield 
+# 401) BBC Radio Shropshire 
+# 402) BBC Radio Solent 
+# 403) BBC Somerset 
+# 404) BBC Radio Stoke 
+# 405) BBC Radio Suffolk
+# 406) BBC Sussex
+# 407) BBC Tees 
+# 408) BBC Three Counties Radio 
+# 409) BBC Wiltshire 
+# 410) BBC WM 95.6  
+# 411) BBC Radio York 
+# 412) BBC Radio Scotland 
+# 413) BBC Radio nan Gaidheal 
+# 414) BBC Radio Ulster 
+# 415) BBC Radio Foyle 
+# 416) BBC Radio Wales 

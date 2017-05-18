@@ -488,10 +488,10 @@ chan_name="CBC Radio 1 Saskatoon,SK";;
 51) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
 use_paylist="no"
 chan_name="CBC Radio 1 Winnipeg,MB";;	
-# 52) CBC Radio 1 Iqaluit
+# 52) CBC Radio 1 Iqaluit NU
 52) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
 use_paylist="no"
-chan_name="CBC Radio 1 Iqaluit,IN";;
+chan_name="CBC Radio 1 Iqaluit,NU";;
 # 53) CBC Radio 1 Kitchener-Waterloo ON Canada
 53) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
 use_paylist="no"
@@ -572,10 +572,10 @@ chan_name="CBC Radio 1  Labrador, NFL";;
 72) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
 use_paylist="no"
 chan_name="CBC Radio 1 St. Johns, NFL";;
-# 73) CBC Radio 1  Inuvik IN Canada
+# 73) CBC Radio 1  Inuvik NWT Canada
 73) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
 use_paylist="no"
-chan_name="CBC Radio 1 Inuvik,IN";;
+chan_name="CBC Radio 1 Inuvik,NWT";;
 # 74) CBC Radio 1  Yellowknife YK Canada
 74) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
 use_paylist="no"
