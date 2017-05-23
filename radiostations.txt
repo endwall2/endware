@@ -22,6 +22,7 @@
 # 21) LBC 1152 AM London
 # 22) LBC 97.3 FM London
 # 23) Isles FM Stornoway
+# 24) Jupiter Broadcasting
 # 25) World Radio Switzerland Geneva
 # 26) Onda Cero International Marbella
 # 27) UK Away FM Lanzarote

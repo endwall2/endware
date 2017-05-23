@@ -30,7 +30,7 @@
 # 27) Fox News 10 Phoenix Arizona USA
 # 28) VOA
 # 29) What America Thinks
-# 30) RSBN Office Live
+# 30) Jupiter Broadcasting
 # 31) TWiT
 # 32) NASA TV Public Education
 # 33) NASA TV Media
@@ -39,7 +39,7 @@
 # 36) HSN
 # 37) HSN 2
 # 38) QVC 
-# 39) CGTN Beijing
+# 39) TYT
 # 40) Talking Tom and Friends
 ################# FRENCH ######################
 # 41) France 24 
@@ -292,9 +292,9 @@
 # 272) Democracy Now Headlines 
 # 273) Talking Tom and Friends Minis
 # 274) Infowars
-# 275) The Young Turks
-# 276) --------------
+# 275) RSBN Office Cam
 ########### LOCATIONS ######################
+# 276) --------------
 # 277) NASA ISS 1
 # 278) NASA ISS 2
 # 279) Venice Italy Bridge Cam Live
@@ -348,7 +348,7 @@
 # 357) Biafra TV Africa 
 # 358) Joy News Ghana
 # 359) i24 News Israel
-# 360) --------------
+# 360) CGTN Beijing
 # 361) --------------
 # 362) TWiT
 # 363) High Stakes Poker

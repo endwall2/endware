@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.03
-# Revision Date: May 12, 2017
+# Version: 0.04
+# Revision Date: May 23, 2017
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -136,8 +136,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.03"
-rev_date="12/05/2017"
+version="0.04"
+rev_date="23/05/2017"
 branch="gnu/linux"
 ##################################################
 
@@ -175,7 +175,7 @@ channel_matrix()
    echo "21) LBC 1152 AM London 61) CBC 1 Nord Quebec  101) --------------  141) RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo        261) --------------- "
    echo "22) LBC 97.3 FM London 62) CBC 1 Quebec City  102) --------------  142) --------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid    262) ---------------"       
    echo "23) Isles FM Stornoway 63) CBC 1 Fredericton  103) --------------  143) --------------- 183)MDR 1 Erfurt      223)Cadena Ceuta         263) ---------------"  
-   echo "24) ---------------    64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
+   echo "24)Jupiter Broadcasting64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
    echo "25) ---------------    65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
    echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
    echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
@@ -424,7 +424,10 @@ chan_name="LBC 97.3 FM London";;
 23) link=http://hebrides.tv:8000/islesfm.m3u
 use_paylist="no"
 chan_name="Isles FM Stornoway";;
-
+# 24) Jupiter Broadcasting
+24) link=rtmp://jblive.videocdn.scaleengine.net/jb-live/play/jblive.stream
+use_paylist="no"
+chan_name="Jupiter Broadcasting";;
 
 #################### BROKEN
 # 25) World Radio Switzerland Geneva
