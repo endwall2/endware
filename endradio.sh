@@ -175,8 +175,8 @@ channel_matrix()
    echo "21) LBC 1152 AM London 61) CBC 1 Nord Quebec  101) --------------  141) RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo        261) --------------- "
    echo "22) LBC 97.3 FM London 62) CBC 1 Quebec City  102) --------------  142) --------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid    262) ---------------"       
    echo "23) Isles FM Stornoway 63) CBC 1 Fredericton  103) --------------  143) --------------- 183)MDR 1 Erfurt      223)Cadena Ceuta         263) ---------------"  
-   echo "24)Jupiter Broadcasting64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
-   echo "25) ---------------    65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
+   echo "24) CPR News Colorado  64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
+   echo "25) Jupiter Broadcast  65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
    echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
    echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
    echo "28) ---------------    68) CBC 1 Halifax      108) --------------  148) --------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote   268) ---------------"
@@ -201,8 +201,8 @@ channel_matrix_2()
    echo "==================================================================      ENDRADIO  "$version"   =================================================================================="
    echo "||      Entertainment    ||        Russian        ||       BBC Regional   ||    BBC Regional   ||      COLUMN 12     ||      COLUMN 13       ||       COLUMN 14    ||"
    echo "============================================================================================================================================================================"
-   echo "281)  Old Time Radio      321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------       481) -------------      521) --------------"    
-   echo "282)  Pulse Radio         322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------       482) -------------      522) --------------" 
+   echo "281) Pulse Radio          321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------       481) -------------      521) --------------"    
+   echo "282) Old Time Radio       322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------       482) -------------      522) --------------" 
    echo "283) ---------------      323)Radio Culture Moscow363) BBC Radio 3        403) BBC Somerset    443) -----------       483) -------------      523) --------------"  
    echo "284) ---------------      324)Vesti FM Moscow     364) BBC Radio 4        404) BBC Stoke       444) -----------       484) -------------      524) --------------"             
    echo "285) ---------------      325)Business FM Moscow  365) BBC Radio 4 LW     405) BBC Suffolk     445) -----------       485) -------------      525) --------------"  
@@ -424,24 +424,28 @@ chan_name="LBC 97.3 FM London";;
 23) link=http://hebrides.tv:8000/islesfm.m3u
 use_paylist="no"
 chan_name="Isles FM Stornoway";;
-# 24) Jupiter Broadcasting
-24) link=rtmp://jblive.videocdn.scaleengine.net/jb-live/play/jblive.stream
+# 24) CPR News Colorado
+24) link=http://livestream.cprnetwork.org/pls/live_newsinfo_aac.pls
+use_paylist="no"
+chan_name="CPR News Colorado";;
+# 25) Jupiter Broadcasting
+25) link=http://jblive.fm/
 use_paylist="no"
 chan_name="Jupiter Broadcasting";;
 
 #################### BROKEN
 # 25) World Radio Switzerland Geneva
-25) link=http://direct.sharp-stream.com/radiofrontier.mp3.m3u
-use_paylist="no"
-chan_name="World Radio Switzerland Geneva";;
+# 25) link=http://direct.sharp-stream.com/radiofrontier.mp3.m3u
+#use_paylist="no"
+# chan_name="World Radio Switzerland Geneva";;
 # 26) Onda Cero International Marbella
-26) link=mms://a1365.l507241200.c5072.l.lm.akamaistream.net/D/1365/5072/v0001/reflector:41200
-use_paylist="no"
-chan_name="Onda Cero International Marbella";;
+# 26) link=mms://a1365.l507241200.c5072.l.lm.akamaistream.net/D/1365/5072/v0001/reflector:41200
+# use_paylist="no"
+# chan_name="Onda Cero International Marbella";;
 # 27) UK Away FM Lanzarote
-27) link=http://ukaway.serverroom.us/ukaway
-use_paylist="no"
-chan_name="UK Away FM Lanzarote";;
+# 27) link=http://ukaway.serverroom.us/ukaway
+# use_paylist="no"
+# chan_name="UK Away FM Lanzarote";;
 #########################################
 
 ######## CBC RADIO CANADA #################
@@ -1061,11 +1065,12 @@ chan_name="RSI Rete Tre Lugano";;
 # 281) Pulse Radio
 281) link=http://stream.pulsradio.com:5000/
 use_paylist="no"
-chan_name="Old Time Radio";;
+chan_name="Pulse Radio";;
 # 282) Old Time Radio
 282) link=http://www.otrfan.com:8000/stream.m3u 
 use_paylist="no"
 chan_name="Old Time Radio";;
+
 
 ############################################################################
 ###################### RUSSIAN #########################################
@@ -1462,12 +1467,12 @@ channel_select $entry
 echo "$chan_name"
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i mpv --no-resume-playback --cache="$cache_size" --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --playlist="$link" 
   # clear the cookie
   echo " " > "$cookie"
   menu_switch "$menu"
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i  mpv --no-resume-playback --cache="$cache_size"  "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i  mpv --no-resume-playback --no-video --cache="$cache_size"  "$link" 
   fi
   
 menu_switch "$menu"
