@@ -1,6 +1,6 @@
 #! /bin/sh
 ######################################################################
-# Title: entunes.sh
+# Title: endtunes.sh
 # Description:  Clearnet streaming of internet radio streams using mpv, firejail
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
@@ -142,7 +142,7 @@ rev_date="23/05/2017"
 branch="gnu/linux"
 ##################################################
 
-chan_columns="$HOME/bin/radiostations.txt"
+chan_columns="$HOME/bin/tunes.txt"
 cookie="$HOME/bin/cookies.txt"
 cache_size="4096"
 use_cookies="no"
