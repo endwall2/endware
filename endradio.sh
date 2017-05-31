@@ -177,19 +177,19 @@ channel_matrix()
    echo "23) Isles FM Stornoway 63) CBC 1 Fredericton  103) --------------  143) --------------- 183)MDR 1 Erfurt      223)Cadena Ceuta         263) ---------------"  
    echo "24) CPR News Colorado  64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
    echo "25) Jupiter Broadcast  65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
-   echo "26) ---------------    66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
-   echo "27) ---------------    67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
-   echo "28) ---------------    68) CBC 1 Halifax      108) --------------  148) --------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote   268) ---------------"
-   echo "29) ---------------    69) CBC 1 Corner Brook 109) --------------  149) --------------- 189)NDR 1 Flensburg   229)esRadio Madrid       269) --------------- "
-   echo "30) ---------------    70) CBC 1 Grand Falls  110) --------------  150) --------------- 190)NDR Kultur        230)esRadio Guadalajara  270) ---------------  "    
-   echo "31) ---------------    71) CBC 1 Labrador     111) --------------  151) --------------- 191)NDR Info          231)Onda Cero Madrid     271) --------------- "
-   echo "32) ---------------    72) CBC 1 St. Johns    112) --------------  152) --------------- 192)NDR INDR          232)Onda Cero Noroeste   272) ---------------"
-   echo "33) ---------------    73) CBC 1 Inuvik       113) -------------   153) --------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao    273) --------------- " 
-   echo "34) ---------------    74) CBC 1 Yellowknife  114) -------------   154) --------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona      274) --------------- "  
-   echo "35) ---------------    75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
-   echo "36) ---------------    76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
-   echo "37) ---------------    77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
-   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
+   echo "26) Genesis GCN        66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
+   echo "27) Republic RBN       67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
+   echo "28) 24/7 World Radio   68) CBC 1 Halifax      108) --------------  148) --------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote   268) ---------------"
+   echo "29) KPFK               69) CBC 1 Corner Brook 109) --------------  149) --------------- 189)NDR 1 Flensburg   229)esRadio Madrid       269) --------------- "
+   echo "30) KPFT               70) CBC 1 Grand Falls  110) --------------  150) --------------- 190)NDR Kultur        230)esRadio Guadalajara  270) ---------------  "    
+   echo "31) KPFT 2             71) CBC 1 Labrador     111) --------------  151) --------------- 191)NDR Info          231)Onda Cero Madrid     271) --------------- "
+   echo "32) WPFW               72) CBC 1 St. Johns    112) --------------  152) --------------- 192)NDR INDR          232)Onda Cero Noroeste   272) ---------------"
+   echo "33) WRYR-LP            73) CBC 1 Inuvik       113) -------------   153) --------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao    273) --------------- " 
+   echo "34) WXOJ-LP            74) CBC 1 Yellowknife  114) -------------   154) --------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona      274) --------------- "  
+   echo "35) WXOJ-LP            75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
+   echo "36) WRFN-LP            76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
+   echo "37) Liberty Radio      77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
+   echo "38) 1st Amendment Radio78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
    echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
    echo "40) ---------------    80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
    echo "========================================================================================================================================================================"
@@ -432,6 +432,72 @@ chan_name="CPR News Colorado";;
 25) link=http://jblive.fm/
 use_paylist="no"
 chan_name="Jupiter Broadcasting";;
+
+# 26) Genesis Communications Network 
+26) 
+
+ rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 6 ) 
+ case $rnum in 
+ 0) link=http://www.gcnlive.com/playlists/live/channel1.m3u ;;
+ 1) link=http://www.gcnlive.com/playlists/live/channel2.m3u ;;
+ 2) link=http://www.gcnlive.com/playlists/live/channel3.m3u ;;
+ 3) link=http://www.gcnlive.com/playlists/live/channel4.m3u ;;
+ 4) link=http://www.gcnlive.com/playlists/live/channel5.m3u ;;
+ 5) link=http://www.gcnlive.com/playlists/live/channel6.m3u ;;
+ esac
+
+use_playlist="no"
+chan_name="Genesis Communications Network";;
+
+# 27) Republic Broadcast Network 
+27) link=http://republicbroadcasting.org/32k.pls
+use_paylist="no"
+chan_name="Republic Broadcast Network";;
+# 28) 247 World Radio
+28) link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
+use_paylist="no"
+chan_name="24/7 World Radio";;
+# 29) KPFK 
+29) link=http://ic1.mainstreamnetwork.com/kpfk-fm.m3u
+use_paylist="no"
+chan_name="KPFK";;
+# 30) KPFT
+30) link=http://kpft.org/KPFT-hifi.m3u
+use_paylist="no"
+chan_name="KPFT";;
+# 31) KPFT 2
+31) link=http://kpft.org/KPFT-HD3-hifi.m3u
+use_paylist="no"
+chan_name="KPFT 2";;
+# 32) WPFW
+32) link=http://www.wpfwfm.org:8000/wpfw_128
+use_paylist="no"
+chan_name="WPFW";;
+# 33) WRYR-LP
+33) link=http://boa.mediacast1.com:9656/listen.pls
+use_paylist="no"
+chan_name="WRYR-LP";;
+# 34) WXOJ-LP
+34) link=http://valleyfree1.serverroom.us:5676/listen.pls
+use_paylist="no"
+chan_name="WXOJ-LP";;
+# 35) WXOJ-LP
+35) link=http://valleyfree1.serverroom.us:5676/listen.pls
+use_paylist="no"
+chan_name="WXOJ-LP";;
+# 36) WRFN-LP
+36) link=http://www.streamlicensing.com/directory/index.cgi/playlist.pls?action=playlist&type=pls&sid=4253&stream_id=8011
+use_paylist="no"
+chan_name="WRFN-LP";;
+# 37)Liberty Radio
+37) link=http://lrn.fm/files/lrn.m3u
+use_paylist="no"
+chan_name="Liberty Radio";;
+# 38) First Amendment Radio
+38) link=http://firstamendmentradio.net/64k.pls
+use_paylist="no"
+chan_name="First Amendment Radio";;
+
 
 #################### BROKEN
 # 25) World Radio Switzerland Geneva
