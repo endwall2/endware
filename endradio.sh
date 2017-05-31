@@ -186,10 +186,10 @@ channel_matrix()
    echo "32) WPFW               72) CBC 1 St. Johns    112) --------------  152) --------------- 192)NDR INDR          232)Onda Cero Noroeste   272) ---------------"
    echo "33) WRYR-LP            73) CBC 1 Inuvik       113) -------------   153) --------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao    273) --------------- " 
    echo "34) WXOJ-LP            74) CBC 1 Yellowknife  114) -------------   154) --------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona      274) --------------- "  
-   echo "35) WXOJ-LP            75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
-   echo "36) WRFN-LP            76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
-   echo "37) Liberty Radio      77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
-   echo "38) 1st Amendment Radio78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
+   echo "35) WRFN-LP            75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
+   echo "36) Liberty Radio      76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
+   echo "37)1st Amendment Radio 77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
+   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
    echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
    echo "40) ---------------    80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
    echo "========================================================================================================================================================================"
@@ -199,11 +199,11 @@ echo " "
 channel_matrix_2()
 {
    echo "==================================================================      ENDRADIO  "$version"   =================================================================================="
-   echo "||      Entertainment    ||        Russian        ||       BBC Regional   ||    BBC Regional   ||      COLUMN 12     ||      COLUMN 13       ||       COLUMN 14    ||"
+   echo "||      Entertainment    ||        Russian        ||       BBC Regional   ||    BBC Regional   ||      COLUMN 12     ||      COLUMN 13       ||       Religious    ||"
    echo "============================================================================================================================================================================"
-   echo "281) Pulse Radio          321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------       481) -------------      521) --------------"    
-   echo "282) Old Time Radio       322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------       482) -------------      522) --------------" 
-   echo "283) ---------------      323)Radio Culture Moscow363) BBC Radio 3        403) BBC Somerset    443) -----------       483) -------------      523) --------------"  
+   echo "281) Pulse Radio          321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------       481) -------------      521) EWTN "    
+   echo "282) Old Time Radio       322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------       482) -------------      522) EWTN Classic" 
+   echo "283) ---------------      323)Radio Culture Moscow363) BBC Radio 3        403) BBC Somerset    443) -----------       483) -------------      523) EWTN Spanish"  
    echo "284) ---------------      324)Vesti FM Moscow     364) BBC Radio 4        404) BBC Stoke       444) -----------       484) -------------      524) --------------"             
    echo "285) ---------------      325)Business FM Moscow  365) BBC Radio 4 LW     405) BBC Suffolk     445) -----------       485) -------------      525) --------------"  
    echo "286) ---------------      326)107.4 St Petersburg 366) BBC Radio 4 Extra  406) BBC Sussex      446) -----------       486) -------------      526) --------------"  
@@ -481,20 +481,16 @@ chan_name="WRYR-LP";;
 34) link=http://valleyfree1.serverroom.us:5676/listen.pls
 use_paylist="no"
 chan_name="WXOJ-LP";;
-# 35) WXOJ-LP
-35) link=http://valleyfree1.serverroom.us:5676/listen.pls
-use_paylist="no"
-chan_name="WXOJ-LP";;
-# 36) WRFN-LP
-36) link=http://www.streamlicensing.com/directory/index.cgi/playlist.pls?action=playlist&type=pls&sid=4253&stream_id=8011
+# 35) WRFN-LP
+35) link=http://www.streamlicensing.com/directory/index.cgi/playlist.pls?action=playlist&type=pls&sid=4253&stream_id=8011
 use_paylist="no"
 chan_name="WRFN-LP";;
-# 37)Liberty Radio
-37) link=http://lrn.fm/files/lrn.m3u
+# 36)Liberty Radio
+36) link=http://lrn.fm/files/lrn.m3u
 use_paylist="no"
 chan_name="Liberty Radio";;
-# 38) First Amendment Radio
-38) link=http://firstamendmentradio.net/64k.pls
+# 37) First Amendment Radio
+37) link=http://firstamendmentradio.net/64k.pls
 use_paylist="no"
 chan_name="First Amendment Radio";;
 
@@ -1453,9 +1449,27 @@ chan_name="BBC Radio Ulster";;
 use_paylist="no"
 chan_name="BBC Radio Foyle";;
 # 416) BBC Radio Wales 
-415) link=http://www.listenlive.eu/bbcradiowales.m3u
+416) link=http://www.listenlive.eu/bbcradiowales.m3u
 use_paylist="no"
 chan_name="BBC Radio Wales";;
+
+############################   RELIGIOUS  ##########################################
+# 521) EWTN 1 
+521) link=http://ewtn.mp3.miisolutions.net/ewtnradioenglish/mp3
+use_paylist="no"
+chan_name="EWTN 1";;
+
+# 522) EWTN Classic 
+522) link=http://ewtn.mp3.miisolutions.net/ewtnradioplus/mp3
+use_paylist="no"
+chan_name="EWTN Classic";;
+
+# 523) EWTN Spanish
+523) link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
+use_paylist="no"
+chan_name="EWTN Classic";;
+
+
 esac
 
 }
