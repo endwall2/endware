@@ -6,7 +6,7 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.19
+# VERSION: 0.20
 # REVISION DATE: NOVEMBER 8 2016
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
 #
@@ -160,9 +160,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##### Version information ######
-version="0.19"
+version="0.20"
 branch="gnu/linux"
-rev_date="8/11/2016"
+rev_date="01/06/2017"
 #####                     ######
 
 ##  get input list from shell argument
@@ -223,8 +223,7 @@ check_tor=check.tmp
 #check_tor=index.html
 ### check tor project ip
 torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/
-torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png
-torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png https://check.torproject.org/torcheck/img/tor-on.ico
 
 ### unpack html
 
@@ -240,5 +239,3 @@ rm tor-on.ico
 
 exit "$?"
 #########################################################        END OF PROGRAM         ######################################################################################
-
-
