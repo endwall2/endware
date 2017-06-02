@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.04
-# Revision Date: May 23, 2017
+# Version: 0.05
+# Revision Date: June 2, 2017
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -136,8 +136,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.04"
-rev_date="23/05/2017"
+version="0.05"
+rev_date="02/06/2017"
 branch="gnu/linux"
 ##################################################
 
@@ -153,7 +153,7 @@ channel_matrix()
    echo "||        NEWS         ||      CBC Canada     ||                   ||       French      ||       German       ||     Spanish            ||    Spanish / Italian   ||"
    echo "==========================================================================================================================================================================="
    echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    121) France Info     161) SRF 1 Basel      201)Nacional d'Andorra   241) Nervión Bilbao  "    
-   echo "2) NPR                 42) CBC 1 Kelowna      82) --------------   122) France Inter    162) SRF 1 Aargau     202)RNE Madrid           242) Popular de Bilbao" 
+   echo "2) NPR                 42) CBC 1 Kelowna      82) Euronews English 122) France Inter    162) SRF 1 Aargau     202)RNE Madrid           242) Popular de Bilbao" 
    echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  123) RFI Monde       163) SRF 1 Baselland  203)RNE Classica Madrid  243) Rioja Cadena "  
    echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  124) RFI Afrique     164) SRF 1 Bern       204)RNE 3 Madrid         244) RCM  "             
    echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  125) Africa no 1     165) SRF 1 Ostschweiz 205)RNE 4 Barcelona      245) RTVA Seville"  
@@ -189,9 +189,9 @@ channel_matrix()
    echo "35) WRFN-LP            75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
    echo "36) Liberty Radio      76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
    echo "37)1st Amendment Radio 77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
-   echo "38) ---------------    78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
-   echo "39) ---------------    79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
-   echo "40) ---------------    80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
+   echo "38) Al Jazeera Audio   78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
+   echo "39) RT America         79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
+   echo "40) RT English         80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
    echo "========================================================================================================================================================================"
 echo " " 
 }	
@@ -493,7 +493,19 @@ chan_name="Liberty Radio";;
 37) link=http://firstamendmentradio.net/64k.pls
 use_paylist="no"
 chan_name="First Amendment Radio";;
+# 38) Al Jazeera
+38) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
+use_paylist="no"
+chan_name="Al Jazeera";;
+# 39) RT America
+39) link=https://rt-usa-live-hls.secure.footprint.net/rt/usa/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT America";;
 
+# 40) RT 
+40) link=https://rt-eng-live-hls.secure.footprint.net/rt/eng/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT ";;
 
 #################### BROKEN
 # 25) World Radio Switzerland Geneva
@@ -678,6 +690,12 @@ chan_name="CBC Radio 1, Pacific BC";;
 81) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
 use_paylist="no"
 chan_name="CBC Radio 1, Eastern";;	
+##############################################################
+# 82) Euronews English
+82) link=http://fr-par-iphone-2.cdn.hexaglobe.net/streaming/euronews_ewns/5-live.m3u8 
+use_paylist="no"
+chan_name="Euronews";;	
+
 
 ########################################
 # 121) France Info
