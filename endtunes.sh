@@ -406,10 +406,39 @@ elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
+elif [ "$input" == "+" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "+++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "-" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == "--" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == " " ]
+then
+menstat="no"
+chan_state="return"
 else
 menstat="no"
 fi
 }
+
 
 # function for m,n,q channel matrix display
 menu_switch()
@@ -425,23 +454,40 @@ echo "Please Select a Number corresponding to an Internet Radio Stream, press m 
 esac
 }
 
-menu_status $num
+num=1
+
+menu_status $entry
+
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
 
 # get the menu selection status
 
 if [ "$menstat" == "no" ]
 then
- channel_select $num
+ channel_select "$num"
  echo "$chan_name"
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --no-video --cache="$cache_size" --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size"  --loop-playlist=inf --stream-lavf-o=timeout=10000000  --playlist="$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --no-video --cache="$cache_size"  "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
   
  menu_switch "$menu" 
  echo "You were watching "$chan_name" on Channel "$num" "
+ chan_state="normal"
  read entry
  else 
  menu_switch "$menu"
@@ -451,25 +497,39 @@ fi
 while [ "$entry" != q ]
 do
 menu_status $entry
+
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
 if [ "$menstat" == "no" ]
 then
-channel_select $entry
+channel_select "$num"
 echo "$chan_name"
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --no-video --cache="$cache_size" --playlist="$link" 
-  # clear the cookie
-  echo " " > "$cookie"
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --no-video --cache="$cache_size"  "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
   
 menu_switch "$menu"
-echo "You were watching "$chan_name" on Channel "$entry" "  
+echo "You were watching "$chan_name" on Channel "$num" "  
+chan_state="normal"
 read entry
 else 
 menu_switch "$menu"
+chan_state="normal"
 read entry
 fi
 done

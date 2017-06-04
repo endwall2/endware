@@ -154,7 +154,7 @@ channel_matrix()
    echo "==========================================================================================================================================================================="
    echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    121) France Info     161) SRF 1 Basel      201)Nacional d'Andorra   241) Nervión Bilbao  "    
    echo "2) NPR                 42) CBC 1 Kelowna      82) Euronews English 122) France Inter    162) SRF 1 Aargau     202)RNE Madrid           242) Popular de Bilbao" 
-   echo "3) MPR News            43) CBC 1 Prnc George  83) ---------------  123) RFI Monde       163) SRF 1 Baselland  203)RNE Classica Madrid  243) Rioja Cadena "  
+   echo "3) MPR News            43) CBC 1 Prnc George  83) RT UK            123) RFI Monde       163) SRF 1 Baselland  203)RNE Classica Madrid  243) Rioja Cadena "  
    echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  124) RFI Afrique     164) SRF 1 Bern       204)RNE 3 Madrid         244) RCM  "             
    echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  125) Africa no 1     165) SRF 1 Ostschweiz 205)RNE 4 Barcelona      245) RTVA Seville"  
    echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   126) Alta Frequenza  166) SRF 1 Zentralsch 206)RNE 5 Todo Noticias  246) RSI Uno Lugano "  
@@ -501,7 +501,6 @@ chan_name="Al Jazeera";;
 39) link=https://rt-usa-live-hls.secure.footprint.net/rt/usa/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT America";;
-
 # 40) RT 
 40) link=https://rt-eng-live-hls.secure.footprint.net/rt/eng/indexaudio.m3u8
 use_paylist="no"
@@ -695,7 +694,10 @@ chan_name="CBC Radio 1, Eastern";;
 82) link=http://fr-par-iphone-2.cdn.hexaglobe.net/streaming/euronews_ewns/5-live.m3u8 
 use_paylist="no"
 chan_name="Euronews";;	
-
+# 83) RT UK
+83) link=https://rt-usa-live-hls.secure.footprint.net/rt/uk/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT America";;
 
 ########################################
 # 121) France Info
@@ -1514,10 +1516,39 @@ elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
+elif [ "$input" == "+" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "+++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "-" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == "--" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == " " ]
+then
+menstat="no"
+chan_state="return"
 else
 menstat="no"
 fi
 }
+
 
 # function for m,n,q channel matrix display
 menu_switch()
@@ -1533,23 +1564,40 @@ echo "Please Select a Number corresponding to an Internet Radio Stream, press m 
 esac
 }
 
-menu_status $num
+num=1
+
+menu_status $entry
+
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
 
 # get the menu selection status
 
 if [ "$menstat" == "no" ]
 then
- channel_select $num
+ channel_select "$num"
  echo "$chan_name"
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i mpv --no-resume-playback --cache="$cache_size" --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size"  --loop-playlist=inf --stream-lavf-o=timeout=10000000  --playlist="$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i mpv --no-resume-playback --cache="$cache_size"  "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
   
  menu_switch "$menu" 
  echo "You were watching "$chan_name" on Channel "$num" "
+ chan_state="normal"
  read entry
  else 
  menu_switch "$menu"
@@ -1559,28 +1607,45 @@ fi
 while [ "$entry" != q ]
 do
 menu_status $entry
+
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
 if [ "$menstat" == "no" ]
 then
-channel_select $entry
+channel_select "$num"
 echo "$chan_name"
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --playlist="$link" 
-  # clear the cookie
-  echo " " > "$cookie"
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 torsocks -i  mpv --no-resume-playback --no-video --cache="$cache_size"  "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
   
 menu_switch "$menu"
-echo "You were watching "$chan_name" on Channel "$entry" "  
+echo "You were watching "$chan_name" on Channel "$num" "  
+chan_state="normal"
 read entry
 else 
 menu_switch "$menu"
+chan_state="normal"
 read entry
 fi
 done
+
+
+
 
 echo "Type endradio to open a new streaming session."
 

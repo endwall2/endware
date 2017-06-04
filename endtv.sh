@@ -1958,22 +1958,54 @@ esac
 # initialize menu value
 menu="m"
 
+
 # Function to check the menu status
 menu_status()
 {
 input=$1
-if [ $input == "q" ]
+if [ "$input" == "" ]
+then
+menstat="no"
+elif [ "$input" == "q" ]
 then
 menstat="yes"
 menu="q"
-elif [ $input == "n" ]
+elif [ "$input" == "n" ]
 then 
 menstat="yes"
 menu="n"
-elif [ $input == "m" ]
+elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
+elif [ "$input" == "+" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "+++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "++++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" == "-" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == "--" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == " " ]
+then
+menstat="no"
+chan_state="return"
 else
 menstat="no"
 fi
@@ -1993,42 +2025,90 @@ echo "Please Select a Number corresponding to a YouTube Live Stream, press m for
 esac
 }
 
+num=1
+
 # get the menu selection status
 menu_status $num
 
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
+# get the menu selection status
+
 if [ "$menstat" == "no" ]
 then
-channel_select $num
-echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
-# clear the cookie
-echo " " > "$cookie"
-menu_switch "$menu"
-echo "You were watching "$chan_name" on Channel "$num" "
-read entry
-else 
-menu_switch $menu
-read entry
+ channel_select "$num"
+ echo "$chan_name"
+  if [ "$use_cookies" == "yes" ]
+  then
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+  # clear the cookie
+  echo " " > "$cookie"
+  else
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen "$link" 
+  fi
+  
+ menu_switch "$menu" 
+ echo "You were watching "$chan_name" on Channel "$num" "
+ chan_state="normal"
+ read entry
+ else 
+ menu_switch "$menu"
+ read entry
 fi
 
 while [ "$entry" != q ]
 do
 menu_status $entry
+
+if [ "$chan_state" == "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" == "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" == "return" ]
+then
+num="$num"
+else 
+num="$entry"
+fi
+
 if [ "$menstat" == "no" ]
 then
-channel_select $entry
+channel_select "$num"
 echo "$chan_name"
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1 
-firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --noroot --seccomp --protocol=unix,inet,inet6 mpv --no-resume-playback --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cache="$cache_size" --cookies --cookies-file "$cookie" "$link" 
-# clear the cookie
-echo " " > "$cookie"
+  if [ "$use_cookies" == "yes" ]
+  then
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
+  # clear the cookie
+  echo " " > "$cookie"
+  menu_switch "$menu"
+  else
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen "$link" 
+  fi
+  
 menu_switch "$menu"
-echo "You were watching "$chan_name" on Channel "$entry" "
+echo "You were watching "$chan_name" on Channel "$num" "  
+chan_state="normal"
 read entry
 else 
 menu_switch "$menu"
+chan_state="normal"
 read entry
+
 fi
 done
 
