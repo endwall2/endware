@@ -297,38 +297,8 @@ do
  fi
 done
 
-if [ "$1" != "" ]
-then
-echo "$1"
-# take channel input from command line
-num="$1" 
-elif [ "$1" == "" ]
-then
-channel_matrix
-echo "Please Select a Number corresponding to a YouTube Live Stream or press n for next menu or q to quit:"
 
-############# DEFAULT SELECTION #######################
-# in case of non-numeric entry 
- link=https://www.youtube.com/watch?v=1Ydto3Iyzic 
- chan_name="France 24 English"
-#######################################################
-
-read num
-
-if [ "$num" == "q" ]
-then 
-echo "Type endstream to open a new stream."
-exit "$?"
-elif [ "$num" == "n" ]
-then
-channel_matrix_2
-echo "You were watching "$chan_name" on Channel "$num" "
-echo "Please Select a Number corresponding to a YouTube Live Stream:"
-echo "Select a new stream number, press m for the main menu, or press q to quit."
-read num
-fi
-
-fi
+###################### FUNCTIONS #######################################
 
 ## Channel Selection function  (ADD CHANNELS HERE)
 channel_select()
@@ -1955,10 +1925,6 @@ chan_name="The Noise Network" ;;
 esac
 }
 
-# initialize menu value
-menu="m"
-
-
 # Function to check the menu status
 menu_status()
 {
@@ -2025,10 +1991,39 @@ echo "Please Select a Number corresponding to a YouTube Live Stream, press m for
 esac
 }
 
-num=1
+#################################      MAIN PROGRAM         ###################################################
+
+# initialize menu value
+menu="m"
+
+if [ "$1" != "" ]
+then
+echo "$1"
+# take channel input from command line
+entry="$1" 
+elif [ "$1" == "" ]
+then
+channel_matrix
+echo "Please Select a Number corresponding to a YouTube Live Stream or press n for next menu or q to quit:"
+
+read entry
+
+if [ "$entry" == "q" ]
+then 
+echo "Type endstream to open a new stream."
+exit "$?"
+elif [ "$entry" == "" ]
+then
+entry=1
+num="$entry"
+fi
+
+fi
+
+num="$entry"
 
 # get the menu selection status
-menu_status $num
+menu_status $entry
 
 if [ "$chan_state" == "+" ]
 then
@@ -2111,7 +2106,6 @@ read entry
 
 fi
 done
-
 
 echo "Type endstream to open a new stream."
 

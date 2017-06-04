@@ -280,29 +280,7 @@ do
  fi
 done
 
-
-if [ "$1" != "" ]
-then
-echo "$1"
-# take channel input from command line
-num="$1" 
-elif [ "$1" == "" ]
-then
-channel_matrix
-echo "Please Select a Number corresponding to a Radio Stream:"
-
-read num
-
-if [ "$num" == "q" ]
-then 
-echo "Type endstream to open a new stream."
-exit "$?"
-elif [ "$num" == "" ]
-then
-num=1
-fi
-
-fi
+########################### FUNCTIONS ###########################################################
 
 ## Channel Selection function  (ADD CHANNELS HERE)
 channel_select()
@@ -379,13 +357,9 @@ chan_name="Colorado Public Radio Open Air";;
 use_playlist="no"
 chan_name="Abacus Beethoven";;
 
-
 esac
 
 }
-
-# initialize menu
-menu="m"
 
 # Function to check the menu status
 menu_status()
@@ -454,7 +428,34 @@ echo "Please Select a Number corresponding to an Internet Radio Stream, press m 
 esac
 }
 
-num=1
+##############################    MAIN PROGRAM      ######################################
+
+# initialize menu
+menu="m"
+
+if [ "$1" != "" ]
+then
+echo "$1"
+# take channel input from command line
+entry="$1" 
+elif [ "$1" == "" ]
+then
+channel_matrix
+echo "Please Select a Number corresponding to a Radio Stream:"
+
+read entry
+num="$entry"
+
+if [ "$entry" == "q" ]
+then 
+echo "Type endstream to open a new stream."
+exit "$?"
+elif [ "$entry" == "" ]
+then
+entry=1
+num="$entry"
+fi
+fi
 
 menu_status $entry
 
@@ -470,7 +471,6 @@ num="$num"
 else 
 num="$entry"
 fi
-
 
 # get the menu selection status
 
