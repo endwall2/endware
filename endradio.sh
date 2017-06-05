@@ -1476,6 +1476,7 @@ menu_status()
 input=$1
 if [ "$input" == "" ]
 then
+chan_state="return"
 menstat="no"
 elif [ "$input" == "q" ]
 then
@@ -1513,13 +1514,13 @@ elif [ "$input" == "--" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" == "" ]
+elif [ "$input" -lt 600 ]
 then
 menstat="no"
-chan_state="return"
+chan_state="numeric"
 else
 menstat="no"
-chan_state=="normal"
+chan_state="alpha"
 fi
 }
 
@@ -1531,9 +1532,9 @@ case "$input" in
 q) echo "Type endradio to restart program. Bye."
 exit "$?" ;;
 m) channel_matrix
-echo "Please Select a Number corresponding to an Internet Radio Stream, press n for the next menu, or press q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, n for the next menu, or q to quit:" ;;
 n) channel_matrix_2
-echo "Please Select a Number corresponding to an Internet Radio Stream, press m for the main menu, or press q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, m for the main menu, or q to quit:" ;;
 esac
 }
 
@@ -1578,8 +1579,11 @@ num=$(expr "$num" - 1 )
 elif [ "$chan_state" == "return" ]
 then
 num="$num"
-else 
+elif [ "$chan_state" == "numeric" ]
+then
 num="$entry"
+else 
+num="$num"
 fi
 
 # get the menu selection status
@@ -1587,7 +1591,7 @@ fi
 if [ "$menstat" == "no" ]
 then
  channel_select "$num"
- echo "$chan_name"
+ echo "$chan_name Channel $num"
   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size"  --loop-playlist=inf --stream-lavf-o=timeout=10000000  --playlist="$link" 
@@ -1617,14 +1621,17 @@ num=$(expr "$num" - 1 )
 elif [ "$chan_state" == "return" ]
 then
 num="$num"
-else 
+elif [ "$chan_state" == "numeric" ]
+then
 num="$entry"
+else 
+num="$num"
 fi
 
 if [ "$menstat" == "no" ]
 then
 channel_select "$num"
-echo "$chan_name"
+echo "$chan_name Channel $num"
   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
