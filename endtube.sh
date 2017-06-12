@@ -235,7 +235,7 @@ REFERERS="$HOME/bin/referers.txt"
 
 # min delay max delay time between downloads
 min_delay=30
-max_delay=450
+max_delay=630
 
 ## initial flag switch states
 enode="off"
@@ -443,8 +443,8 @@ then
    elif [ "$state" == "ranstr" ]
    then 
      # make a random string as the user agent 
-     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     bytes="$( expr 12 + $(head -c 32 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
    elif [ "$state" == "tor" ] 
    then
      UA="$UA_torbrowser" 
@@ -939,7 +939,7 @@ for link in $(cat "$list" ); do
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     UA="$( head -c 2 /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
    elif [ "$state" == "tor" ] 
    then
      UA="$UA_torbrowser" 
