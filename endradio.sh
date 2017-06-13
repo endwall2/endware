@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.06
-# Revision Date: June 7, 2017
+# Version: 0.07
+# Revision Date: June 13, 2017
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -136,8 +136,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.06"
-rev_date="07/06/2017"
+version="0.07"
+rev_date="13/06/2017"
 branch="gnu/linux"
 ##################################################
 chan_columns="$HOME/bin/radio.txt"
@@ -148,9 +148,18 @@ cache_size="4096"
 use_cookies="no"
 #change this to whatever path/file you what to use as your user agents file
 USERAGENTS=$HOME/bin/user_agents.txt 
+# define the current tor browser user agent
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+# define default headers
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+
+uamode="off"
+headmode="off"
 state="normal"
-uamode="normal"
-headmode="normal"
+
 
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
@@ -297,6 +306,34 @@ do
    headmode="off"
    shift  
    exit 0   
+   elif [ "$arg" == "--ua-rand" ]
+   then
+   uastate="rand"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-ranstr" ]
+   then
+   uastate="ranstr"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-tor" ]
+   then
+   uastate="tor"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-row1" ]
+   then
+   uastate="row1"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--no-agent" ]
+   then
+   uamode="off"
+   shift 
+   elif [ "$arg" == "--no-header" ]
+   then
+   headmode="off"
+   shift   
  fi
 done
 
@@ -352,11 +389,11 @@ chan_name="Infowars";;
 # 6)  BBC Radio 1
 6) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 1";;
+chan_name="BBC Radio 1";;
 # 7)  BBC Radio 2
 7) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 2";;
+chan_name="BBC Radio 2";;
 # 8)  BBC Radio 3
 8) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-aac-lc-a/format/pls/vpid/bbc_radio_three.pls
 use_playlist="no"
@@ -364,31 +401,31 @@ chan_name=" BBC Radio 3";;
 # 9)  BBC Radio 4
 9) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 4";;
+chan_name="BBC Radio 4";;
 # 10)  BBC Radio 5
 10) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 5";;
+chan_name="BBC Radio 5";;
 # 11)  BBC Radio 6
 11) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p
 use_playlist="no"
-chan_name=" BBC Radio 6";;
+chan_name="BBC Radio 6";;
 # 12)  BBC Radio 1 Extra
 12) link=http://www.bbc.co.uk/radio/listen/live/r1x_aaclca.pls
 use_playlist="no"
-chan_name=" BBC Radio 1 Extra";;
+chan_name="BBC Radio 1 Extra";;
 # 13)  BBC Radio 4 Extra
 13) link=http://www.bbc.co.uk/radio/listen/live/r4x_aaclca.pls
 use_playlist="no"
-chan_name=" BBC Radio 4 Extra";;
+chan_name="BBC Radio 4 Extra";;
 # 14)  BBC Radio 5 Live Sports Extra
 14) link=http://www.bbc.co.uk/radio/listen/live/r5lsp_aaclca.pls
 use_playlist="no"
-chan_name=" BBC Radio 5 Live Sports Extra";;
+chan_name="BBC Radio 5 Live Sports Extra";;
 # 15)  BBC Radio Asian Extra
 15) link=http://www.bbc.co.uk/radio/listen/live/ran_aaclca.pls
 use_playlist="no"
-chan_name=" BBC Radio Asian Extra";;
+chan_name="BBC Radio Asian Extra";;
 # 16) BBC World Service Backup
 16) link=http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk_backup
 use_paylist="no"
@@ -1153,7 +1190,6 @@ chan_name="Pulse Radio";;
 use_paylist="no"
 chan_name="Old Time Radio";;
 
-
 ############################################################################
 ###################### RUSSIAN #########################################
 # 321) Radio Mayak Moscow
@@ -1478,17 +1514,14 @@ chan_name="BBC Radio Wales";;
 521) link=http://ewtn.mp3.miisolutions.net/ewtnradioenglish/mp3
 use_paylist="no"
 chan_name="EWTN 1";;
-
 # 522) EWTN Classic 
 522) link=http://ewtn.mp3.miisolutions.net/ewtnradioplus/mp3
 use_paylist="no"
 chan_name="EWTN Classic";;
-
 # 523) EWTN Spanish
 523) link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
 use_paylist="no"
 chan_name="EWTN Classic";;
-
 
 esac
 
@@ -1514,6 +1547,36 @@ elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
+elif [ "$input" == "ua-tor" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="tor"
+uamode="on"
+elif [ "$input" == "ua-row1" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="row1"
+uamode="on"
+elif [ "$input" == "ua-rand" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="rand"
+uamode="on"
+elif [ "$input" == "ua-ranstr" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="ranstr"
+uamode="on"
+elif [ "$input" == "ua-off" ]
+then
+menstat="yes"
+menu="$menu"qq
+uastate="off"
+uamode="off"
 elif [ "$input" == "+" ]
 then
 menstat="no"
@@ -1567,17 +1630,30 @@ esac
 # initialize menu
 menu="m"
 method="normal"
-HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-HEAD2="Accept-Language: en-US,en;q=0.5"
-HEAD3="Accept-Encoding: gzip, deflate"
-HEAD4="Connection: keep-alive"
-if [ "$state" == "rand" ]
-then
-#select random user agent
-UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )  
-else 
-UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
-fi
+
+
+### Select the user agent
+ if [ "$uamode" == "on" ]
+ then
+   if [ "$uastate" == "rand" ]
+   then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+   elif [ "$uastate" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$uastate" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$uastate" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=""
+   fi 
+ fi
 
 
 if [ "$1" != "" ]
@@ -1604,7 +1680,6 @@ num="$entry"
 fi
 fi
 
-
 menu_status $entry
 
 if [ "$chan_state" == "+" ]
@@ -1629,22 +1704,54 @@ if [ "$menstat" == "no" ]
 then
  channel_select "$num"
  echo "$chan_name Channel $num"
+ 
+ 
+ if [ "$uamode" == "on" ]
+  then 
+  echo "$UA"
+
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size"  --loop-playlist=inf --stream-lavf-o=timeout=10000000  --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
+     echo "wait for a couple of seconds for more data to load and then try the station again"
+     sleep 5
+     else
+     torsocks wget --user-agent="$UA" --header="$HEAD1" --header=--"$HEAD2" --header="$HEAD3" --header=="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
+     echo "wait for a couple of seconds and try the station again"
+     sleep 5
+     fi 
+  else
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  fi
+  
+ else
+ 
+   if [ "$use_playlist" == "yes" ]
+  then
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  menu_switch "$menu"
+  elif [ "$method" == "stream_dump" ]
+  then
+     if  [ -s "$pidstore" ]
+     then
+     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
+     echo "wait for a couple of seconds for more data to load and then try the station again"
+     sleep 5
      else
      torsocks wget -b -q -O "$stream_dump" "$link" 1> "$pidstore"
-     echo "wait for a couple of seconds for more data to load and then try the station again"
+     echo "wait for a couple of seconds and try the station again"
      sleep 5
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
+ fi
 
 if [ "$method" == "$stream_dump" ]
 then
@@ -1667,6 +1774,30 @@ fi
 
 while [ "$entry" != q ]
 do
+
+### Select the user agent
+ if [ "$uamode" == "on" ]
+ then
+   if [ "$uastate" == "rand" ]
+   then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+   elif [ "$uastate" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$uastate" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$uastate" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=""
+   fi 
+ fi
+
 menu_status $entry
 
 if [ "$chan_state" == "+" ]
@@ -1689,7 +1820,35 @@ if [ "$menstat" == "no" ]
 then
 channel_select "$num"
 echo "$chan_name Channel $num"
+
+
+ if [ "$uamode" == "on" ]
+  then 
+  echo "$UA"
+
   if [ "$use_playlist" == "yes" ]
+  then
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  menu_switch "$menu"
+  elif [ "$method" == "stream_dump" ]
+  then
+     if  [ -s "$pidstore" ]
+     then
+     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
+     echo "wait for a couple of seconds for more data to load and then try the station again"
+     sleep 3
+     else
+     torsocks wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
+     echo "wait for a couple of seconds and try the station again"
+     sleep 3
+     fi 
+  else
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  fi
+  
+ else
+ 
+   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
@@ -1699,16 +1858,17 @@ echo "$chan_name Channel $num"
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 5
+     sleep 3
      else
      torsocks wget -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
-     sleep 5
+     sleep 3
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
   fi
-
+   
+ fi
   
 menu_switch "$menu"
 echo "You were watching "$chan_name" on Channel "$num" "  
@@ -1719,6 +1879,7 @@ else
 menu_switch "$menu"
 chan_state="normal"
 method="normal"
+menstat="no"
 read entry
 fi
 done

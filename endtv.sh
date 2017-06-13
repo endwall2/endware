@@ -7,7 +7,7 @@
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
 # Version: 0.05
-# Revision Date: May 1, 2017
+# Revision Date: June 13, 2017
 #
 # Change Log:  - Stay on previously selected menu after video finishes
 #              - proper implimentation of channel switching while loop
@@ -154,17 +154,27 @@
 
 ###############  VERSION INFORMATION  ##############
 version="0.05"
-rev_date="01/05/2017"
+rev_date="13/06/2017"
 branch="gnu/linux"
 ##################################################
-
-chan_columns="$HOME/bin/streams.txt"
+USERAGENTS="$HOME/bin/user_agents.txt"
+chan_columns="$HOME/bin/tv.txt"
 cookie="$HOME/bin/cookies.txt" 
 cache_size=4096
-
+# define the current tor browser user agent
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+# define default headers
+HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+HEAD2="Accept-Language: en-US,en;q=0.5"
+HEAD3="Accept-Encoding: gzip, deflate"
+HEAD4="Connection: keep-alive"
+HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
+uamode="off"
+headmode="off"
 entry="null"
 # clear cookie
 echo " " > "$cookie"
+
 
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
@@ -293,7 +303,35 @@ do
    elif [ "$arg" == "--list-all" ]
    then
    more "$chan_columns"
-   exit 0   
+   exit 0  
+   elif [ "$arg" == "--ua-rand" ]
+   then
+   uastate="rand"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-ranstr" ]
+   then
+   uastate="ranstr"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-tor" ]
+   then
+   uastate="tor"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--ua-row1" ]
+   then
+   uastate="row1"
+   uamode="on"
+   shift
+   elif [ "$arg" == "--no-agent" ]
+   then
+   uamode="off"
+   shift 
+   elif [ "$arg" == "--no-header" ]
+   then
+   headmode="off"
+   shift    
  fi
 done
 
@@ -1945,6 +1983,36 @@ elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
+elif [ "$input" == "ua-tor" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="tor"
+uamode="on"
+elif [ "$input" == "ua-row1" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="row1"
+uamode="on"
+elif [ "$input" == "ua-rand" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="rand"
+uamode="on"
+elif [ "$input" == "ua-ranstr" ]
+then
+menstat="yes"
+menu="$menu"
+uastate="ranstr"
+uamode="on"
+elif [ "$input" == "ua-off" ]
+then
+menstat="yes"
+menu="$menu"qq
+uastate="off"
+uamode="off"
 elif [ "$input" == "+" ]
 then
 menstat="no"
@@ -1969,7 +2037,7 @@ elif [ "$input" == "--" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" -lt 600 ]
+elif [ "$input" -lt 700 ]
 then
 menstat="no"
 chan_state="numeric"
@@ -1995,8 +2063,31 @@ esac
 
 #################################      MAIN PROGRAM         ###################################################
 
+### Select the user agent
+if [ "$uamode" == "on" ]
+ then
+   if [ "$uastate" == "rand" ]
+   then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+   elif [ "$uastate" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$uastate" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$uastate" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=""
+   fi 
+ fi
 # initialize menu value
 menu="m"
+format="best"
 
 if [ "$1" != "" ]
 then
@@ -2009,6 +2100,7 @@ channel_matrix
 echo "Please Select a Number corresponding to a YouTube Live Stream or press n for next menu or q to quit:"
 
 read entry
+num="$entry"
 
 if [ "$entry" == "q" ]
 then 
@@ -2017,7 +2109,7 @@ exit "$?"
 elif [ "$entry" == "" ]
 then
 entry=1
-num="$entry"
+num=1
 fi
 
 fi
@@ -2049,27 +2141,70 @@ if [ "$menstat" == "no" ]
 then
  channel_select "$num"
  echo "$chan_name Channel $num"
-  if [ "$use_cookies" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
-  # clear the cookie
-  echo " " > "$cookie"
+  if [ "$uamode" == "on" ]
+  then 
+  echo "$UA"
+   
+    if [ "$use_cookies" == "yes" ]
+    then
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    else
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    fi
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen "$link" 
+   
+    if [ "$use_cookies" == "yes" ]
+    then
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    else
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    fi
+     
   fi
-  
  menu_switch "$menu" 
  echo "You were watching "$chan_name" on Channel "$num" "
  chan_state="normal"
+ menstat="no"
  read entry
  else 
  menu_switch "$menu"
+ chan_state="normal"
+ menstat="no"
  read entry
 fi
 
 while [ "$entry" != q ]
 do
+### Select the user agent
+if [ "$uamode" == "on" ]
+ then
+   if [ "$uastate" == "rand" ]
+   then 
+    # pick a random user agent
+    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
+   elif [ "$uastate" == "ranstr" ]
+   then 
+     # make a random string as the user agent 
+     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+   elif [ "$uastate" == "tor" ] 
+   then
+     UA="$UA_torbrowser" 
+   elif [ "$uastate" == "row1" ] 
+   then
+     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
+   else 
+     UA=""
+   fi 
+ fi
+
+
 menu_status $entry
 
 if [ "$chan_state" == "+" ]
@@ -2092,17 +2227,32 @@ if [ "$menstat" == "no" ]
 then
 channel_select "$num"
 echo "$chan_name Channel $num"
-  if [ "$use_cookies" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies --cookies-file "$cookie" "$link" 
-  # clear the cookie
-  echo " " > "$cookie"
-  menu_switch "$menu"
+  if [ "$uamode" == "on" ]
+  then 
+  echo "$UA"
+   
+    if [ "$use_cookies" == "yes" ]
+    then
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    else
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    fi
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --cache="$cache_size" --fullscreen "$link" 
+   
+    if [ "$use_cookies" == "yes" ]
+    then
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    else
+    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    fi
+     
   fi
-  
 menu_switch "$menu"
 echo "You were watching "$chan_name" on Channel "$num" "  
 chan_state="normal"
@@ -2110,6 +2260,7 @@ read entry
 else 
 menu_switch "$menu"
 chan_state="normal"
+menstat="no"
 read entry
 
 fi
