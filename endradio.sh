@@ -149,7 +149,7 @@ use_cookies="no"
 #change this to whatever path/file you what to use as your user agents file
 USERAGENTS=$HOME/bin/user_agents.txt 
 # define the current tor browser user agent
-UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
 # define default headers
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 HEAD2="Accept-Language: en-US,en;q=0.5"

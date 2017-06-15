@@ -148,7 +148,7 @@ cookie="$HOME/bin/cookies.txt"
 cache_size="4096"
 use_cookies="no"
 # define the current tor browser user agent
-UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
 # define default headers
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 HEAD2="Accept-Language: en-US,en;q=0.5"
@@ -489,7 +489,7 @@ menu_switch()
 {
 input=$1
 case "$input" in
-q) echo "Type endradio to restart program. Bye."
+q) echo "Type endtunes to restart program. Bye."
 exit "$?" ;;
 m) channel_matrix
 echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, n for the next menu, or q to quit:" ;;
@@ -539,7 +539,7 @@ num="$entry"
 
 if [ "$entry" == "q" ]
 then 
-echo "Type endstream to open a new stream."
+echo "Type endtunes to open a new stream."
 exit "$?"
 elif [ "$entry" == "" ]
 then
@@ -691,7 +691,7 @@ read entry
 fi
 done
 
-echo "Type endradio to open a new streaming session."
+echo "Type endtunes to open a new streaming session."
 
 if [ -e "$cookie" ]
 then

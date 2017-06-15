@@ -162,7 +162,7 @@ chan_columns="$HOME/bin/tv.txt"
 cookie="$HOME/bin/cookies.txt" 
 cache_size=4096
 # define the current tor browser user agent
-UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
 # define default headers
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 HEAD2="Accept-Language: en-US,en;q=0.5"
@@ -2104,7 +2104,7 @@ num="$entry"
 
 if [ "$entry" == "q" ]
 then 
-echo "Type endstream to open a new stream."
+echo "Type endtv to open a new stream."
 exit "$?"
 elif [ "$entry" == "" ]
 then
@@ -2266,7 +2266,7 @@ read entry
 fi
 done
 
-echo "Type endstream to open a new stream."
+echo "Type endtv to open a new stream."
 
 if [ -e "$cookie" ]
 then
