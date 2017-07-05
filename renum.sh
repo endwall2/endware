@@ -5,7 +5,7 @@
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.06
+# VERSION: 0.07
 # REVISION DATE: JUL 5, 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
@@ -146,28 +146,69 @@
 
 #################### BEGINNING OF PROGRAM ###########################
 
-# archive all the files in the directory
-tar -rvf backup.tar *
-mkdir -p renum
+################### VERSION INFORMATION #################
+version="0.07"
+rev_date="05/07/2017"
+branch="gnu/linux"
+############################################
+name_style="number"
+sort_style="alpha"
+
+for arg in "$@"
+do
+ if [ "$arg" == "--help" ]
+ then
+   echo "RENUM: rename randomly named picture files to numbers or string filenames and backup original files"
+   echo ""
+   echo "USAGE:"
+   echo "$ renum --help       # usage messages"
+   echo "$ renum --version    # print version information"
+   echo "$ renum --rand       # randomize files before rename"
+   echo "$ renum --md5str     # use md5sum string for rename"
+   echo "$ renum --ranstr     # use random string for rename"
+   echo "$ renum              # default to numbers as filenames in alphabetic sort"
+   shift
+   exit 0
+   elif [ "$arg" == "--version" ]
+   then
+   echo "RENUM: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
+   echo "Copyright: The Endware Development Team, 2016"
+   shift
+   exit 0
+   elif [ "$arg" == --rand ]
+   then
+   sort_style="rand" 
+   shift
+   elif [ "$arg" == --md5str ]
+   then
+   name_style="md5str"
+   shift
+   elif [ "$arg" == --ranstr ]
+   then
+   name_style="ranstr"
+   shift
+ fi  
+done 
 
 # switch -r for random file sequential renumbering
-if [ "$1" == "-r" ] ;
+if [ "$sort_style" == "rand" ] ;
 then
 # randomly sort a list of the directory files into a temp file
-ls  | sort -R > filelist.txt
+ls  | sort -R | sort -R | sort -R > filelist.txt
 else
 # regular listing in the same name sequential order
 ls  > filelist.txt
 fi 
 
-# Add the file list to the tar backup
-tar -rvf backup.tar filelist.txt 
+# make a directory to store renamed files
+mkdir -p renum
 
 # initialize index
 index=0
 IFS=$'\n' 
 # main loop
-for file in $(cat filelist.txt); do
+for file in $(cat filelist.txt)
+do
 
 # get the root and extention of the file
 rt=$( echo "$file" | cut -d . -f 1)
@@ -192,49 +233,67 @@ elif [ "$ext" == "JPEG" ]
 elif [ "$ext" == "JPG" ]
  then 
  ext=jpg
+elif [ "$ext" == "jpg" ]
+ then 
+ ext=jpg
 elif [ "$ext" == "GIF" ]
  then 
  ext=gif
+elif [ "$ext" == "gif" ]
+ then 
+ ext=gif 
 elif [ "$ext" == "TIFF" ]
  then 
  ext=tif
+elif [ "$ext" == "tif" ]
+ then 
+ ext=tif 
 elif [ "$ext" == "BMP" ]
  then 
  ext=bmp
+elif [ "$ext" == "bmp" ]
+ then 
+ ext=bmp 
 elif [ "$ext" == "PNG" ]
  then 
  ext=png
+elif [ "$ext" == "png" ]
+ then 
+ ext=png
+else
+ ext="$ext"
 fi
 
-# Relabel index to 6 digit number
-if [ "$index" -lt 10 ]
- then
- filenum=0000000"$index"
-elif [ "$index" -lt 100 ]
- then 
- filenum=000000"$index"
-elif [ "$index" -lt 1000 ]
- then 
- filenum=00000"$index"
-elif [ "$index" -lt 10000 ]
- then 
- filenum=0000"$index"
-elif [ "$index" -lt 100000 ]
- then 
- filenum=000"$index"
-elif [ "$index" -lt 1000000 ]
- then 
- filenum=00"$index"
-elif [ "$index" -lt 10000000 ]
- then 
- filenum=0"$index"
-elif [ "$index" -ge 10000000 ]
- then
- filenum="$index"
+if [ $name_style == "number" ]
+then
+ # Relabel index to 6 digit number
+  if [ "$index" -lt 10 ]
+   then
+   filenum=0000000"$index"
+  elif [ "$index" -lt 100 ]
+   then 
+   filenum=000000"$index"
+  elif [ "$index" -lt 1000 ]
+   then 
+   filenum=00000"$index"
+  elif [ "$index" -lt 10000 ]
+   then 
+   filenum=0000"$index"
+  elif [ "$index" -lt 100000 ]
+   then 
+   filenum=000"$index"
+  elif [ "$index" -lt 1000000 ]
+   then 
+   filenum=00"$index"
+  elif [ "$index" -lt 10000000 ]
+   then 
+   filenum=0"$index"
+  elif [ "$index" -ge 10000000 ]
+   then
+   filenum="$index"
+   fi
 fi
-
-# rename the file by file number if not the list or the backup
-
+# skip renaming the list or the backups or hash lists
 if [ "$file" == "filelist.txt"  ]
  then  
  echo "Skipping $file" 
@@ -242,6 +301,9 @@ elif [ "$file" == "concordance.txt"  ]
  then  
  echo "Skipping $file" 
 elif [ "$file" == "backup.tar" ]
+ then 
+ echo "Skipping $file" 
+elif [ "$file" == "backup.tar.gz" ]
  then 
  echo "Skipping $file" 
 elif [ "$file" == "sha256.txt" ]
@@ -260,23 +322,67 @@ elif [ "$file" == "renum" ]
  then
  echo "Skipping $file" 
 else
+ if [ "$name_style" == "md5str" ] 
+ then
+  md5var=$( md5sum "$file" | awk '{print $1}' )
+  sha256var=$(sha256sum "$file" | awk '{print $1}')
+  filename=""
+  while [ "$filename" == "" ]
+  do
+  filename="$( echo "$md5var" | base64 -i | cut -d = -f 1 )"
+  done
+  filename="$index$filename$index"
+  echo "Renaming file: "$file"  to "$filename.$ext" "
+  echo "$md5var" " $file" >> md5.txt 
+  echo "$sha256var" " $file" >> sha256.txt
+  cp -n "$file" renum/"$filename.$ext"       
+  echo "$sha256var" " $filename.$ext" >> renum/sha256_renum.txt
+  echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
+  echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
+  index=$(expr "$index" + 1)    
+ elif [ "$name_style" == "ranstr" ] 
+ then
+  md5var=$( md5sum "$file" | awk '{print $1}' )
+  sha256var=$(sha256sum "$file" | awk '{print $1}')
+  # make a random string for the name
+  bytes=$( expr 18 + $RANDOM  % 48  )
+  filename=""
+  while [ "$filename" == "" ]
+  do
+  filename="$( head -c "$bytes" /dev/urandom | base64 -i |  cut -d \/ -f 1  | cut -f 1 | tr -d "=+-@" | awk '{print $1}')"
+  done
+  filename="$index$filename$index"
+  echo "Renaming file: "$file"  to "$filename.$ext" "
+  echo "$md5var" " $file" >> md5.txt 
+  echo "$sha256var" " $file" >> sha256.txt
+  cp -n "$file" renum/"$filename.$ext"       
+  echo "$sha256var" " $filename.$ext" >> renum/sha256_renum.txt
+  echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
+  echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
+  index=$(expr "$index" + 1)    
+ else
   echo "Renaming file: "$file"  to "$filenum.$ext" "
+  md5var=$( md5sum "$file" | awk '{print $1}' )
+  sha256var=$(sha256sum "$file" | awk '{print $1}')
   cp -n "$file" renum/"$filenum.$ext"
-  sha256sum "$file" >> sha256.txt   
-  md5sum "$file" >> md5.txt   
-  sha256sum renum/"$filenum.$ext" >> renum/sha256_renum.txt
-  md5sum renum/"$filenum.$ext" >> renum/md5_renum.txt
-  echo ""$file" ->  "$filenum.$ext" " >> renum/concordance.txt   
-  index=$(expr "$index" + 1) 
+  echo "$md5var" " $file" >> md5.txt   
+  echo "$sha256var" " $file" >> sha256.txt   
+  echo "$sha256var" " $filename.$ext" >> renum/sha256_renum.txt
+  echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
+  echo ""$file" ->  "$filenum.$ext" " >> renum/concordance.txt  
+  index=$(expr "$index" + 1)  
+ fi 
+
 fi
 
 done
 
-# clean up
-tar -rvf backup.tar sha256.txt md5.txt 
-echo "Added to backup.tar" 
-# compress the data / zip it
-gzip backup.tar
+# archive and zip all files 
+tar -rvf backup.tar *.*
+echo "Added to backup.tar"
+# zip the files
+gzip backup.tar 
+## clean up
 ## comment out to not remove these files  
 rm filelist.txt
 rm sha256.txt 
