@@ -5,8 +5,8 @@
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.05
-# REVISION DATE: JUL 20, 2016
+# VERSION: 0.06
+# REVISION DATE: JUL 5, 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG: - Fixed a bug with for loop read in blank spaces as 1 line 
@@ -39,21 +39,19 @@
 #
 ##################################################################################################
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -211,20 +209,26 @@ fi
 # Relabel index to 6 digit number
 if [ "$index" -lt 10 ]
  then
- filenum=00000"$index"
+ filenum=0000000"$index"
 elif [ "$index" -lt 100 ]
  then 
- filenum=0000"$index"
+ filenum=000000"$index"
 elif [ "$index" -lt 1000 ]
  then 
- filenum=000"$index"
+ filenum=00000"$index"
 elif [ "$index" -lt 10000 ]
  then 
- filenum=00"$index"
+ filenum=0000"$index"
 elif [ "$index" -lt 100000 ]
  then 
+ filenum=000"$index"
+elif [ "$index" -lt 1000000 ]
+ then 
+ filenum=00"$index"
+elif [ "$index" -lt 10000000 ]
+ then 
  filenum=0"$index"
-elif [ "$index" -ge 100000 ]
+elif [ "$index" -ge 10000000 ]
  then
  filenum="$index"
 fi
@@ -284,4 +288,4 @@ echo "If any files have been lost, unpack the archive to restore"
 
 exit "$?"
 
-################################# END OF PROGRAM  ##################################################
+################################# END OF PROGRAM  ################################################
