@@ -331,7 +331,7 @@ else
   do
   filename="$( echo "$md5var" | base64 -i | cut -d = -f 1 )"
   done
-  filename="$index$filename$index"
+  filename="$index$filename"
   echo "Renaming file: "$file"  to "$filename.$ext" "
   echo "$md5var" " $file" >> md5.txt 
   echo "$sha256var" " $file" >> sha256.txt
@@ -349,7 +349,7 @@ else
   filename=""
   while [ "$filename" == "" ]
   do
-  filename="$( head -c "$bytes" /dev/urandom | base64 -i |  cut -d \/ -f 1  | cut -f 1 | tr -d "=+-@" | awk '{print $1}')"
+  filename="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')"
   done
   filename="$index$filename$index"
   echo "Renaming file: "$file"  to "$filename.$ext" "
