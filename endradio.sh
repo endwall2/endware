@@ -61,21 +61,22 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.14
-#  VERSION DATE: FEBRUARY 11, 2017
+#  VERSION: 1.15
+#  VERSION DATE: JULY 05, 2017
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator, senator, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
-#  1) d) This program may be used by any human being of any sex or gender, including men, women, and any other gender not mentioned.       
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer 
+#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
@@ -133,6 +134,8 @@
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
+
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
@@ -164,99 +167,99 @@ state="normal"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
 {
-   echo "==================================================================      ENDRADIO "$version"   ========================================================================="
-   echo "||        NEWS         ||      CBC Canada     ||                   ||       French      ||       German       ||     Spanish         ||    Spanish / Italian   ||"
-   echo "================================================================================================================================================================"
-   echo "1) BBC World Service   41) CBC 1 Kamloops     81) CBC 2 Eastern    121) France Info     161) SRF 1 Basel      201)Nacional d'Andorra   241) Nervión Bilbao  "    
-   echo "2) NPR                 42) CBC 1 Kelowna      82) Euronews English 122) France Inter    162) SRF 1 Aargau     202)RNE Madrid           242) Popular de Bilbao" 
-   echo "3) MPR News            43) CBC 1 Prnc George  83) RT UK            123) RFI Monde       163) SRF 1 Baselland  203)RNE Classica Madrid  243) Rioja Cadena "  
-   echo "4) WKSU News           44) CBC 1 Vancouver    84) ---------------  124) RFI Afrique     164) SRF 1 Bern       204)RNE 3 Madrid         244) RCM  "             
-   echo "5) Infowars            45) CBC 1 Victoria     85) ---------------  125) Africa no 1     165) SRF 1 Ostschweiz 205)RNE 4 Barcelona      245) RTVA Seville"  
-   echo "6) BBC Radio 1         46) CBC 1 Whitehorse   86) --------------   126) Alta Frequenza  166) SRF 1 Zentralsch 206)RNE 5 Todo Noticias  246) RSI Uno Lugano "  
-   echo "7) BBC Radio 2         47) CBC 1 Calgary      87) --------------   127) BFM Paris       167) SRF 1 Zürich     207)ABC Punto            247) RSI Due Lugano "
-   echo "8) BBC Radio 3         48) CBC 1 Edmonton     88) --------------   128) Europe 1        168) SRF 2 Kultur     208)Aragón Radio         248) RSI Tre Lugano"
-   echo "9) BBC Radio 4         49) CBC 1 Regina       89) ---------------  129) Kernews         169) SRF 3            209)Cadena Barcelona     249) ---------------"
-   echo "10) BBC Radio 5        50) CBC 1 Saskatoon    90) ---------------  130) Radio Ici       170) SRF 4 News       210)Cadena Bilbao        250) ---------------"
-   echo "11) BBC Radio 6        51) CBC 1 Winnipeg     91) ---------------  131) Première Chaîne 171) SRF Virus        211)Cadena Sevilla       251) ---------------"
-   echo "12) BBC Radio 1 Extra  52) CBC 1 Iqaluit      92) ---------------  132) Espace Musique  172) SRF Musikwelle   212)Cadena Badajoz       252) --------------- "
-   echo "13) BBC Radio 4 Extra  53) CBC 1 Kitchener    93) ---------------  133) RDI Montreal    173) Argovia Aarau    213)Cadena Valencia      253) ---------------"
-   echo "14) BBC Radio Sports   54) CBC 1 London       94) ---------------  134) Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca      254) ---------------"
-   echo "15) BBC Radio Asian    55) CBC 1 Ottawa       95) ---------------  135) DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla       255) ---------------"  
-   echo "16) BBC World Service  56) CBC 1 Sudbury      96) --------------   136) RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia        256) ---------------"
-   echo "17) RTE Dublin         57) CBC 1 Thunder Bay  97) ---------------  137) RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona      257) ---------------  "
-   echo "18) RTE Extra Dublin   58) CBC 1 Toronto      98) ---------------  138) RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife      258) --------------- "	
-   echo "19) 106-108 Talk Dublin59) CBC 1 Windsor      99) ---------------  139) RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza      259) --------------- "
-   echo "20) BFBS UK            60) CBC 1 Montreal     100) --------------  140) RSR Option      180)hr-info Frankfurt 220)Cadena Santander     260) ---------------"  
-   echo "21) LBC 1152 AM London 61) CBC 1 Nord Quebec  101) --------------  141) RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo        261) --------------- "
-   echo "22) LBC 97.3 FM London 62) CBC 1 Quebec City  102) --------------  142) --------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid    262) ---------------"       
-   echo "23) Isles FM Stornoway 63) CBC 1 Fredericton  103) --------------  143) --------------- 183)MDR 1 Erfurt      223)Cadena Ceuta         263) ---------------"  
-   echo "24) CPR News Colorado  64) CBC 1 Moncton      104) --------------  144) --------------- 184)MDR AKTUELL       224)Catalunya Barcelona  264) --------------- "
-   echo "25) Jupiter Broadcast  65) CBC 1 Saint John   105) --------------  145) --------------- 185)MDR KULTUR        225)Catalunya Informació 265) --------------- " 
-   echo "26) Genesis GCN        66) CBC 1 Charlottetown106) --------------  146) --------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona  266) ---------------"
-   echo "27) Republic RBN       67) CBC 1 Cape Breton  107) --------------  147) --------------- 187)NDR 1 Hannover    227)COPE Cantabria       267) --------------- "
-   echo "28) 24/7 World Radio   68) CBC 1 Halifax      108) --------------  148) --------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote   268) ---------------"
-   echo "29) KPFK               69) CBC 1 Corner Brook 109) --------------  149) --------------- 189)NDR 1 Flensburg   229)esRadio Madrid       269) --------------- "
-   echo "30) KPFT               70) CBC 1 Grand Falls  110) --------------  150) --------------- 190)NDR Kultur        230)esRadio Guadalajara  270) ---------------  "    
-   echo "31) KPFT 2             71) CBC 1 Labrador     111) --------------  151) --------------- 191)NDR Info          231)Onda Cero Madrid     271) --------------- "
-   echo "32) WPFW               72) CBC 1 St. Johns    112) --------------  152) --------------- 192)NDR INDR          232)Onda Cero Noroeste   272) ---------------"
-   echo "33) WRYR-LP            73) CBC 1 Inuvik       113) -------------   153) --------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao    273) --------------- " 
-   echo "34) WXOJ-LP            74) CBC 1 Yellowknife  114) -------------   154) --------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona      274) --------------- "  
-   echo "35) WRFN-LP            75) CBC 2 Halifax      115) -------------   155) --------------- 195)SWR RP Mainz      235)Radio Asturias       275) --------------- "
-   echo "36) Liberty Radio      76) CBC 2 Toronto      116) --------------  156) --------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo         276) ---------------  "
-   echo "37)1st Amendment Radio 77) CBC 2 Winnipeg     117) -------------   157) --------------- 197)SWR2 Stuttgart    237)Galega Santiago      277) --------------- "
-   echo "38) Al Jazeera Audio   78) CBC 2 Edmonton     118) -------------   158) --------------- 198)WDR5 Cologne      238)Galega Música        278) ---------------"	
-   echo "39) RT America         79) CBC 2 Vancouver    119) ------------    159) --------------- 199)Wüste Welle       239)Marca Barcelona      279) --------------- "
-   echo "40) RT English         80) CBC 2 Pacific      120) -------------   160)---------------  200) ---------------  240)Menorca Mahón        280) --------------- "
-   echo "==============================================================================================================================================================="
+   echo "===============================================================     ENDRADIO "$version"   ========================================================================"
+   echo "||        NEWS       ||      CBC Canada    ||                ||       French      ||       German       ||       Spanish       ||    Spanish / Italian  ||"
+   echo "============================================================================================================================================================"
+   echo "1)BBC World Service   41)CBC 1 Kamloops     81)CBC 2 Eastern   121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
+   echo "2)NPR                 42)CBC 1 Kelowna      82)Euronews English122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
+   echo "3)MPR News            43)CBC 1 Prnc George  83)RT UK           123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
+   echo "4)WKSU News           44)CBC 1 Vancouver    84)France 24       124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
+   echo "5)Infowars            45)CBC 1 Victoria     85)--------------- 125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
+   echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)--------------  126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
+   echo "7)BBC Radio 2         47)CBC 1 Calgary      87)--------------  127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
+   echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)--------------  128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
+   echo "9)BBC Radio 4         49)CBC 1 Regina       89)--------------- 129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
+   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)--------------- 130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
+   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)--------------- 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
+   echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)--------------- 132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
+   echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)--------------- 133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
+   echo "14)BBC Radio Sports   54)CBC 1 London       94)--------------- 134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
+   echo "15)BBC Radio Asian    55)CBC 1 Ottawa       95)--------------- 135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
+   echo "16)BBC World Service  56)CBC 1 Sudbury      96)--------------  136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
+   echo "17)RTE Dublin         57)CBC 1 Thunder Bay  97)--------------- 137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
+   echo "18)RTE Extra Dublin   58)CBC 1 Toronto      98)--------------- 138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
+   echo "19)106-108 Talk Dublin59)CBC 1 Windsor      99)--------------- 139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
+   echo "20)BFBS UK            60)CBC 1 Montreal     100)-------------- 140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
+   echo "21)LBC 1152 AM London 61)CBC 1 Nord Quebec  101)-------------- 141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
+   echo "22)LBC 97.3 FM London 62)CBC 1 Quebec City  102)-------------- 142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
+   echo "23)Isles FM Stornoway 63)CBC 1 Fredericton  103)-------------- 143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
+   echo "24)CPR News Colorado  64)CBC 1 Moncton      104)-------------- 144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
+   echo "25)Jupiter Broadcast  65)CBC 1 Saint John   105)-------------- 145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
+   echo "26)Genesis GCN        66)CBC 1 Charlottetown106)-------------- 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"
+   echo "27)Republic RBN       67)CBC 1 Cape Breton  107)-------------- 147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
+   echo "28)24/7 World Radio   68)CBC 1 Halifax      108)-------------- 148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
+   echo "29)KPFK               69)CBC 1 Corner Brook 109)-------------- 149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
+   echo "30)KPFT               70)CBC 1 Grand Falls  110)-------------- 150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
+   echo "31)KPFT 2             71)CBC 1 Labrador     111)-------------- 151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
+   echo "32)WPFW               72)CBC 1 St. Johns    112)-------------- 152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
+   echo "33)WRYR-LP            73)CBC 1 Inuvik       113)-------------  153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
+   echo "34)WXOJ-LP            74)CBC 1 Yellowknife  114)-------------  154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
+   echo "35)WRFN-LP            75)CBC 2 Halifax      115)-------------  155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
+   echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
+   echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
+   echo "38)Al Jazeera Audio   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "39)RT America         79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
+   echo "40)RT English         80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
+   echo "======================================================================================================================================================="
 echo " " 
 }	
 
 channel_matrix_2()
 {
-   echo "==================================================================      ENDRADIO  "$version"   ================================================================="
-   echo "||   Entertainment  ||     Russian        ||       BBC Regional   ||    BBC Regional    ||      COLUMN 12   ||     COLUMN 13    ||       Religious    ||"
-   echo "======================================================================================================================================================="
-   echo "281)Pulse Radio     321)Radio Mayak Moscow  361) BBC Radio 1        401) BBC Shropshire  441) -----------   481) ------------- 521) EWTN "    
-   echo "282)Old Time Radio  322)Radio Russia Moscow 362) BBC Radio 2        402) BBC Solent      442) -----------   482) ------------- 522) EWTN Classic" 
-   echo "283)--------------- 323)Radio Culture Moscow363) BBC Radio 3        403) BBC Somerset    443) -----------   483) ------------- 523) EWTN Spanish"  
-   echo "284)--------------- 324)Vesti FM Moscow     364) BBC Radio 4        404) BBC Stoke       444) -----------   484) ------------- 524) --------------"             
-   echo "285)--------------- 325)Business FM Moscow  365) BBC Radio 4 LW     405) BBC Suffolk     445) -----------   485) ------------- 525) --------------"  
-   echo "286)--------------- 326)107.4 St Petersburg 366) BBC Radio 4 Extra  406) BBC Sussex      446) -----------   486) ------------- 526) --------------"  
-   echo "287)--------------- 327)107.5 Ufa           367) BBC 5 Live         407) BBC Tees        447) -----------   487) ------------- 527) --------------"
-   echo "288)--------------- 328)Gorod FM            368) BBC 5 Live Sports  408) BBC 3 Counties  448) -----------   488) ------------- 528) --------------"
-   echo "289)--------------- 329)Kommersant          369) BBC 6 Music        409) BBC Wiltshire   449) -----------   489) ------------  529) --------------"
-   echo "290)--------------- 330)Moskva FM Moscow    370) BBC 1Xtra          410) BBC WM 95.6     450) -----------   490) ------------  530) --------------"
-   echo "291)--------------- 331)NN Radio Nizhny     371) BBC Asian          411) BBC York        451) -----------   491) ------------  531) --------------"
-   echo "292)--------------- 332)Radio Moskvy        372) BBC World Service  412) BBC Scotland    452) -----------   492) ------------  532) --------------"
-   echo "293)--------------- 333)RSN Moscow          373) BBC Berkshire      413) BBC nan Gaidheal453) -----------   493) ------------  533) --------------"
-   echo "294)--------------- 334)UR-1 Kyiv           374) BBC Bristol        414) BBC Ulster      454) -----------   494) ------------  534) --------------"
-   echo "295)--------------- 335)UR-2 Promin Kyiv    375) BBC Cambridgeshire 415) BBC Foyle       455) -----------   495) ------------  535) --------------"  
-   echo "296)--------------- 336)UR-3 Kultura Kyiv   376) BBC Cornwall       416) BBC Wales       456) -----------   496) ------------  536) --------------"
-   echo "297)--------------- 337)UR-4 Int Kyiv       377) BBC Coventry       417) -----------     457) -----------   497) ------------- 537) --------------"
-   echo "298)--------------- 338)Business Radio Kyiv 378) BBC Cumbria        418) -----------     458) -----------   498) ------------- 538) --------------"	
-   echo "299)--------------  339)Ekvator FM Shpola   379) BBC Derby          419) -----------     459) -----------   499) ------------- 539) --------------"
-   echo "300)--------------- 340)Golos Stolytsi Kyiv 380) BBC Devon          420) -----------     460) -----------   500) ------------- 540) --------------"  
-   echo "301)--------------- 341)Radio ES Kyiv       381) BBC Essex          421) -----------     461) -----------   501) ------------- 541) --------------"
-   echo "302)--------------- 342)Radio Vesti Kyiv    382) BBC Gloucestershire422) -----------     462) -----------   502) ------------- 542) --------------"       
-   echo "303)--------------- 343) -------------      383) BBC Guernsey       423) -----------     463) -----------   503) ------------- 543) --------------"  
-   echo "304)--------------- 344) -------------      384) BBC Hereford       424) -----------     464) -----------   504) ------------- 544) --------------"
-   echo "305)--------------- 345) -------------      385) BBC Humberside     425) -----------     465) -----------   505) ------------- 545) --------------"  
-   echo "306)--------------- 346) -------------      386) BBC Jersey         426) -----------     466) -----------   506) ------------- 546) --------------"
-   echo "307)--------------- 347) -------------      387) BBC Kent           427) -----------     467) ------------  507) ------------- 547) --------------"
-   echo "308)--------------- 348) -------------      388) BBC Lancashire     428) -----------     468) ------------  508) ------------- 548) --------------"
-   echo "309)--------------- 349) --------------     389) BBC Leeds          429) -----------     469) ------------  509) ------------- 549) --------------"
-   echo "310)--------------- 350) --------------     390) BBC Leicester      430) -----------     470) ------------  510) ------------- 550) --------------"    
-   echo "311)--------------- 351) --------------     391) BBC Lincolnshire   431) -----------     471) ------------  511) ------------- 551) --------------"
-   echo "312)--------------- 352) --------------     392) BBC London 94.9    432) -----------     472) ------------  512) ------------- 552) --------------"
-   echo "313)--------------- 353) --------------     393) BBC Manchester     433) -----------     473) ------------  513) ------------- 553) --------------" 
-   echo "314)--------------- 354) --------------     394) BBC Merseyside     434) -----------     474) ------------  514) ------------- 554) --------------"  
-   echo "315)--------------- 355) --------------     395) BBC Newcastle      435) -----------     475) ------------  515) ------------- 555) --------------"
-   echo "316)--------------- 356) --------------     396) BBC Norfolk        436) -----------     476) ------------  516) ------------- 556) --------------"
-   echo "317)--------------- 357) --------------     397) BBC Northampton    437) -----------     477) ------------  517) ------------- 557) --------------"
-   echo "318)--------------- 358) --------------     398) BBC Nottingham     438) -----------     478) ------------  518) ------------- 558) --------------"	
-   echo "319)--------------- 359) --------------     399) BBC Oxford         439) -----------     479) ------------  519) ------------- 559) ------------- "
-   echo "320)--------------- 360) --------------     400) BBC Sheffield      440) -----------     480) ------------  520) ------------- 560) ------------- "
-   echo "===================================================================================================================================================="
+   echo "========================================================      ENDRADIO  "$version"   ==================================================================="
+   echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
+   echo "================================================================================================================================================="
+   echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN"    
+   echo "282)Old Time Radio  322)Radio Russia Moscow 362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
+   echo "283)--------------- 323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
+   echo "284)--------------- 324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)--------------"             
+   echo "285)--------------- 325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)--------------"  
+   echo "286)--------------- 326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)--------------"  
+   echo "287)--------------- 327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
+   echo "288)--------------- 328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
+   echo "289)--------------- 329)Kommersant          369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
+   echo "290)--------------- 330)Moskva FM Moscow    370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
+   echo "291)--------------- 331)NN Radio Nizhny     371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
+   echo "292)--------------- 332)Radio Moskvy        372)BBC World Service  412)BBC Scotland    452)-----------   492)------------  532)--------------"
+   echo "293)--------------- 333)RSN Moscow          373)BBC Berkshire      413)BBC nan Gaidheal453)-----------   493)------------  533)--------------"
+   echo "294)--------------- 334)UR-1 Kyiv           374)BBC Bristol        414)BBC Ulster      454)-----------   494)------------  534)--------------"
+   echo "295)--------------- 335)UR-2 Promin Kyiv    375)BBC Cambridgeshire 415)BBC Foyle       455)-----------   495)------------  535)--------------"  
+   echo "296)--------------- 336)UR-3 Kultura Kyiv   376)BBC Cornwall       416)BBC Wales       456)-----------   496)------------  536)--------------"
+   echo "297)--------------- 337)UR-4 Int Kyiv       377)BBC Coventry       417)-----------     457)-----------   497)------------- 537)--------------"
+   echo "298)--------------- 338)Business Radio Kyiv 378)BBC Cumbria        418)-----------     458)-----------   498)------------- 538)--------------"	
+   echo "299)--------------  339)Ekvator FM Shpola   379)BBC Derby          419)-----------     459)-----------   499)------------- 539)--------------"
+   echo "300)--------------- 340)Golos Stolytsi Kyiv 380)BBC Devon          420)-----------     460)-----------   500)------------- 540)--------------"  
+   echo "301)--------------- 341)Radio ES Kyiv       381)BBC Essex          421)-----------     461)-----------   501)------------- 541)--------------"
+   echo "302)--------------- 342)Radio Vesti Kyiv    382)BBC Gloucestershire422)-----------     462)-----------   502)------------- 542)--------------"       
+   echo "303)--------------- 343)-------------       383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
+   echo "304)--------------- 344)-------------       384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
+   echo "305)--------------- 345)-------------       385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
+   echo "306)--------------- 346)-------------       386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
+   echo "307)--------------- 347)-------------       387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
+   echo "308)--------------- 348)-------------       388)BBC Lancashire     428)-----------     468)------------  508)------------- 548)--------------"
+   echo "309)--------------- 349)--------------      389)BBC Leeds          429)-----------     469)------------  509)------------- 549)--------------"
+   echo "310)--------------- 350)--------------      390)BBC Leicester      430)-----------     470)------------  510)------------- 550)--------------"    
+   echo "311)--------------- 351)--------------      391)BBC Lincolnshire   431)-----------     471)------------  511)------------- 551)--------------"
+   echo "312)--------------- 352)--------------      392)BBC London 94.9    432)-----------     472)------------  512)------------- 552)--------------"
+   echo "313)--------------- 353)--------------      393)BBC Manchester     433)-----------     473)------------  513)------------- 553)--------------" 
+   echo "314)--------------- 354)--------------      394)BBC Merseyside     434)-----------     474)------------  514)------------- 554)--------------"  
+   echo "315)--------------- 355)--------------      395)BBC Newcastle      435)-----------     475)------------  515)------------- 555)--------------"
+   echo "316)--------------- 356)--------------      396)BBC Norfolk        436)-----------     476)------------  516)------------- 556)--------------"
+   echo "317)--------------- 357)--------------      397)BBC Northampton    437)-----------     477)------------  517)------------- 557)--------------"
+   echo "318)--------------- 358)--------------      398)BBC Nottingham     438)-----------     478)------------  518)------------- 558)--------------"	
+   echo "319)--------------- 359)--------------      399)BBC Oxford         439)-----------     479)------------  519)------------- 559)------------- "
+   echo "320)--------------- 360)--------------      400)BBC Sheffield      440)-----------     480)------------  520)------------- 560)------------- "
+   echo "================================================================================================================================================"
 echo " " 
 }	
 
@@ -273,6 +276,9 @@ do
    echo "$ endradio --version      # print version information"
    echo "$ endradio --list-matrix  # channel list in matrix format"
    echo "$ endradio --list-all     # channel list in column format"
+   echo "$ endradio --ua-tor       # use tor-browser user-agent"
+   echo "$ endradio --ua-rand      # use random user-agent from user_agents.txt "
+   echo "$ endradio --ua-ranstr    # use a random string as the user agent" 
    echo "$ endradio  55            # use channel number in command line"  
    echo "$ endradio  "
    shift
@@ -364,24 +370,26 @@ chan_name="WKSU News";;
 # 5) Infowars
 5) 
 
- rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
- case $rnum in 
- 0) link=http://50.7.130.118:80 ;;
- 1) link=http://50.7.130.118:80 ;;
- 2) link=http://50.7.130.116:80 ;;
- 3) link=http://50.7.130.117:80 ;;
- 4) link=http://50.7.79.18:80 ;;
- 5) link=http://50.7.79.19:80 ;;
- 6) link=http://50.7.130.114:80 ;;
- 7) link=http://50.7.128.194:80 ;;
- 8) link=http://50.7.128.195:80 ;;
- 9) link=http://50.7.130.115:80 ;;
- 10) link=http://50.7.79.92:80 ;;
- 11) link=http://50.7.79.94:80 ;;
- 12) link=http://50.7.79.93:80 ;;
- 13) link=http://50.7.79.91:80 ;;
- 14) link=http://50.7.79.90:80 ;;
- esac
+link=https://www.infowars.com/stream.pls
+
+# rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
+# case $rnum in 
+# 0) link=http://50.7.130.118:80 ;;
+# 1) link=http://50.7.130.118:80 ;;
+# 2) link=http://50.7.130.116:80 ;;
+# 3) link=http://50.7.130.117:80 ;;
+# 4) link=http://50.7.79.18:80 ;;
+# 5) link=http://50.7.79.19:80 ;;
+# 6) link=http://50.7.130.114:80 ;;
+# 7) link=http://50.7.128.194:80 ;;
+# 8) link=http://50.7.128.195:80 ;;
+# 9) link=http://50.7.130.115:80 ;;
+# 10) link=http://50.7.79.92:80 ;;
+# 11) link=http://50.7.79.94:80 ;;
+# 12) link=http://50.7.79.93:80 ;;
+# 13) link=http://50.7.79.91:80 ;;
+# 14) link=http://50.7.79.90:80 ;;
+# esac
 
 use_playlist="no"
 chan_name="Infowars";;
@@ -546,7 +554,7 @@ chan_name="RT ";;
 #################### BROKEN
 # 25) World Radio Switzerland Geneva
 # 25) link=http://direct.sharp-stream.com/radiofrontier.mp3.m3u
-#use_paylist="no"
+# use_paylist="no"
 # chan_name="World Radio Switzerland Geneva";;
 # 26) Onda Cero International Marbella
 # 26) link=mms://a1365.l507241200.c5072.l.lm.akamaistream.net/D/1365/5072/v0001/reflector:41200
@@ -735,6 +743,10 @@ chan_name="Euronews";;
 83) link=https://rt-usa-live-hls.secure.footprint.net/rt/uk/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT America";;
+# 84) France 24
+84) link=http://f24hls-i.akamaihd.net/hls/live/221193/F24_EN_LO_HLS/master_96.m3u8
+use_paylist="no"
+chan_name="France 24";;
 
 ########################################
 # 121) France Info
@@ -1527,6 +1539,7 @@ esac
 
 }
 
+############################  FUNCTIONS   ####################################################
 # Function to check the menu status
 menu_status()
 {
@@ -1643,7 +1656,8 @@ method="normal"
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     #UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
    elif [ "$uastate" == "tor" ] 
    then
      UA="$UA_torbrowser" 
@@ -1669,15 +1683,15 @@ echo "Please Select a Number corresponding to a YouTube Live Stream:"
 read entry
 num="$entry"
 
-if [ "$entry" == "q" ]
-then 
-echo "Type endradio to open a new stream."
-exit "$?"
-elif [ "$entry" == "" ]
-then
-entry=1
-num="$entry"
-fi
+  if [ "$entry" == "q" ]
+  then 
+  echo "Type endradio to open a new stream."
+  exit "$?"
+  elif [ "$entry" == "" ]
+  then
+  entry=1
+  num="$entry"
+  fi
 fi
 
 menu_status $entry
@@ -1720,11 +1734,11 @@ then
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 5
+     sleep 3
      else
      torsocks wget --user-agent="$UA" --header="$HEAD1" --header=--"$HEAD2" --header="$HEAD3" --header=="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
-     sleep 5
+     sleep 3
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
@@ -1742,11 +1756,11 @@ then
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 5
+     sleep 3
      else
      torsocks wget -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
-     sleep 5
+     sleep 3
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
@@ -1770,6 +1784,7 @@ fi
  else 
  menu_switch "$menu"
  read entry
+
 fi
 
 while [ "$entry" != q ]
@@ -1786,7 +1801,8 @@ do
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     #UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
+     UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
    elif [ "$uastate" == "tor" ] 
    then
      UA="$UA_torbrowser" 
@@ -1799,6 +1815,16 @@ do
  fi
 
 menu_status $entry
+
+if [ "$entry" == "q" ]
+then 
+echo "Type endradio to open a new stream."
+exit "$?"
+elif [ "$entry" == "" ]
+then
+entry=1
+num="$entry"
+fi
 
 if [ "$chan_state" == "+" ]
 then
@@ -1836,11 +1862,11 @@ echo "$chan_name Channel $num"
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 3
+     sleep 2
      else
      torsocks wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
-     sleep 3
+     sleep 2
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
@@ -1848,7 +1874,7 @@ echo "$chan_name Channel $num"
   
  else
  
-   if [ "$use_playlist" == "yes" ]
+  if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
@@ -1858,11 +1884,11 @@ echo "$chan_name Channel $num"
      then
      firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 3
+     sleep 2
      else
      torsocks wget -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
-     sleep 3
+     sleep 2
      fi 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
@@ -1881,6 +1907,7 @@ chan_state="normal"
 method="normal"
 menstat="no"
 read entry
+
 fi
 done
 
