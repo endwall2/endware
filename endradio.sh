@@ -73,8 +73,8 @@
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer 
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
 #        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
@@ -134,14 +134,13 @@
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
-
-
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
 version="0.07"
 rev_date="13/06/2017"
 branch="gnu/linux"
+product="ENDRADIO"
 ##################################################
 chan_columns="$HOME/bin/radio.txt"
 cookie="$HOME/bin/cookies.txt"
@@ -167,7 +166,7 @@ state="normal"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
 {
-   echo "===============================================================     ENDRADIO "$version"   ========================================================================"
+   echo "==========================================================     "$product" "$version"   ======================================================================="
    echo "||        NEWS       ||      CBC Canada    ||                ||       French      ||       German       ||       Spanish       ||    Spanish / Italian  ||"
    echo "============================================================================================================================================================"
    echo "1)BBC World Service   41)CBC 1 Kamloops     81)CBC 2 Eastern   121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
@@ -216,7 +215,7 @@ echo " "
 
 channel_matrix_2()
 {
-   echo "========================================================      ENDRADIO  "$version"   ==================================================================="
+   echo "====================================================    "$product" "$version"   ======================================================================="
    echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
    echo "================================================================================================================================================="
    echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN"    
@@ -369,28 +368,21 @@ use_playlist="no"
 chan_name="WKSU News";;
 # 5) Infowars
 5) 
-
-link=https://www.infowars.com/stream.pls
-
-# rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
-# case $rnum in 
-# 0) link=http://50.7.130.118:80 ;;
-# 1) link=http://50.7.130.118:80 ;;
-# 2) link=http://50.7.130.116:80 ;;
-# 3) link=http://50.7.130.117:80 ;;
-# 4) link=http://50.7.79.18:80 ;;
-# 5) link=http://50.7.79.19:80 ;;
-# 6) link=http://50.7.130.114:80 ;;
-# 7) link=http://50.7.128.194:80 ;;
-# 8) link=http://50.7.128.195:80 ;;
-# 9) link=http://50.7.130.115:80 ;;
-# 10) link=http://50.7.79.92:80 ;;
-# 11) link=http://50.7.79.94:80 ;;
-# 12) link=http://50.7.79.93:80 ;;
-# 13) link=http://50.7.79.91:80 ;;
-# 14) link=http://50.7.79.90:80 ;;
-# esac
-
+  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
+  case $rnum in 
+  0) link=http://stream-aac.infowars.com ;;
+  1) link=http://stream-aac-us.infowars.com ;;
+  2) link=http://stream-aac-eu.infowars.com ;;
+  3) link=http://stream-mp3.infowars.com ;;
+  4) link=http://stream-mp3-us.infowars.com ;;
+  5) link=http://stream-mp3-eu.infowars.com ;;
+  6) link=http://stream-aac.infowars.com ;;
+  7) link=http://stream-aac-us.infowars.com ;;
+  8) link=http://stream-aac-eu.infowars.com ;;
+  9) link=http://stream-mp3.infowars.com ;;
+  10) link=http://stream-mp3-us.infowars.com ;;
+  11) link=http://stream-mp3-eu.infowars.com ;;
+  esac
 use_playlist="no"
 chan_name="Infowars";;
 
@@ -499,6 +491,7 @@ chan_name="Republic Broadcast Network";;
 28) 
 method="stream_dump"
 #link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
+# 173.192.70.138
 link=http://page.cloudradionetwork.com/247radio/stream.php?port=7230
 use_paylist="no"
 chan_name="24/7 World Radio";;
@@ -1820,10 +1813,6 @@ if [ "$entry" == "q" ]
 then 
 echo "Type endradio to open a new stream."
 exit "$?"
-elif [ "$entry" == "" ]
-then
-entry=1
-num="$entry"
 fi
 
 if [ "$chan_state" == "+" ]

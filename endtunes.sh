@@ -27,35 +27,6 @@
 # $ endtunes
 #
 ####################################################################
-#############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
-#############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
-#
-#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
-#  
-#  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
-#
-#  The Endware Suite is available for download at the following locations:
-#  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
-#
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
-#  as well as to the detractors who helped to critique this work and to ultimately improve it.  
-#  
-#  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
-#  without which distribution would be limited, so thank you.
-#
-#  https://www.endchan.xyz, http://paste.debian.net, https://gitgud.io, https://github.com, http://ix.io  
-#
-#  We salute you! 
-#  
-#  In the end, may it all end well.
-#
-#  The Endware Development Team
-##############################################################################################################################################################################
 ##############################################################################################################################################################################
 #                                                              LICENSE AGREEMENT  
 ##############################################################################################################################################################################
@@ -74,8 +45,8 @@
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer 
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
 #        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
@@ -141,6 +112,7 @@
 version="0.05"
 rev_date="13/06/2017"
 branch="gnu/linux"
+product="ENDTUNES"
 ##################################################
 
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -161,7 +133,7 @@ headmode="off"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
 {
-   echo "========================================================      ENDTUNES "$version"   ==============================================================="
+   echo "====================================================      "$product" "$version"   =================================================================="
    echo "||       CLASSICAL      ||               ||    JAZZ          ||                  ||                   ||                  ||               ||"
    echo "============================================================================================================================================="
    echo "1) a1900-classical     41) CPR Open Air  81) Abacus Jazz     121) -------------- 161)-------------- 201)-------------- 241)--------------  "    
@@ -210,7 +182,7 @@ echo " "
 
 channel_matrix_2()
 {
-   echo "===================================================      ENDTUNES  "$version"   ================================================================"
+   echo "===================================================     "$product" "$version"   =================================================================="
    echo "||   ------------   || --------------    ||  --------------    ||  -----------    ||    ---------  ||  ----------     ||                 ||"
    echo "============================================================================================================================================"
    echo "281)  -------------- 321)--------------   361) --------------    401) ------------441) ----------- 481) ------------- 521) --------------"    

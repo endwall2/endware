@@ -90,8 +90,8 @@
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer 
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
 #        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
@@ -157,6 +157,7 @@
 version="0.05"
 rev_date="13/06/2017"
 branch="gnu/linux"
+product="EndTV"
 ##################################################
 USERAGENTS="$HOME/bin/user_agents.txt"
 chan_columns="$HOME/bin/tv.txt"
@@ -180,7 +181,7 @@ echo " " > "$cookie"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix()
 {
-   echo "==================================================================      EndTV  "$version"   ===================================================================================="
+   echo "==============================================================      "$product" "$version"   ===================================================================================="
    echo "=========================================================================================================================================================================="
    echo "=======UK ======    =====SPORTS======  78)B-Movie!          117)Film Detective  156)Classic Arts  193)CBeebies        230)Truth Files   268)RMC Live      306)Christmas "    
    echo "1)BBC One          40)Grandstand Show  79)Alien Invasion    ===ENTERTAINMENT====157)Jazz Radio    194)CBBC            231)NewsMax       269)Raw Report    307)Nub TV  " 
@@ -228,7 +229,7 @@ echo " "
 
 channel_matrix_2()
 {
-   echo "==================================================================      EndTV  "$version"   ================================================================================="
+   echo "===============================================================      "$product"  "$version"   ================================================================================"
    echo "======================================================================================================================================================================="
    echo "342)ABP News          377)Date with Angels  ======OUTDOORS====== 451)DAYSTAR        487)Florida          521)A1 Bluegrass  560)---------- 600)---------- 640)---------- "    
    echo "===ITALY===           378)Man with Camera   416)Bayou Country    452)CATHOLIC TV    488)Make Your Move   522)WZQR Talk     561)---------- 601)---------- 641)---------- " 
