@@ -5,8 +5,8 @@
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.07
-# REVISION DATE: JUL 5, 2017
+# VERSION: 0.08
+# REVISION DATE: JUL 25, 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG: - Fixed a bug with for loop read in blank spaces as 1 line 
@@ -147,8 +147,8 @@
 #################### BEGINNING OF PROGRAM ###########################
 
 ################### VERSION INFORMATION #################
-version="0.07"
-rev_date="05/07/2017"
+version="0.08"
+rev_date="25/07/2017"
 branch="gnu/linux"
 ############################################
 name_style="number"
@@ -165,6 +165,7 @@ do
    echo "$ renum --version    # print version information"
    echo "$ renum --rand       # randomize files before rename"
    echo "$ renum --md5str     # use md5sum string for rename"
+   echo "$ renum --sha256str  # use sha256sum string for rename"
    echo "$ renum --ranstr     # use random string for rename"
    echo "$ renum              # default to numbers as filenames in alphabetic sort"
    shift
@@ -183,6 +184,10 @@ do
    then
    name_style="md5str"
    shift
+   elif [ "$arg" == --sha256str ]
+   then
+   name_style="sha256str"
+   shift
    elif [ "$arg" == --ranstr ]
    then
    name_style="ranstr"
@@ -194,10 +199,10 @@ done
 if [ "$sort_style" == "rand" ] ;
 then
 # randomly sort a list of the directory files into a temp file
-ls  | sort -R | sort -R | sort -R > filelist.txt
+ls *.*  | sort -R | sort -R | sort -R > filelist.txt
 else
 # regular listing in the same name sequential order
-ls  > filelist.txt
+ls *.*  > filelist.txt
 fi 
 
 # make a directory to store renamed files
@@ -266,7 +271,7 @@ fi
 
 if [ $name_style == "number" ]
 then
- # Relabel index to 6 digit number
+ # Relabel index to an 8 digit number
   if [ "$index" -lt 10 ]
    then
    filenum=0000000"$index"
@@ -329,9 +334,9 @@ else
   filename=""
   while [ "$filename" == "" ]
   do
-  filename="$( echo "$md5var" | base64 -i | cut -d = -f 1 )"
+  filename="$( echo "$md5var" | base64 -i | tr -d "\n=+=\/" )"
   done
-  filename="$index$filename"
+#  filename="$index$filename"
   echo "Renaming file: "$file"  to "$filename.$ext" "
   echo "$md5var" " $file" >> md5.txt 
   echo "$sha256var" " $file" >> sha256.txt
@@ -340,6 +345,26 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)    
+ elif [ "$name_style" == "sha256" ] 
+ then
+  md5var=$( md5sum "$file" | awk '{print $1}' )
+  sha256var=$(sha256sum "$file" | awk '{print $1}')
+  # make a random string for the name
+  bytes=$( expr 18 + $RANDOM  % 48  )
+  filename=""
+  while [ "$filename" == "" ]
+  do
+  filename="$( echo "$sha256var" | base64 -i | tr -d "\n=+=\/" )"
+  done
+#  filename="$index$filename"
+  echo "Renaming file: "$file"  to "$filename.$ext" "
+  echo "$md5var" " $file" >> md5.txt 
+  echo "$sha256var" " $file" >> sha256.txt
+  cp -n "$file" renum/"$filename.$ext"       
+  echo "$sha256var" " $filename.$ext" >> renum/sha256_renum.txt
+  echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
+  echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
+  index=$(expr "$index" + 1)     
  elif [ "$name_style" == "ranstr" ] 
  then
   md5var=$( md5sum "$file" | awk '{print $1}' )
@@ -351,7 +376,7 @@ else
   do
   filename="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')"
   done
-  filename="$index$filename$index"
+#  filename="$index$filename"
   echo "Renaming file: "$file"  to "$filename.$ext" "
   echo "$md5var" " $file" >> md5.txt 
   echo "$sha256var" " $file" >> sha256.txt
