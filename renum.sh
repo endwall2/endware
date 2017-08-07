@@ -5,8 +5,8 @@
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.08
-# REVISION DATE: JUL 25, 2017
+# VERSION: 0.09
+# REVISION DATE: AUG 5, 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG: - Fixed a bug with for loop read in blank spaces as 1 line 
@@ -71,20 +71,21 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.12 
-#  VERSION DATE: AUGUST 11, 2016
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
+#  VERSION: 1.15
+#  VERSION DATE: JULY 05, 2017
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
+#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -143,12 +144,11 @@
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
-
 #################### BEGINNING OF PROGRAM ###########################
 
 ################### VERSION INFORMATION #################
-version="0.08"
-rev_date="25/07/2017"
+version="0.09"
+rev_date="05/08/2017"
 branch="gnu/linux"
 ############################################
 name_style="number"
@@ -195,14 +195,18 @@ do
  fi  
 done 
 
+## Backup all files first
+echo "Backing up all files in the current working directory to backup.tar"
+tar -cvf backup.tar *
+
 # switch -r for random file sequential renumbering
 if [ "$sort_style" == "rand" ] ;
 then
 # randomly sort a list of the directory files into a temp file
-ls *.*  | sort -R | sort -R | sort -R > filelist.txt
+ls | sort -R | sort -R | sort -R > filelist.txt
 else
 # regular listing in the same name sequential order
-ls *.*  > filelist.txt
+ls  > filelist.txt
 fi 
 
 # make a directory to store renamed files
@@ -345,15 +349,16 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)    
- elif [ "$name_style" == "sha256" ] 
+ elif [ "$name_style" == "sha256str" ] 
  then
   md5var=$( md5sum "$file" | awk '{print $1}' )
-  sha256var=$(sha256sum "$file" | awk '{print $1}')
+  sha256var=$( sha256sum "$file" | awk '{print $1}')
   # make a random string for the name
   bytes=$( expr 18 + $RANDOM  % 48  )
   filename=""
   while [ "$filename" == "" ]
   do
+  echo "$sha256var"
   filename="$( echo "$sha256var" | base64 -i | tr -d "\n=+=\/" )"
   done
 #  filename="$index$filename"
@@ -385,7 +390,8 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)    
- else
+ elif [ "$name_style" == "number" ]
+ then
   echo "Renaming file: "$file"  to "$filenum.$ext" "
   md5var=$( md5sum "$file" | awk '{print $1}' )
   sha256var=$(sha256sum "$file" | awk '{print $1}')
@@ -402,10 +408,11 @@ fi
 
 done
 
-# archive and zip all files 
-tar -rvf backup.tar *.*
-echo "Added to backup.tar"
+# Append sha256 and concordances to archive and zip all files 
+echo "Appending md5.txt sha256.txt, and concordance.txt to backup.tar"
+tar -rvf backup.tar md5.txt sha256.txt concordance.txt
 # zip the files
+echo "Compressing backup.tar"
 gzip backup.tar 
 ## clean up
 ## comment out to not remove these files  
