@@ -173,9 +173,9 @@ channel_matrix()
    echo "2)NPR                 42)CBC 1 Kelowna      82)Euronews English122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
    echo "3)MPR News            43)CBC 1 Prnc George  83)RT UK           123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
    echo "4)WKSU News           44)CBC 1 Vancouver    84)France 24       124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
-   echo "5)Infowars            45)CBC 1 Victoria     85)--------------- 125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
-   echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)--------------  126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
-   echo "7)BBC Radio 2         47)CBC 1 Calgary      87)--------------  127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
+   echo "5)Infowars            45)CBC 1 Victoria     85)DW Englsih      125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
+   echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)CBSN            126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
+   echo "7)BBC Radio 2         47)CBC 1 Calgary      87)CNN             127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
    echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)--------------  128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
    echo "9)BBC Radio 4         49)CBC 1 Regina       89)--------------- 129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
    echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)--------------- 130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
@@ -740,6 +740,22 @@ chan_name="RT America";;
 84) link=http://f24hls-i.akamaihd.net/hls/live/221193/F24_EN_LO_HLS/master_96.m3u8
 use_paylist="no"
 chan_name="France 24";;
+# 85) DW English
+85) 
+link=http://dwstream1-lh.akamaihd.net/i/dwstream1_live@120422/index_5_a-b.m3u8
+use_paylist="no"
+chan_name="DW English";;
+# 86) CBSN
+86) 
+link=https://dai.google.com/linear/hls/p/event/Sid4xiTQTkCT1SLu6rjUSQ/variant/977e885c0d735a9b92ae9a4ef4d6c2ea/stream/e0aeb7eb-affd-42d6-b9d6-0d0d14ab3520:BRU/bandwidth/202400.m3u8
+use_paylist="no"
+chan_name="CBSN";;
+# 87) CNN
+87) 
+link=http://cnn-lh.akamaihd.net/i/cnndebates_1@352100/index_360_a-b.m3u8
+use_paylist="no"
+chan_name="CNN";;
+
 
 ########################################
 # 121) France Info
@@ -1918,4 +1934,3 @@ fi
 exit "$?"
 
 ######################     END OF PROGRAM      ####################################################
-
