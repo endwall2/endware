@@ -370,18 +370,24 @@ chan_name="WKSU News";;
 5) 
   rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
   case $rnum in 
-  0) link=http://stream-aac.infowars.com ;;
-  1) link=http://stream-aac-us.infowars.com ;;
-  2) link=http://stream-aac-eu.infowars.com ;;
-  3) link=http://stream-mp3.infowars.com ;;
-  4) link=http://stream-mp3-us.infowars.com ;;
-  5) link=http://stream-mp3-eu.infowars.com ;;
-  6) link=http://stream-aac.infowars.com ;;
-  7) link=http://stream-aac-us.infowars.com ;;
-  8) link=http://stream-aac-eu.infowars.com ;;
-  9) link=http://stream-mp3.infowars.com ;;
-  10) link=http://stream-mp3-us.infowars.com ;;
-  11) link=http://stream-mp3-eu.infowars.com ;;
+  0) link=http://50.7.79.92:80
+     #link=http://stream-aac.infowars.com 
+     ;;
+  1) link=http://50.7.79.18:80
+     #http://stream-aac-us.infowars.com 
+     ;;
+  2) link=http://50.7.128.195:80
+     #http://stream-aac-eu.infowars.com 
+     ;;
+  3) link=http://192.240.107.116:80
+     #http://stream-mp3.infowars.com 
+     ;;
+  4) link=http://50.7.79.20:80
+     #http://stream-mp3-us.infowars.com 
+     ;;
+  5) link=http://50.7.128.196:80
+     #http://stream-mp3-eu.infowars.com 
+     ;;
   esac
 use_playlist="no"
 chan_name="Infowars";;
@@ -1735,7 +1741,7 @@ then
 
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
@@ -1750,14 +1756,14 @@ then
      sleep 3
      fi 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
   fi
   
  else
  
    if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
@@ -1772,7 +1778,7 @@ then
      sleep 3
      fi 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
   fi
  fi
 
@@ -1859,7 +1865,7 @@ echo "$chan_name Channel $num"
 
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
@@ -1874,14 +1880,14 @@ echo "$chan_name Channel $num"
      sleep 2
      fi 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
   fi
   
  else
  
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
@@ -1896,7 +1902,7 @@ echo "$chan_name Channel $num"
      sleep 2
      fi 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
   fi
    
  fi
