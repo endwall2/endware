@@ -417,7 +417,7 @@ done
 
 # Append sha256 and concordances to archive and zip all files 
 echo "Appending md5.txt sha256.txt, and concordance.txt to backup.tar"
-tar -rvf backup.tar md5.txt sha256.txt concordance.txt
+tar -rvf backup.tar md5.txt sha256.txt renum/concordance.txt
 # zip the files
 echo "Compressing backup.tar"
 gzip backup.tar 
