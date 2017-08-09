@@ -5,7 +5,7 @@
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.09
+# VERSION: 0.10
 # REVISION DATE: AUG 5, 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
@@ -147,8 +147,8 @@
 #################### BEGINNING OF PROGRAM ###########################
 
 ################### VERSION INFORMATION #################
-version="0.09"
-rev_date="05/08/2017"
+version="0.10"
+rev_date="09/08/2017"
 branch="gnu/linux"
 ############################################
 name_style="number"
@@ -230,6 +230,7 @@ case $end in
 ( imagepng  ) ext="png" ;;
 ( imagegif  ) ext="gif" ;;
 ( imagetiff ) ext="tif" ;;
+( imagesvg ) ext="svg" ;;
 esac
 
 # standardize extentions 
@@ -254,7 +255,7 @@ elif [ "$ext" == "gif" ]
 elif [ "$ext" == "TIFF" ]
  then 
  ext=tif
-elif [ "$ext" == "tif" ]
+elif [ "$ext" == "tiff" ]
  then 
  ext=tif 
 elif [ "$ext" == "BMP" ]
@@ -269,6 +270,12 @@ elif [ "$ext" == "PNG" ]
 elif [ "$ext" == "png" ]
  then 
  ext=png
+elif [ "$ext" == "SVG" ]
+ then 
+ ext=svg 
+elif [ "$ext" == "svg" ]
+ then 
+ ext=svg  
 else
  ext="$ext"
 fi
