@@ -146,7 +146,7 @@ chan_columns="$HOME/bin/radio.txt"
 cookie="$HOME/bin/cookies.txt"
 stream_dump="$HOME/tmp/audiostream"
 pidstore="$HOME/tmp/pid.tmp"
-cache_size="4096"
+cache_size="512"
 use_cookies="no"
 #change this to whatever path/file you what to use as your user agents file
 USERAGENTS=$HOME/bin/user_agents.txt 
@@ -495,10 +495,11 @@ use_paylist="no"
 chan_name="Republic Broadcast Network";;
 # 28) 247 World Radio
 28) 
-method="stream_dump"
+method="mplayer"
 #link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
 # 173.192.70.138
-link=http://page.cloudradionetwork.com/247radio/stream.php?port=7230
+#link=http://page.cloudradionetwork.com/247radio/stream.php?port=7230
+link=http://173.192.70.138:7230
 use_paylist="no"
 chan_name="24/7 World Radio";;
 # 29) KPFK 
@@ -1755,6 +1756,9 @@ then
      echo "wait for a couple of seconds and try the station again"
      sleep 3
      fi 
+  elif [ "$method" == "mplayer" ]
+  then 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" -playlist "$link" 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
   fi
@@ -1764,7 +1768,6 @@ then
    if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -1777,6 +1780,9 @@ then
      echo "wait for a couple of seconds and try the station again"
      sleep 3
      fi 
+  elif [ "$method" == "mplayer" ]
+  then 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" "$link" 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
   fi
@@ -1866,7 +1872,6 @@ echo "$chan_name Channel $num"
   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -1879,6 +1884,9 @@ echo "$chan_name Channel $num"
      echo "wait for a couple of seconds and try the station again"
      sleep 2
      fi 
+  elif [ "$method" == "mplayer" ]
+  then 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" -playlist "$link" 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
   fi
@@ -1888,7 +1896,6 @@ echo "$chan_name Channel $num"
   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -1901,6 +1908,9 @@ echo "$chan_name Channel $num"
      echo "wait for a couple of seconds and try the station again"
      sleep 2
      fi 
+  elif [ "$method" == "mplayer" ]
+  then 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" "$link" 
   else
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
   fi
