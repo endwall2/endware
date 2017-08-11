@@ -145,6 +145,7 @@ product="ENDRADIO"
 chan_columns="$HOME/bin/radio.txt"
 cookie="$HOME/bin/cookies.txt"
 stream_dump="$HOME/tmp/audiostream"
+playlist_tmp="$HOME/tmp/playlist.tmp"
 pidstore="$HOME/tmp/pid.tmp"
 cache_size="512"
 use_cookies="no"
@@ -543,28 +544,14 @@ chan_name="First Amendment Radio";;
 use_paylist="no"
 chan_name="Al Jazeera";;
 # 39) RT America
-39) link=https://rt-usa-live-hls.secure.footprint.net/rt/usa/indexaudio.m3u8
+39) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT America";;
 # 40) RT 
-40) link=https://rt-eng-live-hls.secure.footprint.net/rt/eng/indexaudio.m3u8
+40) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT ";;
 
-#################### BROKEN
-# 25) World Radio Switzerland Geneva
-# 25) link=http://direct.sharp-stream.com/radiofrontier.mp3.m3u
-# use_paylist="no"
-# chan_name="World Radio Switzerland Geneva";;
-# 26) Onda Cero International Marbella
-# 26) link=mms://a1365.l507241200.c5072.l.lm.akamaistream.net/D/1365/5072/v0001/reflector:41200
-# use_paylist="no"
-# chan_name="Onda Cero International Marbella";;
-# 27) UK Away FM Lanzarote
-# 27) link=http://ukaway.serverroom.us/ukaway
-# use_paylist="no"
-# chan_name="UK Away FM Lanzarote";;
-#########################################
 
 ######## CBC RADIO CANADA #################
 
@@ -736,7 +723,8 @@ use_paylist="no"
 chan_name="CBC Radio 1, Eastern";;	
 ##############################################################
 # 82) Euronews English
-82) link=http://fr-par-iphone-2.cdn.hexaglobe.net/streaming/euronews_ewns/5-live.m3u8 
+82) link=http://euronews-en-p9-cdn.hexaglobe.net/b845277c2db60882a29551105a4bd53b/594807ba/euronews/euronews-euronews-website-web-responsive-2/ewnsabrenpri_eng.smil/ewnsabrenpri_eng_90p.m3u8
+ #link=http://fr-par-iphone-2.cdn.hexaglobe.net/streaming/euronews_ewns/5-live.m3u8 
 use_paylist="no"
 chan_name="Euronews";;	
 # 83) RT UK
@@ -754,7 +742,10 @@ use_paylist="no"
 chan_name="DW English";;
 # 86) CBSN
 86) 
-link=https://dai.google.com/linear/hls/p/event/Sid4xiTQTkCT1SLu6rjUSQ/variant/977e885c0d735a9b92ae9a4ef4d6c2ea/stream/e0aeb7eb-affd-42d6-b9d6-0d0d14ab3520:BRU/bandwidth/202400.m3u8
+link="https://dai.google.com/linear/hls/event/Sid4xiTQTkCT1SLu6rjUSQ/master.m3u8"
+torsocks -i wget  --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4"  -O "$playlist_tmp" "$link"
+link=$( cat "$playlist_tmp" | awk '{ if ( $0 ~ /320x180/ ) i=NR; if ( NR == i+1 ) { print $0 } } ' | tail -n 1 )
+rm "$playlist_tmp"
 use_paylist="no"
 chan_name="CBSN";;
 # 87) CNN
@@ -1603,7 +1594,7 @@ uamode="on"
 elif [ "$input" == "ua-off" ]
 then
 menstat="yes"
-menu="$menu"qq
+menu="$menu"
 uastate="off"
 uamode="off"
 elif [ "$input" == "+" ]
@@ -1720,7 +1711,7 @@ then
 num=$(expr "$num" - 1 )
 elif [ "$chan_state" == "return" ]
 then
-num="$num"
+num="$1"
 elif [ "$chan_state" == "numeric" ]
 then
 num="$entry"
@@ -1743,7 +1734,6 @@ then
   if [ "$use_playlist" == "yes" ]
   then
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -1795,7 +1785,6 @@ then
  rm -f "$stream_dump"
  fi
 fi
-  
   
  menu_switch "$menu" 
  echo "You were watching "$chan_name" on Channel "$num" "
