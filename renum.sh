@@ -20,7 +20,7 @@
 #             - Added Instructions and EULA
 #
 #################################################################################################
-#  DEPENDENCIES:  sort, cut, expr, mv , tar, gzip, sha256sum
+#  DEPENDENCIES:  sort, cut, expr, mv , tar, gzip, sha256sum ,md5sum, perl-image-exiftool
 #################################################################################################
 #                      INSTRUCTIONS:   
 #################################################################################################
@@ -147,12 +147,13 @@
 #################### BEGINNING OF PROGRAM ###########################
 
 ################### VERSION INFORMATION #################
-version="0.10"
-rev_date="09/08/2017"
+version="0.11"
+rev_date="11/08/2017"
 branch="gnu/linux"
 ############################################
 name_style="number"
 sort_style="alpha"
+check_type="no"
 
 for arg in "$@"
 do
@@ -161,13 +162,14 @@ do
    echo "RENUM: rename randomly named picture files to numbers or string filenames and backup original files"
    echo ""
    echo "USAGE:"
-   echo "$ renum --help       # usage messages"
-   echo "$ renum --version    # print version information"
-   echo "$ renum --rand       # randomize files before rename"
-   echo "$ renum --md5str     # use md5sum string for rename"
-   echo "$ renum --sha256str  # use sha256sum string for rename"
-   echo "$ renum --ranstr     # use random string for rename"
-   echo "$ renum              # default to numbers as filenames in alphabetic sort"
+   echo "$ renum --help        # usage messages"
+   echo "$ renum --version     # print version information"
+   echo "$ renum --rand        # randomize files before rename"
+   echo "$ renum --md5str      # use md5sum string for rename"
+   echo "$ renum --sha256str   # use sha256sum string for rename"
+   echo "$ renum --ranstr      # use random string for rename"
+   echo "$ renum --check-type  # check the file type with exiftool to get extension"
+   echo "$ renum               # default to numbers as filenames in alphabetic sort"
    shift
    exit 0
    elif [ "$arg" == "--version" ]
@@ -191,6 +193,10 @@ do
    elif [ "$arg" == --ranstr ]
    then
    name_style="ranstr"
+   shift
+   elif [ "$arg" == --check-type ]
+   then
+   check_type="yes"
    shift
  fi  
 done 
@@ -219,21 +225,34 @@ IFS=$'\n'
 for file in $(cat filelist.txt)
 do
 
+if [ "$check_type" == "yes" ]
+then
+# Get the file type"
+file_type=$( exiftool "$file" | grep "File Type" | head -n 1 | awk ' {print $4}' )
+  if [ "$file_type" == "" ]
+  then
+  ext="unk"
+  else
+  ext="$file_type"
+  fi
+else
 # get the root and extention of the file
 rt=$( echo "$file" | cut -d . -f 1)
 ext=$( echo "$file" |cut -d . -f 2 ) 
 end=$( echo "$file" | cut -d - -f 2 )
 
 #case for no extention
-case $end in 
-( imagejpeg ) ext="jpg" ;;
-( imagepng  ) ext="png" ;;
-( imagegif  ) ext="gif" ;;
-( imagetiff ) ext="tif" ;;
-( imagesvg ) ext="svg" ;;
-esac
+  case $end in 
+   ( imagejpeg ) ext="jpg" ;;
+   ( imagepng  ) ext="png" ;;
+   ( imagegif  ) ext="gif" ;;
+   ( imagetiff ) ext="tif" ;;
+   ( imagesvg ) ext="svg" ;;
+  esac
 
-# standardize extentions 
+fi
+
+# Standardize Extentions 
 if [ "$ext" == "jpeg" ]
  then 
  ext=jpg
