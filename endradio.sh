@@ -177,9 +177,9 @@ channel_matrix()
    echo "5)Infowars            45)CBC 1 Victoria     85)DW Englsih      125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
    echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)CBSN            126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
    echo "7)BBC Radio 2         47)CBC 1 Calgary      87)CNN             127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
-   echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)--------------  128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
-   echo "9)BBC Radio 4         49)CBC 1 Regina       89)--------------- 129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
-   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)--------------- 130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
+   echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)Al Jazeera Audio128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
+   echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
+   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
    echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)--------------- 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
    echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)--------------- 132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
    echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)--------------- 133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
@@ -207,9 +207,9 @@ channel_matrix()
    echo "35)WRFN-LP            75)CBC 2 Halifax      115)-------------  155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
    echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
    echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
-   echo "38)Al Jazeera Audio   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
-   echo "39)RT America         79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
-   echo "40)RT English         80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
+   echo "38)------------       78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "39)------------       79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
+   echo "40)------------       80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
 echo " " 
 }	
@@ -369,7 +369,7 @@ use_playlist="no"
 chan_name="WKSU News";;
 # 5) Infowars
 5) 
-  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 15 ) 
+  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 5 ) 
   case $rnum in 
   0) link=http://50.7.79.92:80
      #link=http://stream-aac.infowars.com 
@@ -539,20 +539,9 @@ chan_name="Liberty Radio";;
 37) link=http://firstamendmentradio.net/64k.pls
 use_paylist="no"
 chan_name="First Amendment Radio";;
-# 38) Al Jazeera
-38) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
-use_paylist="no"
-chan_name="Al Jazeera";;
-# 39) RT America
-39) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
-use_paylist="no"
-chan_name="RT America";;
-# 40) RT 
-40) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
-use_paylist="no"
-chan_name="RT ";;
-
-
+# 38)
+# 39)
+# 40)
 ######## CBC RADIO CANADA #################
 
 ########## CBC RADIO 1
@@ -753,6 +742,18 @@ chan_name="CBSN";;
 link=http://cnn-lh.akamaihd.net/i/cnndebates_1@352100/index_360_a-b.m3u8
 use_paylist="no"
 chan_name="CNN";;
+# 88) Al Jazeera
+88) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
+use_paylist="no"
+chan_name="Al Jazeera";;
+# 89) RT America
+89) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT America";;
+# 90) RT 
+90) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT ";;
 
 
 ########################################
