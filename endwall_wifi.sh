@@ -6,7 +6,7 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 2, wifi enabled
-# Current Version: 1.38  Sep 21 2016
+# Current Version: 1.39  August 30 2017
 # Stable Version:  1.37, Sep 11 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
@@ -180,9 +180,9 @@
 ####################################################################################################
 #                           INPUT ARGUMENTS
 ###################################################################################################
-version="1.38"
+version="1.39"
 branch="wi_fi"
-rev_date="21/09/2016"
+rev_date="30/08/2017"
 
 for arg in "$@"
 do
@@ -358,6 +358,9 @@ ip6tables-save > /etc/iptables/rules.v6
 # RHEL/CENTOS/FEDORA
 iptables-save  > /etc/iptables/iptables
 ip6tables-save > /etc/iptables/ip6tables
+
+# Parabola /Gentoo OpenRC
+# /etc/init.d/iptables save
 
 echo "ENDWALL DISABLED"
 ##############################     PRINT RULES       ################################################################
@@ -1424,7 +1427,7 @@ ip6tables -A FORWARD -j REJECT
 #############################################################################################################################
 echo SAVING RULES
 # comment out distribution rules that you are not using
-#ARCH/PARABOLA
+#ARCH/PARABOLA systemd
 iptables-save  > /etc/iptables/iptables.rules
 ip6tables-save > /etc/iptables/ip6tables.rules
 
@@ -1435,6 +1438,9 @@ ip6tables-save > /etc/iptables/rules.v6
 # RHEL/CENTOS/FEDORA
 iptables-save  > /etc/iptables/iptables
 ip6tables-save > /etc/iptables/ip6tables
+
+# Parabola /Gentoo OpenRC
+# /etc/init.d/iptables save
 
 echo "ENDWALL LOADED"
 ################################     PRINT RULES      #######################################################################

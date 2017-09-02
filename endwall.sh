@@ -6,7 +6,7 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: wired
-# Current Version: 1.38  January 07, 2017
+# Current Version: 1.39  August 30, 2017
 # Stable Version:  1.37, September 21, 2016
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
@@ -106,27 +106,27 @@
 #
 #  The Endware Development Team
 ##############################################################################################################################################################################
-
 ##############################################################################################################################################################################
 #                                                              LICENSE AGREEMENT  
 ##############################################################################################################################################################################
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.12 
-#  VERSION DATE: AUGUST 11, 2016
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
+#  VERSION: 1.15
+#  VERSION DATE: JULY 05, 2017
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
-#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
+#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -185,13 +185,15 @@
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
 ################################################      BEGINNING OF PROGRAM        ##################################################################################
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.38"
+version="1.39"
 branch="wired"
-rev_date="07/01/2017"
+rev_date="30/08/2017"
+state="closed"
 
 for arg in "$@"
 do
@@ -367,6 +369,9 @@ ip6tables-save > /etc/iptables/rules.v6
 # RHEL/CENTOS/FEDORA
 iptables-save  > /etc/iptables/iptables
 ip6tables-save > /etc/iptables/ip6tables
+
+# Parabola / Gentoo OpenRC
+# /etc/init.d/iptables save
 
 echo "ENDWALL DISABLED"
 ##############################     PRINT RULES       ################################################################
@@ -1220,7 +1225,7 @@ ip6tables -A FORWARD -j REJECT
 #############################################################################################################################
 echo SAVING RULES
 # comment out distribution rules that you are not using
-#ARCH/PARABOLA
+#ARCH/PARABOLA with systemd
 iptables-save  > /etc/iptables/iptables.rules
 ip6tables-save > /etc/iptables/ip6tables.rules
 
@@ -1231,6 +1236,9 @@ ip6tables-save > /etc/iptables/rules.v6
 # RHEL/CENTOS/FEDORA
 iptables-save  > /etc/iptables/iptables
 ip6tables-save > /etc/iptables/ip6tables
+
+# Parabola / Gentoo OpenRC
+# /etc/init.d/iptables save
 
 echo "ENDWALL LOADED"
 ################################     PRINT RULES      #######################################################################
