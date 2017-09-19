@@ -39,6 +39,7 @@
 #
 #  # torsocks wget https://github.com/endwall2/endware/raw/master/endtorrc 
 #  # mv endtorrc torrc-defaults
+#  # cp gepoip geoip6 /usr/local/share/tor/
 #  # systemctl restart tor
 #  or
 #  # rc-service tor stop 
@@ -165,7 +166,6 @@ ClientOnly 1
 GeoIPExcludeUnknown 1
 EnforceDistinctSubnets 1
 UseEntryGuards 1
-UseEntryGuardsAsDirGuards 1
 FetchServerDescriptors 1
 FetchHidServDescriptors 1
 FetchUselessDescriptors 1
@@ -178,16 +178,17 @@ CircuitPriorityHalflife 0
 
 #################################### DEPRECATED SWITCHES ###########################################
 
-## Flagged for deprecation in tor-2.9.2.0
+## Flagged for deprecation
 # Tor2webMode 0
 # FastFirstHopPK 0
 # AllowSingleHopCircuits 0
 # ExcludeSingleHopRelays 1
 # UseNTorHandshake 1
 # ClientDNSRejectInternalAddresses 1
+# UseEntryGuardsAsDirGuards 1
 
 ################################  SECURITY SWITCHES #################################################
-## Sandbox 0  This isn't working properly anymore ( leave this commented out )
+## Sandbox 0  This doesn't work properly anymore 
 ## Comment out to use transparent proxying/plugable transports 
 StrictNodes 1
 ## Comment out or set to 0 if connection problems to hidden services
@@ -227,6 +228,9 @@ PathsNeededToBuildCircuits 0.75
 ####################################################################################################
 #                                    NODE PATH SELECTION
 ####################################################################################################
+#  To use Country codes be sure to copy the files geoip and geoip6 into the directory /usr/local/share/tor/
+#  cp geoip geoip6 /usr/local/share/tor/
+#
 
 #######################  CURRENT SETTING  ###########################################
 ## NINE EYES Exclusion
