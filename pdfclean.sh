@@ -4,17 +4,19 @@
 # TYPE: Bourne Shell Script
 # DESCRIPTION: Cleans a pdf file
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
-# CREATION DATE: JUN 3 2016
-# VERSION: 0.04 
-# REVISION DATE: JUN 10 2016
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
+# CREATION DATE: JUNE 3 2016
+# VERSION: 0.06 
+# REVISION DATE: NOVEMBER 04 2017
 #
-# CHANGE LOG: - Worked on instructions section + Added Acknowledgements + EULA
+# CHANGE LOG: - Added --all flag for batch job inside a directory
+#             - Changed instructions
+#             - Worked on instructions section + Added Acknowledgements + EULA
 #             - Commented out pdfcop
 #             - Commented out verapdf 
 #             - File Creation
 #####################################################################################
-# DEPENDENCIES: firejail, tor, torsocks, wget, perl-image-exiftool, qpdf, pdfid.py, ghostscript  
+# DEPENDENCIES: perl-image-exiftool, qpdf, pdfid.py, ghostscript  
 #               libfaketime, faketime, date, pdfcop,verapdf
 #####################################################################################
 # INSTRUCTIONS: 
@@ -49,10 +51,12 @@
 # 
 # STEP 5) INSTAL mat  (Not Working)
 # $ cd ~/git
-# $ torsocks git clone https://github.com/jvoisin/MAT.git
+# $ torsocks git clone https://git.torproject.org/user/jvoisin/mat.git
+# or
+# $ torsocks git clone http://dccbbv6cooddgcrq.onion/user/jvoisin/mat.git
 # $ cd ~/bin
 # $ ln -s ~/git/MAT/mat mat
-# $ torsocks pacman -S python2-poppler mutagen python-mutagen
+# $ torsocks pacman -S poppler python2-poppler mutagen python-mutagen python-cairo 
 #
 # STEP 6) INSTALL verapdf  ( optional requires JAVA/ Untested)
 # $ cd ~/git
@@ -78,24 +82,22 @@
 # $ pdfclean strange.pdf
 # 
 # STEP 11) Open file with pdfviewer while in safemode
-# $ epdfview strandge.clean.pdf
+# $ epdfview strange.clean.pdf
 ########################################################################################
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -188,12 +190,56 @@
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
 ####################################               BEGINNING OF PROGRAM              ########################################################################
+version="0.06"
+branch="gnu/linux"
+rev_date="04/11/2017"
+
+## initial flag switch states
+state="file"
+
+##  get input list from shell argument 
+for arg in $@
+do 
+ if [ "$arg" == "--help" ]
+ then
+ echo "PDFCLEAN: Clean a pdf of metadata and javascript and format it using ghostscript."
+ echo " "
+ echo "USAGE:  pdfclean --option file.pdf" 
+ echo "pdfclean --help    # print usage information"
+ echo "pdfclean --version # print version information"
+ echo "pdfclean file.pdf  # standard pdf clean on one file" 
+ echo "pdfclean --all # creates a list of all pdf files in the pwd and operates on them"
+ echo " "
+ shift 
+ exit 0
+ elif [ "$arg" == "--version" ]
+ then
+ echo "PDFCLEAN: version "$version", branch: "$branch", revision date: "$rev_date" "
+ echo "Copyright: 2015-2017, THE ENDWARE DEVELOPMENT TEAM" 
+ shift
+ exit 0
+ elif [ "$arg" == "--all" ]
+ then
+ state="all"
+ shift
+ shift 
+ fi  
+
+# store the argument
+arghold="$arg"
+ 
+done
+
+# last argument is assumed to be a filename
+
+## pdf cleaning function
+cleanpdf(){
 file=$1
 rt=$( echo "$file" | cut -d . -f 1 ) 
 
 exiftool -all= "$file" 
-
 qpdf --suppress-recovery --object-streams=generate --decrypt --linearize "$file" "$file"_sane 
 
 # set pdfmark with metadata
@@ -222,6 +268,23 @@ pdfmetadata "$rt".clean.pdf
 ## delete intermediary files
 rm "$file"_sane
 rm pdfmark
+}
+
+if [ "$state" == "all" ]
+then
+ls *.pdf > file_list.txt 
+IFS=$'\n' 
+# main loop
+ for file in $(cat file_list.txt) 
+ do
+ echo "Cleaning $file"
+ cleanpdf $file
+ echo "$file has been cleaned."
+ done
+ rm file_list.txt
+else
+ cleanpdf $arghold
+fi
 
 exit "$?"
 
