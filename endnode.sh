@@ -6,12 +6,13 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.20
-# REVISION DATE: NOVEMBER 8 2016
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
+# VERSION: 0.21
+# REVISION DATE: DECEMBER 16 2016
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017 
 #
 #
-# CHANGE LOG:  - wget + gunzip optimization
+# CHANGE LOG:  - comment out gunzip
+$              - wget + gunzip optimization
 #              - Fixed headers + gunzip unpack html + replace curl with wget
 #              - Added --verison, --help, for loop for input arguments.
 #              - Moved user agents to user_agents.txt
@@ -54,21 +55,19 @@
 #  $  endnode --endlook  # use iplookup instead of geoiplookup 
 #  $  endnode --uarand   # use random user agent 
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -82,28 +81,26 @@
 #
 #  The Endware Development Team
 ##############################################################################################################################################################################
-
 ##############################################################################################################################################################################
 #                                                              LICENSE AGREEMENT  
 ##############################################################################################################################################################################
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
+#  VERSION: 1.12 
+#  VERSION DATE: AUGUST 11, 2016
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
+#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -226,12 +223,12 @@ HEAD4="Connection: keep-alive"
 check_tor=check.tmp
 #check_tor=index.html
 ### check tor project ip
-torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/
+torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor" https://check.torproject.org/
 torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png https://check.torproject.org/torcheck/img/tor-on.ico
 
 ### unpack html
 
-gunzip "$check_tor".gz
+# gunzip "$check_tor".gz
 
 exit_address=$(grep -ah "Your IP" $check_tor | awk 'BEGIN {FS=">"} {print $3}' | awk 'BEGIN {FS="<"} {print $1}' )
 echo "TOR exit node is "$exit_address" "
