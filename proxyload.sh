@@ -6,8 +6,8 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 15 2016
-# VERSION: 0.12
-# REVISION DATE: FEBRUARY 11 2017
+# VERSION: 0.13
+# REVISION DATE: DECEMBER 24 2017
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 # 
 # CHANGE LOG:  - While loop to make sure ssl proxies download
@@ -85,21 +85,20 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
+#  VERSION: 1.12 
+#  VERSION DATE: AUGUST 11, 2016
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
+#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -160,9 +159,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ### VERSION INFORMATION
-version="0.12"
+version="0.13"
 branch="gnu/linux"
-rev_date="11/02/2017"
+rev_date="24/12/2017"
 
 ## change this path to the user_agents.txt
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -219,37 +218,54 @@ HEAD4="Connection: keep-alive"
 echo "$UA"
 echo "Downloading SSL Proxies"
 
+
+
+
+##################### OBSOLETE CODE WGET NOW HANDLES THIS TRANSACTION
 #cc="com"
 #torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
-
 ## while loop to ensure that ssl_proxies download
+## while loop to pick up country code
+# cc=" "
+#while [ "$cc" == " " ];do
+#cc=$(torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
+#sleep $(expr 1 + $(expr $RANDOM % 5) ) 
+#done
+#echo "Country Code is "$cc" "
+#####################################################
+
 pfile_exists=0
 while [ "$pfile_exists" == "0" ];do
-
-## while loop to pick up country code
-cc=" "
-while [ "$cc" == " " ];do
-cc=$(torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site" | grep "The document"  | cut -d / -f 3 | cut -d . -f 3 )
-sleep $(expr 1 + $(expr $RANDOM % 3) ) 
-done
-echo "Country Code is "$cc" "
-
+torsocks -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O index.html "$ssl_site"
 ## get the URLs hosting the proxy lists and parse
-
-torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
-
-cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 | sort -u > "$holder_2"
+grep "Free " index.html | grep "html" | grep -v "title" >> "$holder_1" 
+#torsocks curl -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$cc" | grep "Free " | grep "html" | grep -v "title" >> "$holder_1" 
+cut -d '>' -f 1 "$holder_1" | cut -d ':' -f 2 | cut -d '.' -f 3 | cut -d \/ -f 1 --complement | sort -u > "$holder_2"
+rm index.html
 
 echo "Downloading SSL Proxies"
 ## download the proxies then numeric sort and remove duplicates
 for link in $(cat "$holder_2") ; do
-torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$link".html| grep "[0123456789]:[123456789][0123456789]" >> "$holder_3"
+
+is_page=0
+  while [  "$is_page" == "0" ]; do 
+    torsocks -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O page.html "$ssl_site_rt".com/"$link".html
+    #torsocks curl -m 60 -A "$UA" -H "$HEAD1" -H "$HEAD2" "$ssl_site_rt"."$link".html| grep -ah "[0123456789]:[123456789][0123456789]" > "$holder_3"
+      if [ -s page.html ]
+      then 
+      grep -ah "[0123456789]:[123456789][0123456789]" page.html > "$holder_3"
+      sort -nu "$holder_3" >> ssl_proxies.txt
+      is_page=1
+      rm page.html
+      fi
+      
+      sleep $(expr 1 + $(expr $RANDOM % 5) ) 
+  done
+
 done 
 
-if [ -s "$holder_3" ]
-then
-sort -nu "$holder_3" >> ssl_proxies.txt
-
+if [ -s ssl_proxies.txt ]
+then  
 pfile_exists=1
 ## remove temporary files
 rm "$holder_1"
@@ -257,7 +273,7 @@ rm "$holder_2"
 rm "$holder_3"
 fi
 
-sleep $(expr 1 + $(expr $RANDOM % 3) ) 
+sleep $(expr 1 + $(expr $RANDOM % 10) ) 
 
 done
 
