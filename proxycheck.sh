@@ -6,8 +6,8 @@
 #
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
-# VERSION: 0.17
-# REVISION DATE: NOVEMBER 6 2016
+# VERSION: 0.18
+# REVISION DATE: DECEMBER 28 2016
 # 
 # CHANGE LOG:  - --version --help + headers
 #              - added -i torsocks --isolate flag
@@ -21,9 +21,6 @@
 #              - Output results incrementally
 #              - Updated to check proxy output using awk
 #              - Forked from proxyload
-#              - Added ssl proxies and socks proxies  
-#              - Forked from endcurl
-#
 ########################################################################################################################################
 # DEPENDENCIES: torsocks,curl,od,head,urandom,sleep,awk
 ########################################################################################################################################
@@ -33,8 +30,10 @@
 #  Do the following at a command prompt
 #
 #  $  mkdir ~/bin
+#  $  cd ~/bin
+#  $  wget https://github.com/endwall2/endware/raw/master/proxycheck.sh
 #  $  chmod u+wrx proxycheck.sh
-#  $  cp proxycheck.sh ~/bin/proxycheck
+#  $  mv proxycheck.sh proxycheck
 #  $  export PATH=$PATH:~/bin
 # 
 #  $ mkdir ~/proxies
@@ -57,21 +56,19 @@
 #  $ proxycheck ssl_proxies.txt  
 #  $ proxycheck socks_proxies.txt
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -91,21 +88,20 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
+#  VERSION: 1.12 
+#  VERSION DATE: AUGUST 11, 2016
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #      
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
-#  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
+#  0) a) Use of this program means the ability to study, posses, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
 #        of these aforementioned actions and activities. 
 #  0) b) A user of this program is any individual who has been granted use as defined in section 0) a) of the LICENSE AGREEMENT, and is granted to those individuals listed in section 1.
 #  WHO MAY USE THIS PROGRAM ?
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
-#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) c) This program may be used by any civilian, military officer, government agent, private citizen, public official, sovereign, monarch, head of state,
+#        dignitary, ambassador, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
 #  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
 #  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
 #  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
@@ -165,9 +161,9 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
-version="0.17"
+version="0.18"
 branch="gnu/linux"
-rev_date="11/06/2016"
+rev_date="28/12/2016"
 
 ##  get input list from shell argument 
 USERAGENTS="$HOME/bin/user_agents.txt" 
@@ -193,7 +189,7 @@ echo "proxycheck --help    # display usage information"
 exit 0
 fi
 
-if [ "$arg" == "--uarand" ] 
+if [ "$arg" == "--ua-rand" ] 
  then
  state="rand"
 fi
@@ -247,10 +243,10 @@ if [ "$infile" == ssl_proxies.txt ] ; then
 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.google.com >> "$holder_1"
+torsocks -i curl -m 90 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks -i curl -m 90 -A "$UA" -H "$HEAD1" -H "$HEAD2" --proxy "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -258,19 +254,19 @@ echo " "
 ## NOW FILTER THE RESULTS FOR WORKING PROXIES
 
 ## capture working redirects
-awk '{ if ($0 ~ /The document/) i=NR; if (NR == i+3) {print $2} }' "$holder_1" >> "$outfile_1"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /The document has moved/) {print prxy} }' "$holder_1" >> "$outfile_1"
 ## capture working google hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Search the world/ ) {print prxy} }' "$holder_1" >> "$outfile_2"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Google Search/ ) {print prxy} }' "$holder_1" >> "$outfile_2"
 ## capture working youtube hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$holder_2" >> "$outfile_3"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /"iconType":"YOUTUBE_LOGO"/ ) {print prxy} }' "$holder_2" >> "$outfile_3"
 
 elif [ "$infile" == socks_proxies.txt ] ; then 
 echo "$proxy" 
 echo "PROXY: "$proxy"" > "$holder_1"
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
+torsocks -i curl -m 90 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.google.com >> "$holder_1"
 echo "PROXY: "$proxy"" >> "$holder_1" 
 echo "PROXY: "$proxy"" > "$holder_2" 
-torsocks -i curl -m 180 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
+torsocks -i curl -m 90 -A "$UA" -H "$HEAD1" -H "$HEAD2" --socks5 "$proxy"  https://www.youtube.com >> "$holder_2"
 echo "PROXY: "$proxy"" >> "$holder_2" 
 echo "$proxy" 
 echo " " 
@@ -278,18 +274,18 @@ echo " "
 ## NOW FILTER THE RESULTS FOR WORKING PROXIES
 
 ## capture working redirects
-awk '{ if ($0 ~ /The document/) i=NR; if (NR == i+3) {print $2} }' "$holder_1" >> "$outfile_1"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /The document has moved/) {print prxy} }' "$holder_1" >> "$outfile_1"
 ## capture working google hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Search the world/ ) {print prxy} }' "$holder_1" >> "$outfile_2"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /Google Search/ ) {print prxy} }' "$holder_1" >> "$outfile_2"
 ## capture working youtube hits
-awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /ytbuffer/ ) {print prxy} }' "$holder_2" >> "$outfile_3"
+awk '{ if ($0 ~ /PROXY: /) prxy=$2 ; if ($0 ~ /"iconType":"YOUTUBE_LOGO"/ ) {print prxy} }' "$holder_2" >> "$outfile_3"
 
 else 
 
 echo "USAGE:  $ proxycheck ssl_proxies.txt"
 echo "USAGE:  $ proxycheck socks_proxies.txt"
-echo "USAGE:  $ proxycheck -r ssl_proxies.txt"
-echo "USAGE:  $ proxycheck -r socks_proxies.txt"
+echo "USAGE:  $ proxycheck --ua-rand ssl_proxies.txt"
+echo "USAGE:  $ proxycheck --ua-rand socks_proxies.txt"
 
 exit 1
 
