@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.07"
-rev_date="13/06/2017"
+version="0.08"
+rev_date="30/12/2017"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -219,11 +219,11 @@ channel_matrix_2()
    echo "====================================================    "$product" "$version"   ======================================================================="
    echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
    echo "================================================================================================================================================="
-   echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN"    
+   echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN Radio"    
    echo "282)Old Time Radio  322)Radio Russia Moscow 362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
    echo "283)--------------- 323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
-   echo "284)--------------- 324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)--------------"             
-   echo "285)--------------- 325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)--------------"  
+   echo "284)--------------- 324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
+   echo "285)--------------- 325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
    echo "286)--------------- 326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)--------------"  
    echo "287)--------------- 327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
    echo "288)--------------- 328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
@@ -580,7 +580,7 @@ chan_name="CBC Radio 1 Edmonton,AB";;
 # 49) CBC Radio 1 Regina AB Canada
 49) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
 use_paylist="no"
-chan_name="CBC Radio 1 Regina,AB";;
+chan_name="CBC Radio 1 Regina,SK";;
 # 50) CBC Radio 1 Saskatoon SK Canada
 50) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
 use_paylist="no"
@@ -685,31 +685,31 @@ chan_name="CBC Radio 1 Yellowknife, YK";;
 # 75) CBC Radio 2 Halifax NFL Canada
 75) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
 use_paylist="no"
-chan_name="CBC Radio 1, Halifax NFL";;
+chan_name="CBC Radio 2, Halifax NFL";;
 # 76) CBC Radio 2 Toronto ON Canada
 76) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
 use_paylist="no"
-chan_name="CBC Radio 1, Toronto ON";;
+chan_name="CBC Radio 2, Toronto ON";;
 # 77) CBC Radio 2 Winnipeg MB Canada
 77) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
 use_paylist="no"
-chan_name="CBC Radio 1, Winnipeg MB";;
+chan_name="CBC Radio 2, Winnipeg MB";;
 # 78) CBC Radio 2 Edmonton AB Canada
 78) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
 use_paylist="no"
-chan_name="CBC Radio 1, Edmonton AB";;
+chan_name="CBC Radio 2, Edmonton AB";;
 # 79) CBC Radio 2 Vancouver BC Canada
 79) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
 use_paylist="no"
-chan_name="CBC Radio 1, Vancouver BC";;
+chan_name="CBC Radio 2, Vancouver BC";;
 # 80) CBC Radio 2 Pacific Canada
 80) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
 use_paylist="no"
-chan_name="CBC Radio 1, Pacific BC";;
+chan_name="CBC Radio 2, Pacific BC";;
 # 81) CBC Radio 2 Eastern Canada
 81) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
 use_paylist="no"
-chan_name="CBC Radio 1, Eastern";;	
+chan_name="CBC Radio 2, Eastern";;	
 ##############################################################
 # 82) Euronews English
 82) link=http://euronews-en-p9-cdn.hexaglobe.net/b845277c2db60882a29551105a4bd53b/594807ba/euronews/euronews-euronews-website-web-responsive-2/ewnsabrenpri_eng.smil/ewnsabrenpri_eng_90p.m3u8
@@ -717,7 +717,7 @@ chan_name="CBC Radio 1, Eastern";;
 use_paylist="no"
 chan_name="Euronews";;	
 # 83) RT UK
-83) link=https://rt-usa-live-hls.secure.footprint.net/rt/uk/indexaudio.m3u8
+83) link=https://secure-streams.akamaized.net/rt-uk/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT America";;
 # 84) France 24
@@ -1209,6 +1209,7 @@ chan_name="Pulse Radio";;
 282) link=http://www.otrfan.com:8000/stream.m3u 
 use_paylist="no"
 chan_name="Old Time Radio";;
+# 283)
 
 ############################################################################
 ###################### RUSSIAN #########################################
@@ -1531,17 +1532,36 @@ chan_name="BBC Radio Wales";;
 
 ############################   RELIGIOUS  ##########################################
 # 521) EWTN 1 
-521) link=http://ewtn.mp3.miisolutions.net/ewtnradioenglish/mp3
+521) 
+link=http://audiocdn.mainstreaming.tv/101160/radio-english-mp3
+#link=http://ewtn.mp3.miisolutions.net/ewtnradioenglish/mp3
 use_paylist="no"
-chan_name="EWTN 1";;
-# 522) EWTN Classic 
-522) link=http://ewtn.mp3.miisolutions.net/ewtnradioplus/mp3
+chan_name="EWTN Radio";;
+# 522) EWTN Classics 
+522) 
+link=http://audiocdn.mainstreaming.tv/101164/radio-classics-mp3
+#link=http://ewtn.mp3.miisolutions.net/ewtnradioplus/mp3
 use_paylist="no"
 chan_name="EWTN Classic";;
 # 523) EWTN Spanish
-523) link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
+523) 
+link=http://audiocdn.mainstreaming.tv/101162/radio-spanish-mp3
+#link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
 use_paylist="no"
-chan_name="EWTN Classic";;
+chan_name="EWTN Spanish";;
+# 524) EWTN Ireland /GB
+524) 
+link=http://audiocdn.mainstreaming.tv/101168/radio-sky-mp3
+use_paylist="no"
+chan_name="EWTN Ireland /GB";;
+# 525) EWTN Philippines
+525) 
+link=http://audiocdn.mainstreaming.tv/101166/radio-philippines-mp3
+#link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
+use_paylist="no"
+chan_name="EWTN Philippines";;
+
+
 
 esac
 
