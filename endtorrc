@@ -2,8 +2,8 @@
 # TITLE: ENDTORRC
 # AUTHOR: THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: MAY 31, 2016
-# VERSION: 0.14
-# REVISION DATE: NOVEMBER 26, 2016
+# VERSION: 0.15
+# REVISION DATE: JANUARY 12, 2018
 # COPYRIGHT: THE ENDWARE DEVELOPEMENT TEAM, 2016
 #
 # DESCRIPTION: A sample tor configuration file to use with endware
@@ -186,6 +186,7 @@ CircuitPriorityHalflife 0
 # UseNTorHandshake 1
 # ClientDNSRejectInternalAddresses 1
 # UseEntryGuardsAsDirGuards 1
+# CircuitIdleTimeout 60
 
 ################################  SECURITY SWITCHES #################################################
 ## Sandbox 0  This doesn't work properly anymore 
@@ -217,7 +218,6 @@ NumDirectoryGuards 400
 GuardLifetime 1 month
 
 KeepalivePeriod 60
-CircuitIdleTimeout 60
 CircuitBuildTimeout 30
 CircuitStreamTimeout 60
 
