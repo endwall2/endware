@@ -180,7 +180,7 @@ channel_matrix()
    echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)Al Jazeera Audio128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
    echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
    echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
-   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)--------------- 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
+   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Bloomberg Radio 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
    echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)--------------- 132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
    echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)--------------- 133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
    echo "14)BBC Radio Sports   54)CBC 1 London       94)--------------- 134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
@@ -207,7 +207,7 @@ channel_matrix()
    echo "35)WRFN-LP            75)CBC 2 Halifax      115)-------------  155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
    echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
    echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
-   echo "38)Bloomberg Radio    78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "38)------------       78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
    echo "39)------------       79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
    echo "40)------------       80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
@@ -221,12 +221,12 @@ channel_matrix_2()
    echo "================================================================================================================================================="
    echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN Radio"    
    echo "282)Old Time Radio  322)Radio Russia Moscow 362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
-   echo "283)--------------- 323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
-   echo "284)--------------- 324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
-   echo "285)--------------- 325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
-   echo "286)--------------- 326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)--------------"  
-   echo "287)--------------- 327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
-   echo "288)--------------- 328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
+   echo "283)c0vertElectr0   323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
+   echo "284)Deep Banjo      324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
+   echo "285)Dark Ret        325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
+   echo "286)BaroqueRadio    326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)--------------"  
+   echo "287)AnonyRadio      327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
+   echo "288)AnonyJazz       328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
    echo "289)--------------- 329)Kommersant          369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
    echo "290)--------------- 330)Moskva FM Moscow    370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
    echo "291)--------------- 331)NN Radio Nizhny     371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
@@ -539,11 +539,7 @@ chan_name="Liberty Radio";;
 37) link=http://firstamendmentradio.net/64k.pls
 use_paylist="no"
 chan_name="First Amendment Radio";;
-# 38)Bloomberg Radio 
-38)
-link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
-use_playlist="no"
-chan_name="Bloomberg Radio";;
+# 38)
 # 39)
 
 # 40)
@@ -759,7 +755,11 @@ chan_name="RT America";;
 90) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT ";;
-
+# 91) Bloomberg Radio 
+91)
+link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
+use_playlist="no"
+chan_name="Bloomberg Radio";;
 
 ########################################
 # 121) France Info
@@ -1214,7 +1214,32 @@ chan_name="Pulse Radio";;
 282) link=http://www.otrfan.com:8000/stream.m3u 
 use_paylist="no"
 chan_name="Old Time Radio";;
-# 283)
+# 283) c0vertElectr0
+283) link=http://76qugh5bey5gum7l.onion/c0vertElectr0   
+use_paylist="no"
+chan_name="c0vertElectr0";;
+# 284) DeepBanjo
+284) link=http://76qugh5bey5gum7l.onion/DeepBanjo  
+use_paylist="no"
+chan_name="DeepBanjo";;
+# 285) DarkRet
+285) link=http://76qugh5bey5gum7l.onion/DarkRet  
+use_paylist="no"
+chan_name="DarkRet";;
+# 286) BaroqueRadio
+286) link=http://76qugh5bey5gum7l.onion/BaroqueRadio  
+use_paylist="no"
+chan_name="Baroque Radio";;
+# 287) Anony Radio
+287) link=http://76qugh5bey5gum7l.onion/AnonyRadio 
+use_paylist="no"
+chan_name="Anony Radio";;
+# 288) Anony Jazz
+288) link=http://76qugh5bey5gum7l.onion/AnonyJazz 
+use_paylist="no"
+chan_name="Anony Jazz";;
+
+
 
 ############################################################################
 ###################### RUSSIAN #########################################
@@ -1711,7 +1736,7 @@ entry="$1"
 elif [ "$1" == "" ]
 then
 channel_matrix
-echo "Please Select a Number corresponding to a YouTube Live Stream:"
+echo "Please Select a Number corresponding to an Internet Radio Live Stream:"
 
 read entry
 num="$entry"
