@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.07
-# Revision Date: June 13, 2017
+# Version: 0.09
+# Revision Date: Jan 27, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.08"
-rev_date="30/12/2017"
+version="0.09"
+rev_date="27/01/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -207,7 +207,7 @@ channel_matrix()
    echo "35)WRFN-LP            75)CBC 2 Halifax      115)-------------  155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
    echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
    echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
-   echo "38)------------       78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "38)Voice of America   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
    echo "39)------------       79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
    echo "40)------------       80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
@@ -539,7 +539,10 @@ chan_name="Liberty Radio";;
 37) link=http://firstamendmentradio.net/64k.pls
 use_paylist="no"
 chan_name="First Amendment Radio";;
-# 38)
+# 38) Voice of America
+38) link=https://voa28.akacast.akamaistream.net/7/325/437810/v1/ibb.akacast.akamaistream.net/voa28?download=1
+use_paylist="no"
+chan_name="Voice of America";;
 # 39)
 
 # 40)
@@ -1216,27 +1219,27 @@ use_paylist="no"
 chan_name="Old Time Radio";;
 # 283) c0vertElectr0
 283) link=http://76qugh5bey5gum7l.onion/c0vertElectr0   
-use_paylist="no"
+use_paylist="yes"
 chan_name="c0vertElectr0";;
 # 284) DeepBanjo
 284) link=http://76qugh5bey5gum7l.onion/DeepBanjo  
-use_paylist="no"
+use_paylist="yes"
 chan_name="DeepBanjo";;
 # 285) DarkRet
 285) link=http://76qugh5bey5gum7l.onion/DarkRet  
-use_paylist="no"
+use_paylist="yes"
 chan_name="DarkRet";;
 # 286) BaroqueRadio
 286) link=http://76qugh5bey5gum7l.onion/BaroqueRadio  
-use_paylist="no"
+use_paylist="yes"
 chan_name="Baroque Radio";;
 # 287) Anony Radio
 287) link=http://76qugh5bey5gum7l.onion/AnonyRadio 
-use_paylist="no"
+use_paylist="yes"
 chan_name="Anony Radio";;
 # 288) Anony Jazz
 288) link=http://76qugh5bey5gum7l.onion/AnonyJazz 
-use_paylist="no"
+use_paylist="yes"
 chan_name="Anony Jazz";;
 
 
