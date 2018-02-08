@@ -181,7 +181,7 @@ channel_matrix()
    echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
    echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
    echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Bloomberg Radio 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
-   echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)--------------- 132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
+   echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)BBC World News  132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
    echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)--------------- 133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
    echo "14)BBC Radio Sports   54)CBC 1 London       94)--------------- 134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
    echo "15)BBC Radio Asian    55)CBC 1 Ottawa       95)--------------- 135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
@@ -763,6 +763,13 @@ chan_name="RT ";;
 link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
 use_playlist="no"
 chan_name="Bloomberg Radio";;
+
+# 91) BBC World News Service 
+91)
+link="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws_backup"
+use_playlist="no"
+chan_name="BBC World News";;
+
 
 ########################################
 # 121) France Info
