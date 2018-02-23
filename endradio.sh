@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.09
-# Revision Date: Jan 27, 2018
+# Version: 0.10
+# Revision Date: Feb 22, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.09"
-rev_date="27/01/2018"
+version="0.10"
+rev_date="22/02/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -208,8 +208,8 @@ channel_matrix()
    echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
    echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
    echo "38)Voice of America   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
-   echo "39)------------       79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
-   echo "40)------------       80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
+   echo "39)CSPAN Radio        79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
+   echo "40) EBS Europe        80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
 echo " " 
 }	
@@ -543,9 +543,15 @@ chan_name="First Amendment Radio";;
 38) link=https://voa28.akacast.akamaistream.net/7/325/437810/v1/ibb.akacast.akamaistream.net/voa28?download=1
 use_paylist="no"
 chan_name="Voice of America";;
-# 39)
-
-# 40)
+# 39) CSPAN Radio
+39)
+link=https://playerservices.streamtheworld.com/api/livestream-redirect/CSPANRADIO.mp3
+use_playlist="no"
+chan_name="CSPAN RADIO" ;;
+# 40) EBS English
+40) link=http://defiris.ec.streamcloud.be/live/audio/ebsplus_en_128.mp3 
+use_paylist="no"
+chan_name="EBS English";;
 ######## CBC RADIO CANADA #################
 
 ########## CBC RADIO 1
@@ -763,9 +769,8 @@ chan_name="RT ";;
 link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
 use_playlist="no"
 chan_name="Bloomberg Radio";;
-
-# 91) BBC World News Service 
-91)
+# 92) BBC World News Service 
+92)
 link="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws_backup"
 use_playlist="no"
 chan_name="BBC World News";;
