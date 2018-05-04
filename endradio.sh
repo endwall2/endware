@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.10
-# Revision Date: Feb 22, 2018
+# Version: 0.11
+# Revision Date: April 21, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.10"
-rev_date="22/02/2018"
+version="0.11"
+rev_date="21/04/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -178,12 +178,12 @@ channel_matrix()
    echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)CBSN            126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
    echo "7)BBC Radio 2         47)CBC 1 Calgary      87)CNN             127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
    echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)Al Jazeera Audio128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
-   echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)---------------"
+   echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
    echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
-   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Bloomberg Radio 131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
+   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Jupiter FM      131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
    echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)BBC World News  132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
-   echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)--------------- 133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
-   echo "14)BBC Radio Sports   54)CBC 1 London       94)--------------- 134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
+   echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)Oireachtas IE   133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
+   echo "14)BBC Radio Sports   54)CBC 1 London       94)EBS Europe      134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
    echo "15)BBC Radio Asian    55)CBC 1 Ottawa       95)--------------- 135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
    echo "16)BBC World Service  56)CBC 1 Sudbury      96)--------------  136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
    echo "17)RTE Dublin         57)CBC 1 Thunder Bay  97)--------------- 137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
@@ -194,7 +194,7 @@ channel_matrix()
    echo "22)LBC 97.3 FM London 62)CBC 1 Quebec City  102)-------------- 142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
    echo "23)Isles FM Stornoway 63)CBC 1 Fredericton  103)-------------- 143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
    echo "24)CPR News Colorado  64)CBC 1 Moncton      104)-------------- 144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
-   echo "25)Jupiter Broadcast  65)CBC 1 Saint John   105)-------------- 145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
+   echo "25)Bloomberg Radio    65)CBC 1 Saint John   105)-------------- 145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
    echo "26)Genesis GCN        66)CBC 1 Charlottetown106)-------------- 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"
    echo "27)Republic RBN       67)CBC 1 Cape Breton  107)-------------- 147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
    echo "28)24/7 World Radio   68)CBC 1 Halifax      108)-------------- 148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
@@ -209,7 +209,7 @@ channel_matrix()
    echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
    echo "38)Voice of America   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
    echo "39)CSPAN Radio        79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
-   echo "40) EBS Europe        80)CBC 2 Pacific      120)-------------  160)--------------- 200)---------------   240)Menorca Mahón       280)---------------"
+   echo "40)ABCNews Radio AU   80)CBC 2 Pacific      120)-------------  160)--------------- 200)-----------       240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
 echo " " 
 }	
@@ -469,10 +469,11 @@ chan_name="Isles FM Stornoway";;
 24) link=http://livestream.cprnetwork.org/pls/live_newsinfo_aac.pls
 use_paylist="no"
 chan_name="CPR News Colorado";;
-# 25) Jupiter Broadcasting
-25) link=http://jblive.fm/
-use_paylist="no"
-chan_name="Jupiter Broadcasting";;
+# 25) Bloomberg Radio 
+25)
+link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
+use_playlist="no"
+chan_name="Bloomberg Radio";;
 
 # 26) Genesis Communications Network 
 26) 
@@ -548,10 +549,13 @@ chan_name="Voice of America";;
 link=https://playerservices.streamtheworld.com/api/livestream-redirect/CSPANRADIO.mp3
 use_playlist="no"
 chan_name="CSPAN RADIO" ;;
-# 40) EBS English
-40) link=http://defiris.ec.streamcloud.be/live/audio/ebsplus_en_128.mp3 
-use_paylist="no"
-chan_name="EBS English";;
+# 40) ABC News RADIO AU 
+40)
+link="http://abcradiolivehls-lh.akamaihd.net/i/newsradio_1@327297/index_48_a-p.m3u8?sd=10&rebase=on"
+use_playlist="no"
+chan_name="ABC News Radio AU";;
+
+
 ######## CBC RADIO CANADA #################
 
 ########## CBC RADIO 1
@@ -764,16 +768,24 @@ chan_name="RT America";;
 90) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
 use_paylist="no"
 chan_name="RT ";;
-# 91) Bloomberg Radio 
-91)
-link="https://17633.live.streamtheworld.com/WBBRAMAAC48/HLS/playlist.m3u8?sbmid=febb23cd-097c-4c94-94c6-9bbfe8a46d93&ttag=device:web"
-use_playlist="no"
-chan_name="Bloomberg Radio";;
+# 91) Jupiter Broadcasting
+91) link=http://jblive.fm/
+use_paylist="no"
+chan_name="Jupiter Broadcasting";;
 # 92) BBC World News Service 
 92)
 link="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws_backup"
 use_playlist="no"
 chan_name="BBC World News";;
+# 93) Oireachtas IE 
+93)
+link="https://media.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8"
+use_playlist="no"
+chan_name="Oireachtas IE";;
+# 94) EBS English
+94) link=http://defiris.ec.streamcloud.be/live/audio/ebsplus_en_128.mp3 
+use_paylist="no"
+chan_name="EBS English";;
 
 
 ########################################
@@ -786,7 +798,9 @@ chan_name="France Info";;
 use_paylist="no"
 chan_name="France Info";;
 # 123) RFI Monde
-123) link=http://www.listenlive.eu/rfimonde.m3u
+123) 
+#link=http://www.listenlive.eu/rfimonde.m3u
+link=http:\/\/live02.rfi.fr\/rfimonde-64.mp3
 use_paylist="no"
 chan_name="RFI Monde";;
 # 124) RFI Afrique
@@ -1220,6 +1234,13 @@ chan_name="RSI Rete Due Lugano";;
 use_paylist="no"
 chan_name="RSI Rete Tre Lugano";;
 ##########################################################################
+
+# 248) RFI Espanol
+248) link=http:\/\/live02.rfi.fr\/rfienespagnol-64.mp3
+use_paylist="no"
+chan_name="RFI Espanol";;
+
+
 
 # 281) Pulse Radio
 281) link=http://stream.pulsradio.com:5000/
@@ -1704,9 +1725,9 @@ input=$1
 case "$input" in
 q) echo "Type endradio to restart program. Bye."
 exit "$?" ;;
-m) channel_matrix
+m) clear; channel_matrix
 echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, n for the next menu, or q to quit:" ;;
-n) channel_matrix_2
+n) clear ; channel_matrix_2
 echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, m for the main menu, or q to quit:" ;;
 esac
 }
@@ -1750,6 +1771,7 @@ echo "$1"
 entry="$1" 
 elif [ "$1" == "" ]
 then
+clear
 channel_matrix
 echo "Please Select a Number corresponding to an Internet Radio Live Stream:"
 
