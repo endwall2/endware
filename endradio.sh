@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.11
-# Revision Date: April 21, 2018
+# Version: 0.111
+# Revision Date: May 9, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.11"
-rev_date="21/04/2018"
+version="0.111"
+rev_date="09/05/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -224,10 +224,10 @@ channel_matrix_2()
    echo "283)c0vertElectr0   323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
    echo "284)Deep Banjo      324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
    echo "285)Dark Ret        325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
-   echo "286)BaroqueRadio    326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)--------------"  
+   echo "286)BaroqueRadio    326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)IHOP House of Prayer"  
    echo "287)AnonyRadio      327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
    echo "288)AnonyJazz       328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
-   echo "289)--------------- 329)Kommersant          369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
+   echo "289)Lain Radio      329)Kommersant          369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
    echo "290)--------------- 330)Moskva FM Moscow    370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
    echo "291)--------------- 331)NN Radio Nizhny     371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
    echo "292)--------------- 332)Radio Moskvy        372)BBC World Service  412)BBC Scotland    452)-----------   492)------------  532)--------------"
@@ -241,11 +241,11 @@ channel_matrix_2()
    echo "300)--------------- 340)Golos Stolytsi Kyiv 380)BBC Devon          420)-----------     460)-----------   500)------------- 540)--------------"  
    echo "301)--------------- 341)Radio ES Kyiv       381)BBC Essex          421)-----------     461)-----------   501)------------- 541)--------------"
    echo "302)--------------- 342)Radio Vesti Kyiv    382)BBC Gloucestershire422)-----------     462)-----------   502)------------- 542)--------------"       
-   echo "303)--------------- 343)-------------       383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
-   echo "304)--------------- 344)-------------       384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
-   echo "305)--------------- 345)-------------       385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
-   echo "306)--------------- 346)-------------       386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
-   echo "307)--------------- 347)-------------       387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
+   echo "303)--------------- 343)Radio Nost RU       383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
+   echo "304)--------------- 344)Radio Russia AM     384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
+   echo "305)--------------- 345)Radio Russia FM     385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
+   echo "306)--------------- 346)Kultura 91.6 FM RU  386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
+   echo "307)--------------- 347)Mayak FM RU         387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
    echo "308)--------------- 348)-------------       388)BBC Lancashire     428)-----------     468)------------  508)------------- 548)--------------"
    echo "309)--------------- 349)--------------      389)BBC Leeds          429)-----------     469)------------  509)------------- 549)--------------"
    echo "310)--------------- 350)--------------      390)BBC Leicester      430)-----------     470)------------  510)------------- 550)--------------"    
@@ -500,8 +500,8 @@ chan_name="Republic Broadcast Network";;
 method="mplayer"
 #link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
 # 173.192.70.138
-#link=http://page.cloudradionetwork.com/247radio/stream.php?port=7230
-link=http://173.192.70.138:7230
+link="http://page.cloudradionetwork.com/247radio/stream.php?port=7230"
+#link=http://173.192.70.138:7230
 use_paylist="no"
 chan_name="24/7 World Radio";;
 # 29) KPFK 
@@ -1275,6 +1275,13 @@ chan_name="Anony Radio";;
 use_paylist="yes"
 chan_name="Anony Jazz";;
 
+# 289) Lain Chan Radio
+289) 
+link=https://arisuchan.jp/glitched.m3u 
+#link=https://arisuchan.jp/glitched.pls
+use_paylist="yes"
+chan_name="Lain Chan Radio";;
+
 
 
 ############################################################################
@@ -1369,6 +1376,53 @@ chan_name="Radio ES Kyiv";;
 342) link=http://212.26.132.60:8000/vesti_mp3.m3u
 use_paylist="no"
 chan_name="Radio Vesti Kyiv";;
+# 343) Radio Nost RU
+343) 
+link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/unost_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/unost_aac_32kbps
+use_paylist="no"
+chan_name="Radio Nost RU";;
+# 344) Radio Russia AM
+344) 
+link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_32kbps
+use_paylist="no"
+chan_name="Radio Nost RU";;
+# 345) Radio Russia FM
+345) 
+link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_192
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_128
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_64
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_64
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_32
+use_paylist="no"
+chan_name="Radio Nost RU";;
+# 346) Kultura FM Moscow 91.6 FM
+346) 
+link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_32kbps
+use_paylist="no"
+chan_name="Kultura FM Moscow 91.6 FM";;
+# 347) Mayak FM Moscow 91.6 FM
+347) 
+link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_32kbps
+use_paylist="no"
+chan_name="Mayak FM Moscow 91.6 FM";;
+
+
 
 ############### BBC Regional ##########################
 # 361) BBC Radio 1 
@@ -1626,7 +1680,11 @@ link=http://audiocdn.mainstreaming.tv/101166/radio-philippines-mp3
 #link=http://ewtn.mp3.miisolutions.net/ewtnradiospanish/mp3
 use_paylist="no"
 chan_name="EWTN Philippines";;
-
+# 526) IHOP International House of Prayer 
+526) 
+link="https://ihoplive-f.akamaihd.net/i/ihopkc_tprhd@142185/index_150_a.m3u8?sd=6&set-segment-duration=quality&rebase=on"
+use_paylist="no"
+chan_name="IHOP International House of Prayer";;
 
 
 esac
