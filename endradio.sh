@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.111
-# Revision Date: May 9, 2018
+# Version: 0.112
+# Revision Date: May 22, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -137,8 +137,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.111"
-rev_date="09/05/2018"
+version="0.112"
+rev_date="22/05/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -179,7 +179,7 @@ channel_matrix()
    echo "7)BBC Radio 2         47)CBC 1 Calgary      87)CNN             127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
    echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)Al Jazeera Audio128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
    echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
-   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)---------------"
+   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)UCV Radio CL"
    echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Jupiter FM      131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
    echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)BBC World News  132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
    echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)Oireachtas IE   133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
@@ -219,33 +219,33 @@ channel_matrix_2()
    echo "====================================================    "$product" "$version"   ======================================================================="
    echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
    echo "================================================================================================================================================="
-   echo "281)Pulse Radio     321)Radio Mayak Moscow  361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN Radio"    
-   echo "282)Old Time Radio  322)Radio Russia Moscow 362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
-   echo "283)c0vertElectr0   323)Radio Culture Moscow363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
-   echo "284)Deep Banjo      324)Vesti FM Moscow     364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
-   echo "285)Dark Ret        325)Business FM Moscow  365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
-   echo "286)BaroqueRadio    326)107.4 St Petersburg 366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)IHOP House of Prayer"  
-   echo "287)AnonyRadio      327)107.5 Ufa           367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
-   echo "288)AnonyJazz       328)Gorod FM            368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
-   echo "289)Lain Radio      329)Kommersant          369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
-   echo "290)--------------- 330)Moskva FM Moscow    370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
-   echo "291)--------------- 331)NN Radio Nizhny     371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
-   echo "292)--------------- 332)Radio Moskvy        372)BBC World Service  412)BBC Scotland    452)-----------   492)------------  532)--------------"
-   echo "293)--------------- 333)RSN Moscow          373)BBC Berkshire      413)BBC nan Gaidheal453)-----------   493)------------  533)--------------"
-   echo "294)--------------- 334)UR-1 Kyiv           374)BBC Bristol        414)BBC Ulster      454)-----------   494)------------  534)--------------"
-   echo "295)--------------- 335)UR-2 Promin Kyiv    375)BBC Cambridgeshire 415)BBC Foyle       455)-----------   495)------------  535)--------------"  
-   echo "296)--------------- 336)UR-3 Kultura Kyiv   376)BBC Cornwall       416)BBC Wales       456)-----------   496)------------  536)--------------"
-   echo "297)--------------- 337)UR-4 Int Kyiv       377)BBC Coventry       417)-----------     457)-----------   497)------------- 537)--------------"
-   echo "298)--------------- 338)Business Radio Kyiv 378)BBC Cumbria        418)-----------     458)-----------   498)------------- 538)--------------"	
-   echo "299)--------------  339)Ekvator FM Shpola   379)BBC Derby          419)-----------     459)-----------   499)------------- 539)--------------"
-   echo "300)--------------- 340)Golos Stolytsi Kyiv 380)BBC Devon          420)-----------     460)-----------   500)------------- 540)--------------"  
-   echo "301)--------------- 341)Radio ES Kyiv       381)BBC Essex          421)-----------     461)-----------   501)------------- 541)--------------"
-   echo "302)--------------- 342)Radio Vesti Kyiv    382)BBC Gloucestershire422)-----------     462)-----------   502)------------- 542)--------------"       
-   echo "303)--------------- 343)Radio Nost RU       383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
-   echo "304)--------------- 344)Radio Russia AM     384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
-   echo "305)--------------- 345)Radio Russia FM     385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
-   echo "306)--------------- 346)Kultura 91.6 FM RU  386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
-   echo "307)--------------- 347)Mayak FM RU         387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
+   echo "281)Pulse Radio     321)Radio Mayak FM RU   361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN Radio"    
+   echo "282)Old Time Radio  322)Radio Russia AM     362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
+   echo "283)c0vertElectr0   323)Radio Russia FM     363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
+   echo "284)Deep Banjo      324)Kultura 91.6 FM RU  364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
+   echo "285)Dark Ret        325)Radio Nost RU       365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
+   echo "286)BaroqueRadio    326)Business FM Moscow  366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)IHOP House of Prayer"  
+   echo "287)AnonyRadio      327)107.4 St Petersburg 367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
+   echo "288)AnonyJazz       328)107.5 Ufa           368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
+   echo "289)Lain Radio      329)Gorod FM            369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
+   echo "290)KDFC Classical  330)Kommersant          370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
+   echo "291)CPR Colorado    331)Moskva FM Moscow    371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
+   echo "292)CPR Open Air    332)NN Radio Nizhny     372)BBC World Service  412)BBC Scotland    452)-----------   492)------------  532)--------------"
+   echo "293)--------------- 333)Radio Moskvy        373)BBC Berkshire      413)BBC nan Gaidheal453)-----------   493)------------  533)--------------"
+   echo "294)--------------- 334)RSN Moscow          374)BBC Bristol        414)BBC Ulster      454)-----------   494)------------  534)--------------"
+   echo "295)--------------- 335)UR-1 Kyiv           375)BBC Cambridgeshire 415)BBC Foyle       455)-----------   495)------------  535)--------------"  
+   echo "296)--------------- 336)UR-2 Promin Kyiv    376)BBC Cornwall       416)BBC Wales       456)-----------   496)------------  536)--------------"
+   echo "297)--------------- 337)UR-3 Kultura Kyiv   377)BBC Coventry       417)-----------     457)-----------   497)------------- 537)--------------"
+   echo "298)--------------- 338)UR-4 Int Kyiv       378)BBC Cumbria        418)-----------     458)-----------   498)------------- 538)--------------"	
+   echo "299)--------------  339)Business Radio Kyiv 379)BBC Derby          419)-----------     459)-----------   499)------------- 539)--------------"
+   echo "300)--------------- 340)Ekvator FM Shpola   380)BBC Devon          420)-----------     460)-----------   500)------------- 540)--------------"  
+   echo "301)--------------- 341)Golos Stolytsi Kyiv 381)BBC Essex          421)-----------     461)-----------   501)------------- 541)--------------"
+   echo "302)--------------- 342)Radio ES Kyiv       382)BBC Gloucestershire422)-----------     462)-----------   502)------------- 542)--------------"       
+   echo "303)--------------- 343)Radio Vesti Kyiv    383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
+   echo "304)--------------- 344)Vesti Radio FM RU   384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
+   echo "305)--------------- 345)-------------       385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
+   echo "306)--------------- 346)-------------       386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
+   echo "307)--------------- 347)-------------       387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
    echo "308)--------------- 348)-------------       388)BBC Lancashire     428)-----------     468)------------  508)------------- 548)--------------"
    echo "309)--------------- 349)--------------      389)BBC Leeds          429)-----------     469)------------  509)------------- 549)--------------"
    echo "310)--------------- 350)--------------      390)BBC Leicester      430)-----------     470)------------  510)------------- 550)--------------"    
@@ -498,10 +498,10 @@ chan_name="Republic Broadcast Network";;
 # 28) 247 World Radio
 28) 
 method="mplayer"
-#link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
-# 173.192.70.138
+# link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
+## 173.192.70.138
 link="http://page.cloudradionetwork.com/247radio/stream.php?port=7230"
-#link=http://173.192.70.138:7230
+#link="http://173.192.70.138:7230"
 use_paylist="no"
 chan_name="24/7 World Radio";;
 # 29) KPFK 
@@ -1234,11 +1234,14 @@ chan_name="RSI Rete Due Lugano";;
 use_paylist="no"
 chan_name="RSI Rete Tre Lugano";;
 ##########################################################################
-
-# 248) RFI Espanol
-248) link=http:\/\/live02.rfi.fr\/rfienespagnol-64.mp3
+# 249) RFI Espanol
+249) link=http://live02.rfi.fr/rfienespagnol-64.mp3
 use_paylist="no"
 chan_name="RFI Espanol";;
+# 250) UCV Radio CL 
+250) link=http://sonando.us.digitalproserver.com/ucvradio
+use_paylist="no"
+chan_name="UCV Radio CL";;
 
 
 
@@ -1274,110 +1277,66 @@ chan_name="Anony Radio";;
 288) link=http://76qugh5bey5gum7l.onion/AnonyJazz 
 use_paylist="yes"
 chan_name="Anony Jazz";;
-
 # 289) Lain Chan Radio
 289) 
 link=https://arisuchan.jp/glitched.m3u 
 #link=https://arisuchan.jp/glitched.pls
 use_paylist="yes"
 chan_name="Lain Chan Radio";;
-
-
+# 290)  KDFC Classical Santa Rosa California
+290) link=http://96.aac.pls.kdfc.live
+# link=http://128.mp3.pls.kdfc.live
+use_playlist="no"
+chan_name="KDFC Santa Rosa California";;
+# 291)  CPR Colorado Classical
+291) link=http://livestream.cprnetwork.org/pls/live_classical_aac.pls
+use_playlist="no"
+chan_name="Colorado Public Radio Classical";;
+# 292)  CPR Colorado Open Air
+292) link=http://livestream.cprnetwork.org/pls/live_openair_aac.pls
+use_playlist="no"
+chan_name="Colorado Public Radio Open Air";;
 
 ############################################################################
 ###################### RUSSIAN #########################################
-# 321) Radio Mayak Moscow
-321) link=http://www.listenlive.eu/ru_mayak.m3u 
+# 321) Radio Mayak FM Moscow 91.6 FM
+321) 
+link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_32kbps
 use_paylist="no"
-chan_name="Radio Mayak Moscow";;
-# 322) Radio Russia Moscow 
-322) link=http://www.listenlive.eu/ru_rus.m3u 
+chan_name="Radio Mayak FM Moscow 91.6 FM";;
+# 322) Radio Russia AM
+322) 
+link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_32kbps
 use_paylist="no"
-chan_name="Radio Russia Moscow";;
-# 323) Radio Culture Moscow
-323) link=http://www.listenlive.eu/ru_kultura.m3u 
+chan_name="Radio Russia AM RU";;
+# 323) Radio Russia FM
+323) 
+link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_192
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_128
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_64
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_64
+#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_32
 use_paylist="no"
-chan_name="Radio Culture Moscow";;
-# 324) Vesti FM Moscow
-324) link=http://www.listenlive.eu/ru_vestifm.m3u 
+chan_name="Radio Russia FM RU";;
+# 324) Radio Kultura FM Moscow 91.6 FM
+324) 
+link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_192kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_128kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_64kbps
+#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_32kbps
 use_paylist="no"
-chan_name="Vesti FM Moscow";;
-# 325) Business FM Moscow
-325) link=http://m1.bfm.ru:8000/fm64.m3u 
-use_paylist="no"
-chan_name="Business FM Moscow";;
-# 326) Business FM 107.4 St Petersburg
-326) link=http://www.listenlive.eu/businessfmspb.m3u 
-use_paylist="no"
-chan_name="Business FM 107.4 St Petersburg";;
-# 327) Business FM 107.5 Ufa
-327) link=http://92.50.139.190:8000/listen.pls 
-use_paylist="no"
-chan_name="Business FM 107.5 Ufa";;
-# 328) Gorod FM Ekaterinburg
-328) link=http://radio.gorodfm.ru:8000/gorodfm.m3u 
-use_paylist="no"
-chan_name="Gorod FM Ekaterinburg";;
-# 329) Kommersant FM Moscow
-329) link=http://www.listenlive.eu/kommersant.m3u 
-use_paylist="no"
-chan_name="Kommersant FM Moscow";;
-# 330) Moskva FM Moscow
-330) link=http://livestream.rfn.ru:8080/moscowfm128.m3u 
-use_paylist="no"
-chan_name="Moskva FM Moscow";;
-# 331) NN Radio Nizhny Novgorod
-331) link=http://cast.r52.ru:8000/nrd.m3u 
-use_paylist="no"
-chan_name="NN Radio Nizhny Novgorod";;
-# 332) Radio Moskvy Moscow
-332) link=http://livestream.rfn.ru:8080/moscowtalk128.m3u 
-use_paylist="no"
-chan_name="Radio Moskvy Moscow";;
-# 333) Radio RSN Moscow
-333) link=http://www.listenlive.eu/radiorsn.m3u 
-use_paylist="no"
-chan_name="Radio RSN Moscow";;
-
-############## UKRAINE
-# 334) UR-1 Kyiv 
-334) link=http://nrcu.gov.ua:8000/ur1-mp3.m3u 
-use_paylist="no"
-chan_name="UR-1 Kyiv";;
-# 335) UR-2 Promin Kyiv 
-335) link=http://nrcu.gov.ua:8000/ur2-mp3.m3u 
-use_paylist="no"
-chan_name="UR-2 Promin Kyiv";;
-# 336) UR-3 Kultura Kyiv 
-336) link=http://nrcu.gov.ua:8000/ur3-mp3.m3u 
-use_paylist="no"
-chan_name="UR-3 Kultura Kyiv";;
-# 337) UR-4 International Kyiv 
-337) link=http://nrcu.gov.ua:8000/ur4-mp3.m3u 
-use_paylist="no"
-chan_name="UR-4 International Kyiv";;
-# 338) Business Radio Kyiv 
-338) link=http://217.20.164.163:8018/listen.pls 
-use_paylist="no"
-chan_name="Business Radio Kyiv";;
-# 339) Ekvator FM Shpola
-339) link=http://212.1.95.94:8000/EkvatorFM.m3u 
-use_paylist="no"
-chan_name="Ekvator FM Shpola";;
-# 340) Golos Stolytsi Kyiv
-340) link=http://cast.radiogroup.com.ua:8000/106fm.m3u 
-use_paylist="no"
-chan_name="Golos Stolytsi Kyiv";;
-# 341) Radio ES Kyiv 
-341) link=http://live.galaradio.com:8000/kiev.m3u 
-use_paylist="no"
-chan_name="Radio ES Kyiv";;
-# 342) Radio Vesti Kyiv  
-342) link=http://212.26.132.60:8000/vesti_mp3.m3u
-use_paylist="no"
-chan_name="Radio Vesti Kyiv";;
-# 343) Radio Nost RU
-343) 
+chan_name="Radio Kultura FM Moscow 91.6 FM";;
+# 325) Radio Nost RU
+325) 
 link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_192kbps
 #link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_128kbps
 #link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_64kbps
@@ -1385,44 +1344,86 @@ link=http://icecast-vgtrk.cdnvideo.ru/unost_mp3_192kbps
 #link=http://icecast-vgtrk.cdnvideo.ru/unost_aac_32kbps
 use_paylist="no"
 chan_name="Radio Nost RU";;
-# 344) Radio Russia AM
-344) 
-link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_192kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_128kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_mp3_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/rrzonam_aac_32kbps
+# 326) Business FM Moscow
+326) link=http://m1.bfm.ru:8000/fm64.m3u 
 use_paylist="no"
-chan_name="Radio Nost RU";;
-# 345) Radio Russia FM
-345) 
-link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_192
-#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_128
-#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_mp3_64
-#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_64
-#link=http://icecast-vgtrk.cdnvideo.ru/russiafm_aac_32
+chan_name="Business FM Moscow";;
+# 327) Business FM 107.4 St Petersburg
+327) link=http://www.listenlive.eu/businessfmspb.m3u 
 use_paylist="no"
-chan_name="Radio Nost RU";;
-# 346) Kultura FM Moscow 91.6 FM
-346) 
-link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_192kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_128kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_mp3_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/kulturafm_aac_32kbps
+chan_name="Business FM 107.4 St Petersburg";;
+# 328) Business FM 107.5 Ufa
+328) link=http://92.50.139.190:8000/listen.pls 
 use_paylist="no"
-chan_name="Kultura FM Moscow 91.6 FM";;
-# 347) Mayak FM Moscow 91.6 FM
-347) 
-link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_64kbps
-#link=http://icecast-vgtrk.cdnvideo.ru/mayakfm_aac_32kbps
+chan_name="Business FM 107.5 Ufa";;
+# 329) Gorod FM Ekaterinburg
+329) link=http://radio.gorodfm.ru:8000/gorodfm.m3u 
 use_paylist="no"
-chan_name="Mayak FM Moscow 91.6 FM";;
+chan_name="Gorod FM Ekaterinburg";;
+# 330) Kommersant FM Moscow
+330) link=http://www.listenlive.eu/kommersant.m3u 
+use_paylist="no"
+chan_name="Kommersant FM Moscow";;
+# 331) Moskva FM Moscow
+331) link=http://livestream.rfn.ru:8080/moscowfm128.m3u 
+use_paylist="no"
+chan_name="Moskva FM Moscow";;
+# 332) NN Radio Nizhny Novgorod
+332) link=http://cast.r52.ru:8000/nrd.m3u 
+use_paylist="no"
+chan_name="NN Radio Nizhny Novgorod";;
+# 333) Radio Moskvy Moscow
+333) link=http://livestream.rfn.ru:8080/moscowtalk128.m3u 
+use_paylist="no"
+chan_name="Radio Moskvy Moscow";;
+# 334) Radio RSN Moscow
+334) link=http://www.listenlive.eu/radiorsn.m3u 
+use_paylist="no"
+chan_name="Radio RSN Moscow";;
 
+############## UKRAINE
+# 335) UR-1 Kyiv 
+335) link=http://nrcu.gov.ua:8000/ur1-mp3.m3u 
+use_paylist="no"
+chan_name="UR-1 Kyiv";;
+# 336) UR-2 Promin Kyiv 
+336) link=http://nrcu.gov.ua:8000/ur2-mp3.m3u 
+use_paylist="no"
+chan_name="UR-2 Promin Kyiv";;
+# 337) UR-3 Kultura Kyiv 
+337) link=http://nrcu.gov.ua:8000/ur3-mp3.m3u 
+use_paylist="no"
+chan_name="UR-3 Kultura Kyiv";;
+# 338) UR-4 International Kyiv 
+338) link=http://nrcu.gov.ua:8000/ur4-mp3.m3u 
+use_paylist="no"
+chan_name="UR-4 International Kyiv";;
+# 339) Business Radio Kyiv 
+339) link=http://217.20.164.163:8018/listen.pls 
+use_paylist="no"
+chan_name="Business Radio Kyiv";;
+# 340) Ekvator FM Shpola
+340) link=http://212.1.95.94:8000/EkvatorFM.m3u 
+use_paylist="no"
+chan_name="Ekvator FM Shpola";;
+# 341) Golos Stolytsi Kyiv
+341) link=http://cast.radiogroup.com.ua:8000/106fm.m3u 
+use_paylist="no"
+chan_name="Golos Stolytsi Kyiv";;
+# 342) Radio ES Kyiv 
+342) link=http://live.galaradio.com:8000/kiev.m3u 
+use_paylist="no"
+chan_name="Radio ES Kyiv";;
+# 343) Radio Vesti Kyiv  
+343) link=http://212.26.132.60:8000/vesti_mp3.m3u
+use_paylist="no"
+chan_name="Radio Vesti Kyiv";;
 
+#####################################
+# 344) Vesti FM Moscow
+344) link=http://www.listenlive.eu/ru_vestifm.m3u 
+use_paylist="no"
+chan_name="Vesti FM Moscow";;
 
 ############### BBC Regional ##########################
 # 361) BBC Radio 1 
