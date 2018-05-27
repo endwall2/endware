@@ -500,8 +500,9 @@ chan_name="Republic Broadcast Network";;
 method="mplayer"
 # link=http://www.broadcastmatrix.com/optional/247world/winamp.pls
 ## 173.192.70.138
-link="http://page.cloudradionetwork.com/247radio/stream.php?port=7230"
+link="http://204.141.167.19:7230"
 #link="http://173.192.70.138:7230"
+# link=http://page.clooudradionetwork.com:7230
 use_paylist="no"
 chan_name="24/7 World Radio";;
 # 29) KPFK 
@@ -779,7 +780,7 @@ use_playlist="no"
 chan_name="BBC World News";;
 # 93) Oireachtas IE 
 93)
-link="https://media.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8"
+link="https://oirlive.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8"
 use_playlist="no"
 chan_name="Oireachtas IE";;
 # 94) EBS English
