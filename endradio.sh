@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.112
-# Revision Date: May 22, 2018
+# Version: 0.114
+# Revision Date: June 17, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -61,10 +61,11 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-#      
+#  VERSION: 1.17
+#  VERSION DATE: JUNE 16, 2018
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
+#  ALL RIGHTS RESERVED  
+#    
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
 #  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
@@ -74,17 +75,18 @@
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
 #  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
-#  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
-#  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
-#  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, law enforcement officer, 
+#        police constable, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) d) This program may be used by any human being of any sex or gender, including men, women, or any other sex, or gender not mentioned.       
+#  1) e) This program may be used by any human being of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
+#  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. i
+#  1) j) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus,  motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -94,13 +96,15 @@
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
 #  4) Any user of this program is granted the freedom to study the code.
-#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any neighbor of their choice electronically or by any other method of transmission. 
+#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
-#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or salable goods.
-#  6) a) Any user of this program is granted the freedom to modify and improve the code.
-#  6) b) When modified or improved, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
+#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
+#  6) a) Any user of this program is granted the freedom to modify the code.
+#  6) b) When modified, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
 #        in its entirety to their modified code before re-distribution.
-#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or salable goods.
+#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or saleable goods.
+#  6) d) Any modified code shall be sublicensed by the modifier and distributor only under the original terms of the Endware End User License Agreement as presented in this LICENSE AGREEMENT.
+#  6) e) Any user of this software agrees that any derivative works produced as a result of user modification will be sublicensed when re-distributed under the original terms of this LICENSE AGREEMENT exactly as presented.
 #  7) a) Any user of this program is granted the freedom to run this code on any computer of their choice.
 #  7) b) Any user of this program is granted the freedom to run as many simultaneous instances of this code, on as many computers as they are able to and desire, and for as long as they desire and are
 #        able to do so with any degree of simultaneity in use. 
@@ -109,14 +113,14 @@
 #  9) Any user of this program is not granted the freedom to arbitrarily procure a copyright on this software as presented, and agrees not to do so.
 #  10) Any user of this program is not granted the freedom to obtain or retain intellectual property rights on this software as presented and agrees not to do so.
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
-#      b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
+#  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
 #  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "as is" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
 #  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
@@ -129,7 +133,7 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) j) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
@@ -137,8 +141,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.112"
-rev_date="22/05/2018"
+version="0.114"
+rev_date="17/06/2018"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -168,48 +172,48 @@ state="normal"
 channel_matrix()
 {
    echo "==========================================================     "$product" "$version"   ======================================================================="
-   echo "||        NEWS       ||      CBC Canada    ||                ||       French      ||       German       ||       Spanish       ||    Spanish / Italian  ||"
+   echo "||        NEWS       ||       TV NEWS      ||      CBC Canada      ||       French     ||       German        ||       Spanish       ||    Spanish / Italian  ||"
    echo "============================================================================================================================================================"
-   echo "1)BBC World Service   41)CBC 1 Kamloops     81)CBC 2 Eastern   121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
-   echo "2)NPR                 42)CBC 1 Kelowna      82)Euronews English122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
-   echo "3)MPR News            43)CBC 1 Prnc George  83)RT UK           123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
-   echo "4)WKSU News           44)CBC 1 Vancouver    84)France 24       124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
-   echo "5)Infowars            45)CBC 1 Victoria     85)DW Englsih      125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
-   echo "6)BBC Radio 1         46)CBC 1 Whitehorse   86)CBSN            126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
-   echo "7)BBC Radio 2         47)CBC 1 Calgary      87)CNN             127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
-   echo "8)BBC Radio 3         48)CBC 1 Edmonton     88)Al Jazeera Audio128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
-   echo "9)BBC Radio 4         49)CBC 1 Regina       89)RT America      129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
-   echo "10)BBC Radio 5        50)CBC 1 Saskatoon    90)RT English      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)UCV Radio CL"
-   echo "11)BBC Radio 6        51)CBC 1 Winnipeg     91)Jupiter FM      131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
-   echo "12)BBC Radio 1 Extra  52)CBC 1 Iqaluit      92)BBC World News  132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
-   echo "13)BBC Radio 4 Extra  53)CBC 1 Kitchener    93)Oireachtas IE   133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
-   echo "14)BBC Radio Sports   54)CBC 1 London       94)EBS Europe      134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
-   echo "15)BBC Radio Asian    55)CBC 1 Ottawa       95)--------------- 135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
-   echo "16)BBC World Service  56)CBC 1 Sudbury      96)--------------  136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
-   echo "17)RTE Dublin         57)CBC 1 Thunder Bay  97)--------------- 137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
-   echo "18)RTE Extra Dublin   58)CBC 1 Toronto      98)--------------- 138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
-   echo "19)106-108 Talk Dublin59)CBC 1 Windsor      99)--------------- 139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
-   echo "20)BFBS UK            60)CBC 1 Montreal     100)-------------- 140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
-   echo "21)LBC 1152 AM London 61)CBC 1 Nord Quebec  101)-------------- 141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
-   echo "22)LBC 97.3 FM London 62)CBC 1 Quebec City  102)-------------- 142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
-   echo "23)Isles FM Stornoway 63)CBC 1 Fredericton  103)-------------- 143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
-   echo "24)CPR News Colorado  64)CBC 1 Moncton      104)-------------- 144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
-   echo "25)Bloomberg Radio    65)CBC 1 Saint John   105)-------------- 145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
-   echo "26)Genesis GCN        66)CBC 1 Charlottetown106)-------------- 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"
-   echo "27)Republic RBN       67)CBC 1 Cape Breton  107)-------------- 147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
-   echo "28)24/7 World Radio   68)CBC 1 Halifax      108)-------------- 148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
-   echo "29)KPFK               69)CBC 1 Corner Brook 109)-------------- 149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
-   echo "30)KPFT               70)CBC 1 Grand Falls  110)-------------- 150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
-   echo "31)KPFT 2             71)CBC 1 Labrador     111)-------------- 151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
-   echo "32)WPFW               72)CBC 1 St. Johns    112)-------------- 152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
-   echo "33)WRYR-LP            73)CBC 1 Inuvik       113)-------------  153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
-   echo "34)WXOJ-LP            74)CBC 1 Yellowknife  114)-------------  154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
-   echo "35)WRFN-LP            75)CBC 2 Halifax      115)-------------  155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
-   echo "36)Liberty Radio      76)CBC 2 Toronto      116)-------------- 156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
-   echo "37)1st Amendment      77)CBC 2 Winnipeg     117)-------------  157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
-   echo "38)Voice of America   78)CBC 2 Edmonton     118)-------------  158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
-   echo "39)CSPAN Radio        79)CBC 2 Vancouver    119)------------   159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
-   echo "40)ABCNews Radio AU   80)CBC 2 Pacific      120)-------------  160)--------------- 200)-----------       240)Menorca Mahón       280)---------------"
+   echo "1)BBC World Service   41)CBSN               81)CBC 1 Kamloops       121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
+   echo "2)NPR                 42)RT America         82)CBC 1 Kelowna        122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
+   echo "3)MPR News            43)RT UK              83)CBC 1 Prnc George    123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
+   echo "4)WKSU News           44)Jupiter FM         84)CBC 1 Vancouver      124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
+   echo "5)Infowars            45)BBC World News     85)CBC 1 Victoria       125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
+   echo "6)BBC Radio 1         46)Oireachtas IE      86)CBC 1 Whitehorse     126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
+   echo "7)BBC Radio 2         47)EBS Europe         87)CBC 1 Calgary        127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
+   echo "8)BBC Radio 3         48)CGTN English CN    88)CBC 1 Edmonton       128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
+   echo "9)BBC Radio 4         49)SKY News London UK 89)CBC 1 Regina         129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
+   echo "10)BBC Radio 5        50)RTE News Now IE    90)CBC 1 Saskatoon      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)UCV Radio CL"
+   echo "11)BBC Radio 6        51)MSNBC USA          91)CBC 1 Winnipeg       131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
+   echo "12)RT English         52)ABC News USA       92)CBC 1 Iqaluit        132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
+   echo "13)France 24          53)TRT World TK       93)CBC 1 Kitchener      133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
+   echo "14)DW Englsih         54)India Today IN     94)CBC 1 London         134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
+   echo "15)Al Jazeera Audio   55)NHK World Japan    95)CBC 1 Ottawa         135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
+   echo "16)BBC World Service  56)Free Speech TV     96)CBC 1 Sudbury        136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
+   echo "17)RTE Dublin         57)WGN 9 Chicago      97)CBC 1 Thunder Bay    137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
+   echo "18)RTE Extra Dublin   58)News12 Brooklyn    98)CBC 1 Toronto        138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
+   echo "19)106-108 Talk Dublin59)News12 Long Island 99)CBC 1 Windsor        139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
+   echo "20)BFBS UK            60)-------------      100)CBC 1 Montreal      140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
+   echo "21)LBC 1152 AM London 61)-------------      101)CBC 1 Nord Quebec   141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
+   echo "22)LBC 97.3 FM London 62)-------------      102)CBC 1 Quebec City   142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
+   echo "23)Isles FM Stornoway 63)-------------      103)CBC 1 Fredericton   143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
+   echo "24)CPR News Colorado  64)-------------      104)CBC 1 Moncton       144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
+   echo "25)Bloomberg Radio    65)-------------      105)CBC 1 Saint John    145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
+   echo "26)Genesis GCN        66)-------------      106)CBC 1 Charlottetown 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"  
+   echo "27)Republic RBN       67)-------------      107)CBC 1 Cape Breton   147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
+   echo "28)24/7 World Radio   68)-------------      108)CBC 1 Halifax       148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
+   echo "29)KPFK               69)-------------      109)CBC 1 Corner Brook  149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
+   echo "30)KPFT               70)-------------      110)CBC 1 Grand Falls   150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
+   echo "31)KPFT 2             71)-------------      111)CBC 1 Labrador      151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
+   echo "32)WPFW               72)-------------      112)CBC 1 St. Johns     152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
+   echo "33)WRYR-LP            73)-------------      113)CBC 1 Inuvik        153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
+   echo "34)WXOJ-LP            74)-------------      114)CBC 1 Yellowknife   154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
+   echo "35)WRFN-LP            75)-------------      115)CBC 2 Halifax       155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
+   echo "36)Liberty Radio      76)-------------      116)CBC 2 Toronto       156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
+   echo "37)1st Amendment      77)-------------      117)CBC 2 Winnipeg      157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
+   echo "38)Voice of America   78)-------------      118)CBC 2 Edmonton      158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "39)CSPAN Radio        79)-------------      119)CBC 2 Vancouver     159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
+   echo "40)ABCNews Radio AU   80)CBC 2 Eastern      120)CBC 2 Pacific       160)--------------- 200)-----------       240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
 echo " " 
 }	
@@ -356,7 +360,9 @@ case $chan_num in
 use_paylist="no"
 chan_name="BBC World Service";;
 # 2) NPR National Public Radio
-2) link=https://www.npr.org/streams/aac/live1_aac.pls
+2) 
+#link=https://www.npr.org/streams/aac/live1_aac.pls
+link="https://nprdmp-live01-aac.akacast.akamaistream.net/7/91/364917/v1/npr.akacast.akamaistream.net/nprdmp_live01_aac"
 use_paylist="no"
 chan_name="NPR";;
 # 3)  MPR News
@@ -402,7 +408,9 @@ chan_name="BBC Radio 1";;
 use_playlist="no"
 chan_name="BBC Radio 2";;
 # 8)  BBC Radio 3
-8) link=http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-aac-lc-a/format/pls/vpid/bbc_radio_three.pls
+8) 
+link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p
+#http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/http-icy-aac-lc-a/format/pls/vpid/bbc_radio_three.pls
 use_playlist="no"
 chan_name=" BBC Radio 3";;
 # 9)  BBC Radio 4
@@ -417,22 +425,23 @@ chan_name="BBC Radio 5";;
 11) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p
 use_playlist="no"
 chan_name="BBC Radio 6";;
-# 12)  BBC Radio 1 Extra
-12) link=http://www.bbc.co.uk/radio/listen/live/r1x_aaclca.pls
-use_playlist="no"
-chan_name="BBC Radio 1 Extra";;
-# 13)  BBC Radio 4 Extra
-13) link=http://www.bbc.co.uk/radio/listen/live/r4x_aaclca.pls
-use_playlist="no"
-chan_name="BBC Radio 4 Extra";;
-# 14)  BBC Radio 5 Live Sports Extra
-14) link=http://www.bbc.co.uk/radio/listen/live/r5lsp_aaclca.pls
-use_playlist="no"
-chan_name="BBC Radio 5 Live Sports Extra";;
-# 15)  BBC Radio Asian Extra
-15) link=http://www.bbc.co.uk/radio/listen/live/ran_aaclca.pls
-use_playlist="no"
-chan_name="BBC Radio Asian Extra";;
+# 12) RT 
+12) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT";;
+# 13) France 24
+13) link=http://f24hls-i.akamaihd.net/hls/live/221193/F24_EN_LO_HLS/master_96.m3u8
+use_paylist="no"
+chan_name="France 24";;
+# 14) DW English
+14) 
+link=http://dwstream1-lh.akamaihd.net/i/dwstream1_live@120422/index_5_a-b.m3u8
+use_paylist="no"
+chan_name="DW English";;
+# 15) Al Jazeera
+15) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
+use_paylist="no"
+chan_name="Al Jazeera";;
 # 16) BBC World Service Backup
 16) link=http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk_backup
 use_paylist="no"
@@ -556,237 +565,277 @@ link="http://abcradiolivehls-lh.akamaihd.net/i/newsradio_1@327297/index_48_a-p.m
 use_playlist="no"
 chan_name="ABC News Radio AU";;
 
+##################################### COLUMN II ##################################################
+# 41) CBSN
+41) 
+#link="$( torsocks curl -A "$UA" "https://dai.google.com/linear/hls/event/Sid4xiTQTkCT1SLu6rjUSQ/master.m3u8" | cut -d \" -f 2 | cut -d \" -f 1 ) "
+link="$( torsocks curl -A "$UA" $( torsocks curl -A "$UA" "https://dai.google.com/linear/hls/event/Sid4xiTQTkCT1SLu6rjUSQ/master.m3u8" | cut -d \" -f 2 | cut -d \" -f 1 ) | grep 264000.m3u8 | tail -n 1 ) "
+use_paylist="no"
+chan_name="CBSN";;
+# 42) RT America
+42) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT America";;
+# 43) RT UK 
+43) link=https://secure-streams.akamaized.net/rt-uk/indexaudio.m3u8
+use_paylist="no"
+chan_name="RT UK ";;
+# 44) Jupiter Broadcasting
+44) link=http://jblive.fm/
+use_paylist="no"
+chan_name="Jupiter Broadcasting";;
+# 45) BBC World News Service 
+45)
+link="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws_backup"
+use_playlist="no"
+chan_name="BBC World News";;
+# 46) Oireachtas IE 
+46)
+link="https://oirlive.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8"
+use_playlist="no"
+chan_name="Oireachtas IE";;
+# 47) EBS English
+47) link=http://defiris.ec.streamcloud.be/live/audio/ebsplus_en_128.mp3 
+use_paylist="no"
+chan_name="EBS English";;
+# 48) CGTN English
+48) link=https://live.cgtn.com/1000/prog_index.m3u8 
+use_paylist="no"
+chan_name="CGTN English";;
+# 49) SKY News London 
+49)
+link="http://skydvn-nowtv-atv-prod.skydvn.com/atv/skynews/1404/live/01.m3u8"
+use_playlist="no"
+chan_name="Sky News" ;;
+# 50) RTE News NOW
+50)    
+#link=http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=2089682,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=1024x576
+link="http://wmsrtsp1.rte.ie/live/android.sdp/chunklist_w203521911.m3u8"
+use_playlist="no"
+chan_name="RTE News NOW" ;;
+# 51)MSNBC
+51)
+link="http://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/index_296_av-p.m3u8?sd=10&rebase=on"
+use_playlist="no"
+chan_name="MSNBC";;  
+# 52)ABC News USA 
+52)
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=400000,RESOLUTION=320x180,CODECS="avc1.77.30, mp4a.40.2"
+link="https://abclive2-lh.akamaihd.net/i/abc_live11@423404/index_400_av-p.m3u8?sd=10&rebase=on"
+use_playlist="no"
+chan_name="ABC News USA" ;;
+# 53) TRT World
+53) 
+link="http://trtcanlitv-lh.akamaihd.net/i/TRTWORLD_1@321783/index_360p_av-p.m3u8?sd=10&rebase=on"
+use_playlist="no"
+chan_name="TRT World";;   
+# 54) India TODAY
+54)
+link="$(torsocks curl -A "$UA" "https://feeds.intoday.in/hltapps/api/master.m3u8" | grep 428000pb | tail -n 1 )"
+# BANDWIDTH=2128000pb.m3u8 896000p.m3u8 428000pb.m3u8
+use_playlist="no"
+chan_name="India TODAY English" ;; 
+# 55)NHK World Japan 
+55)
+link="https://nhkwtvglobal-i.akamaihd.net/hls/live/263941/nhkwtvglobal/index_200.m3u8"
+use_playlist="no"
+chan_name="NHK World Japan" ;;
+# 56)Free Speech TV
+56)
+link="https://edge.free-speech-tv-live.top.comcast.net/out/u/27153_6.m3u8"
+use_playlist="no"
+chan_name="Free Speech TV" ;;  
+# 57) WGN 9 Chicago 
+57) 
+link="http://wgntribune-lh.akamaihd.net/i/WGNPrimary_1@304622/index_750_av-p.m3u8?sd=10&rebase=on"
+use_playlist="no"
+chan_name="WGN 9 Chicago" ;;
+# 58)News 12 Brooklyn 
+58) 
+link="http://hls.iptv.optimum.net/news12/nipadlive/06_new.m3u8?cdnHost=167.206.237.144&callsign=N12KN"
+use_playlist="no"
+chan_name="News 12 Brooklyn" ;;
+# 59) News 12 Long Island 
+59) 
+link="http://hls.iptv.optimum.net/news12/nipadlive/06_new.m3u8?cdnHost=167.206.237.144&callsign=N12LI_WEST"
+use_playlist="no"
+chan_name="News 12 Long Island" ;;
+
+
+
+
+# 80) CBC Radio 2 Eastern Canada
+80) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
+use_paylist="no"
+chan_name="CBC Radio 2, Eastern";;	
 
 ######## CBC RADIO CANADA #################
 
 ########## CBC RADIO 1
-# 41) CBC Radio 1 Kamloops BC Canada
-41) link=http://cbc_r1_kam.akacast.akamaistream.net/7/440/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kam
+# 81) CBC Radio 1 Kamloops BC Canada
+81) link=http://cbc_r1_kam.akacast.akamaistream.net/7/440/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kam
 use_paylist="no"
 chan_name="CBC Radio 1 Kamloops,BC";;	
-# 42) CBC Radio 1 Kelowna BC Canada
-42) link=http://cbc_r1_kel.akacast.akamaistream.net/7/229/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kel
+# 82) CBC Radio 1 Kelowna BC Canada
+82) link=http://cbc_r1_kel.akacast.akamaistream.net/7/229/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kel
 use_paylist="no"
 chan_name="CBC Radio 1 Kelowna,BC";;	
-# 43) CBC Radio 1 Prince George BC Canada
-43) link=http://cbc_r1_prg.akacast.akamaistream.net/7/966/451661/v1/rc.akacast.akamaistream.net/cbc_r1_prg
+# 83) CBC Radio 1 Prince George BC Canada
+83) link=http://cbc_r1_prg.akacast.akamaistream.net/7/966/451661/v1/rc.akacast.akamaistream.net/cbc_r1_prg
 use_paylist="no"
 chan_name="CBC Radio 1 Prince George,BC";;	
-# 44) CBC Radio 1 Vancouver BC Canada
-44) link=http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr
+# 84) CBC Radio 1 Vancouver BC Canada
+84) link=http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr
 use_paylist="no"
 chan_name="CBC Radio 1 Vancouver,BC";;	
-# 45) CBC Radio 1 Victoria BC Canada
-45) link=http://cbc_r1_vic.akacast.akamaistream.net/7/728/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vic
+# 85) CBC Radio 1 Victoria BC Canada
+85) link=http://cbc_r1_vic.akacast.akamaistream.net/7/728/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vic
 use_paylist="no"
 chan_name="CBC Radio 1 Victoria,BC";;
-# 46) CBC Radio 1 Whitehorse BC Canada
-46) link=http://cbc_r1_whs.akacast.akamaistream.net/7/319/451661/v1/rc.akacast.akamaistream.net/cbc_r1_whs
+# 86) CBC Radio 1 Whitehorse BC Canada
+86) link=http://cbc_r1_whs.akacast.akamaistream.net/7/319/451661/v1/rc.akacast.akamaistream.net/cbc_r1_whs
 use_paylist="no"
 chan_name="CBC Radio 1 ,Whitehorse,YK";;
-# 47) CBC Radio 1 Calgary AB Canada
-47) link=http://cbc_r1_cgy.akacast.akamaistream.net/7/298/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cgy
+# 87) CBC Radio 1 Calgary AB Canada
+87) link=http://cbc_r1_cgy.akacast.akamaistream.net/7/298/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cgy
 use_paylist="no"
 chan_name="CBC Radio 1 Calgary,AB";;
-# 48) CBC Radio 1 Edmonton AB Canada
-48) link=http://cbc_r1_edm.akacast.akamaistream.net/7/904/451661/v1/rc.akacast.akamaistream.net/cbc_r1_edm
+# 88) CBC Radio 1 Edmonton AB Canada
+88) link=http://cbc_r1_edm.akacast.akamaistream.net/7/904/451661/v1/rc.akacast.akamaistream.net/cbc_r1_edm
 use_paylist="no"
 chan_name="CBC Radio 1 Edmonton,AB";;
-# 49) CBC Radio 1 Regina AB Canada
-49) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
+# 89) CBC Radio 1 Regina AB Canada
+89) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
 use_paylist="no"
 chan_name="CBC Radio 1 Regina,SK";;
-# 50) CBC Radio 1 Saskatoon SK Canada
-50) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
+# 90) CBC Radio 1 Saskatoon SK Canada
+90) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
 use_paylist="no"
 chan_name="CBC Radio 1 Saskatoon,SK";;
-# 51) CBC Radio 1 Winnipeg MB Canada
-51) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
+# 91) CBC Radio 1 Winnipeg MB Canada
+91) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
 use_paylist="no"
 chan_name="CBC Radio 1 Winnipeg,MB";;	
-# 52) CBC Radio 1 Iqaluit NU
-52) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
+# 92) CBC Radio 1 Iqaluit NU
+92) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
 use_paylist="no"
 chan_name="CBC Radio 1 Iqaluit,NU";;
-# 53) CBC Radio 1 Kitchener-Waterloo ON Canada
-53) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
+# 93) CBC Radio 1 Kitchener-Waterloo ON Canada
+93) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
 use_paylist="no"
 chan_name="CBC Radio 1 Kitchner-Waterloo,ON";;
-# 54) CBC Radio 1 London ON Canada
-54) link=http://cbc_r1_ldn.akacast.akamaistream.net/7/104/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ldn
+# 94) CBC Radio 1 London ON Canada
+94) link=http://cbc_r1_ldn.akacast.akamaistream.net/7/104/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ldn
 use_paylist="no"
 chan_name="CBC Radio 1 London,ON";;
-# 55) CBC Radio 1 Ottawa ON Canada
-55) link=http://cbc_r1_ott.akacast.akamaistream.net/7/613/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ott
+# 95) CBC Radio 1 Ottawa ON Canada
+95) link=http://cbc_r1_ott.akacast.akamaistream.net/7/613/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ott
 use_paylist="no"
 chan_name="CBC Radio 1 Ottawa,ON";;
-# 56) CBC Radio 1 Sudbury ON Canada
-56) link=http://cbc_r1_sud.akacast.akamaistream.net/7/380/451661/v1/rc.akacast.akamaistream.net/cbc_r1_sud
+# 96) CBC Radio 1 Sudbury ON Canada
+96) link=http://cbc_r1_sud.akacast.akamaistream.net/7/380/451661/v1/rc.akacast.akamaistream.net/cbc_r1_sud
 use_paylist="no"
 chan_name="CBC Radio 1 Sudbury,ON";;
-# 57) CBC Radio 1 Thunder Bay ON Canada
-57) link=http://cbc_r1_tba.akacast.akamaistream.net/7/245/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tba
+# 97) CBC Radio 1 Thunder Bay ON Canada
+97) link=http://cbc_r1_tba.akacast.akamaistream.net/7/245/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tba
 use_paylist="no"
 chan_name="CBC Radio 1 Thunder Bay ,ON";;
-# 58) CBC Radio 1 Toronto ON Canada
-58) link=http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
+# 98) CBC Radio 1 Toronto ON Canada
+98) link=http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
 use_paylist="no"
 chan_name="CBC Radio 1 Toronto,ON";;
-# 59) CBC Radio 1 Windsor ON Canada
-59) link=http://cbc_r1_wdr.akacast.akamaistream.net/7/813/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wdr
+# 99) CBC Radio 1 Windsor ON Canada
+99) link=http://cbc_r1_wdr.akacast.akamaistream.net/7/813/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wdr
 use_paylist="no"
 chan_name="CBC Radio 1 Windsor,ON";;
-# 60) CBC Radio 1 Montreal QC Canada
-60) link=http://cbc_r1_mtl.akacast.akamaistream.net/7/35/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mtl
+# 100) CBC Radio 1 Montreal QC Canada
+100) link=http://cbc_r1_mtl.akacast.akamaistream.net/7/35/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mtl
 use_paylist="no"
 chan_name="CBC Radio 1 Montreal, QC";;
-# 61) CBC Radio 1  Nord Quebec QC Canada
-61) link=http://cbc_r1_n_mtl.akacast.akamaistream.net/7/823/451661/v1/rc.akacast.akamaistream.net/cbc_r1_n_mtl
+# 101) CBC Radio 1  Nord Quebec QC Canada
+101) link=http://cbc_r1_n_mtl.akacast.akamaistream.net/7/823/451661/v1/rc.akacast.akamaistream.net/cbc_r1_n_mtl
 use_paylist="no"
 chan_name="CBC Radio 1 Nord Quebec, QC";;
-# 62) CBC Radio 1 Quebec City QC Canada
-62) link=http://cbc_r1_qqu.akacast.akamaistream.net/7/29/451661/v1/rc.akacast.akamaistream.net/cbc_r1_qqu
+# 102) CBC Radio 1 Quebec City QC Canada
+102) link=http://cbc_r1_qqu.akacast.akamaistream.net/7/29/451661/v1/rc.akacast.akamaistream.net/cbc_r1_qqu
 use_paylist="no"
 chan_name="CBC Radio 1 Quebec City,QC";;
-# 63) CBC Radio 1 Fredericton NB Canada
-63) link=http://cbc_r1_frd.akacast.akamaistream.net/7/553/451661/v1/rc.akacast.akamaistream.net/cbc_r1_frd
+# 103) CBC Radio 1 Fredericton NB Canada
+103) link=http://cbc_r1_frd.akacast.akamaistream.net/7/553/451661/v1/rc.akacast.akamaistream.net/cbc_r1_frd
 use_paylist="no"
 chan_name="CBC Radio 1 Fredericton,NB";;
-# 64) CBC Radio 1 Moncton NB Canada
-64) link=http://cbc_r1_mct.akacast.akamaistream.net/7/383/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mct
+# 104) CBC Radio 1 Moncton NB Canada
+104) link=http://cbc_r1_mct.akacast.akamaistream.net/7/383/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mct
 use_paylist="no"
 chan_name="CBC Radio 1 Moncton, NB";;
-# 65) CBC Radio 1 Saint John NB Canada
-65) link=http://cbc_r1_snb.akacast.akamaistream.net/7/754/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snb
+# 105) CBC Radio 1 Saint John NB Canada
+105) link=http://cbc_r1_snb.akacast.akamaistream.net/7/754/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snb
 use_paylist="no"
 chan_name="CBC Radio 1 Saint John, NB";;
-# 66) CBC Radio 1 Charlottetown NB Canada
-66) link=http://cbc_r1_chr.akacast.akamaistream.net/7/169/451661/v1/rc.akacast.akamaistream.net/cbc_r1_chr
+# 106) CBC Radio 1 Charlottetown NB Canada
+106) link=http://cbc_r1_chr.akacast.akamaistream.net/7/169/451661/v1/rc.akacast.akamaistream.net/cbc_r1_chr
 use_paylist="no"
 chan_name="CBC Radio 1 Charlottetown, NB";;
-# 67) CBC Radio 1 Cape Breton NB Canada
-67) link=http://cbc_r1_syd.akacast.akamaistream.net/7/897/451661/v1/rc.akacast.akamaistream.net/cbc_r1_syd
+# 107) CBC Radio 1 Cape Breton NB Canada
+107) link=http://cbc_r1_syd.akacast.akamaistream.net/7/897/451661/v1/rc.akacast.akamaistream.net/cbc_r1_syd
 use_paylist="no"
 chan_name="CBC Radio 1 Cape Breton, NB";;	
-# 68) CBC Radio 1 Halifax NFL Canada
-68) link=http://cbc_r1_hfx.akacast.akamaistream.net/7/981/451661/v1/rc.akacast.akamaistream.net/cbc_r1_hfx
+# 108) CBC Radio 1 Halifax NFL Canada
+108) link=http://cbc_r1_hfx.akacast.akamaistream.net/7/981/451661/v1/rc.akacast.akamaistream.net/cbc_r1_hfx
 use_paylist="no"
 chan_name="CBC Radio 1 Halifax, NFL";;
-# 69) CBC Radio 1 Corner Brook NFL Canada
-69) link=http://cbc_r1_cor.akacast.akamaistream.net/7/550/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cor
+# 109) CBC Radio 1 Corner Brook NFL Canada
+109) link=http://cbc_r1_cor.akacast.akamaistream.net/7/550/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cor
 use_paylist="no"
 chan_name="CBC Radio 1 Corner Brook , NFL";;
-# 70) CBC Radio 1 Grand Falls/Gander NFL Canada
-70) link=http://cbc_r1_gfa.akacast.akamaistream.net/7/492/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gfa
+# 110) CBC Radio 1 Grand Falls/Gander NFL Canada
+110) link=http://cbc_r1_gfa.akacast.akamaistream.net/7/492/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gfa
 use_paylist="no"
 chan_name="CBC Radio 1 Grand Falls/Gander, NFL";;
-# 71) CBC Radio 1  Labrador NFL Canada
-71) link=http://cbc_r1_gba.akacast.akamaistream.net/7/274/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gba
+# 111) CBC Radio 1  Labrador NFL Canada
+111) link=http://cbc_r1_gba.akacast.akamaistream.net/7/274/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gba
 use_paylist="no"
 chan_name="CBC Radio 1  Labrador, NFL";;
-# 72) CBC Radio 1  St. Johns NFL Canada
-72) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
+# 112) CBC Radio 1  St. Johns NFL Canada
+112) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
 use_paylist="no"
 chan_name="CBC Radio 1 St. Johns, NFL";;
-# 73) CBC Radio 1  Inuvik NWT Canada
-73) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
+# 113) CBC Radio 1  Inuvik NWT Canada
+113) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
 use_paylist="no"
 chan_name="CBC Radio 1 Inuvik,NWT";;
-# 74) CBC Radio 1  Yellowknife YK Canada
-74) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
+# 114) CBC Radio 1  Yellowknife YK Canada
+114) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
 use_paylist="no"
 chan_name="CBC Radio 1 Yellowknife, YK";;
 ############### CBC Radio 2
-# 75) CBC Radio 2 Halifax NFL Canada
-75) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
+# 115) CBC Radio 2 Halifax NFL Canada
+115) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
 use_paylist="no"
 chan_name="CBC Radio 2, Halifax NFL";;
-# 76) CBC Radio 2 Toronto ON Canada
-76) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
+# 116) CBC Radio 2 Toronto ON Canada
+116) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
 use_paylist="no"
 chan_name="CBC Radio 2, Toronto ON";;
-# 77) CBC Radio 2 Winnipeg MB Canada
-77) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
+# 117) CBC Radio 2 Winnipeg MB Canada
+117) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
 use_paylist="no"
 chan_name="CBC Radio 2, Winnipeg MB";;
-# 78) CBC Radio 2 Edmonton AB Canada
-78) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
+# 118) CBC Radio 2 Edmonton AB Canada
+118) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
 use_paylist="no"
 chan_name="CBC Radio 2, Edmonton AB";;
-# 79) CBC Radio 2 Vancouver BC Canada
-79) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
+# 119) CBC Radio 2 Vancouver BC Canada
+119) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
 use_paylist="no"
 chan_name="CBC Radio 2, Vancouver BC";;
-# 80) CBC Radio 2 Pacific Canada
-80) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
+# 120) CBC Radio 2 Pacific Canada
+120) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
 use_paylist="no"
 chan_name="CBC Radio 2, Pacific BC";;
-# 81) CBC Radio 2 Eastern Canada
-81) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
-use_paylist="no"
-chan_name="CBC Radio 2, Eastern";;	
-##############################################################
-# 82) Euronews English
-82) link=http://euronews-en-p9-cdn.hexaglobe.net/b845277c2db60882a29551105a4bd53b/594807ba/euronews/euronews-euronews-website-web-responsive-2/ewnsabrenpri_eng.smil/ewnsabrenpri_eng_90p.m3u8
- #link=http://fr-par-iphone-2.cdn.hexaglobe.net/streaming/euronews_ewns/5-live.m3u8 
-use_paylist="no"
-chan_name="Euronews";;	
-# 83) RT UK
-83) link=https://secure-streams.akamaized.net/rt-uk/indexaudio.m3u8
-use_paylist="no"
-chan_name="RT America";;
-# 84) France 24
-84) link=http://f24hls-i.akamaihd.net/hls/live/221193/F24_EN_LO_HLS/master_96.m3u8
-use_paylist="no"
-chan_name="France 24";;
-# 85) DW English
-85) 
-link=http://dwstream1-lh.akamaihd.net/i/dwstream1_live@120422/index_5_a-b.m3u8
-use_paylist="no"
-chan_name="DW English";;
-# 86) CBSN
-86) 
-link="https://dai.google.com/linear/hls/event/Sid4xiTQTkCT1SLu6rjUSQ/master.m3u8"
-torsocks -i wget  --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4"  -O "$playlist_tmp" "$link"
-link=$( cat "$playlist_tmp" | awk '{ if ( $0 ~ /320x180/ ) i=NR; if ( NR == i+1 ) { print $0 } } ' | tail -n 1 )
-rm "$playlist_tmp"
-use_paylist="no"
-chan_name="CBSN";;
-# 87) CNN
-87) 
-link=http://cnn-lh.akamaihd.net/i/cnndebates_1@352100/index_360_a-b.m3u8
-use_paylist="no"
-chan_name="CNN";;
-# 88) Al Jazeera
-88) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
-use_paylist="no"
-chan_name="Al Jazeera";;
-# 89) RT America
-89) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
-use_paylist="no"
-chan_name="RT America";;
-# 90) RT 
-90) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
-use_paylist="no"
-chan_name="RT ";;
-# 91) Jupiter Broadcasting
-91) link=http://jblive.fm/
-use_paylist="no"
-chan_name="Jupiter Broadcasting";;
-# 92) BBC World News Service 
-92)
-link="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws_backup"
-use_playlist="no"
-chan_name="BBC World News";;
-# 93) Oireachtas IE 
-93)
-link="https://oirlive.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8"
-use_playlist="no"
-chan_name="Oireachtas IE";;
-# 94) EBS English
-94) link=http://defiris.ec.streamcloud.be/live/audio/ebsplus_en_128.mp3 
-use_paylist="no"
-chan_name="EBS English";;
+
+#############################################################
 
 
 ########################################
@@ -794,14 +843,14 @@ chan_name="EBS English";;
 121) link=http://www.listenlive.eu/fr_franceinfo128.m3u
 use_paylist="no"
 chan_name="France Info";;	
-# 122) France Info
+# 122) France Inter
 122) link=http://www.listenlive.eu/fr_franceinter128.m3u
 use_paylist="no"
-chan_name="France Info";;
+chan_name="France Inter";;
 # 123) RFI Monde
 123) 
 #link=http://www.listenlive.eu/rfimonde.m3u
-link=http:\/\/live02.rfi.fr\/rfimonde-64.mp3
+link=http://live02.rfi.fr/rfimonde-64.mp3
 use_paylist="no"
 chan_name="RFI Monde";;
 # 124) RFI Afrique
@@ -1768,7 +1817,15 @@ elif [ "$input" == "--" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" -lt 600 ]
+elif [ "$input" == "[" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" == "]" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" -lt 1200 ]
 then
 menstat="no"
 chan_state="numeric"
@@ -1786,19 +1843,14 @@ case "$input" in
 q) echo "Type endradio to restart program. Bye."
 exit "$?" ;;
 m) clear; channel_matrix
-echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, n for the next menu, or q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press + or ] to increment, - or [ to decrement, n for the next menu, or q to quit:" ;;
 n) clear ; channel_matrix_2
-echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, m for the main menu, or q to quit:" ;;
+echo "Please Select a Number corresponding to an Internet Radio Stream, press + or ] to increment, - or [ to decrement, m for the main menu, or q to quit:" ;;
 esac
 }
 
-################################### MAIN PROGRAM #################################################
-
-# initialize menu
-menu="m"
-method="normal"
-
-
+select_agent()
+{
 ### Select the user agent
  if [ "$uamode" == "on" ]
  then
@@ -1822,35 +1874,10 @@ method="normal"
      UA=""
    fi 
  fi
+}
 
-
-if [ "$1" != "" ]
-then
-echo "$1"
-# take channel input from command line
-entry="$1" 
-elif [ "$1" == "" ]
-then
-clear
-channel_matrix
-echo "Please Select a Number corresponding to an Internet Radio Live Stream:"
-
-read entry
-num="$entry"
-
-  if [ "$entry" == "q" ]
-  then 
-  echo "Type endradio to open a new stream."
-  exit "$?"
-  elif [ "$entry" == "" ]
-  then
-  entry=1
-  num="$entry"
-  fi
-fi
-
-menu_status $entry
-
+chan_stat()
+{
 if [ "$chan_state" == "+" ]
 then
 num=$(expr "$num" + 1 )
@@ -1859,16 +1886,17 @@ then
 num=$(expr "$num" - 1 )
 elif [ "$chan_state" == "return" ]
 then
-num="$1"
+num="$num"
 elif [ "$chan_state" == "numeric" ]
 then
 num="$entry"
 else 
 num="$num"
 fi
+}
 
-# get the menu selection status
-
+play_channel()
+{
 if [ "$menstat" == "no" ]
 then
  channel_select "$num"
@@ -1945,129 +1973,66 @@ fi
 
 fi
 
+}
+################################### MAIN PROGRAM #################################################
+
+# initialize menu
+menu="m"
+method="normal"
+
+########## select user agent
+select_agent
+
+if [ "$1" != "" ]
+then
+echo "$1"
+# take channel input from command line
+entry="$1" 
+elif [ "$1" == "" ]
+then
+clear
+channel_matrix
+echo "Please Select a Number corresponding to an Internet Radio Live Stream:"
+
+read entry
+num="$entry"
+
+  if [ "$entry" == "q" ]
+  then 
+  echo "Type endradio to open a new stream."
+  exit "$?"
+  elif [ "$entry" == "" ]
+  then
+  entry=1
+  num="$entry"
+  fi
+fi
+
+# get the menu selection status
+menu_status $entry
+## Get the channel status
+chan_stat
+# play the channel
+play_channel
+
+####################### MAIN LOOP ###################################
 while [ "$entry" != q ]
 do
 
 ### Select the user agent
- if [ "$uamode" == "on" ]
- then
-   if [ "$uastate" == "rand" ]
-   then 
-    # pick a random user agent
-    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$uastate" == "ranstr" ]
-   then 
-     # make a random string as the user agent 
-     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     #UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
-     UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
-   elif [ "$uastate" == "tor" ] 
-   then
-     UA="$UA_torbrowser" 
-   elif [ "$uastate" == "row1" ] 
-   then
-     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
-   else 
-     UA=""
-   fi 
- fi
+select_agent 
 
+# get the menu selection status
 menu_status $entry
 
-if [ "$entry" == "q" ]
-then 
-echo "Type endradio to open a new stream."
-exit "$?"
-fi
-
-if [ "$chan_state" == "+" ]
-then
-num=$(expr "$num" + 1 )
-elif [ "$chan_state" == "-" ]
-then
-num=$(expr "$num" - 1 )
-elif [ "$chan_state" == "return" ]
-then
-num="$num"
-elif [ "$chan_state" == "numeric" ]
-then
-num="$entry"
-else 
-num="$num"
-fi
-
-if [ "$menstat" == "no" ]
-then
-channel_select "$num"
-echo "$chan_name Channel $num"
-
-
- if [ "$uamode" == "on" ]
-  then 
-  echo "$UA"
-
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  elif [ "$method" == "stream_dump" ]
-  then
-     if  [ -s "$pidstore" ]
-     then
-     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
-     echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 2
-     else
-     torsocks wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
-     echo "wait for a couple of seconds and try the station again"
-     sleep 2
-     fi 
-  elif [ "$method" == "mplayer" ]
-  then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" -playlist "$link" 
-  else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
-  fi
-  
- else
- 
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  elif [ "$method" == "stream_dump" ]
-  then
-     if  [ -s "$pidstore" ]
-     then
-     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
-     echo "wait for a couple of seconds for more data to load and then try the station again"
-     sleep 2
-     else
-     torsocks wget -b -q -O "$stream_dump" "$link" 1> "$pidstore"
-     echo "wait for a couple of seconds and try the station again"
-     sleep 2
-     fi 
-  elif [ "$method" == "mplayer" ]
-  then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" "$link" 
-  else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
-  fi
-   
- fi
-  
-menu_switch "$menu"
-echo "You were watching "$chan_name" on Channel "$num" "  
-chan_state="normal"
-method="normal"
-read entry
-else 
-menu_switch "$menu"
-chan_state="normal"
-method="normal"
-menstat="no"
-read entry
-
-fi
+### get channel status
+chan_stat
+### play the channel
+play_channel
 done
+####################### END MAIN LOOP #################################
+
+########### shutdown and clean up 
 
 echo "Type endradio to open a new streaming session."
 
