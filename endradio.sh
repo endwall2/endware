@@ -541,7 +541,9 @@ link=http://dwstream1-lh.akamaihd.net/i/dwstream1_live@120422/index_5_a-b.m3u8
 use_paylist="no"
 chan_name="DW English";;
 # 15) Al Jazeera
-15) link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
+15) 
+#link=http://players.brightcove.net/665003303001/rJgyhryKx_default/index.html?videoId=5321320347001
+link=http://aljazeera-eng-apple-live.adaptive.level3.net/apple/aljazeera/english/160audio.m3u8
 use_paylist="no"
 chan_name="Al Jazeera";;
 # 16) BBC World Service Backup
