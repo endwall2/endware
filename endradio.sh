@@ -192,23 +192,23 @@ channel_matrix_0()
    echo "16)BBC World Service  56)Free Speech TV     96)CBC 1 Sudbury        136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
    echo "17)RTE Dublin         57)WGN 9 Chicago      97)CBC 1 Thunder Bay    137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
    echo "18)RTE Extra Dublin   58)News12 Brooklyn    98)CBC 1 Toronto        138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
-   echo "19)106-108 Talk Dublin59)News12 Long Island 99)CBC 1 Windsor        139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
+   echo "19)NBC News Radio     59)News12 Long Island 99)CBC 1 Windsor        139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
    echo "20)BFBS UK            60)CGTN Documentary   100)CBC 1 Montreal      140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
    echo "21)LBC 1152 AM London 61)RT Documentary     101)CBC 1 Nord Quebec   141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
    echo "22)LBC 97.3 FM London 62)NewsMax TV         102)CBC 1 Quebec City   142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
    echo "23)Isles FM Stornoway 63)NDTV IN            103)CBC 1 Fredericton   143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
    echo "24)CPR News Colorado  64)NewsX IN           104)CBC 1 Moncton       144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
    echo "25)Bloomberg Radio    65)UN WEB TV          105)CBC 1 Saint John    145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
-   echo "26)Genesis GCN        66)-------------      106)CBC 1 Charlottetown 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"  
+   echo "26)Genesis GCN        66)106 Talk Dublin ***106)CBC 1 Charlottetown 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"  
    echo "27)Republic RBN       67)-------------      107)CBC 1 Cape Breton   147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
    echo "28)24/7 World Radio   68)-------------      108)CBC 1 Halifax       148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
-   echo "29)KPFK               69)-------------      109)CBC 1 Corner Brook  149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
-   echo "30)KPFT               70)-------------      110)CBC 1 Grand Falls   150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
-   echo "31)KPFT 2             71)-------------      111)CBC 1 Labrador      151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
-   echo "32)WPFW               72)-------------      112)CBC 1 St. Johns     152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
-   echo "33)WRYR-LP            73)-------------      113)CBC 1 Inuvik        153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
-   echo "34)WXOJ-LP            74)-------------      114)CBC 1 Yellowknife   154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
-   echo "35)WRFN-LP            75)-------------      115)CBC 2 Halifax       155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
+   echo "29)KPFK Malibu        69)-------------      109)CBC 1 Corner Brook  149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
+   echo "30)KPFT Houston       70)-------------      110)CBC 1 Grand Falls   150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
+   echo "31)KPFT 2 Houston     71)-------------      111)CBC 1 Labrador      151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
+   echo "32)WPFW Washington DC 72)-------------      112)CBC 1 St. Johns     152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
+   echo "33)WRYR-LP ***        73)-------------      113)CBC 1 Inuvik        153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
+   echo "34)WXOJ-LP ***        74)-------------      114)CBC 1 Yellowknife   154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
+   echo "35)WRFN-LP ***        75)-------------      115)CBC 2 Halifax       155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
    echo "36)Liberty Radio      76)-------------      116)CBC 2 Toronto       156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
    echo "37)1st Amendment      77)-------------      117)CBC 2 Winnipeg      157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
    echo "38)Voice of America   78)-------------      118)CBC 2 Edmonton      158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
@@ -551,19 +551,26 @@ chan_name="Al Jazeera";;
 use_paylist="no"
 chan_name="BBC World Service";;
 # 17) RTE Radio 1 Dublin
-17) link=http://www.listenlive.eu/rte1.m3u
+17)
+# link=http://www.listenlive.eu/rte1.m3u
+link=http://icecast2.rte.ie/radio1
 use_paylist="no"
 chan_name="RTE Radio 1 Dublin";;
 # 18) RTE Radio 1 Extra Dublin
-18) link=http://www.listenlive.eu/rte1extra.m3u
+18) 
+#link=http://www.listenlive.eu/rte1extra.m3u
+link=http://icecast2.rte.ie/radio1extra
 use_paylist="no"
 chan_name="RTE Radio 1 Extra Dublin";;
-# 19) News Talk 106-108 Dublin
-19) link=http://communicorp.mp3.miisolutions.net:8000/communicorp/Newstalk_low.m3u
+# 19)NBC News Radio 
+19)
+link=https://c3.prod.playlists.ihrhls.com/6043/playlist.m3u8
 use_paylist="no"
-chan_name="News Talk 106-108 Dublin";;
+chan_name="NBC News Radio ";;
 # 20) BFBS UK
-20) link=http://icy-e-04.sharp-stream.com/ssvcbfbs1.mp3.m3u
+20) 
+#link=http://icy-e-04.sharp-stream.com/ssvcbfbs1.mp3.m3u
+link=http://edge-audio-01-cr.sharp-stream.com:80/ssvcbfbs1.mp3
 use_paylist="no"
 chan_name="BFBS UK";;
 # 21) LBC 1152 AM London
@@ -720,7 +727,8 @@ use_playlist="no"
 chan_name="RTE News NOW" ;;
 # 51)MSNBC
 51)
-link="http://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/index_296_av-p.m3u8?sd=10&rebase=on"
+link="http://tunein.ord.streamguys1.com/msnbc-free"
+#link="http://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/index_296_av-p.m3u8?sd=10&rebase=on"
 use_playlist="no"
 chan_name="MSNBC";;  
 # 52)ABC News USA 
@@ -790,6 +798,12 @@ chan_name="NEWS X India IN";;
 link="https://bcliveunivsecure-lh.akamaihd.net/i/un150_1@575439/index_828_av-p.m3u8?sd=10&rebase=on"
 use_paylist="no"
 chan_name="UN WEB TV";;
+# 66) News Talk 106-108 Dublin
+66) link=http://communicorp.mp3.miisolutions.net:8000/communicorp/Newstalk_low.m3u
+use_paylist="no"
+chan_name="News Talk 106-108 Dublin";;
+
+
 
 
 # 80) CBC Radio 2 Eastern Canada
