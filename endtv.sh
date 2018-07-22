@@ -6,8 +6,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
-# Version: 0.05
-# Revision Date: June 13, 2017
+# Version: 0.07
+# Revision Date: July 21, 2018
 #
 # Change Log:  - Stay on previously selected menu after video finishes
 #              - proper implimentation of channel switching while loop
@@ -78,10 +78,11 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-#      
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
+#  ALL RIGHTS RESERVED  
+#    
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
 #  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
@@ -91,17 +92,18 @@
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
 #  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
-#  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
-#  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
-#  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, law enforcement officer, 
+#        police constable, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) d) This program may be used by any human being of any sex or gender, including men, women, or any other sex, or gender not mentioned.       
+#  1) e) This program may be used by any human being of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
+#  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -110,14 +112,16 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
-#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any neighbor of their choice electronically or by any other method of transmission. 
+#  4) Any user of this program is granted the freedom to read and study the code.
+#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
-#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or salable goods.
-#  6) a) Any user of this program is granted the freedom to modify and improve the code.
-#  6) b) When modified or improved, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
+#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
+#  6) a) Any user of this program is granted the freedom to modify the code.
+#  6) b) When modified, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
 #        in its entirety to their modified code before re-distribution.
-#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or salable goods.
+#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or saleable goods.
+#  6) d) Any modified code shall be sublicensed by the modifier and distributor only under the original terms of the Endware End User License Agreement as presented in this LICENSE AGREEMENT.
+#  6) e) Any user of this software agrees that any derivative works produced as a result of user modification will be sublicensed when re-distributed under the original terms of this LICENSE AGREEMENT exactly as presented.
 #  7) a) Any user of this program is granted the freedom to run this code on any computer of their choice.
 #  7) b) Any user of this program is granted the freedom to run as many simultaneous instances of this code, on as many computers as they are able to and desire, and for as long as they desire and are
 #        able to do so with any degree of simultaneity in use. 
@@ -126,14 +130,14 @@
 #  9) Any user of this program is not granted the freedom to arbitrarily procure a copyright on this software as presented, and agrees not to do so.
 #  10) Any user of this program is not granted the freedom to obtain or retain intellectual property rights on this software as presented and agrees not to do so.
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
-#      b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
+#  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
 #  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "as is" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
 #  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
@@ -146,16 +150,17 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.06"
-rev_date="10/05/2018"
+version="0.07"
+rev_date="21/07/2018"
 branch="gnu/linux"
 product="EndTV"
 ##################################################
@@ -181,97 +186,97 @@ echo " " > "$cookie"
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix_0()
 {
-   echo "==============================================================      "$product" "$version"   ===================================================================================="
-   echo "==============================================================================================================================================================================="
-   echo "=======UK ======   40))Box Hits        78)Creepy Crawly      116)Screensaver     154)Noise Network  191)POP             230)Newsy  **       268)Harlem        306)FilmON Studio"    
-   echo "1)BBC One          41)The Box          79)B-Movie!           117)Drone TV        155)Janey Kirk     192)Popeye          231)CDTV **         269)TMTV          307)TV Gold " 
-   echo "2)My Face My Body  42)Forces TV        80)Alien Invasion     118)Miss Multiverse 156)FilmOn Jazz    193)Funny Company   232)EIC TV          270)WHOMAG        308)Battle Rap "  
-   echo "3)V Channel        43)Challenge        81)Horror Channel     119)Vape Channel    157)FilmOn Rock    194)AngelAttic      233)Global Goals    271)WHOMAG VID    309)Tribe TV "             
-   echo "4)Reality TV       44)Pick TV          =======MOVIES=======  120)Talent Know     158)JCTV           195)Cat TV          234)Native Nations2*272)New Star      310)FOn Reality"  
-   echo "5)Ireland's Country=====SPORTS======   82)FilmOn Classics    121)EZ Way          159)Classic Arts   196)CBeebies        235)France 24**     273)Bone Thugs    311)Red Carpet"  
-   echo "6)Britrox          45)Grandstand Show  83)Love On The Range  122)Tomorrow Pics   160)Jazz Radio     197)CBBC            236)Truth Files**   274)RMC Live      312)Christmas"
-   echo "7)Dr. Fab Show     46)Football Fanatics84)Silent Cinema      123)Razzies         =====BIKINI=====   198)Talya Toys      237)NewsMax**       275)Raw Report    313)Nub TV   "
-   echo "8)BBC News         47)FilmOn Tennis    85)ChristmasTime      124)Noahpop tv      161)Player         199)Kartoon Klassic 238)TV 47**         276)Linkct Network314)Chai Life"
-   echo "9)BBC 1 Wales      48)Snooker Legends  86)Sherlock Holmes    124)Hollywood Show  162)J CLub         200)Fun Little      239)VOA             277)Urban Music   315)Joe Nation"
-   echo "10)BBC 1 Scotland  49)The Ring TV      87)Seven Sins         125)Director's Cut  163)Bikini Down    201)Tayla Tea       240)FilmOn NEWS     278)Aspire Now    316)OCRealEstate"
-   echo "11)BBC 1 N Ireland 50)Gali Lucha Libre 88)The Monarch        126)Romance         164)Cheerleaders   202)Wild Animals    241)Al Jazeera      279)Amp TV        317)MHL TV "
-   echo "12)BBC Two         51)Beach Sports     89)Trailer Nut        127)Miss Peurto Rico165)Party Girls    203)FilmOn Kids     242)Bloomberg**     280)Weedmaps      318)RUNWAY TV"
-   echo "13)BBC Parliament  52)Pugalism         90)Thespian Theater   128)On The Mike     166)Showing Off    204)Mouse House     243)DW English      281)Buddy Plant   319)TEOS "
-   echo "14)BBC Four        53)Inside The Ring  91)Rated B            =======MUSIC======  167)Show and Tell  205)Clutch Cargo    244)Russia Today    282)PROHBTD       320)TV ART  "  
-   echo "15)ITV             54)Emerging Sports  92)Movie Loft TV      129)TVM TV          168)Miss Top       206)Felix The Cat   245)America Thinks  283)Sweet Leaf    321)RunwayTV  "
-   echo "16)ITV +1          55)Softball 360     93)Dragon Arena       130)MVTV            169)Bikini TV      207)Little Smart    246)CGTN            ===LIFESTYLE===   322)Chic "
-   echo "17)ITV2            56)Golden Boy       94)Mad Science Cinema 131)Ditty TV        170)Bikini Kitchen 208)Crowd Angels    247)DVID            284)Health Life   323)NASA TV "	
-   echo "18)ITV2 +1         57)FilmOn Wrestling 95)FilmOn Family      132)Irish Country   171)Miami TV       ====DOCUMENTARY==== 248)Press TV        285)SOBA          ===FRENCH==="
-   echo "19)ITV3            58)FilmOn Football  96)Hollywood War      133)Britrox         =====COMEDY======  209)Red Chip        249)Job Channel     286)Readers Digest324)ARTE"  
-   echo "20)ITV3 +1         59)Roopstigo        97)Bloodzillathon     134)24.7 The Stream 172)ComiCZoo       210)Biz TV          250)Unreliable**    287)Green Living  325)France 0 "
-   echo "21)ITV4            60)Fighting Athlete 98)Banned Western     135)Miami Music     173)Placeholders   211)CCTV 9          251)Insider Ex      288)Safe TV       326)France 3   "       
-   echo "22)ITV4 +1         61)Ultimate Disc    99)Eurotrash          136)Talent Watch    174)Lumbfilm       212)Fame TV         ==EXTREME SPORTS==  289)Bid America   327)France 3 "  
-   echo "23)ITV Be          62)FilmOn Boxing    100)High School       137)HotRock         175)FimOn Comedy   213)                252)GFL Combat      290)MegaMe        328)RTS UN  "
-   echo "24)Channel 4       63)Game Time        101)Award Cinema      138)Hot Country     176)Spud's Funny   214)FBI Insider     253)XCORPS          291)Wonderful Life329)RTS Deux  "  
-   echo "25)E4              64)1 on 1 Boxing    102)New York          139)Music Mix       177)SupaPirateBoot 215)FilmOn Docs     254)MMA Now         292)Simply Me     330)BFM Biz  "
-   echo "26)More4           65)AFL Classic      103)Major Crimes      140)Guitar Lessons  178)Fun Little     216)UFO NEWS        255)GLORY Kick      293)The Walk      331)BFM TV  "
-   echo "27)Channel 5       66)Cheer Channel    104)iFlix TV          141)Soundtrack      179)EyeforanEye    217)WAKAJ TV        256)Sledhead        294)Time TV       332)France 2  "
-   echo "28)5*              67)Football Heroes  105)Campy Channel     142)EDM TV          180)Locomotion     218)FilmOn Bio      257)DestX           295)DRTV          ===GERMAN==="
-   echo "29)5USA            68)Live Boxing      106)KungFu Classics   143)Jimmy Lloyd SWS ======KIDS=======  219)Victory at Sea  258)PlanetX         296)Medical News  333)HSE 2a"    
-   echo "30)Really          69)Army Boxing      107)Matriarch         144)Beatles Stories 181)KIDS ZONE      220)FilmOn War      259)MMA Now         297)Supreme Master334)HSE 2b"
-   echo "31)Yesterday       69)Tuff TV          108)Film 4            145)DM TV           182)AngelsAttic    221)Ghost Hunters   260)UFC Next        =====FILMON====   335)Kika "
-   echo "32)Pick TV         70)Disability Sports109)Film Detective    146)Country Star    183)SuperGeekHero  222)Timeless Bios   261)Sports Blooper  298)FOTV USA      336)ZDF Info" 
-   echo "33)CBS Reality     71)Blitzed          110)Renderyard Films  147)Josh and JB     184)AA Create      223)RealLife History262)Crash Bang      299)FOTV Workout  ===RUSSIAN=== "  
-   echo "34)CBS Reality+1   72)Dart's Nation    111)Mogolian Invasion 148)JBTV            185)Reading        224)Living History  ====URBAN/PARTY===  300)FilmOn Sports 337)RTR Planet"
-   echo "35)CBS Drama       ======HORROR======== ===ENTERTAINMENT==== 149)Jazz TeeVee     186)OM NOM         225)WW2 TV          263)Urban Firearms  301)360 Exp       338)CurrentTime"
-   echo "36)CBS Action      74)Chillings        112)CRAGG             150)Dancing Machine 187)Kids Rock      226)Aliens UFOS     264)Road 2 Fame     302)BH Cam 360    339)RT Docs"
-   echo "37)truTV           75)Monster Madhouse 113)Shockya Trailers  151)Inside Music    188)Tiny Pop       227)Crime Inc.      265)WWRTV           303)R&B Live      340)Perviy "	
-   echo "38)Drama           76)Zombie Underworld114)California Life   152)Tipstr.TV       189)Kix!           228)Short a Lesson  266)Evidence        304)Cast Out      341)Music Box  "
-   echo "39)FusionPlus TV   77)Vampire Empire   115)Rose Parade       153)Clubbing TV     190)Tails TV       229)Locomotion TV   267)Superfly        305)ROC Summer    342)Rossiya 24 "
-   echo "==========================================================================================================================================================================="
+   echo "==============================================================      "$product" "$version"   ========================================================================="
+   echo "================================================================================================================================================================"
+   echo "=======UK ======  40)Drama            78)Creepy Crawly      116)Screensaver     154)Noise Network  191)POP             230)Newsy  **       268)Harlem        "    
+   echo "1)BBC One         41)Box Hits         79)B-Movie!           117)Drone TV        155)Janey Kirk     192)Popeye          231)CDTV **         269)TMTV          " 
+   echo "2)BBC News        42)The Box          80)Alien Invasion     118)Miss Multiverse 156)FilmOn Jazz    193)Funny Company   232)EIC TV          270)WHOMAG        "  
+   echo "3)BBC 1 Wales     43)-----------      81)Horror Channel     119)Vape Channel    157)FilmOn Rock    194)AngelAttic      233)Global Goals    271)WHOMAG VID    "             
+   echo "4)BBC 1 Scotland  44)-----------      =======MOVIES=======  120)Talent Know     158)JCTV           195)Cat TV          234)Native Nations2*272)New Star      "  
+   echo "5)BBC 1 N Ireland ====SPORTS======    82)FilmOn Classics    121)EZ Way          159)Classic Arts   196)CBeebies        235)France 24**     273)Bone Thugs    "  
+   echo "6)BBC Two         45)Grandstand Show  83)Love On The Range  122)Tomorrow Pics   160)Jazz Radio     197)CBBC            236)Truth Files**   274)RMC Live      "
+   echo "7)BBC Parliament  46)Football Fanatics84)Silent Cinema      123)Razzies         =====BIKINI=====   198)Talya Toys      237)NewsMax**       275)Raw Report    "
+   echo "8)BBC Four        47)FilmOn Tennis    85)ChristmasTime      124)Noahpop tv      161)Player         199)Kartoon Klassic 238)TV 47**         276)Linkct Network"
+   echo "9)ITV             48)Snooker Legends  86)Sherlock Holmes    124)Hollywood Show  162)J CLub         200)Fun Little      239)VOA             277)Urban Music   "
+   echo "10)ITV +1         49)The Ring TV      87)Seven Sins         125)Director's Cut  163)Bikini Down    201)Tayla Tea       240)FilmOn NEWS     278)Aspire Now    "
+   echo "11)ITV2           50)Gali Lucha Libre 88)The Monarch        126)Romance         164)Cheerleaders   202)Wild Animals    241)Al Jazeera      279)Amp TV        "
+   echo "12)ITV2 +1        51)Beach Sports     89)Trailer Nut        127)Miss Peurto Rico165)Party Girls    203)FilmOn Kids     242)Bloomberg**     280)Weedmaps      "
+   echo "13)ITV3           52)Pugalism         90)Thespian Theater   128)On The Mike     166)Showing Off    204)Mouse House     243)DW English      281)Buddy Plant   "
+   echo "14)ITV3 +1        53)Inside The Ring  91)Rated B            =======MUSIC======  167)Show and Tell  205)Clutch Cargo    244)Russia Today    282)PROHBTD       "  
+   echo "15)ITV4           54)Emerging Sports  92)Movie Loft TV      129)TVM TV          168)Miss Top       206)Felix The Cat   245)America Thinks  283)Sweet Leaf    "
+   echo "16)ITV4 +1        55)Softball 360     93)Dragon Arena       130)MVTV            169)Bikini TV      207)Little Smart    246)CGTN            ===LIFESTYLE===   "
+   echo "17)ITV Be         56)Golden Boy       94)Mad Science Cinema 131)Ditty TV        170)Bikini Kitchen 208)Crowd Angels    247)DVID            284)Health Life   "	
+   echo "18)Channel 4      57)FilmOn Wrestling 95)FilmOn Family      132)Irish Country   171)Miami TV       ====DOCUMENTARY==== 248)Press TV        285)SOBA          "
+   echo "19)E4             58)FilmOn Football  96)Hollywood War      133)Britrox         =====COMEDY======  209)Red Chip        249)Job Channel     286)Readers Digest"  
+   echo "20)More4          59)Roopstigo        97)Bloodzillathon     134)24.7 The Stream 172)ComiCZoo       210)Biz TV          250)Unreliable**    287)Green Living  "
+   echo "21)Channel 5      60)Fighting Athlete 98)Banned Western     135)Miami Music     173)Placeholders   211)CCTV 9          251)Insider Ex      288)Safe TV       "       
+   echo "22)5*             61)Ultimate Disc    99)Eurotrash          136)Talent Watch    174)Lumbfilm       212)Fame TV         ==EXTREME SPORTS==  289)Bid America   "  
+   echo "23)5USA           62)FilmOn Boxing    100)High School       137)HotRock         175)FimOn Comedy   213)                252)GFL Combat      290)MegaMe        "
+   echo "24)Really         63)Game Time        101)Award Cinema      138)Hot Country     176)Spud's Funny   214)FBI Insider     253)XCORPS          291)Wonderful Life"  
+   echo "25)Yesterday      64)1 on 1 Boxing    102)New York          139)Music Mix       177)SupaPirateBoot 215)FilmOn Docs     254)MMA Now         292)Simply Me     "
+   echo "26)Pick TV        65)AFL Classic      103)Major Crimes      140)Guitar Lessons  178)Fun Little     216)UFO NEWS        255)GLORY Kick      293)The Walk      "
+   echo "27)CBS Reality    66)Cheer Channel    104)iFlix TV          141)Soundtrack      179)EyeforanEye    217)WAKAJ TV        256)Sledhead        294)Time TV       "
+   echo "28)CBS Reality+1  67)Football Heroes  105)Campy Channel     142)EDM TV          180)Locomotion     218)FilmOn Bio      257)DestX           295)DRTV          "
+   echo "29)CBS Drama      68)Live Boxing      106)KungFu Classics   143)Jimmy Lloyd SWS ======KIDS=======  219)Victory at Sea  258)PlanetX         296)Medical News  "    
+   echo "30)CBS Action     69)Army Boxing      107)Matriarch         144)Beatles Stories 181)KIDS ZONE      220)FilmOn War      259)MMA Now         297)Supreme Master"
+   echo "31)truTV          69)Tuff TV          108)Film 4            145)DM TV           182)AngelsAttic    221)Ghost Hunters   260)UFC Next        =====FILMON====   "
+   echo "32)FusionPlus TV  70)Disability Sports109)Film Detective    146)Country Star    183)SuperGeekHero  222)Timeless Bios   261)Sports Blooper  298)FOTV USA      " 
+   echo "33)Forces TV      71)Blitzed          110)Renderyard Films  147)Josh and JB     184)AA Create      223)RealLife History262)Crash Bang      299)FOTV Workout  "  
+   echo "34)Challenge      72)Dart's Nation    111)Mogolian Invasion 148)JBTV            185)Reading        224)Living History  ====URBAN/PARTY===  300)FilmOn Sports "
+   echo "35)Pick TV        ======HORROR======== ===ENTERTAINMENT==== 149)Jazz TeeVee     186)OM NOM         225)WW2 TV          263)Urban Firearms  301)360 Exp       "
+   echo "36)V Channel      74)Chillings        112)CRAGG             150)Dancing Machine 187)Kids Rock      226)Aliens UFOS     264)Road 2 Fame     302)BH Cam 360    "
+   echo "37)Really TV      75)Monster Madhouse 113)Shockya Trailers  151)Inside Music    188)Tiny Pop       227)Crime Inc.      265)WWRTV           303)R&B Live      "	
+   echo "38)My Face My Body76)Zombie Underworld114)California Life   152)Tipstr.TV       189)Kix!           228)Short a Lesson  266)Evidence        304)Cast Out      "
+   echo "39)Dr. Fab Show   77)Vampire Empire   115)Rose Parade       153)Clubbing TV     190)Tails TV       229)Locomotion TV   267)Superfly        305)ROC Summer    "
+   echo "==============================================================================================================================================================="
 echo " " 
-}	  
+}   
 
 channel_matrix_1()
 {
-   echo "===============================================================      "$product"  "$version"   ================================================================================"
-   echo "=========INDIA================================================================================================================================================================"
-   echo "343)Films India          379)RT Espanol          417)Sprokets         452)GLORY TV       489)Torque Tush      522)U Matter 2    561)---------- 601)---------- 641)---------- "    
-   echo "344)Live 9 TV            380)DW Latino America   418)Teen Shorts      453)Dunamis        490)MotorZ           523)WXEA 94.7     562)---------- 602)---------- 642)---------- " 
-   echo "345)Delhi Aaj Tak        381)Televideo Latino    419)Drama Shorts     454)Global Music   491)Steel Dreams     524)Wise Choice   563)---------- 603)---------- 643)---------- "  
-   echo "346)Aaj Tak              ===CLASSIC TV===        420)Digi Animation   455)Church Channel 492)Distant Roads    525)FONYE Dance   564)---------- 604)---------- 644)---------- "             
-   echo "347)Tez TV               382)The Lucy Show       421)Documentary      456)TBN            ====EDUCATION===     526)Key 56        565)---------- 605)---------- 645)---------- "  
-   echo "348)ABP News             383)Date with Angels    ======OUTDOORS====== 457)DAYSTAR        493)Florida          527)A1 Bluegrass  566)---------- 606)---------- 646)---------- "  
-   echo "===ITALY===              384)Man with Camera     422)Bayou Country    458)CATHOLIC TV    494)Make Your Move   528)WZQR Talk     567)---------- 607)---------- 647)---------- "
-   echo "349)Italia Channel       385)Colgate Comedy      423)Gun Student      ======CELEBS====   495)Smarts TV        529)---------     568)---------- 608)---------- 648)---------- "
-   echo "350)Camera Deputati      386)Catwalk             424)Ultimate Outdoor 459)Screenster     496)Parenting TV     530)---------     569)---------- 609)---------- 649)---------- "
-   echo "351)QVC Italy            387)Life of Riley       425)Hunt Channel     460)Celeb Action   =====SHOPPING====    531)---------     570)---------- 610)---------- 650)---------- "
-   echo "==MIDDLE EAST==          388)Strange Paradise    426)Thouroughbred    461)Dame Dash      497)Jewelry TV       532)---------     571)---------- 611)---------- 651)---------- "
-   echo "352)Rotana Aflam         389)Red Skeleton        427)Wilderness       462)Nik Richie     498)QVC HD           533)---------     572)---------- 612)---------- 652)---------- "
-   echo "353)DW Arabia            390)Dragnet             428)Pursuit          463)Celeb Icons    499)Shop-N-Give      534)---------     573)---------- 613)---------- 653)---------- "
-   echo "354)AlJazeera Docs       391)Private Secretary   ======TRAVEL======   464)Andy Dick      500)Deals TV         535)---------     574)---------- 614)---------- 654)---------- "
-   echo "355)AlJazeeraMubasher    392)Suspense TV         429)HWC              465)Janice TV      501)Beauty IQ        536)---------     575)---------- 615)---------- 655)---------- "  
-   echo "356)AlJazeera Arabic     393)Timeless Westerns   430)Jet Set          466)Kato Katelin   502)QVC              537)---------     576)---------- 616)---------- 656)---------- "
-   echo "357)Saudi TV 2           394)You bet your Life   431)Mata             467)Celeb Fight    503)America Auction  538)---------     577)---------- 617)---------- 657)---------- "
-   echo "358)Saudi TV Sports      395)Flash Gordon        432)Mega Dest        468)Vertro Live    504)Caribbean Shop   539)---------     578)---------- 618)---------- 658)---------- "	
-   echo "359)Suryoyo Satalite     396)Betty Boop          433)30A TV           469)Star Shop      505)Product Show     540)---------     579)---------- 619)---------- 659)---------- "
-   echo "360)Rotana               397)Fury TV             434)OBX TV           =====FOOD=======   ====CARIBBEAN====    541)---------     580)---------- 620)---------- 660)---------- "  
-   echo "361)Rotana Clip          398)Cisco Kid           435)Travel           470)Wine Ram       506)Calabash         542)---------     581)---------- 621)---------- 661)---------- "
-   echo "362)Rotana Khalijah      499)Bonanza             436)Landmarks        471)World of Wine  507)Caribbean Life   543)---------     582)---------- 622)---------- 662)---------- "       
-   echo "363)Rotana Classic       400)Ozzie and Harriet   437)Infamous Places  472)The Chef Roc   508)Scruffy TV       543)---------     583)---------- 623)---------- 663)---------- "  
-   echo "364)Rotana Masriya       401)One Step Beyond     =====SOMALIA======   473)Food Network+1 =======ASIAN======   544)---------     584)---------- 624)---------- 664)---------- "
-   echo "365)Rotana Cinema        402)Charlie Chaplin     438)SNL TV           474)Food Champ     509)Arirang TV       545)---------     585)---------- 625)---------- 665)---------- "  
-   echo "366)Saudi TV 1           403)Beverly Hillbilies  439)Universal TV     475)Dude Food      510)VTC-10           546)---------     586)---------- 626)---------- 666)---------- "
-   echo "367)Noor Dubai           404)Robin Hood          440)National         476)Food Network   511)VOA Weishi       547)---------     587)---------- 627)---------- 667)---------- "
-   echo "368)iFilm                405)Timeless TV         441)Horn Cable       477)iFood TV       ======AFRICAN=====   548)---------     588)---------- 628)---------- 668)---------- "
-   echo "369)Dubai Sports         406)Spud's Crime        442)ESTV             478)Indian Recipe  512)ERI TV           549)---------     589)---------- 629)---------- 669)---------- "
-   echo "=====SWISS =====         407)Dick Van Dyke       443)Kalsanv          479)Wine Oh        513)Nollywood        550)---------     590)---------- 630)---------- 670)---------- "    
-   echo "370)SRF 1                == SHORT FILMS==        ======GREEK======    480)Gastrolab      514)iGboro TV        551)---------     591)---------- 631)---------- 671)---------- "
-   echo "371)RSI LA 1             408)Funny Shorts        444)RIK              481)Outdoor Cook   =====KAZAKH=======   552)---------     592)---------- 632)---------- 672)---------- "
-   echo "372)Raido Chico          409)Movies              =====RELIGION=====   482)Wine Channel   515)Kazakh TV        553)---------     593)---------- 633)---------- 673)---------- " 
-   echo "=====LATINO======        410)Planet Fashion      445)Hispanic         483)Eco Rico       ======RADIO=======   554)----------    594)---------- 634)---------- 674)---------- "  
-   echo "373)Dancing Shorts       411)Reality Shorts      446)You Shall Live   484)Veg TV         516)Marko Polka      555)---------     595)---------- 635)---------- 675)---------- "
-   echo "374)Peliculas FilmON     412)Acid TV             447)Preach the Word  =======CARS======= 517)v104 Live        556)---------     596)---------- 636)---------- 676)---------- "
-   echo "375)Catwalk Espanol      413)Horror TV           448)Audio Scripture  485)Auto Channel   518)Daytona Surf     557)---------     597)---------- 637)---------- 677)---------- "
-   echo "376)Animacion FilmOn     414)Music Videos        449)Cyber Church     486)Raceline TV    519)Classic Oldies   558)---------     598)---------- 638)---------- 678)---------- "	
-   echo "377)HispanTV             415)Sci Fi              450)Faith Cinema     487)Race Central   520)The Cajun        559)---------     599)---------- 639)---------- 679)---------- "
-   echo "378)Telenovelas          416)Micro Shorts        451)NRB              488)Honda HPD      521)J&J FM           560)---------     600)---------- 640)---------- 680)---------- "
-   echo "=========================================================================================================================================================================="
+   echo "===============================================================      "$product"  "$version"   ================================================================"
+   echo "=========FORIEGN==============INDIA==========================================================================================================================="
+   echo "306)FilmON Studio 343)Films India       379)RT Espanol         417)Sprokets         452)GLORY TV       489)Torque Tush     522)U Matter 2    561)----------  "    
+   echo "307)TV Gold       344)Live 9 TV         380)DW Latino America  418)Teen Shorts      453)Dunamis        490)MotorZ          523)WXEA 94.7     562)----------  " 
+   echo "308)Battle Rap    345)Delhi Aaj Tak     381)Televideo Latino   419)Drama Shorts     454)Global Music   491)Steel Dreams    524)Wise Choice   563)---------- "  
+   echo "309)Tribe TV      346)Aaj Tak           ===CLASSIC TV===       420)Digi Animation   455)Church Channel 492)Distant Roads   525)FONYE Dance   564)---------- "             
+   echo "310)FOn Reality   347)Tez TV            382)The Lucy Show      421)Documentary      456)TBN            ====EDUCATION===    526)Key 56        565)---------- "  
+   echo "311)Red Carpet    348)ABP News          383)Date with Angels   ======OUTDOORS====== 457)DAYSTAR        493)Florida         527)A1 Bluegrass  566)---------- "  
+   echo "312)Christmas     ===ITALY===           384)Man with Camera    422)Bayou Country    458)CATHOLIC TV    494)Make Your Move  528)WZQR Talk     567)---------- "
+   echo "313)Nub TV        349)Italia Channel    385)Colgate Comedy     423)Gun Student      ======CELEBS====   495)Smarts TV       529)---------     568)---------- "
+   echo "314)Chai Life     350)Camera Deputati   386)Catwalk            424)Ultimate Outdoor 459)Screenster     496)Parenting TV    530)---------     569)---------- "
+   echo "315)Joe Nation    351)QVC Italy         387)Life of Riley      425)Hunt Channel     460)Celeb Action   =====SHOPPING====   531)---------     570)---------- "
+   echo "316)OCRealEstate  ==MIDDLE EAST==       388)Strange Paradise   426)Thouroughbred    461)Dame Dash      497)Jewelry TV      532)---------     571)---------- "
+   echo "317)MHL TV        352)Rotana Aflam      389)Red Skeleton       427)Wilderness       462)Nik Richie     498)QVC HD          533)---------     572)---------- "
+   echo "318)RUNWAY TV     353)DW Arabia         390)Dragnet            428)Pursuit          463)Celeb Icons    499)Shop-N-Give     534)---------     573)---------- "
+   echo "319)TEOS          354)AlJazeera Docs    391)Private Secretary  ======TRAVEL======   464)Andy Dick      500)Deals TV        535)---------     574)---------- "
+   echo "320)TV ART        355)AlJazeeraMubasher 392)Suspense TV        429)HWC              465)Janice TV      501)Beauty IQ       536)---------     575)---------- "  
+   echo "321)RunwayTV      356)AlJazeera Arabic  393)Timeless Westerns  430)Jet Set          466)Kato Katelin   502)QVC             537)---------     576)---------- "
+   echo "322)Chic          357)Saudi TV 2        394)You bet your Life  431)Mata             467)Celeb Fight    503)America Auction 538)---------     577)---------- "
+   echo "323)NASA TV       358)Saudi TV Sports   395)Flash Gordon       432)Mega Dest        468)Vertro Live    504)Caribbean Shop  539)---------     578)---------- "	
+   echo "===FRENCH===      359)Suryoyo Satalite  396)Betty Boop         433)30A TV           469)Star Shop      505)Product Show    540)---------     579)---------- "
+   echo "324)ARTE          360)Rotana            397)Fury TV            434)OBX TV           =====FOOD=======   ====CARIBBEAN====   541)---------     580)---------- "  
+   echo "325)France 0      361)Rotana Clip       398)Cisco Kid          435)Travel           470)Wine Ram       506)Calabash        542)---------     581)---------- "
+   echo "326)France 3      362)Rotana Khalijah   499)Bonanza            436)Landmarks        471)World of Wine  507)Caribbean Life  543)---------     582)---------- "       
+   echo "327)France 3      363)Rotana Classic    400)Ozzie and Harriet  437)Infamous Places  472)The Chef Roc   508)Scruffy TV      543)---------     583)---------- "  
+   echo "328)RTS UN        364)Rotana Masriya    401)One Step Beyond    =====SOMALIA======   473)Food Network+1 =======ASIAN======  544)---------     584)---------- "
+   echo "329)RTS Deux      365)Rotana Cinema     402)Charlie Chaplin    438)SNL TV           474)Food Champ     509)Arirang TV      545)---------     585)---------- "  
+   echo "330)BFM Biz       366)Saudi TV 1        403)Beverly Hillbilies 439)Universal TV     475)Dude Food      510)VTC-10          546)---------     586)---------- "
+   echo "331)BFM TV        367)Noor Dubai        404)Robin Hood         440)National         476)Food Network   511)VOA Weishi      547)---------     587)---------- "
+   echo "332)France 2      368)iFilm             405)Timeless TV        441)Horn Cable       477)iFood TV       ======AFRICAN=====  548)---------     588)---------- "
+   echo "===GERMAN===      369)Dubai Sports      406)Spud's Crime       442)ESTV             478)Indian Recipe  512)ERI TV          549)---------     589)---------- "
+   echo "333)HSE 2a        =====SWISS =====      407)Dick Van Dyke      443)Kalsanv          479)Wine Oh        513)Nollywood       550)---------     590)---------- "    
+   echo "334)HSE 2b        370)SRF 1             == SHORT FILMS==       ======GREEK======    480)Gastrolab      514)iGboro TV       551)---------     591)---------- "
+   echo "335)Kika          371)RSI LA 1          408)Funny Shorts       444)RIK              481)Outdoor Cook   =====KAZAKH=======  552)---------     592)---------- "
+   echo "336)ZDF Info      372)Raido Chico       409)Movies             =====RELIGION=====   482)Wine Channel   515)Kazakh TV       553)---------     593)---------- " 
+   echo "===RUSSIAN===     =====LATINO======     410)Planet Fashion     445)Hispanic         483)Eco Rico       ======RADIO=======  554)----------    594)---------- "  
+   echo "337)RTR Planet    373)Dancing Shorts    411)Reality Shorts     446)You Shall Live   484)Veg TV         516)Marko Polka     555)---------     595)---------- "
+   echo "338)CurrentTime   374)Peliculas FilmON  412)Acid TV            447)Preach the Word  =======CARS======= 517)v104 Live       556)---------     596)---------- "
+   echo "339)RT Docs       375)Catwalk Espanol   413)Horror TV          448)Audio Scripture  485)Auto Channel   518)Daytona Surf    557)---------     597)---------- "
+   echo "340)Perviy        376)Animacion FilmOn  414)Music Videos       449)Cyber Church     486)Raceline TV    519)Classic Oldies  558)---------     598)---------- "	
+   echo "341)Music Box     377)HispanTV          415)Sci Fi             450)Faith Cinema     487)Race Central   520)The Cajun       559)---------     599)---------- "
+   echo "342)Rossiya 24    378)Telenovelas       416)Micro Shorts       451)NRB              488)Honda HPD      521)J&J FM          560)---------     600)---------- "
+   echo "==============================================================================================================================================================="
 echo " " 
 }	
 channel_matrix_2()	
@@ -403,135 +408,132 @@ case $chan_num in
 # 1) BBC One
 1) link=https://www.filmon.com/tv/bbc-one 
    chan_name="BBC One";;
-# 2) My Face My Body 
-2) link=https://www.filmon.com/tv/my-face-my-body   
-     chan_name="My Face My Body" ;;
-# 3) V Channel
-3) link=https://www.filmon.com/tv/v-channel
-   chan_name="V Channel";;
-# 4) Reality TV
-4) link=https://www.filmon.com/tv/reality-tv    
-    chan_name="Reality TV";;    
-# 5) Ireland's Country
-5) link=https://www.filmon.com/tv/irelands-country-tv 
-   chan_name="Ireland's Country";;     
-#  6) Brit Rox
-6) link=https://www.filmon.com/tv/britrox 
-    chan_name="britrox" ;;
-# 7) Dr. Fab Show
-7) link=https://www.filmon.com/tv/dr-fab-show
-    chan_name="Dr. Fab Show" ;;
-# 8)BBC News
-8) link=https://www.filmon.com/tv/bbc-news
+# 2)BBC News
+2) link=https://www.filmon.com/tv/bbc-news
     chan_name="BBC News" ;;
-# 9) BBC 1 Wales
-9) link=https://www.filmon.com/tv/bbc-1-wales
+# 3) BBC 1 Wales
+3) link=https://www.filmon.com/tv/bbc-1-wales
     chan_name="BBC 1 Wales" ;;
-# 10) BBC 1 Scotland
-10) link=https://www.filmon.com/tv/bbc-1-scotland
+# 4) BBC 1 Scotland
+4) link=https://www.filmon.com/tv/bbc-1-scotland
     chan_name="BBC 1 Scotland" ;;
-# 11) BBC 1 North Ireland
-11)  link=https://www.filmon.com/tv/bbc-1-north-ireland
-     chan_name="BBC 1 North Ireland" ;;
-# 12)  BBC TWO
-12) link=https://www.filmon.com/tv/bbc-two
+# 5) BBC 1 North Ireland
+5)  link=https://www.filmon.com/tv/bbc-1-north-ireland
+     chan_name="BBC 1 Northern Ireland" ;;
+# 6)  BBC TWO
+6) link=https://www.filmon.com/tv/bbc-two
     chan_name="BBC TWO" ;;
-# 13) BBC Parliament
-13) link=https://www.filmon.com/tv/bbc-parliament
+# 7) BBC Parliament
+7) link=https://www.filmon.com/tv/bbc-parliament
     chan_name="BBC Parliament" ;;
-# 14)  BBC Four
-14) link=https://www.filmon.com/tv/cbeebiesbbc-four
+# 8)  BBC Four
+8) link=https://www.filmon.com/tv/cbeebiesbbc-four
     chan_name="BBC Four" ;; 
-# 15) ITV
-15) link=https://www.filmon.com/tv/itv1
+# 9) ITV
+9) link=https://www.filmon.com/tv/itv1
     chan_name="ITV" ;;
-# 16) ITV + 1
-16) link=https://www.filmon.com/tv/itv-plus-1
+# 10) ITV + 1
+10) link=https://www.filmon.com/tv/itv-plus-1
 chan_name="ITV + 1" ;; 
-# 17) ITV 2
-17) link=https://www.filmon.com/tv/itv2
+# 11) ITV 2
+11) link=https://www.filmon.com/tv/itv2
 chan_name="ITV 2" ;;   
-# 18) ITV 2 + 1
-18) link=https://www.filmon.com/tv/itv2-plus-1
+# 12) ITV 2 + 1
+12) link=https://www.filmon.com/tv/itv2-plus-1
 chan_name="ITV 2 + 1" ;;
-# 19) ITV 3
-19) link=https://www.filmon.com/tv/itv3
+# 13) ITV 3
+13) link=https://www.filmon.com/tv/itv3
 chan_name="ITV 3" ;;
-# 20) ITV 3 + 1
-20) link=https://www.filmon.com/tv/itv3-plus-1 
+# 14) ITV 3 + 1
+14) link=https://www.filmon.com/tv/itv3-plus-1 
 chan_name="ITV 3 + 1" ;;
-# 21) ITV 4
-21) link=https://www.filmon.com/tv/itv4
+# 15) ITV 4
+15) link=https://www.filmon.com/tv/itv4
 chan_name="ITV 4" ;;
-# 22) ITV 4 + 1
-22) link=https://www.filmon.com/tv/itv4-plus-1
+# 16) ITV 4 + 1
+16) link=https://www.filmon.com/tv/itv4-plus-1
 chan_name="ITV 4 + 1" ;;
-# 23) ITV Be
-23) link=https://www.filmon.com/tv/itvbe
+# 17) ITV Be
+17) link=https://www.filmon.com/tv/itvbe
     chan_name="ITV Be" ;;
-# 24)  Channel 4
-24) link=https://www.filmon.com/tv/channel-4
+# 18)  Channel 4
+18) link=https://www.filmon.com/tv/channel-4
      chan_name="Channel 4" ;;    
-# 25) E4
-25) link=https://www.filmon.com/tv/channel-4
+# 19) E4
+19) link=https://www.filmon.com/tv/e4
 chan_name="E4" ;;
-# 26) More4
-26) link=https://www.filmon.com/tv/more4
+# 20) More4
+20) link=https://www.filmon.com/tv/more4
 chan_name="More4" ;;
-# 27) Channel 5
-27) link=https://www.filmon.com/tv/channel-5
+# 21) Channel 5
+21) link=https://www.filmon.com/tv/channel-5
 chan_name="Channel 5" ;;
-# 28) 5*
-28) link=https://www.filmon.com/tv/5-star
+# 22) 5*
+22) link=https://www.filmon.com/tv/5-star
 chan_name="5*" ;;
-# 29) 5 USA
-29) link=https://www.filmon.com/tv/5usa
+# 23) 5 USA
+23) link=https://www.filmon.com/tv/5usa
 chan_name="5 USA" ;;
-# 30) Really
-30) link=https://www.filmon.com/tv/really
+# 24) Really
+24) link=https://www.filmon.com/tv/really
 chan_name="Really" ;;
-# 31) Yesterday
-31) link=https://www.filmon.com/tv/yesterday
+# 25) Yesterday
+25) link=https://www.filmon.com/tv/yesterday
 chan_name="Yesterday" ;;
-# 32) Pick TV
-32) link=https://www.filmon.com/tv/pick-tv
+# 26) Pick TV
+26) link=https://www.filmon.com/tv/pick-tv
 chan_name="Pick TV" ;;
-# 33) CBS Reality 
-33) link=https://www.filmon.com/tv/cbs-reality
+# 27) CBS Reality 
+27) link=https://www.filmon.com/tv/cbs-reality
 chan_name="CBS Reality" ;;
-# 34) CBS Reality + 1
-34) link=https://www.filmon.com/tv/cbs-reality1
+# 28) CBS Reality + 1
+28) link=https://www.filmon.com/tv/cbs-reality1
 chan_name="CBS Reality + 1" ;;  
-# 35) CBS Drama
-35) link=https://www.filmon.com/tv/cbs-drama
+# 29) CBS Drama
+29) link=https://www.filmon.com/tv/cbs-drama
 chan_name="CBS Drama" ;;
-# 36) CBS Action
-36) link=https://www.filmon.com/tv/cbs-action
+# 30) CBS Action
+30) link=https://www.filmon.com/tv/cbs-action
     chan_name="CBS Action" ;;
-# 37) TruTV
-37) link=https://www.filmon.com/tv/tru-tv
+# 31) TruTV
+31) link=https://www.filmon.com/tv/tru-tv
 chan_name="TruTV" ;;
-# 38) Drama
-38)link=https://www.filmon.com/tv/drama
-chan_name="Drama" ;;
-# 39) FussionPlus TV
-39) link=https://www.filmon.com/tv/fusionplus
-    chan_name="Fussion Plus TV" ;;
-# 40) Box Hits
-40) link=https://www.filmon.com/tv/box-hits
-    chan_name="Box Hits" ;;
-# 41) The Box
-41) link=https://www.filmon.com/tv/the-box
-    chan_name="The Box" ;;
-# 42) Forces TV
-42) link=https://www.filmon.com/tv/forces-tv
+# 32) FusionPlus TV
+32) link=https://www.filmon.com/tv/fusionplus
+    chan_name="Fusion Plus TV" ;;
+# 33) Forces TV
+33) link=https://www.filmon.com/tv/forces-tv
     chan_name="Forces TV" ;;
-# 43) Challenge 
-43) link=https://www.filmon.com/tv/challenge
+# 34) Challenge 
+34) link=https://www.filmon.com/tv/challenge
     chan_name="Challenge" ;;
-# 44) Pick TV
-44) link=https://www.filmon.com/tv/pick-tv
-    chan_name="Pick TV" ;;           
+# 35) Pick TV
+35) link=https://www.filmon.com/tv/pick-tv
+    chan_name="Pick TV" ;;  
+ # 36) V Channel
+36) link=https://www.filmon.com/tv/v-channel
+   chan_name="V Channel";;   
+# 37) Really TV
+37) link=https://www.filmon.com/tv/reality-tv    
+    chan_name="Really TV";;              
+# 38) My Face My Body 
+38) link=https://www.filmon.com/tv/my-face-my-body   
+     chan_name="My Face My Body" ;;
+# 39) Dr. Fab Show
+39) link=https://www.filmon.com/tv/dr-fab-show
+    chan_name="Dr. Fab Show" ;;
+# 40) Drama
+40)link=https://www.filmon.com/tv/drama
+chan_name="Drama" ;;
+# 41) Box Hits
+41) link=https://www.filmon.com/tv/box-hits
+    chan_name="Box Hits" ;;
+# 42) The Box
+42) link=https://www.filmon.com/tv/the-box
+    chan_name="The Box" ;;
+# 43)
+# 44)
+
 ###################### SPORTS ################################    
 # 45) Grandstand Show
 45) link=https://www.filmon.com/tv/grandstand-show
@@ -2218,24 +2220,24 @@ echo "$chan_name Channel $num"
     if [ "$use_cookies" == "yes" ]
     then
     echo "Fetching Cookie, Please Wait..."
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
     # clear the cookie
     echo " " > "$cookie"
     else
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
     fi
   else
    
     if [ "$use_cookies" == "yes" ]
     then
     echo "Fetching Cookie, Please Wait..."
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    mpv --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
     # clear the cookie
     echo " " > "$cookie"
     else
-    firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
     fi
      
   fi
