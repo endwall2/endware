@@ -1475,8 +1475,9 @@ ip6tables-save > /etc/iptables/rules.v6
 iptables-save  > /etc/iptables/iptables
 ip6tables-save > /etc/iptables/ip6tables
 
-# Parabola /Gentoo OpenRC
+# Parabola / Gentoo OpenRC
 # /etc/init.d/iptables save
+# /etc/init.d/ip6tables save
 
 echo "ENDWALL LOADED"
 ################################     PRINT RULES      #######################################################################
