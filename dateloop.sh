@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 ######################################################################################
 # TITLE: DATELOOP
 # FILE: dateloop.sh
@@ -6,8 +6,8 @@
 # AUTHOR: ENDWALL
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2018
 # CREATION DATE: MARCH 23, 2018
-# VERSION: 0.05
-# REVISION DATE: June 16, 2018
+# VERSION: 0.06
+# REVISION DATE: December 28, 2018
 ######################################################################################
 # Description: Dateloop is a simple clock that calls the function date in a while loop for
 #              10,000 iterations. Updates every 5 seconds,  Stop with CNTRL + C .
@@ -59,8 +59,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.17
-#  VERSION DATE: JUNE 16, 2018
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
 #  ALL RIGHTS RESERVED  
 #    
@@ -80,11 +80,11 @@
 #  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. i
-#  1) j) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus,  motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -93,7 +93,7 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
+#  4) Any user of this program is granted the freedom to read and study the code.
 #  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
 #  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
@@ -131,7 +131,7 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) j) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
@@ -139,13 +139,13 @@
 ### Date loop
 
 ######################################   BEGINNING OF PROGRAM          ###################################################
-version=0.05
+version=0.06
 branch="gnu/linux"
-rev_date="16/06/2018"
+rev_date="28/12/2018"
 
 locate=""
 line_buffer=5
-loop_limit=10000
+loop_limit=500000
 ########### UPDATE INTERVAL in seconds
 interval=5
 
@@ -181,11 +181,11 @@ do
  shift
  elif [ "$arg" == "--mid" ]
  then
- locate="                                                                                    "  
+ locate="                                                                             "  
  shift                                                                                                    
  elif [ "$arg" == "--right" ]                                         
  then
- locate="                                                                                                                                                 "                                                                                                                                                                           
+ locate="                                                                                                                                               "                                                                                                                                                                           
  shift
  elif [ "$arg" == "--update" ]
  then     
@@ -212,13 +212,13 @@ loop_counter=0
     while [ "$loop_counter" -lt "$loop_limit" ]
     do
     clear
-    counter=0
+    line_counter=0
 
    ########## LINE BUFFER ABOVE OUTPUT ##############
-      while [ "$counter" -lt "$line_buffer" ]
+      while [ "$line_counter" -lt "$line_buffer" ]
       do
       echo " "
-      counter=$(expr "$counter" + 1)
+      line_counter=$(expr "$line_counter" + 1)
       done
     
     #### OUTPUT THE DATE AND TIME
@@ -226,7 +226,7 @@ loop_counter=0
     
     ### TIMER INTERVAL UPDATE PERIOD set to $interval seconds
     sleep "$interval"
-    counter=$( expr "$loop_counter" + 1 )
+    loop_counter=$( expr "$loop_counter" + 1 )
     done
 
 echo "Press q to quit and any other key to continue"
