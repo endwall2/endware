@@ -174,7 +174,7 @@ ClientRejectInternalAddresses 1
 UpdateBridgesFromAuthority 1
 
 ## 0 for round robin between circuits mode,
-CircuitPriorityHalflife 0
+CircuitPriorityHalflife 30
 
 #################################### DEPRECATED SWITCHES ###########################################
 
