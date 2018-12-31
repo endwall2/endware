@@ -164,7 +164,7 @@ do
   fi
 done
  
-#sender="sender@return_address.onion"
+sender="sender@return_address.onion"
 
 recipient=$1
 rserver=$( echo $1 | cut -d @ -f 2 )
