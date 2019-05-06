@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.115
-# Revision Date: June 18, 2018
+# Version: 0.116
+# Revision Date: December 22, 2018
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -61,8 +61,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.17
-#  VERSION DATE: JUNE 16, 2018
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
 #  ALL RIGHTS RESERVED  
 #    
@@ -82,11 +82,11 @@
 #  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. i
-#  1) j) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus,  motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -95,7 +95,7 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
+#  4) Any user of this program is granted the freedom to read and study the code.
 #  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
 #  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
@@ -133,16 +133,17 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) j) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.115"
-rev_date="18/06/2018"
+version="0.1161"
+rev_date="05/05/2019"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -156,7 +157,7 @@ use_cookies="no"
 #change this to whatever path/file you what to use as your user agents file
 USERAGENTS=$HOME/bin/user_agents.txt 
 # define the current tor browser user agent
-UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
+UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:60.0) Gecko/20100101 Firefox/60.0"
 # define default headers
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 HEAD2="Accept-Language: en-US,en;q=0.5"
@@ -167,6 +168,9 @@ uamode="off"
 headmode="off"
 state="normal"
 
+torsocks_ip=127.0.0.1
+#torsocks_ip=192.168.1.103
+torsocks_port=9050
 
 ### Define function for displaying channels  CHANGE MENU HERE
 channel_matrix_0()
@@ -223,46 +227,46 @@ channel_matrix_1()
    echo "====================================================    "$product" "$version"   ======================================================================="
    echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
    echo "================================================================================================================================================="
-   echo "281)Pulse Radio     321)Radio Mayak FM RU   361)BBC Radio 1        401)BBC Shropshire  441)-----------   481)------------- 521)EWTN Radio"    
-   echo "282)Old Time Radio  322)Radio Russia AM     362)BBC Radio 2        402)BBC Solent      442)-----------   482)------------- 522)EWTN Classic" 
-   echo "283)c0vertElectr0   323)Radio Russia FM     363)BBC Radio 3        403)BBC Somerset    443)-----------   483)------------- 523)EWTN Spanish"  
-   echo "284)Deep Banjo      324)Kultura 91.6 FM RU  364)BBC Radio 4        404)BBC Stoke       444)-----------   484)------------- 524)EWTN Ireland"             
-   echo "285)Dark Ret        325)Radio Nost RU       365)BBC Radio 4 LW     405)BBC Suffolk     445)-----------   485)------------- 525)EWTN Philippines"  
-   echo "286)BaroqueRadio    326)Business FM Moscow  366)BBC Radio 4 Extra  406)BBC Sussex      446)-----------   486)------------- 526)IHOP House of Prayer"  
-   echo "287)AnonyRadio      327)107.4 St Petersburg 367)BBC 5 Live         407)BBC Tees        447)-----------   487)------------- 527)--------------"
-   echo "288)AnonyJazz       328)107.5 Ufa           368)BBC 5 Live Sports  408)BBC 3 Counties  448)-----------   488)------------- 528)--------------"
-   echo "289)Lain Radio      329)Gorod FM            369)BBC 6 Music        409)BBC Wiltshire   449)-----------   489)------------  529)--------------"
-   echo "290)KDFC Classical  330)Kommersant          370)BBC 1Xtra          410)BBC WM 95.6     450)-----------   490)------------  530)--------------"
-   echo "291)CPR Colorado    331)Moskva FM Moscow    371)BBC Asian          411)BBC York        451)-----------   491)------------  531)--------------"
-   echo "292)CPR Open Air    332)NN Radio Nizhny     372)BBC World Service  412)BBC Scotland    452)-----------   492)------------  532)--------------"
-   echo "293)--------------- 333)Radio Moskvy        373)BBC Berkshire      413)BBC nan Gaidheal453)-----------   493)------------  533)--------------"
-   echo "294)--------------- 334)RSN Moscow          374)BBC Bristol        414)BBC Ulster      454)-----------   494)------------  534)--------------"
-   echo "295)--------------- 335)UR-1 Kyiv           375)BBC Cambridgeshire 415)BBC Foyle       455)-----------   495)------------  535)--------------"  
-   echo "296)--------------- 336)UR-2 Promin Kyiv    376)BBC Cornwall       416)BBC Wales       456)-----------   496)------------  536)--------------"
-   echo "297)--------------- 337)UR-3 Kultura Kyiv   377)BBC Coventry       417)-----------     457)-----------   497)------------- 537)--------------"
-   echo "298)--------------- 338)UR-4 Int Kyiv       378)BBC Cumbria        418)-----------     458)-----------   498)------------- 538)--------------"	
-   echo "299)--------------  339)Business Radio Kyiv 379)BBC Derby          419)-----------     459)-----------   499)------------- 539)--------------"
-   echo "300)--------------- 340)Ekvator FM Shpola   380)BBC Devon          420)-----------     460)-----------   500)------------- 540)--------------"  
-   echo "301)--------------- 341)Golos Stolytsi Kyiv 381)BBC Essex          421)-----------     461)-----------   501)------------- 541)--------------"
-   echo "302)--------------- 342)Radio ES Kyiv       382)BBC Gloucestershire422)-----------     462)-----------   502)------------- 542)--------------"       
-   echo "303)--------------- 343)Radio Vesti Kyiv    383)BBC Guernsey       423)-----------     463)-----------   503)------------- 543)--------------"  
-   echo "304)--------------- 344)Vesti Radio FM RU   384)BBC Hereford       424)-----------     464)-----------   504)------------- 544)--------------"
-   echo "305)--------------- 345)-------------       385)BBC Humberside     425)-----------     465)-----------   505)------------- 545)--------------"  
-   echo "306)--------------- 346)-------------       386)BBC Jersey         426)-----------     466)-----------   506)------------- 546)--------------"
-   echo "307)--------------- 347)-------------       387)BBC Kent           427)-----------     467)------------  507)------------- 547)--------------"
-   echo "308)--------------- 348)-------------       388)BBC Lancashire     428)-----------     468)------------  508)------------- 548)--------------"
-   echo "309)--------------- 349)--------------      389)BBC Leeds          429)-----------     469)------------  509)------------- 549)--------------"
-   echo "310)--------------- 350)--------------      390)BBC Leicester      430)-----------     470)------------  510)------------- 550)--------------"    
-   echo "311)--------------- 351)--------------      391)BBC Lincolnshire   431)-----------     471)------------  511)------------- 551)--------------"
-   echo "312)--------------- 352)--------------      392)BBC London 94.9    432)-----------     472)------------  512)------------- 552)--------------"
-   echo "313)--------------- 353)--------------      393)BBC Manchester     433)-----------     473)------------  513)------------- 553)--------------" 
-   echo "314)--------------- 354)--------------      394)BBC Merseyside     434)-----------     474)------------  514)------------- 554)--------------"  
-   echo "315)--------------- 355)--------------      395)BBC Newcastle      435)-----------     475)------------  515)------------- 555)--------------"
-   echo "316)--------------- 356)--------------      396)BBC Norfolk        436)-----------     476)------------  516)------------- 556)--------------"
-   echo "317)--------------- 357)--------------      397)BBC Northampton    437)-----------     477)------------  517)------------- 557)--------------"
-   echo "318)--------------- 358)--------------      398)BBC Nottingham     438)-----------     478)------------  518)------------- 558)--------------"	
-   echo "319)--------------- 359)--------------      399)BBC Oxford         439)-----------     479)------------  519)------------- 559)------------- "
-   echo "320)--------------- 360)--------------      400)BBC Sheffield      440)-----------     480)------------  520)------------- 560)------------- "
+   echo "281)Pulse Radio     321)Radio Mayak FM RU   361)BBC Radio 1        401)BBC Shropshire     441)-----------   481)------------- 521)EWTN Radio"    
+   echo "282)Old Time Radio  322)Radio Russia AM     362)BBC Radio 2        402)BBC Solent         442)-----------   482)------------- 522)EWTN Classic" 
+   echo "283)c0vertElectr0   323)Radio Russia FM     363)BBC Radio 3        403)BBC Somerset       443)-----------   483)------------- 523)EWTN Spanish"  
+   echo "284)Deep Banjo      324)Kultura 91.6 FM RU  364)BBC Radio 4        404)BBC Stoke          444)-----------   484)------------- 524)EWTN Ireland"             
+   echo "285)Dark Ret        325)Radio Nost RU       365)BBC Radio 4 LW     405)BBC Suffolk        445)-----------   485)------------- 525)EWTN Philippines"  
+   echo "286)BaroqueRadio    326)Business FM Moscow  366)BBC Radio 4 Extra  406)BBC Sussex         446)-----------   486)------------- 526)IHOP House of Prayer"  
+   echo "287)AnonyRadio      327)107.4 St Petersburg 367)BBC 5 Live         407)BBC Tees           447)-----------   487)------------- 527)--------------"
+   echo "288)AnonyJazz       328)107.5 Ufa           368)BBC 5 Live Sports  408)BBC 3 Counties     448)-----------   488)------------- 528)--------------"
+   echo "289)Lain Radio      329)Gorod FM            369)BBC 6 Music        409)BBC Wiltshire      449)-----------   489)------------  529)--------------"
+   echo "290)KDFC Classical  330)Kommersant          370)BBC 1Xtra          410)BBC WM 95.6        450)-----------   490)------------  530)--------------"
+   echo "291)CPR Colorado    331)Moskva FM Moscow    371)BBC Asian          411)BBC York           451)-----------   491)------------  531)--------------"
+   echo "292)CPR Open Air    332)NN Radio Nizhny     372)BBC World Service  412)BBC Scotland       452)-----------   492)------------  532)--------------"
+   echo "293)--------------- 333)Radio Moskvy        373)BBC Berkshire      413)BBC nan Gaidheal   453)-----------   493)------------  533)--------------"
+   echo "294)--------------- 334)RSN Moscow          374)BBC Bristol        414)BBC Ulster         454)-----------   494)------------  534)--------------"
+   echo "295)--------------- 335)UR-1 Kyiv           375)BBC Cambridgeshire 415)BBC Foyle          455)-----------   495)------------  535)--------------"  
+   echo "296)--------------- 336)UR-2 Promin Kyiv    376)BBC Cornwall       416)BBC Wales          456)-----------   496)------------  536)--------------"
+   echo "297)--------------- 337)UR-3 Kultura Kyiv   377)BBC Coventry       417)SABC Power 5       457)-----------   497)------------- 537)--------------"
+   echo "298)--------------- 338)UR-4 Int Kyiv       378)BBC Cumbria        418)SABC SA ZA         458)-----------   498)------------- 538)--------------"	
+   echo "299)--------------  339)Business Radio Kyiv 379)BBC Derby          419)SABC Africa        459)-----------   499)------------- 539)--------------"
+   echo "300)--------------- 340)Ekvator FM Shpola   380)BBC Devon          420)SABC RADIO 2000    460)-----------   500)------------- 540)--------------"  
+   echo "301)--------------- 341)Golos Stolytsi Kyiv 381)BBC Essex          421)SABC Thobella      461)-----------   501)------------- 541)--------------"
+   echo "302)--------------- 342)Radio ES Kyiv       382)BBC Gloucestershire422)SABC Ukhozi ZA     462)-----------   502)------------- 542)--------------"       
+   echo "303)--------------- 343)Radio Vesti Kyiv    383)BBC Guernsey       423)SABC UmholoboWenene463)-----------   503)------------- 543)--------------"  
+   echo "304)--------------- 344)Vesti Radio FM RU   384)BBC Hereford       424)SABC TRU FM        464)-----------   504)------------- 544)--------------"
+   echo "305)--------------- 345)-------------       385)BBC Humberside     425)SABC Ikwekwezi     465)-----------   505)------------- 545)--------------"  
+   echo "306)--------------- 346)-------------       386)BBC Jersey         426)SABC Good Hope     466)-----------   506)------------- 546)--------------"
+   echo "307)--------------- 347)-------------       387)BBC Kent           427)SABC Lesedi        467)------------  507)------------- 547)--------------"
+   echo "308)--------------- 348)-------------       388)BBC Lancashire     428)SABC Ligwalagwala  468)------------  508)------------- 548)--------------"
+   echo "309)--------------- 349)--------------      389)BBC Leeds          429)SABC Lotus 87.7    469)------------  509)------------- 549)--------------"
+   echo "310)--------------- 350)--------------      390)BBC Leicester      430)SABC RSG FM        470)------------  510)------------- 550)--------------"    
+   echo "311)--------------- 351)--------------      391)BBC Lincolnshire   431)SABC Phalaphala    471)------------  511)------------- 551)--------------"
+   echo "312)--------------- 352)--------------      392)BBC London 94.9    432)SABC Motsweding    472)------------  512)------------- 552)--------------"
+   echo "313)--------------- 353)--------------      393)BBC Manchester     433)SABC Munghanalonene473)------------  513)------------- 553)--------------" 
+   echo "314)--------------- 354)--------------      394)BBC Merseyside     434)-----------        474)------------  514)------------- 554)--------------"  
+   echo "315)--------------- 355)--------------      395)BBC Newcastle      435)-----------        475)------------  515)------------- 555)--------------"
+   echo "316)--------------- 356)--------------      396)BBC Norfolk        436)-----------        476)------------  516)------------- 556)--------------"
+   echo "317)--------------- 357)--------------      397)BBC Northampton    437)-----------        477)------------  517)------------- 557)--------------"
+   echo "318)--------------- 358)--------------      398)BBC Nottingham     438)-----------        478)------------  518)------------- 558)--------------"	
+   echo "319)--------------- 359)--------------      399)BBC Oxford         439)-----------        479)------------  519)------------- 559)------------- "
+   echo "320)--------------- 360)--------------      400)BBC Sheffield      440)-----------        480)------------  520)------------- 560)------------- "
    echo "================================================================================================================================================"  
 echo " " 
 }	
@@ -364,9 +368,6 @@ channel_matrix_3()
    echo "================================================================================================================================================"  
 echo " " 
 }	
-
-	
-
 
 
 for arg in $@
@@ -477,26 +478,28 @@ use_playlist="no"
 chan_name="WKSU News";;
 # 5) Infowars
 5) 
-  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 5 ) 
+  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 7 ) 
   case $rnum in 
-  0) link=http://50.7.79.92:80
+  0) link="http://50.7.79.92:80"
      #link=http://stream-aac.infowars.com 
      ;;
-  1) link=http://50.7.79.18:80
+  1) link="http://50.7.79.18:80"
      #http://stream-aac-us.infowars.com 
      ;;
-  2) link=http://50.7.128.195:80
+  2) link="http://50.7.128.195:80"
      #http://stream-aac-eu.infowars.com 
      ;;
-  3) link=http://192.240.107.116:80
+  3) link="http://192.240.107.116:80"
      #http://stream-mp3.infowars.com 
      ;;
-  4) link=http://50.7.79.20:80
+  4) link="http://50.7.79.20:80"
      #http://stream-mp3-us.infowars.com 
      ;;
-  5) link=http://50.7.128.196:80
-     #http://stream-mp3-eu.infowars.com 
+  5) link="http://50.7.128.196:80"
+     #http://stream-mp3-eu.infowars.com    
      ;;
+  6) link="http://192.240.107.134:80" ;;    
+  7) link="http://50.7.69.18:80" ;;     
   esac
 use_playlist="no"
 chan_name="Infowars";;
@@ -505,6 +508,7 @@ chan_name="Infowars";;
 6) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
 use_playlist="no"
 chan_name="BBC Radio 1";;
+
 # 7)  BBC Radio 2
 7) link=http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p
 use_playlist="no"
@@ -528,7 +532,7 @@ chan_name="BBC Radio 5";;
 use_playlist="no"
 chan_name="BBC Radio 6";;
 # 12) RT 
-12) link=https://secure-streams.akamaized.net/rt/indexaudio.m3u8
+12) link=https://rt-news.secure.footprint.net/1103-inadv-qidx-0k_v5.m3u8
 use_paylist="no"
 chan_name="RT";;
 # 13) France 24
@@ -684,11 +688,11 @@ link="$( torsocks curl -A "$UA" $( torsocks curl -A "$UA" "https://dai.google.co
 use_paylist="no"
 chan_name="CBSN";;
 # 42) RT America
-42) link=https://secure-streams.akamaized.net/rt-usa/indexaudio.m3u8
+42) link=https://rt-usa.secure.footprint.net/1105-inadv-qidx-0k_v5.m3u8
 use_paylist="no"
 chan_name="RT America";;
 # 43) RT UK 
-43) link=https://secure-streams.akamaized.net/rt-uk/indexaudio.m3u8
+43) link=https://rt-uk.secure.footprint.net/1106-inadv-qidx-0k_v5.m3u8
 use_paylist="no"
 chan_name="RT UK ";;
 # 44) Jupiter Broadcasting
@@ -802,6 +806,10 @@ chan_name="UN WEB TV";;
 66) link=http://communicorp.mp3.miisolutions.net:8000/communicorp/Newstalk_low.m3u
 use_paylist="no"
 chan_name="News Talk 106-108 Dublin";;
+
+
+
+
 
 
 
@@ -1488,6 +1496,7 @@ chan_name="Colorado Public Radio Classical";;
 use_playlist="no"
 chan_name="Colorado Public Radio Open Air";;
 
+
 ############################################################################
 ###################### RUSSIAN #########################################
 # 321) Radio Mayak FM Moscow 91.6 FM
@@ -1842,6 +1851,82 @@ chan_name="BBC Radio Foyle";;
 use_paylist="no"
 chan_name="BBC Radio Wales";;
 
+############## SABC ZA ################################################
+# 417) SABC Power of 5 FM ZA 
+417) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/9f38102608b345dcb53c1db0bd57f2d3/chunklist_w891479055.m3u8
+use_paylist="no"
+chan_name="SABC Power of 5 FM ZA";;
+# 418) SABC SA FM ZA 
+418) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/620e01258f5b49568546ff239ff2a32f/chunklist_w2084782071.m3u8
+use_paylist="no"
+chan_name="SABC SA FM ZA";;
+# 419) SABC Channel Africa ZA 
+419) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/557f47f80b264cea8e88346a123eedcd/chunklist_w781121384.m3u8
+use_paylist="no"
+chan_name="SABC Channel Africa ZA";;
+# 420) SABC RADIO 2000 ZA 
+420) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/1aecbe5d3065467daa10bb49107db56a/chunklist_w1823177694.m3u8
+use_paylist="no"
+chan_name="SABC RADIO 2000 ZA";;
+# 421) SABC Thobella FM ZA 
+421) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/58024f759ef343e5b43f99b0c55d84aa/chunklist_w343375988.m3u8
+use_paylist="no"
+chan_name="SABC Thobella FM ZA";;
+# 422) SABC Ukhozi FM ZA 
+422) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/c04e80a90111477a88867b697e2203c0/chunklist_w543616419.m3u8
+use_paylist="no"
+chan_name="SABC Ukhozi ZA";;
+# 423) SABC Umholobo Wenene FM ZA 
+423) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/7844ef4be8164a66a0e21bdfe374bff5/chunklist_w798667352.m3u8
+use_paylist="no"
+chan_name="SABC Umholobo Wenene FM ZA";;
+# 424) SABC Tru FM ZA 
+424) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/f94d47320933430fb3ae414ed0cd355d/chunklist_w1106326600.m3u8
+use_paylist="no"
+chan_name="SABC TRU FM ZA";;
+# 425) SABC Ikwekwezi FM ZA 
+425) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/ff6c43748de44108a31d127b4b205c12/chunklist_w270757424.m3u8
+use_paylist="no"
+chan_name="SABC Ikwekwezi FM ZA";;
+# 426) SABC Ikwekwezi FM ZA 
+426) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/ff6c43748de44108a31d127b4b205c12/chunklist_w270757424.m3u8
+use_paylist="no"
+chan_name="SABC Ikwekwezi FM ZA";;
+# 427) SABC Good Hope FM ZA 
+427) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/1e60ff4028fe4164a3e43071da9fb86f/chunklist_w530378175.m3u8
+use_paylist="no"
+chan_name="SABC Good Hope FM ZA";;
+# 428) SABC Lesedi FM ZA 
+428) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/273707ee34a94d87a51c4785b48256a5/chunklist_w1373578669.m3u8
+use_paylist="no"
+chan_name="SABC Lesedi FM ZA";;
+# 429) SABC Ligwalagwala FM ZA 
+429) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/568fc5738cce4434aa6db69e928084be/chunklist_w1691913274.m3u8
+use_paylist="no"
+chan_name="SABC Ligwalagwala FM  ZA";;
+# 430) SABC Lotus 87.7 FM ZA 
+430) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/9d1c7019ff894e5191b954eff03d7c77/chunklist_w721028241.m3u8
+use_paylist="no"
+chan_name="SABC Lotus 87.7 FM  ZA";;
+# 431) SABC RSG FM ZA 
+431) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/b08ea007857740318ea034f0b41504a7/chunklist_w1337103092.m3u8
+use_paylist="no"
+chan_name="SABC RSG FM  ZA";;
+# 432) SABC Phalaphala FM ZA 
+432) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/0e6fc9cfa7aa4264ad93f87dc4f75c3b/chunklist_w1482048237.m3u8
+use_paylist="no"
+chan_name="SABC Phalaphala FM ZA";;
+# 433) SABC Motsweding FM ZA 
+433) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/97f660b5d3c949e094ca1d8c983551d2/chunklist_w125432989.m3u8
+use_paylist="no"
+chan_name="SABC Motsweding FM ZA";;
+# 434) SABC Munghanalonene FM ZA 
+434) link=http://proradiocloud.antfarm.co.za/ant-lre-sabc/14e03c487fa44d3686ff65f483373d62/chunklist_w120450366.m3u8
+use_paylist="no"
+chan_name="SABC Munghanalonene FM ZA";;
+
+
+
 ############################   RELIGIOUS  ##########################################
 # 521) EWTN 1 
 521) 
@@ -2067,7 +2152,7 @@ then
 
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -2076,22 +2161,22 @@ then
      echo "wait for a couple of seconds for more data to load and then try the station again"
      sleep 3
      else
-     torsocks wget --user-agent="$UA" --header="$HEAD1" --header=--"$HEAD2" --header="$HEAD3" --header=="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
+     torsocks -a "$torsocks_ip" -P "$torsocks_port" wget --user-agent="$UA" --header="$HEAD1" --header=--"$HEAD2" --header="$HEAD3" --header=="$HEAD4" -b -q -O "$stream_dump" "$link" 1> "$pidstore"
      echo "wait for a couple of seconds and try the station again"
      sleep 3
      fi 
   elif [ "$method" == "mplayer" ]
   then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" -playlist "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" -playlist "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
   fi
   
  else
  
    if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -2106,9 +2191,9 @@ then
      fi 
   elif [ "$method" == "mplayer" ]
   then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mplayer -novideo -cache "$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i mpv --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache="$cache_size" "$link" 
   fi
  fi
 
