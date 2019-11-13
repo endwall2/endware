@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.05
-# Revision Date: June 13, 2017
+# Version: 0.07
+# Revision Date: November 12, 2019
 #
 # Recent Changes: - Forked from endradio
 #                 - Add multi language channels
@@ -62,10 +62,11 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-#      
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
+#  ALL RIGHTS RESERVED  
+#    
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
 #  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
@@ -75,17 +76,18 @@
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
 #  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
-#  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
-#  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
-#  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, law enforcement officer, 
+#        police constable, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) d) This program may be used by any human being of any sex or gender, including men, women, or any other sex, or gender not mentioned.       
+#  1) e) This program may be used by any human being of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
+#  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -94,14 +96,16 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
-#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any neighbor of their choice electronically or by any other method of transmission. 
+#  4) Any user of this program is granted the freedom to read and study the code.
+#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
-#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or salable goods.
-#  6) a) Any user of this program is granted the freedom to modify and improve the code.
-#  6) b) When modified or improved, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
+#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
+#  6) a) Any user of this program is granted the freedom to modify the code.
+#  6) b) When modified, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
 #        in its entirety to their modified code before re-distribution.
-#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or salable goods.
+#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or saleable goods.
+#  6) d) Any modified code shall be sublicensed by the modifier and distributor only under the original terms of the Endware End User License Agreement as presented in this LICENSE AGREEMENT.
+#  6) e) Any user of this software agrees that any derivative works produced as a result of user modification will be sublicensed when re-distributed under the original terms of this LICENSE AGREEMENT exactly as presented.
 #  7) a) Any user of this program is granted the freedom to run this code on any computer of their choice.
 #  7) b) Any user of this program is granted the freedom to run as many simultaneous instances of this code, on as many computers as they are able to and desire, and for as long as they desire and are
 #        able to do so with any degree of simultaneity in use. 
@@ -110,14 +114,14 @@
 #  9) Any user of this program is not granted the freedom to arbitrarily procure a copyright on this software as presented, and agrees not to do so.
 #  10) Any user of this program is not granted the freedom to obtain or retain intellectual property rights on this software as presented and agrees not to do so.
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
-#      b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
+#  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
 #  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "as is" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
 #  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
@@ -130,11 +134,12 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
+
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
@@ -160,7 +165,7 @@ HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 uamode="off"
 headmode="off"
 ### Define function for displaying channels  CHANGE MENU HERE
-channel_matrix()
+channel_matrix_0()
 {
    echo "====================================================      "$product" "$version"   =================================================================="
    echo "||       CLASSICAL      ||               ||    JAZZ          ||                  ||                   ||                  ||               ||"
@@ -206,10 +211,9 @@ channel_matrix()
    echo "39) ---------------    79) ------------  119) ------------   159) -------------- 199)-------------- 239)-------------- 279)--------------- "
    echo "40) ---------------    80) ------------  120) -------------  160)--------------- 200)-------------- 240)-------------- 280)--------------- "
    echo "============================================================================================================================================="
-echo " " 
 }	
 
-channel_matrix_2()
+channel_matrix_1()
 {
    echo "===================================================     "$product" "$version"   =================================================================="
    echo "||   ------------   || --------------    ||  --------------    ||  -----------    ||    ---------  ||  ----------     ||                 ||"
@@ -255,8 +259,56 @@ channel_matrix_2()
    echo "319) --------------- 359) --------------  399) --------------    439) ----------- 479) ----------- 519) ------------- 559) ------------- "
    echo "320) --------------- 360) --------------  400) --------------    440) ----------- 480) ----------- 520) ------------- 560) ------------- "
    echo "==========================================================================================================================================="
-echo " " 
 }	
+
+channel_matrix_2()
+{
+   echo "===================================================     "$product" "$version"   =================================================================="
+   echo "||   ------------   || --------------    ||  --------------    ||  -----------    ||    ---------  ||  ----------     ||                 ||"
+   echo "============================================================================================================================================"
+   echo "561)  -------------- 601)--------------   641) --------------    681) ------------721) ----------- 761) ------------- 801) --------------"    
+   echo "562)  -------------- 602)--------------   642) --------------    682) ------------722) ----------- 762) ------------- 802) --------------" 
+   echo "563) --------------- 603)--------------   643) --------------    683) ------------723) ----------- 763) ------------- 803) --------------"  
+   echo "564) --------------- 604)--------------   644) --------------    684) ------------724) ----------- 764) ------------- 804) --------------"             
+   echo "565) --------------- 605)--------------   645) --------------    685) ------------725) ----------- 765) ------------- 805) --------------"  
+   echo "566) --------------- 606)--------------   646) --------------    686) ------------726) ----------- 766) ------------- 806) --------------"  
+   echo "567) --------------- 607)--------------   647) --------------    687) ------------727) ----------- 767) ------------- 807) --------------"
+   echo "568) --------------- 608)--------------   648) --------------    688) ------------728) ----------- 768) ------------- 808) --------------"
+   echo "569) --------------- 609)--------------   649) --------------    689) ------------729) ----------- 769) ------------  809) --------------"
+   echo "570) --------------- 610)--------------   650) --------------    690) ------------730) ----------- 770) ------------  810) --------------"
+   echo "571) --------------- 611)--------------   651) --------------    691) ------------731) ----------- 771) ------------  811) --------------"
+   echo "572) --------------- 612)--------------   652) --------------    692) ------------732) ----------- 772) ------------  812) --------------"
+   echo "573) --------------- 613)--------------   653) --------------    693) ------------733) ----------- 773) ------------  813) --------------"
+   echo "574) --------------- 614)--------------   654) --------------    694) ------------734) ----------- 774) ------------  814) --------------"
+   echo "575) --------------- 615)--------------   655) --------------    695) ------------735) ----------- 775) ------------  815) --------------"  
+   echo "576) --------------- 616)--------------   656) --------------    696) ------------736) ----------- 776) ------------  816) --------------"
+   echo "577) --------------- 617)--------------   657) --------------    697) ----------- 737) ----------- 777) ------------- 817) --------------"
+   echo "578) --------------- 618)--------------   658) --------------    698) ----------- 738) ----------- 778) ------------- 818) --------------"	
+   echo "579) --------------- 619)--------------   659) --------------    699) ----------- 739) ----------- 779) ------------- 819) --------------"
+   echo "580) --------------- 620)--------------   660) --------------    700) ----------- 740) ----------- 780) ------------- 820) --------------"  
+   echo "581) --------------- 621)--------------   661) --------------    701) ----------- 741) ----------- 781) ------------- 821) --------------"
+   echo "582) --------------- 622)--------------   662) --------------    702) ----------- 742) ----------- 782) ------------- 822) --------------"       
+   echo "583) --------------- 623) -------------   663) --------------    703) ----------- 743) ----------- 783) ------------- 823) --------------"  
+   echo "584) --------------- 624) -------------   664) --------------    704) ----------- 744) ----------- 784) ------------- 824) --------------"
+   echo "585) --------------- 625) -------------   665) --------------    705) ----------- 745) ----------- 785) ------------- 825) --------------"  
+   echo "586) --------------- 626) -------------   666) --------------    706) ----------- 746) ----------- 786) ------------- 826) --------------"
+   echo "587) --------------- 627) -------------   667) --------------    707) ----------- 747) ----------- 787) ------------- 827) --------------"
+   echo "588) --------------- 628) -------------   668) --------------    708) ----------- 748) ----------- 788) ------------- 828) --------------"
+   echo "589) --------------- 629) --------------  669) --------------    709) ----------- 749) ----------- 789) ------------- 829) --------------"
+   echo "590) --------------- 630) --------------  670)--------------     710) ----------- 750) ----------- 790) ------------- 830) --------------"    
+   echo "591) --------------- 631) --------------  671) --------------    711) ----------- 751) ----------- 791) ------------- 831) --------------"
+   echo "592) --------------- 632) --------------  672) --------------    712) ----------- 752) ----------- 792) ------------- 832) --------------"
+   echo "593) --------------- 633) --------------  673) --------------    713) ----------- 753) ----------- 793) ------------- 833) --------------" 
+   echo "594) --------------- 634) --------------  674) --------------    714) ----------- 754) ----------- 794) ------------- 834) --------------"  
+   echo "595) --------------- 635) --------------  675) --------------    715) ----------- 755) ----------- 795) ------------- 835) --------------"
+   echo "596) --------------- 636) --------------  676) --------------    716) ----------- 756) ----------- 796) ------------- 836) --------------"
+   echo "597) --------------- 637) --------------  677) --------------    717) ----------- 757) ----------- 797) ------------- 837) --------------"
+   echo "598) --------------- 638) --------------  678) --------------    718) ----------- 758) ----------- 798) ------------- 838) --------------"	
+   echo "599) --------------- 639) --------------  679) --------------    719) ----------- 759) ----------- 799) ------------- 839) ------------- "
+   echo "600) --------------- 640) --------------  680) --------------    720) ----------- 760) ----------- 800) ------------- 840) ------------- "
+   echo "==========================================================================================================================================="
+}
+
 
 for arg in $@
 do 
@@ -344,8 +396,11 @@ chan_name="a1900-classical";;
 use_playlist="no"
 chan_name="BFC Classique";;
 # 4)  KDFC Classical Santa Rosa California
-4) link=http://96.aac.pls.kdfc.live
+4) 
+#link=http://96.aac.pls.kdfc.live
 # link=http://128.mp3.pls.kdfc.live
+#link=http://19483.live.streamtheworld.com:80/KDFCFMAAC_SC
+link=https://19483.live.streamtheworld.com:443/KDFCFMAAC_SC
 use_playlist="no"
 chan_name="KDFC Santa Rosa California";;
 # 5)  CPR Colorado Classical
@@ -404,81 +459,115 @@ esac
 
 }
 
-# Function to check the menu status
+###################################### FUNCTIONS #########################################
+
+######################### Function to check the menu status and deal with user input ###################################################
 menu_status()
 {
 input=$1
-if [ "$input" == "" ]
+if [ "$input" = "" ]
 then
 chan_state="return"
 menstat="no"
-elif [ "$input" == "q" ]
+elif [ "$input" = "q" ]
 then
 menstat="yes"
 menu="q"
-elif [ "$input" == "n" ]
+elif [ "$input" = "Q" ]
+then
+menstat="yes"
+menu="q"
+elif [ "$input" = "n" ]
 then 
 menstat="yes"
 menu="n"
-elif [ "$input" == "m" ]
+elif [ "$input" = "N" ]
+then 
+menstat="yes"
+menu="n"
+elif [ "$input" = "m" ]
 then
 menstat="yes"
 menu="m"
-elif [ "$input" == "ua-tor" ]
+elif [ "$input" = "M" ]
+then
+menstat="yes"
+menu="m"
+elif [ "$input" = "ua-tor" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="tor"
 uamode="on"
-elif [ "$input" == "ua-row1" ]
+elif [ "$input" = "ua-row1" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="row1"
 uamode="on"
-elif [ "$input" == "ua-rand" ]
+elif [ "$input" = "ua-rand" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="rand"
 uamode="on"
-elif [ "$input" == "ua-ranstr" ]
+elif [ "$input" = "ua-ranstr" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="ranstr"
 uamode="on"
-elif [ "$input" == "ua-off" ]
+elif [ "$input" = "ua-off" ]
 then
 menstat="yes"
-menu="$menu"qq
+menu="$menu"
 uastate="off"
 uamode="off"
-elif [ "$input" == "+" ]
+elif [ "$input" = "+" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "++" ]
+elif [ "$input" = "]" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "+++" ]
+elif [ "$input" = "]]" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "++++" ]
+elif [ "$input" = "++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "-" ]
+elif [ "$input" = "+++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" = "++++" ]
+then
+menstat="no"
+chan_state="+"
+elif [ "$input" = "-" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" == "--" ]
+elif [ "$input" = "[" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" -lt 600 ]
+elif [ "$input" = "[[" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" = "--" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" = "---" ]
+then
+menstat="no"
+chan_state="-"
+elif [ "$input" -lt 841 ]
 then
 menstat="no"
 chan_state="numeric"
@@ -488,23 +577,34 @@ chan_state="alpha"
 fi
 }
 
-
-# function for m,n,q channel matrix display
+############################## Function for Channel Menu Switching, m,n,q channel matrix display
 menu_switch()
 {
 input=$1
 case "$input" in
-q) echo "Type endtunes to restart program. Bye."
+q) echo "Type endstream to restart program. Bye."
 exit "$?" ;;
-m) channel_matrix
-echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, n for the next menu, or q to quit:" ;;
-n) channel_matrix_2
-echo "Please Select a Number corresponding to an Internet Radio Stream, press + to increment, - to decrement, m for the main menu, or q to quit:" ;;
+s) 
+men_num="$men_num"
+channel_matrix_"$men_num"
+menu="s"
+echo "Please Select a Number corresponding to a Media Stream, press + or ] to increment, - or [ to decrement, n for the next menu, or q to quit:" ;;
+m)
+men_num=$(expr 0)
+channel_matrix_"$men_num"
+menu="s"
+echo "Please Select a Number corresponding to a Media Stream, press + or ] to increment, - or [ to decrement, n for the next menu, or q to quit:" ;;
+n) 
+men_num=$(expr "$men_num" + 1)
+men_num=$(expr "$men_num" % 3)
+channel_matrix_"$men_num"
+menu="s"
+echo "Please Select a Number corresponding to a Media Stream, press + or ] to increment, - or [ to decrement, m for the main menu, n for the next menu, or q to quit:" ;;
 esac
 }
 
-##############################    MAIN PROGRAM      ######################################
-### Select the user agent
+######################################## Function to select the user agent
+select_agent(){
 if [ "$uamode" == "on" ]
  then
    if [ "$uastate" == "rand" ]
@@ -527,175 +627,170 @@ if [ "$uamode" == "on" ]
      UA=""
    fi 
  fi
-# initialize menu
-menu="m"
+}
 
-if [ "$1" != "" ]
-then
-echo "$1"
-# take channel input from command line
-entry="$1" 
-elif [ "$1" == "" ]
-then
-channel_matrix
-echo "Please Select a Number corresponding to a Radio Stream:"
+############## FUNCTION TO PLAY THE CHANNEL
 
-read entry
-num="$entry"
-
-if [ "$entry" == "q" ]
-then 
-echo "Type endtunes to open a new stream."
-exit "$?"
-elif [ "$entry" == "" ]
+######################## FUNCTION FOR PLAYING MEDIA STREAM CHANNELS #############################
+play_channel()
+{
+if [ "$menstat" = "no" ]
 then
-entry=1
-num="$entry"
-fi
-fi
-
-menu_status $entry
-
-if [ "$chan_state" == "+" ]
-then
-num=$(expr "$num" + 1 )
-elif [ "$chan_state" == "-" ]
-then
-num=$(expr "$num" - 1 )
-elif [ "$chan_state" == "return" ]
-then
-num="$num"
-elif [ "$chan_state" == "numeric" ]
-then
-num="$entry"
-else 
-num="$num"
-fi
-
-# get the menu selection status
-
-if [ "$menstat" == "no" ]
-then
- channel_select "$num"
- echo "$chan_name Channel $num"
-
- if [ "$uamode" == "on" ]
- then 
- echo "$UA"
-  
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
-  else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
-  fi
-  
-  else
-  
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
-  else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
-  fi
- 
- fi
-  
- menu_switch "$menu" 
- echo "You were watching "$chan_name" on Channel "$num" "
- chan_state="normal"
- read entry
- else 
- menu_switch "$menu"
- read entry
-fi
-
-while [ "$entry" != q ]
-do
-
-### Select the user agent
- if [ "$uamode" == "on" ]
- then
-   if [ "$uastate" == "rand" ]
-   then 
-    # pick a random user agent
-    UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$uastate" == "ranstr" ]
-   then 
-     # make a random string as the user agent 
-     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
-     #UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
-     UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
-   elif [ "$uastate" == "tor" ] 
-   then
-     UA="$UA_torbrowser" 
-   elif [ "$uastate" == "row1" ] 
-   then
-     UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
-   else 
-     UA=""
-   fi 
- fi
-
-menu_status $entry
-
-if [ "$chan_state" == "+" ]
-then
-num=$(expr "$num" + 1 )
-elif [ "$chan_state" == "-" ]
-then
-num=$(expr "$num" - 1 )
-elif [ "$chan_state" == "return" ]
-then
-num="$num"
-elif [ "$chan_state" == "numeric" ]
-then
-num="$entry"
-else 
-num="$num"
-fi
-
-if [ "$menstat" == "no" ]
-then
+getlink=1
 channel_select "$num"
-echo "$chan_name Channel $num"
-
- if [ "$uamode" == "on" ]
- then 
- echo "$UA"
+echo "$chan_name Channel $num" 
   
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
+  if [ "$uamode" = "on" ]
+  then 
+  echo "$UA"
+   
+    if [ "$use_cookies" = "yes" ]
+    then
+    echo "Fetching Cookie, Please Wait..."
+    curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback  --no-video --cache=yes --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    elif [ "$method" = "Streamlink" ]
+    then
+    streamlink --player "mpv --user-agent="$UA" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen" "$link"  "$format"
+    elif [ "$method" = "Tor" ]
+    then
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" -i mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen "$link"  
+    elif [ "$method" = "Tor-Streamlink" ]
+    then
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" -i streamlink --player "mpv --user-agent="$UA" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen" "$link"  "$format"
+    elif [ "$method" = "Proxychains" ]
+    then
+    proxychains mpv --user-agent="$UA" --ytdl-format "$format" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen "$link"  
+    else
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen "$link" 
+    fi
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --user-agent="$UA" --no-resume-playback --no-video --cache="$cache_size" "$link" 
+   
+    if [ "$use_cookies" = "yes" ]
+    then
+    echo "Fetching Cookie, Please Wait..."
+    curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
+    mpv --ytdl-format="$format" --no-resume-playback --cache=yes --fullscreen --loop-playlist=inf --no-video  --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    # clear the cookie
+    echo " " > "$cookie"
+    elif [ "$method" = "Streamlink" ]
+    then
+    streamlink --player "mpv --user-agent="$UA" --no-resume-playback --no-video --loop-playlist=inf --cache=yes --fullscreen" "$link"  "$format"
+    elif [ "$method" = "Tor" ]
+    then
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" -i mpv --user-agent="$UA" --ytdl-format "$format" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen "$link"  
+    elif [ "$method" = "Tor-Streamlink" ]
+    then
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" -i streamlink --player "mpv --user-agent="$UA" --no-resume-playback  --no-video --loop-playlist=inf --cache=yes --fullscreen" "$link"  "$format"
+    elif [ "$method" = "Proxychains" ]
+    then
+    proxychains mpv --user-agent="$UA" --ytdl-format "$format" --no-resume-playback  --no-video  --loop-playlist=inf --cache=yes --fullscreen "$link"  
+    else
+    mpv --ytdl-format="$format" --no-resume-playback --no-video --loop-playlist=inf --cache=yes --fullscreen "$link" 
+    fi
+     
   fi
- 
- else
- 
-  if [ "$use_playlist" == "yes" ]
-  then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  menu_switch "$menu"
-  else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet mpv --no-resume-playback --no-video --cache="$cache_size" "$link" 
-  fi
- 
- fi
- 
+clear
 menu_switch "$menu"
 echo "You were watching "$chan_name" on Channel "$num" "  
 chan_state="normal"
+format=""
+method=""
 read entry
 else 
+clear
 menu_switch "$menu"
 chan_state="normal"
 menstat="no"
+format=""
+method=""
 read entry
 fi
+}
+
+################################ Function to set the channel number 
+set_channel()
+{
+chan_state=$1
+if [ "$chan_state" = "+" ]
+then
+num=$(expr "$num" + 1 )
+elif [ "$chan_state" = "-" ]
+then
+num=$(expr "$num" - 1 )
+elif [ "$chan_state" = "return" ]
+then
+num="$num"
+elif [ "$chan_state" = "numeric" ]
+then 
+num="$entry"
+else 
+num="$num"
+fi
+}
+
+##############################    MAIN PROGRAM      ######################################
+clear
+### Select the user agent
+select_agent
+
+# initialize menu and channels
+menu="s"
+men_num=0
+entry=1
+num=1
+
+############## USER INPUT FIRST RUN  ###################################
+##  If input is non empty display and select
+if [ "$1" != "" ]
+then
+  echo "$1"
+  # take channel input from command line
+  entry="$1" 
+elif [ "$1" = "" ]  # else redisplay the channel matrix at previous page and ask for user input
+then
+  channel_matrix_"$men_num"
+  echo "Please Select a Number corresponding to a Media Live Stream:"
+  read entry
+  if [ "$entry" = "q" ]
+  then 
+   echo "Type endstream to open a new stream."
+   exit "$?"
+  elif [ "$entry" = "" ]
+  then
+   entry=1
+   num=1
+  fi
+fi
+
+### Case to remove void input on channel +/- at first selection 
+if [ "$chan_state" = "+" ]
+then 
+chan_state="return"
+entry=1
+num=1
+elif [ "$chan_state" = "-" ]
+then 
+chan_state="return"
+entry=1
+num=1
+fi
+
+menu_status "$entry"
+set_channel "$chan_state"
+# get the menu selection status
+### Play the media stream
+play_channel
+
+### While loop to keep the menu up
+while [ "$entry" != "q" ]
+do
+select_agent 
+menu_status "$entry"
+set_channel "$chan_state"
+play_channel
 done
 
 echo "Type endtunes to open a new streaming session."
@@ -706,6 +801,4 @@ rm "$cookie"
 fi 
 
 exit "$?"
-
 ######################     END OF PROGRAM      ####################################################
-

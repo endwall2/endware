@@ -5,8 +5,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
-# Version: 0.116
-# Revision Date: December 22, 2018
+# Version: 0.1171
+# Revision Date: November 12, 2019
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -142,8 +142,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.1161"
-rev_date="05/05/2019"
+version="0.1171"
+rev_date="12/11/2019"
 branch="gnu/linux"
 product="ENDRADIO"
 ##################################################
@@ -176,48 +176,48 @@ torsocks_port=9050
 channel_matrix_0()
 {
    echo "==========================================================     "$product" "$version"   ======================================================================="
-   echo "||        NEWS       ||       TV NEWS      ||      CBC Canada      ||       French     ||       German        ||       Spanish       ||    Spanish / Italian  ||"
+   echo "||        NEWS       ||       TV NEWS      ||      -----------     ||       French     ||       German        ||       Spanish       ||    Spanish / Italian  ||"
    echo "============================================================================================================================================================"
-   echo "1)BBC World Service   41)CBSN               81)CBC 1 Kamloops       121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
-   echo "2)NPR                 42)RT America         82)CBC 1 Kelowna        122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
-   echo "3)MPR News            43)RT UK              83)CBC 1 Prnc George    123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
-   echo "4)WKSU News           44)Jupiter FM         84)CBC 1 Vancouver      124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
-   echo "5)Infowars            45)BBC World News     85)CBC 1 Victoria       125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
-   echo "6)BBC Radio 1         46)Oireachtas IE      86)CBC 1 Whitehorse     126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
-   echo "7)BBC Radio 2         47)EBS Europe         87)CBC 1 Calgary        127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
-   echo "8)BBC Radio 3         48)CGTN English CN    88)CBC 1 Edmonton       128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
-   echo "9)BBC Radio 4         49)SKY News London UK 89)CBC 1 Regina         129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
-   echo "10)BBC Radio 5        50)RTE News Now IE    90)CBC 1 Saskatoon      130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)UCV Radio CL"
-   echo "11)BBC Radio 6        51)MSNBC USA          91)CBC 1 Winnipeg       131)Première Chaîne 171)SRF Virus         211)Cadena Sevilla      251)---------------"
-   echo "12)RT English         52)ABC News USA       92)CBC 1 Iqaluit        132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
-   echo "13)France 24          53)TRT World TK       93)CBC 1 Kitchener      133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
-   echo "14)DW Englsih         54)India Today IN     94)CBC 1 London         134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
-   echo "15)Al Jazeera Audio   55)NHK World Japan    95)CBC 1 Ottawa         135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
-   echo "16)BBC World Service  56)Free Speech TV     96)CBC 1 Sudbury        136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
-   echo "17)RTE Dublin         57)WGN 9 Chicago      97)CBC 1 Thunder Bay    137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
-   echo "18)RTE Extra Dublin   58)News12 Brooklyn    98)CBC 1 Toronto        138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
-   echo "19)NBC News Radio     59)News12 Long Island 99)CBC 1 Windsor        139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
-   echo "20)BFBS UK            60)CGTN Documentary   100)CBC 1 Montreal      140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
-   echo "21)LBC 1152 AM London 61)RT Documentary     101)CBC 1 Nord Quebec   141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
-   echo "22)LBC 97.3 FM London 62)NewsMax TV         102)CBC 1 Quebec City   142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
-   echo "23)Isles FM Stornoway 63)NDTV IN            103)CBC 1 Fredericton   143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
-   echo "24)CPR News Colorado  64)NewsX IN           104)CBC 1 Moncton       144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
-   echo "25)Bloomberg Radio    65)UN WEB TV          105)CBC 1 Saint John    145)--------------- 185)MDR KULTUR        225)Catalunya Informació265)---------------" 
-   echo "26)Genesis GCN        66)106 Talk Dublin ***106)CBC 1 Charlottetown 146)--------------- 186)NDR 90,3 Hamburg  226)COM Radio Barcelona 266)---------------"  
-   echo "27)Republic RBN       67)-------------      107)CBC 1 Cape Breton   147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
-   echo "28)24/7 World Radio   68)-------------      108)CBC 1 Halifax       148)--------------- 188)NDR 1 Schwerin    228)Crónicas Lanzarote  268)---------------"
-   echo "29)KPFK Malibu        69)-------------      109)CBC 1 Corner Brook  149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
-   echo "30)KPFT Houston       70)-------------      110)CBC 1 Grand Falls   150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
-   echo "31)KPFT 2 Houston     71)-------------      111)CBC 1 Labrador      151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
-   echo "32)WPFW Washington DC 72)-------------      112)CBC 1 St. Johns     152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
-   echo "33)WRYR-LP ***        73)-------------      113)CBC 1 Inuvik        153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
-   echo "34)WXOJ-LP ***        74)-------------      114)CBC 1 Yellowknife   154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
-   echo "35)WRFN-LP ***        75)-------------      115)CBC 2 Halifax       155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
-   echo "36)Liberty Radio      76)-------------      116)CBC 2 Toronto       156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
-   echo "37)1st Amendment      77)-------------      117)CBC 2 Winnipeg      157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
-   echo "38)Voice of America   78)-------------      118)CBC 2 Edmonton      158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
-   echo "39)CSPAN Radio        79)-------------      119)CBC 2 Vancouver     159)--------------- 199)Wüste Welle       239)Marca Barcelona     279)---------------"
-   echo "40)ABCNews Radio AU   80)CBC 2 Eastern      120)CBC 2 Pacific       160)--------------- 200)-----------       240)Menorca Mahón       280)---------------"
+   echo "1)BBC World Service   41)CBSN               81)--------------       121)France Info     161)SRF 1 Basel       201)Nacional d'Andorra  241)Nervión Bilbao  "    
+   echo "2)NPR                 42)RT America         82)--------------       122)France Inter    162)SRF 1 Aargau      202)RNE Madrid          242)Popular de Bilbao" 
+   echo "3)MPR News            43)RT UK              83) -------------       123)RFI Monde       163)SRF 1 Baselland   203)RNE Classica Madrid 243)Rioja Cadena "  
+   echo "4)WKSU News           44)Jupiter FM         84)--------------       124)RFI Afrique     164)SRF 1 Bern        204)RNE 3 Madrid        244)RCM "             
+   echo "5)Infowars            45)BBC World News     85)--------------       125)Africa no 1     165)SRF 1 Ostschweiz  205)RNE 4 Barcelona     245)RTVA Seville"  
+   echo "6)BBC Radio 1         46)Oireachtas IE      86)--------------       126)Alta Frequenza  166)SRF 1 Zentralsch  206)RNE 5 Todo Noticias 246)RSI Uno Lugano "  
+   echo "7)BBC Radio 2         47)EBS Europe         87)--------------       127)BFM Paris       167)SRF 1 Zürich      207)ABC Punto           247)RSI Due Lugano "
+   echo "8)BBC Radio 3         48)CGTN English CN    88)-------------        128)Europe 1        168)SRF 2 Kultur      208)Aragón Radio        248)RSI Tre Lugano"
+   echo "9)BBC Radio 4         49)SKY News London UK 89)-------------        129)Kernews         169)SRF 3             209)Cadena Barcelona    249)RFI ES         "
+   echo "10)BBC Radio 5        50)RTE News Now IE    90)-------------        130)Radio Ici       170)SRF 4 News        210)Cadena Bilbao       250)UCV Radio CL"
+   echo "11)BBC Radio 6        51)MSNBC USA          91)-------------        131)Premiere Chaine 171)SRF Virus         211)Cadena Sevilla      251)---------------"
+   echo "12)RT English         52)ABC News USA       92)-------------        132)Espace Musique  172)SRF Musikwelle    212)Cadena Badajoz      252)---------------"
+   echo "13)France 24          53)TRT World TK       93)-------------        133)RDI Montreal    173)Argovia Aarau     213)Cadena Valencia     253)---------------"
+   echo "14)DW Englsih         54)India Today IN     94)-------------        134)Bel RTL Belgium 174)Bayern 1 Munich   214)Cadena Mallorca     254)---------------"
+   echo "15)Al Jazeera Audio   55)NHK World Japan    95)-------------        135)DH Radio Belgium175)Bayern 2 Munich   215)Cadena Melilla      255)---------------"  
+   echo "16)BBC World Service  56)Free Speech TV     96)-------------        136)RMC Info Monaco 176)B5 Aktuell Munich 216)Cadena Murcia       256)---------------"
+   echo "17)RTE Dublin         57)WGN 9 Chicago      97)-------------        137)RSR La Premiere 177)B5 Plus Munich    217)Cadena Pamplona     257)---------------"
+   echo "18)RTE Extra Dublin   58)News12 Brooklyn    98)-------------        138)RSR Espace 2    178)Deutschlandfunk   218)Cadena Tenerife     258)---------------"	
+   echo "19)NBC News Radio     59)News12 Long Island 99)-------------        139)RSR Couleur 3   179)Deutschradiokultur219)Cadena Zaragoza     259)---------------"
+   echo "20)BFBS UK            60)CGTN Documentary   100)-------------       140)RSR Option      180)hr-info Frankfurt 220)Cadena Santander    260)---------------"  
+   echo "21)LBC 1152 AM London 61)RT Documentary     101)-------------       141)RTL Radio       181)MDR 1 Dresden     221)Cadena Toledo       261)---------------"
+   echo "22)LBC 97.3 FM London 62)NewsMax TV         102)-------------       142)--------------- 182)MDR 1 Magdeburg   222)Cadena Valladolid   262)---------------"       
+   echo "23)Isles FM Stornoway 63)NDTV IN            103)-------------       143)--------------- 183)MDR 1 Erfurt      223)Cadena Ceuta        263)---------------"  
+   echo "24)CPR News Colorado  64)NewsX IN           104)-------------       144)--------------- 184)MDR AKTUELL       224)Catalunya Barcelona 264)---------------"
+   echo "25)Bloomberg Radio    65)UN WEB TV          105)-------------       145)--------------- 185)MDR KULTUR        225)Catalunya Informacio265)---------------" 
+   echo "26)Genesis GCN        66)106 Talk Dublin ***106)-------------       146)--------------- 186)NDR 90.3 Hamburg  226)COM Radio Barcelona 266)---------------"  
+   echo "27)Republic RBN       67)-------------      107)-------------       147)--------------- 187)NDR 1 Hannover    227)COPE Cantabria      267)---------------"
+   echo "28)24/7 World Radio   68)-------------      108)-------------       148)--------------- 188)NDR 1 Schwerin    228)Cronicas Lanzarote  268)---------------"
+   echo "29)KPFK Malibu        69)-------------      109)-------------       149)--------------- 189)NDR 1 Flensburg   229)esRadio Madrid      269)---------------"
+   echo "30)KPFT Houston       70)-------------      110)-------------       150)--------------- 190)NDR Kultur        230)esRadio Guadalajara 270)---------------"    
+   echo "31)KPFT 2 Houston     71)-------------      111)-------------       151)--------------- 191)NDR Info          231)Onda Cero Madrid    271)---------------"
+   echo "32)WPFW Washington DC 72)-------------      112)-------------       152)--------------- 192)NDR INDR          232)Onda Cero Noroeste  272)---------------"
+   echo "33)WRYR-LP ***        73)-------------      113)-------------       153)--------------- 193)RBB InfoRadio     233)Onda Vasca Bilbao   273)---------------" 
+   echo "34)WXOJ-LP ***        74)-------------      114)-------------       154)--------------- 194)SR 3 Saarbrücken  234)RAC 1 Barcelona     274)---------------"  
+   echo "35)WRFN-LP ***        75)-------------      115)-------------       155)--------------- 195)SWR RP Mainz      235)Radio Asturias      275)---------------"
+   echo "36)Liberty Radio      76)-------------      116)-------------       156)--------------- 196)SWR1 BW Stuttgart 236)Radio Bierzo        276)---------------"
+   echo "37)1st Amendment      77)-------------      117)-------------       157)--------------- 197)SWR2 Stuttgart    237)Galega Santiago     277)---------------"
+   echo "38)Voice of America   78)-------------      118)-------------       158)--------------- 198)WDR5 Cologne      238)Galega Música       278)---------------"	
+   echo "39)CSPAN Radio        79)-------------      119)-------------       159)--------------- 199)Wuste Welle       239)Marca Barcelona     279)---------------"
+   echo "40)ABCNews Radio AU   80)-------------      120)-------------       160)--------------- 200)-----------       240)Menorca Mahón       280)---------------"
    echo "======================================================================================================================================================="
 echo " " 
 }	
@@ -225,48 +225,48 @@ echo " "
 channel_matrix_1()
 {
    echo "====================================================    "$product" "$version"   ======================================================================="
-   echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional   ||   COLUMN 12   ||    COLUMN 13   ||    Religious    ||"
+   echo "||   Entertainment  ||     Russian        ||     BBC Regional     ||    BBC Regional     ||     CBC Canada     ||    COLUMN 13   ||    Religious    ||"
    echo "================================================================================================================================================="
-   echo "281)Pulse Radio     321)Radio Mayak FM RU   361)BBC Radio 1        401)BBC Shropshire     441)-----------   481)------------- 521)EWTN Radio"    
-   echo "282)Old Time Radio  322)Radio Russia AM     362)BBC Radio 2        402)BBC Solent         442)-----------   482)------------- 522)EWTN Classic" 
-   echo "283)c0vertElectr0   323)Radio Russia FM     363)BBC Radio 3        403)BBC Somerset       443)-----------   483)------------- 523)EWTN Spanish"  
-   echo "284)Deep Banjo      324)Kultura 91.6 FM RU  364)BBC Radio 4        404)BBC Stoke          444)-----------   484)------------- 524)EWTN Ireland"             
-   echo "285)Dark Ret        325)Radio Nost RU       365)BBC Radio 4 LW     405)BBC Suffolk        445)-----------   485)------------- 525)EWTN Philippines"  
-   echo "286)BaroqueRadio    326)Business FM Moscow  366)BBC Radio 4 Extra  406)BBC Sussex         446)-----------   486)------------- 526)IHOP House of Prayer"  
-   echo "287)AnonyRadio      327)107.4 St Petersburg 367)BBC 5 Live         407)BBC Tees           447)-----------   487)------------- 527)--------------"
-   echo "288)AnonyJazz       328)107.5 Ufa           368)BBC 5 Live Sports  408)BBC 3 Counties     448)-----------   488)------------- 528)--------------"
-   echo "289)Lain Radio      329)Gorod FM            369)BBC 6 Music        409)BBC Wiltshire      449)-----------   489)------------  529)--------------"
-   echo "290)KDFC Classical  330)Kommersant          370)BBC 1Xtra          410)BBC WM 95.6        450)-----------   490)------------  530)--------------"
-   echo "291)CPR Colorado    331)Moskva FM Moscow    371)BBC Asian          411)BBC York           451)-----------   491)------------  531)--------------"
-   echo "292)CPR Open Air    332)NN Radio Nizhny     372)BBC World Service  412)BBC Scotland       452)-----------   492)------------  532)--------------"
-   echo "293)--------------- 333)Radio Moskvy        373)BBC Berkshire      413)BBC nan Gaidheal   453)-----------   493)------------  533)--------------"
-   echo "294)--------------- 334)RSN Moscow          374)BBC Bristol        414)BBC Ulster         454)-----------   494)------------  534)--------------"
-   echo "295)--------------- 335)UR-1 Kyiv           375)BBC Cambridgeshire 415)BBC Foyle          455)-----------   495)------------  535)--------------"  
-   echo "296)--------------- 336)UR-2 Promin Kyiv    376)BBC Cornwall       416)BBC Wales          456)-----------   496)------------  536)--------------"
-   echo "297)--------------- 337)UR-3 Kultura Kyiv   377)BBC Coventry       417)SABC Power 5       457)-----------   497)------------- 537)--------------"
-   echo "298)--------------- 338)UR-4 Int Kyiv       378)BBC Cumbria        418)SABC SA ZA         458)-----------   498)------------- 538)--------------"	
-   echo "299)--------------  339)Business Radio Kyiv 379)BBC Derby          419)SABC Africa        459)-----------   499)------------- 539)--------------"
-   echo "300)--------------- 340)Ekvator FM Shpola   380)BBC Devon          420)SABC RADIO 2000    460)-----------   500)------------- 540)--------------"  
-   echo "301)--------------- 341)Golos Stolytsi Kyiv 381)BBC Essex          421)SABC Thobella      461)-----------   501)------------- 541)--------------"
-   echo "302)--------------- 342)Radio ES Kyiv       382)BBC Gloucestershire422)SABC Ukhozi ZA     462)-----------   502)------------- 542)--------------"       
-   echo "303)--------------- 343)Radio Vesti Kyiv    383)BBC Guernsey       423)SABC UmholoboWenene463)-----------   503)------------- 543)--------------"  
-   echo "304)--------------- 344)Vesti Radio FM RU   384)BBC Hereford       424)SABC TRU FM        464)-----------   504)------------- 544)--------------"
-   echo "305)--------------- 345)-------------       385)BBC Humberside     425)SABC Ikwekwezi     465)-----------   505)------------- 545)--------------"  
-   echo "306)--------------- 346)-------------       386)BBC Jersey         426)SABC Good Hope     466)-----------   506)------------- 546)--------------"
-   echo "307)--------------- 347)-------------       387)BBC Kent           427)SABC Lesedi        467)------------  507)------------- 547)--------------"
-   echo "308)--------------- 348)-------------       388)BBC Lancashire     428)SABC Ligwalagwala  468)------------  508)------------- 548)--------------"
-   echo "309)--------------- 349)--------------      389)BBC Leeds          429)SABC Lotus 87.7    469)------------  509)------------- 549)--------------"
-   echo "310)--------------- 350)--------------      390)BBC Leicester      430)SABC RSG FM        470)------------  510)------------- 550)--------------"    
-   echo "311)--------------- 351)--------------      391)BBC Lincolnshire   431)SABC Phalaphala    471)------------  511)------------- 551)--------------"
-   echo "312)--------------- 352)--------------      392)BBC London 94.9    432)SABC Motsweding    472)------------  512)------------- 552)--------------"
-   echo "313)--------------- 353)--------------      393)BBC Manchester     433)SABC Munghanalonene473)------------  513)------------- 553)--------------" 
-   echo "314)--------------- 354)--------------      394)BBC Merseyside     434)-----------        474)------------  514)------------- 554)--------------"  
-   echo "315)--------------- 355)--------------      395)BBC Newcastle      435)-----------        475)------------  515)------------- 555)--------------"
-   echo "316)--------------- 356)--------------      396)BBC Norfolk        436)-----------        476)------------  516)------------- 556)--------------"
-   echo "317)--------------- 357)--------------      397)BBC Northampton    437)-----------        477)------------  517)------------- 557)--------------"
-   echo "318)--------------- 358)--------------      398)BBC Nottingham     438)-----------        478)------------  518)------------- 558)--------------"	
-   echo "319)--------------- 359)--------------      399)BBC Oxford         439)-----------        479)------------  519)------------- 559)------------- "
-   echo "320)--------------- 360)--------------      400)BBC Sheffield      440)-----------        480)------------  520)------------- 560)------------- "
+   echo "281)Pulse Radio     321)Radio Mayak FM RU   361)BBC Radio 1        401)BBC Shropshire     441)CBC 1 Kamloops     481)------------- 521)EWTN Radio"    
+   echo "282)Old Time Radio  322)Radio Russia AM     362)BBC Radio 2        402)BBC Solent         442)CBC 1 Kelowna      482)------------- 522)EWTN Classic" 
+   echo "283)c0vertElectr0   323)Radio Russia FM     363)BBC Radio 3        403)BBC Somerset       443)CBC 1 Prnc George  483)------------- 523)EWTN Spanish"  
+   echo "284)Deep Banjo      324)Kultura 91.6 FM RU  364)BBC Radio 4        404)BBC Stoke          444)CBC 1 Vancouver    484)------------- 524)EWTN Ireland"             
+   echo "285)Dark Ret        325)Radio Nost RU       365)BBC Radio 4 LW     405)BBC Suffolk        445)CBC 1 Victoria     485)------------- 525)EWTN Philippines"  
+   echo "286)BaroqueRadio    326)Business FM Moscow  366)BBC Radio 4 Extra  406)BBC Sussex         446)CBC 1 Whitehorse   486)------------- 526)IHOP House of Prayer"  
+   echo "287)AnonyRadio      327)107.4 St Petersburg 367)BBC 5 Live         407)BBC Tees           447)CBC 1 Calgary      487)------------- 527)--------------"
+   echo "288)AnonyJazz       328)107.5 Ufa           368)BBC 5 Live Sports  408)BBC 3 Counties     448)CBC 1 Edmonton     488)------------- 528)--------------"
+   echo "289)Lain Radio      329)Gorod FM            369)BBC 6 Music        409)BBC Wiltshire      449)CBC 1 Regina       489)------------  529)--------------"
+   echo "290)KDFC Classical  330)Kommersant          370)BBC 1Xtra          410)BBC WM 95.6        450)CBC 1 Saskatoon    490)------------  530)--------------"
+   echo "291)CPR Colorado    331)Moskva FM Moscow    371)BBC Asian          411)BBC York           451)CBC 1 Winnipeg     491)------------  531)--------------"
+   echo "292)CPR Open Air    332)NN Radio Nizhny     372)BBC World Service  412)BBC Scotland       452)CBC 1 Iqaluit      492)------------  532)--------------"
+   echo "293)The End Radio   333)Radio Moskvy        373)BBC Berkshire      413)BBC nan Gaidheal   453)CBC 1 Kitchener    493)------------  533)--------------"
+   echo "294)--------------- 334)RSN Moscow          374)BBC Bristol        414)BBC Ulster         454)CBC 1 London       494)------------  534)--------------"
+   echo "295)--------------- 335)UR-1 Kyiv           375)BBC Cambridgeshire 415)BBC Foyle          455)CBC 1 Ottawa       495)------------  535)--------------"  
+   echo "296)--------------- 336)UR-2 Promin Kyiv    376)BBC Cornwall       416)BBC Wales          456)CBC 1 Sudbury      496)------------  536)--------------"
+   echo "297)--------------- 337)UR-3 Kultura Kyiv   377)BBC Coventry       417)SABC Power 5       457)CBC 1 Thunder Bay  497)------------- 537)--------------"
+   echo "298)--------------- 338)UR-4 Int Kyiv       378)BBC Cumbria        418)SABC SA ZA         458)CBC 1 Toronto      498)------------- 538)--------------"	
+   echo "299)--------------  339)Business Radio Kyiv 379)BBC Derby          419)SABC Africa        459)CBC 1 Windsor      499)------------- 539)--------------"
+   echo "300)--------------- 340)Ekvator FM Shpola   380)BBC Devon          420)SABC RADIO 2000    460)CBC 1 Montreal     500)------------- 540)--------------"  
+   echo "301)--------------- 341)Golos Stolytsi Kyiv 381)BBC Essex          421)SABC Thobella      461)CBC 1 Nord Quebec  501)------------- 541)--------------"
+   echo "302)--------------- 342)Radio ES Kyiv       382)BBC Gloucestershire422)SABC Ukhozi ZA     462)CBC 1 Quebec City  502)------------- 542)--------------"       
+   echo "303)--------------- 343)Radio Vesti Kyiv    383)BBC Guernsey       423)SABC UmholoboWenene463)CBC 1 Fredericton  503)------------- 543)--------------"  
+   echo "304)--------------- 344)Vesti Radio FM RU   384)BBC Hereford       424)SABC TRU FM        464)CBC 1 Moncton      504)------------- 544)--------------"
+   echo "305)--------------- 345)-------------       385)BBC Humberside     425)SABC Ikwekwezi     465)CBC 1 Saint John   505)------------- 545)--------------"  
+   echo "306)--------------- 346)-------------       386)BBC Jersey         426)SABC Good Hope     466)CBC 1 Charlottetown506)------------- 546)--------------"
+   echo "307)--------------- 347)-------------       387)BBC Kent           427)SABC Lesedi        467)CBC 1 Cape Breton  507)------------- 547)--------------"
+   echo "308)--------------- 348)-------------       388)BBC Lancashire     428)SABC Ligwalagwala  468)CBC 1 Halifax      508)------------- 548)--------------"
+   echo "309)--------------- 349)--------------      389)BBC Leeds          429)SABC Lotus 87.7    469)CBC 1 Corner Brook 509)------------- 549)--------------"
+   echo "310)--------------- 350)--------------      390)BBC Leicester      430)SABC RSG FM        470)CBC 1 Grand Falls  510)------------- 550)--------------"    
+   echo "311)--------------- 351)--------------      391)BBC Lincolnshire   431)SABC Phalaphala    471)CBC 1 Labrador     511)------------- 551)--------------"
+   echo "312)--------------- 352)--------------      392)BBC London 94.9    432)SABC Motsweding    472)CBC 1 St. Johns    512)------------- 552)--------------"
+   echo "313)--------------- 353)--------------      393)BBC Manchester     433)SABC Munghanalonene473)CBC 1 Inuvik       513)------------- 553)--------------" 
+   echo "314)--------------- 354)--------------      394)BBC Merseyside     434)-----------        474)CBC 1 Yellowknife  514)------------- 554)--------------"  
+   echo "315)--------------- 355)--------------      395)BBC Newcastle      435)-----------        475)CBC 2 Halifax      515)------------- 555)--------------"
+   echo "316)--------------- 356)--------------      396)BBC Norfolk        436)-----------        476)CBC 2 Toronto      516)------------- 556)--------------"
+   echo "317)--------------- 357)--------------      397)BBC Northampton    437)-----------        477)CBC 2 Winnipeg     517)------------- 557)--------------"
+   echo "318)--------------- 358)--------------      398)BBC Nottingham     438)-----------        478)CBC 2 Edmonton     518)------------- 558)--------------"	
+   echo "319)--------------- 359)--------------      399)BBC Oxford         439)-----------        479)CBC 2 Vancouver    519)------------- 559)------------- "
+   echo "320)--------------- 360)--------------      400)BBC Sheffield      440)CBC 2 Eastern      480)CBC 2 Pacific      520)------------- 560)------------- "
    echo "================================================================================================================================================"  
 echo " " 
 }	
@@ -672,6 +672,7 @@ chan_name="Voice of America";;
 # 39) CSPAN Radio
 39)
 link=https://playerservices.streamtheworld.com/api/livestream-redirect/CSPANRADIO.mp3
+
 use_playlist="no"
 chan_name="CSPAN RADIO" ;;
 # 40) ABC News RADIO AU 
@@ -809,182 +810,6 @@ chan_name="News Talk 106-108 Dublin";;
 
 
 
-
-
-
-
-
-# 80) CBC Radio 2 Eastern Canada
-80) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
-use_paylist="no"
-chan_name="CBC Radio 2, Eastern";;	
-
-######## CBC RADIO CANADA #################
-
-########## CBC RADIO 1
-# 81) CBC Radio 1 Kamloops BC Canada
-81) link=http://cbc_r1_kam.akacast.akamaistream.net/7/440/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kam
-use_paylist="no"
-chan_name="CBC Radio 1 Kamloops,BC";;	
-# 82) CBC Radio 1 Kelowna BC Canada
-82) link=http://cbc_r1_kel.akacast.akamaistream.net/7/229/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kel
-use_paylist="no"
-chan_name="CBC Radio 1 Kelowna,BC";;	
-# 83) CBC Radio 1 Prince George BC Canada
-83) link=http://cbc_r1_prg.akacast.akamaistream.net/7/966/451661/v1/rc.akacast.akamaistream.net/cbc_r1_prg
-use_paylist="no"
-chan_name="CBC Radio 1 Prince George,BC";;	
-# 84) CBC Radio 1 Vancouver BC Canada
-84) link=http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr
-use_paylist="no"
-chan_name="CBC Radio 1 Vancouver,BC";;	
-# 85) CBC Radio 1 Victoria BC Canada
-85) link=http://cbc_r1_vic.akacast.akamaistream.net/7/728/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vic
-use_paylist="no"
-chan_name="CBC Radio 1 Victoria,BC";;
-# 86) CBC Radio 1 Whitehorse BC Canada
-86) link=http://cbc_r1_whs.akacast.akamaistream.net/7/319/451661/v1/rc.akacast.akamaistream.net/cbc_r1_whs
-use_paylist="no"
-chan_name="CBC Radio 1 ,Whitehorse,YK";;
-# 87) CBC Radio 1 Calgary AB Canada
-87) link=http://cbc_r1_cgy.akacast.akamaistream.net/7/298/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cgy
-use_paylist="no"
-chan_name="CBC Radio 1 Calgary,AB";;
-# 88) CBC Radio 1 Edmonton AB Canada
-88) link=http://cbc_r1_edm.akacast.akamaistream.net/7/904/451661/v1/rc.akacast.akamaistream.net/cbc_r1_edm
-use_paylist="no"
-chan_name="CBC Radio 1 Edmonton,AB";;
-# 89) CBC Radio 1 Regina AB Canada
-89) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
-use_paylist="no"
-chan_name="CBC Radio 1 Regina,SK";;
-# 90) CBC Radio 1 Saskatoon SK Canada
-90) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
-use_paylist="no"
-chan_name="CBC Radio 1 Saskatoon,SK";;
-# 91) CBC Radio 1 Winnipeg MB Canada
-91) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
-use_paylist="no"
-chan_name="CBC Radio 1 Winnipeg,MB";;	
-# 92) CBC Radio 1 Iqaluit NU
-92) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
-use_paylist="no"
-chan_name="CBC Radio 1 Iqaluit,NU";;
-# 93) CBC Radio 1 Kitchener-Waterloo ON Canada
-93) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
-use_paylist="no"
-chan_name="CBC Radio 1 Kitchner-Waterloo,ON";;
-# 94) CBC Radio 1 London ON Canada
-94) link=http://cbc_r1_ldn.akacast.akamaistream.net/7/104/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ldn
-use_paylist="no"
-chan_name="CBC Radio 1 London,ON";;
-# 95) CBC Radio 1 Ottawa ON Canada
-95) link=http://cbc_r1_ott.akacast.akamaistream.net/7/613/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ott
-use_paylist="no"
-chan_name="CBC Radio 1 Ottawa,ON";;
-# 96) CBC Radio 1 Sudbury ON Canada
-96) link=http://cbc_r1_sud.akacast.akamaistream.net/7/380/451661/v1/rc.akacast.akamaistream.net/cbc_r1_sud
-use_paylist="no"
-chan_name="CBC Radio 1 Sudbury,ON";;
-# 97) CBC Radio 1 Thunder Bay ON Canada
-97) link=http://cbc_r1_tba.akacast.akamaistream.net/7/245/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tba
-use_paylist="no"
-chan_name="CBC Radio 1 Thunder Bay ,ON";;
-# 98) CBC Radio 1 Toronto ON Canada
-98) link=http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
-use_paylist="no"
-chan_name="CBC Radio 1 Toronto,ON";;
-# 99) CBC Radio 1 Windsor ON Canada
-99) link=http://cbc_r1_wdr.akacast.akamaistream.net/7/813/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wdr
-use_paylist="no"
-chan_name="CBC Radio 1 Windsor,ON";;
-# 100) CBC Radio 1 Montreal QC Canada
-100) link=http://cbc_r1_mtl.akacast.akamaistream.net/7/35/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mtl
-use_paylist="no"
-chan_name="CBC Radio 1 Montreal, QC";;
-# 101) CBC Radio 1  Nord Quebec QC Canada
-101) link=http://cbc_r1_n_mtl.akacast.akamaistream.net/7/823/451661/v1/rc.akacast.akamaistream.net/cbc_r1_n_mtl
-use_paylist="no"
-chan_name="CBC Radio 1 Nord Quebec, QC";;
-# 102) CBC Radio 1 Quebec City QC Canada
-102) link=http://cbc_r1_qqu.akacast.akamaistream.net/7/29/451661/v1/rc.akacast.akamaistream.net/cbc_r1_qqu
-use_paylist="no"
-chan_name="CBC Radio 1 Quebec City,QC";;
-# 103) CBC Radio 1 Fredericton NB Canada
-103) link=http://cbc_r1_frd.akacast.akamaistream.net/7/553/451661/v1/rc.akacast.akamaistream.net/cbc_r1_frd
-use_paylist="no"
-chan_name="CBC Radio 1 Fredericton,NB";;
-# 104) CBC Radio 1 Moncton NB Canada
-104) link=http://cbc_r1_mct.akacast.akamaistream.net/7/383/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mct
-use_paylist="no"
-chan_name="CBC Radio 1 Moncton, NB";;
-# 105) CBC Radio 1 Saint John NB Canada
-105) link=http://cbc_r1_snb.akacast.akamaistream.net/7/754/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snb
-use_paylist="no"
-chan_name="CBC Radio 1 Saint John, NB";;
-# 106) CBC Radio 1 Charlottetown NB Canada
-106) link=http://cbc_r1_chr.akacast.akamaistream.net/7/169/451661/v1/rc.akacast.akamaistream.net/cbc_r1_chr
-use_paylist="no"
-chan_name="CBC Radio 1 Charlottetown, NB";;
-# 107) CBC Radio 1 Cape Breton NB Canada
-107) link=http://cbc_r1_syd.akacast.akamaistream.net/7/897/451661/v1/rc.akacast.akamaistream.net/cbc_r1_syd
-use_paylist="no"
-chan_name="CBC Radio 1 Cape Breton, NB";;	
-# 108) CBC Radio 1 Halifax NFL Canada
-108) link=http://cbc_r1_hfx.akacast.akamaistream.net/7/981/451661/v1/rc.akacast.akamaistream.net/cbc_r1_hfx
-use_paylist="no"
-chan_name="CBC Radio 1 Halifax, NFL";;
-# 109) CBC Radio 1 Corner Brook NFL Canada
-109) link=http://cbc_r1_cor.akacast.akamaistream.net/7/550/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cor
-use_paylist="no"
-chan_name="CBC Radio 1 Corner Brook , NFL";;
-# 110) CBC Radio 1 Grand Falls/Gander NFL Canada
-110) link=http://cbc_r1_gfa.akacast.akamaistream.net/7/492/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gfa
-use_paylist="no"
-chan_name="CBC Radio 1 Grand Falls/Gander, NFL";;
-# 111) CBC Radio 1  Labrador NFL Canada
-111) link=http://cbc_r1_gba.akacast.akamaistream.net/7/274/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gba
-use_paylist="no"
-chan_name="CBC Radio 1  Labrador, NFL";;
-# 112) CBC Radio 1  St. Johns NFL Canada
-112) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
-use_paylist="no"
-chan_name="CBC Radio 1 St. Johns, NFL";;
-# 113) CBC Radio 1  Inuvik NWT Canada
-113) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
-use_paylist="no"
-chan_name="CBC Radio 1 Inuvik,NWT";;
-# 114) CBC Radio 1  Yellowknife YK Canada
-114) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
-use_paylist="no"
-chan_name="CBC Radio 1 Yellowknife, YK";;
-############### CBC Radio 2
-# 115) CBC Radio 2 Halifax NFL Canada
-115) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
-use_paylist="no"
-chan_name="CBC Radio 2, Halifax NFL";;
-# 116) CBC Radio 2 Toronto ON Canada
-116) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
-use_paylist="no"
-chan_name="CBC Radio 2, Toronto ON";;
-# 117) CBC Radio 2 Winnipeg MB Canada
-117) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
-use_paylist="no"
-chan_name="CBC Radio 2, Winnipeg MB";;
-# 118) CBC Radio 2 Edmonton AB Canada
-118) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
-use_paylist="no"
-chan_name="CBC Radio 2, Edmonton AB";;
-# 119) CBC Radio 2 Vancouver BC Canada
-119) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
-use_paylist="no"
-chan_name="CBC Radio 2, Vancouver BC";;
-# 120) CBC Radio 2 Pacific Canada
-120) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
-use_paylist="no"
-chan_name="CBC Radio 2, Pacific BC";;
-
-#############################################################
 
 
 ########################################
@@ -1496,6 +1321,14 @@ chan_name="Colorado Public Radio Classical";;
 use_playlist="no"
 chan_name="Colorado Public Radio Open Air";;
 
+# 293) The End Radio
+293) 
+#link=http://nbhcaocqy3o6hanixbw3hntumbs4rliggenai6cncd5duwxki3xcaryd.onion/radio/theend.m3u
+link=http://dek6dax7nbpb3sld.onion/
+use_playlist="no"
+chan_name="The End Radio";;
+
+
 
 ############################################################################
 ###################### RUSSIAN #########################################
@@ -1927,6 +1760,179 @@ chan_name="SABC Munghanalonene FM ZA";;
 
 
 
+######## CBC RADIO CANADA #################
+# 440) CBC Radio 2 Eastern Canada
+440) link=http://cbc_r2_iet.akacast.akamaistream.net/7/50/451661/v1/rc.akacast.akamaistream.net/cbc_r2_iet 
+use_paylist="no"
+chan_name="CBC Radio 2, Eastern";;	
+
+########## CBC RADIO 1
+# 441) CBC Radio 1 Kamloops BC Canada
+441) link=http://cbc_r1_kam.akacast.akamaistream.net/7/440/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kam
+use_paylist="no"
+chan_name="CBC Radio 1 Kamloops,BC";;	
+# 442) CBC Radio 1 Kelowna BC Canada
+442) link=http://cbc_r1_kel.akacast.akamaistream.net/7/229/451661/v1/rc.akacast.akamaistream.net/cbc_r1_kel
+use_paylist="no"
+chan_name="CBC Radio 1 Kelowna,BC";;	
+# 443) CBC Radio 1 Prince George BC Canada
+443) link=http://cbc_r1_prg.akacast.akamaistream.net/7/966/451661/v1/rc.akacast.akamaistream.net/cbc_r1_prg
+use_paylist="no"
+chan_name="CBC Radio 1 Prince George,BC";;	
+# 444) CBC Radio 1 Vancouver BC Canada
+444) link=http://cbc_r1_vcr.akacast.akamaistream.net/7/723/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vcr
+use_paylist="no"
+chan_name="CBC Radio 1 Vancouver,BC";;	
+# 445) CBC Radio 1 Victoria BC Canada
+445) link=http://cbc_r1_vic.akacast.akamaistream.net/7/728/451661/v1/rc.akacast.akamaistream.net/cbc_r1_vic
+use_paylist="no"
+chan_name="CBC Radio 1 Victoria,BC";;
+# 446) CBC Radio 1 Whitehorse BC Canada
+446) link=http://cbc_r1_whs.akacast.akamaistream.net/7/319/451661/v1/rc.akacast.akamaistream.net/cbc_r1_whs
+use_paylist="no"
+chan_name="CBC Radio 1 ,Whitehorse,YK";;
+# 447) CBC Radio 1 Calgary AB Canada
+447) link=http://cbc_r1_cgy.akacast.akamaistream.net/7/298/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cgy
+use_paylist="no"
+chan_name="CBC Radio 1 Calgary,AB";;
+# 448) CBC Radio 1 Edmonton AB Canada
+448) link=http://cbc_r1_edm.akacast.akamaistream.net/7/904/451661/v1/rc.akacast.akamaistream.net/cbc_r1_edm
+use_paylist="no"
+chan_name="CBC Radio 1 Edmonton,AB";;
+# 89) CBC Radio 1 Regina AB Canada
+449) link=http://cbc_r1_reg.akacast.akamaistream.net/7/666/451661/v1/rc.akacast.akamaistream.net/cbc_r1_reg
+use_paylist="no"
+chan_name="CBC Radio 1 Regina,SK";;
+# 450) CBC Radio 1 Saskatoon SK Canada
+450) link=http://cbc_r1_ssk.akacast.akamaistream.net/7/842/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ssk
+use_paylist="no"
+chan_name="CBC Radio 1 Saskatoon,SK";;
+# 451) CBC Radio 1 Winnipeg MB Canada
+451) link=http://cbc_r1_wpg.akacast.akamaistream.net/7/831/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wpg
+use_paylist="no"
+chan_name="CBC Radio 1 Winnipeg,MB";;	
+# 452) CBC Radio 1 Iqaluit NU
+452) link=http://cbc_r1_iqa.akacast.akamaistream.net/7/325/451661/v1/rc.akacast.akamaistream.net/cbc_r1_iqa
+use_paylist="no"
+chan_name="CBC Radio 1 Iqaluit,NU";;
+# 453) CBC Radio 1 Kitchener-Waterloo ON Canada
+453) link=http://cbc_r1_ekw.akacast.akamaistream.net/7/63/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ekw
+use_paylist="no"
+chan_name="CBC Radio 1 Kitchner-Waterloo,ON";;
+# 454) CBC Radio 1 London ON Canada
+454) link=http://cbc_r1_ldn.akacast.akamaistream.net/7/104/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ldn
+use_paylist="no"
+chan_name="CBC Radio 1 London,ON";;
+# 455) CBC Radio 1 Ottawa ON Canada
+455) link=http://cbc_r1_ott.akacast.akamaistream.net/7/613/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ott
+use_paylist="no"
+chan_name="CBC Radio 1 Ottawa,ON";;
+# 456) CBC Radio 1 Sudbury ON Canada
+456) link=http://cbc_r1_sud.akacast.akamaistream.net/7/380/451661/v1/rc.akacast.akamaistream.net/cbc_r1_sud
+use_paylist="no"
+chan_name="CBC Radio 1 Sudbury,ON";;
+# 457) CBC Radio 1 Thunder Bay ON Canada
+457) link=http://cbc_r1_tba.akacast.akamaistream.net/7/245/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tba
+use_paylist="no"
+chan_name="CBC Radio 1 Thunder Bay ,ON";;
+# 458) CBC Radio 1 Toronto ON Canada
+458) link=http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
+use_paylist="no"
+chan_name="CBC Radio 1 Toronto,ON";;
+# 459) CBC Radio 1 Windsor ON Canada
+459) link=http://cbc_r1_wdr.akacast.akamaistream.net/7/813/451661/v1/rc.akacast.akamaistream.net/cbc_r1_wdr
+use_paylist="no"
+chan_name="CBC Radio 1 Windsor,ON";;
+# 460) CBC Radio 1 Montreal QC Canada
+460) link=http://cbc_r1_mtl.akacast.akamaistream.net/7/35/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mtl
+use_paylist="no"
+chan_name="CBC Radio 1 Montreal, QC";;
+# 461) CBC Radio 1  Nord Quebec QC Canada
+461) link=http://cbc_r1_n_mtl.akacast.akamaistream.net/7/823/451661/v1/rc.akacast.akamaistream.net/cbc_r1_n_mtl
+use_paylist="no"
+chan_name="CBC Radio 1 Nord Quebec, QC";;
+# 462) CBC Radio 1 Quebec City QC Canada
+462) link=http://cbc_r1_qqu.akacast.akamaistream.net/7/29/451661/v1/rc.akacast.akamaistream.net/cbc_r1_qqu
+use_paylist="no"
+chan_name="CBC Radio 1 Quebec City,QC";;
+# 463) CBC Radio 1 Fredericton NB Canada
+463) link=http://cbc_r1_frd.akacast.akamaistream.net/7/553/451661/v1/rc.akacast.akamaistream.net/cbc_r1_frd
+use_paylist="no"
+chan_name="CBC Radio 1 Fredericton,NB";;
+# 464) CBC Radio 1 Moncton NB Canada
+464) link=http://cbc_r1_mct.akacast.akamaistream.net/7/383/451661/v1/rc.akacast.akamaistream.net/cbc_r1_mct
+use_paylist="no"
+chan_name="CBC Radio 1 Moncton, NB";;
+# 465) CBC Radio 1 Saint John NB Canada
+465) link=http://cbc_r1_snb.akacast.akamaistream.net/7/754/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snb
+use_paylist="no"
+chan_name="CBC Radio 1 Saint John, NB";;
+# 466) CBC Radio 1 Charlottetown NB Canada
+466) link=http://cbc_r1_chr.akacast.akamaistream.net/7/169/451661/v1/rc.akacast.akamaistream.net/cbc_r1_chr
+use_paylist="no"
+chan_name="CBC Radio 1 Charlottetown, NB";;
+# 467) CBC Radio 1 Cape Breton NB Canada
+467) link=http://cbc_r1_syd.akacast.akamaistream.net/7/897/451661/v1/rc.akacast.akamaistream.net/cbc_r1_syd
+use_paylist="no"
+chan_name="CBC Radio 1 Cape Breton, NB";;	
+# 468) CBC Radio 1 Halifax NFL Canada
+468) link=http://cbc_r1_hfx.akacast.akamaistream.net/7/981/451661/v1/rc.akacast.akamaistream.net/cbc_r1_hfx
+use_paylist="no"
+chan_name="CBC Radio 1 Halifax, NFL";;
+# 469) CBC Radio 1 Corner Brook NFL Canada
+469) link=http://cbc_r1_cor.akacast.akamaistream.net/7/550/451661/v1/rc.akacast.akamaistream.net/cbc_r1_cor
+use_paylist="no"
+chan_name="CBC Radio 1 Corner Brook , NFL";;
+# 470) CBC Radio 1 Grand Falls/Gander NFL Canada
+470) link=http://cbc_r1_gfa.akacast.akamaistream.net/7/492/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gfa
+use_paylist="no"
+chan_name="CBC Radio 1 Grand Falls/Gander, NFL";;
+# 471) CBC Radio 1  Labrador NFL Canada
+471) link=http://cbc_r1_gba.akacast.akamaistream.net/7/274/451661/v1/rc.akacast.akamaistream.net/cbc_r1_gba
+use_paylist="no"
+chan_name="CBC Radio 1  Labrador, NFL";;
+# 472) CBC Radio 1  St. Johns NFL Canada
+472) link=http://cbc_r1_snf.akacast.akamaistream.net/7/750/451661/v1/rc.akacast.akamaistream.net/cbc_r1_snf
+use_paylist="no"
+chan_name="CBC Radio 1 St. Johns, NFL";;
+# 473) CBC Radio 1  Inuvik NWT Canada
+473) link=http://cbc_r1_ink.akacast.akamaistream.net/7/967/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ink
+use_paylist="no"
+chan_name="CBC Radio 1 Inuvik,NWT";;
+# 474) CBC Radio 1  Yellowknife YK Canada
+474) link=http://cbc_r1_ykn.akacast.akamaistream.net/7/369/451661/v1/rc.akacast.akamaistream.net/cbc_r1_ykn
+use_paylist="no"
+chan_name="CBC Radio 1 Yellowknife, YK";;
+############### CBC Radio 2
+# 475) CBC Radio 2 Halifax NFL Canada
+475) link=http://cbc_r2_hfx.akacast.akamaistream.net/7/917/451661/v1/rc.akacast.akamaistream.net/cbc_r2_hfx
+use_paylist="no"
+chan_name="CBC Radio 2, Halifax NFL";;
+# 476) CBC Radio 2 Toronto ON Canada
+476) link=http://cbc_r2_tor.akacast.akamaistream.net/7/364/451661/v1/rc.akacast.akamaistream.net/cbc_r2_tor
+use_paylist="no"
+chan_name="CBC Radio 2, Toronto ON";;
+# 477) CBC Radio 2 Winnipeg MB Canada
+477) link=http://cbc_r2_wpg.akacast.akamaistream.net/7/233/451661/v1/rc.akacast.akamaistream.net/cbc_r2_wpg
+use_paylist="no"
+chan_name="CBC Radio 2, Winnipeg MB";;
+# 478) CBC Radio 2 Edmonton AB Canada
+478) link=http://cbc_r2_edm.akacast.akamaistream.net/7/40/451661/v1/rc.akacast.akamaistream.net/cbc_r2_edm
+use_paylist="no"
+chan_name="CBC Radio 2, Edmonton AB";;
+# 479) CBC Radio 2 Vancouver BC Canada
+479) link=http://cbc_r2_vcr.akacast.akamaistream.net/7/773/451661/v1/rc.akacast.akamaistream.net/cbc_r2_vcr
+use_paylist="no"
+chan_name="CBC Radio 2, Vancouver BC";;
+# 480) CBC Radio 2 Pacific Canada
+480) link=http://cbc_r2_ipt.akacast.akamaistream.net/7/669/451661/v1/rc.akacast.akamaistream.net/cbc_r2_ipt 
+use_paylist="no"
+chan_name="CBC Radio 2, Pacific BC";;
+
+#############################################################
+
+
+
 ############################   RELIGIOUS  ##########################################
 # 521) EWTN 1 
 521) 
@@ -2152,7 +2158,7 @@ then
 
   if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -2169,14 +2175,14 @@ then
   then 
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" -playlist "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent=yes --no-video --cache="$cache_size" "$link" 
   fi
   
  else
  
    if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache="$cache_size" --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
   elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
@@ -2193,7 +2199,7 @@ then
   then 
   firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache="$cache_size" "$link" 
+  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes "$link" 
   fi
  fi
 

@@ -6,8 +6,8 @@
 # Author: The Endware Development Team
 # Copyright: 2017, The Endware Development Team
 # Creation Date: February 21, 2017
-# Version: 0.07
-# Revision Date: July 21, 2018
+# Version: 0.08
+# Revision Date: November 12, 2019
 #
 # Change Log:  - Stay on previously selected menu after video finishes
 #              - proper implimentation of channel switching while loop
@@ -159,8 +159,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.07"
-rev_date="21/07/2018"
+version="0.08"
+rev_date="12/11/2018"
 branch="gnu/linux"
 product="EndTV"
 ##################################################
@@ -2221,11 +2221,11 @@ echo "$chan_name Channel $num"
     then
     echo "Fetching Cookie, Please Wait..."
     curl -A "$UA" --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --cache=yes --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
     # clear the cookie
     echo " " > "$cookie"
     else
-    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    mpv --user-agent="$UA" --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache=yes --fullscreen "$link" 
     fi
   else
    
@@ -2233,11 +2233,11 @@ echo "$chan_name Channel $num"
     then
     echo "Fetching Cookie, Please Wait..."
     curl --cookie-jar "$cookie" --silent "$link"  >  /dev/null 2>&1
-    mpv --ytdl-format="$format" --no-resume-playback --cache="$cache_size" --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
+    mpv --ytdl-format="$format" --no-resume-playback --cache=yes --fullscreen --loop-playlist=inf --stream-lavf-o=timeout=10000000 --cookies  --cookies-file "$cookie" "$link" 
     # clear the cookie
     echo " " > "$cookie"
     else
-    mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache="$cache_size" --fullscreen "$link" 
+    mpv --ytdl-format="$format" --no-resume-playback --loop-playlist=inf --cache=yes --fullscreen "$link" 
     fi
      
   fi
