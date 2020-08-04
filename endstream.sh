@@ -7,8 +7,8 @@
 # Copyright: 2017-2019, The Endware Development Team,
 # All Rights Reserved
 # Creation Date: February 22, 2017
-# Version: 0.63547
-# Revision Date: July 25, 2020
+# Version: 0.63548
+# Revision Date: August 4, 2020
 #####################################################################
 # Dependencies: youtube-dl, mpv, streamlink, read , curl, sed, awk, grep
 #####################################################################
@@ -140,8 +140,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.63547"
-rev_date="13/07/2020"
+version="0.63548"
+rev_date="04/08/2020"
 branch="gnu/linux"
 product="ENDSTREAM"
 ##################################################
@@ -212,7 +212,7 @@ channel_matrix_0()
    echo "37)RTE News NOW IE    77)-------------   117)OUATCH TV        157)A24 AR           197)-------------     237)-------------             277)------------"
    echo "38)SKY News UK        78)-------------   118)RTL BE           158)TeleDiario MX    198)-------------     238)-------------             278)------------"
    echo "39)Africa News Eng    79)-------------   119)France Inter     159)BoliviaTV        199)-------------     239)-------------             279)------------"
-   echo "40)-------------      80)-------------   120)RMC INFO FR      160)MONARCA MX       200)-------------     240)-------------             280)------------"
+   echo "40)Euronews Eng       80)-------------   120)RMC INFO FR      160)MONARCA MX       200)-------------     240)-------------             280)------------"
    echo "=========================================================================================================================================================="
 
 }    
@@ -234,34 +234,34 @@ channel_matrix_1()
    echo "290)Rajya Sabha      330)SET iNews TW   370)Earthquake 24 JP  410)RUPTLY             450)Ditty TV           490)Shalom World      530)Salsa "
    echo "291)TV9 Gujarat      331)Formosa TW     371)Arirang News TV   411)--------------     451)Rockland Radio     491)Shalom Europe     531)SMILE  "
    echo "292)News 7 Tamil     332)TzuChi DaAi TW 372)Arirang TV KR     412)--------------     452)Classic ARTS       492)EWTN Espanol      532)JUCE TV  "
-   echo "293)News 18 India    333)DaAiVideo TW   373)OnTV HK CN        413)NBC News Event     453)Fashion Europe     493)EWTN Deutsch      533)Nejat "
-   echo "294)Aaj Tak          334)DaAi Live TW   374)NHK World Chinese 414)Buffalo TV         454)Jasmin TV USA      494)KtO Catholique    534)Al Horreya "
-   echo "295)NTV Telugu       335)TLTV TW        375)KCTV KP           415)Panama City        455)MLB Network        495)TRWAM PL          535)EJTV "
-   echo "296)ABN Telugu       336)Sinda TV       376)--------------    416)Pawleys Island     456)RED BULL TV        496)CBN               536)BYUTV "
-   echo "297)Vanitha TV       337)CTS 2 TW       377)--------------    417)America Thinks     457)CBS Sports HQ      497)CBN News          537)------------"
-   echo "298)HMT Telugu       338)SJTV TW        378)Africa News       418)Bloomberg Europe   458)11 Sports          498)NRB               538)------------"
-   echo "299)India TV IN      339)LLBN Chinese   379)Africa24          419)Bloomberg Asia     459)Sorgatronmedia     499)Trinity Channel   539)------------"
-   echo "300)Survana News     340)SDTV TW        380)SIKKA Afrique     420)HSN                460)Adult Swim         500)IHOP              540)------------"
-   echo "301)i News Telugu    341)FANS TV TW     381)Channels 24 NG    421)HSN 2              461)Geek and Sundry    501)Amazing Facts     541)------------"
-   echo "302)PTTV Tamil IN    342)Hong Kong TV   382)TVC News NG       422)Bloomberg Australia462)CON TV             502)It's Supernatural 542)-------------"
+   echo "293)News 18 India    333)DaAiVideo TW   373)BSC 24 1 JP       413)NBC News Event     453)Fashion Europe     493)EWTN Deutsch      533)Nejat "
+   echo "294)Aaj Tak          334)DaAi Live TW   374)--------------    414)Buffalo TV         454)Jasmin TV USA      494)KtO Catholique    534)Al Horreya "
+   echo "295)NTV Telugu       335)Sinda TV       375)--------------    415)Panama City        455)MLB Network        495)TRWAM PL          535)EJTV "
+   echo "296)ABN Telugu       336)CTS 2 TW       376)--------------    416)Pawleys Island     456)RED BULL TV        496)CBN               536)BYUTV "
+   echo "297)Vanitha TV       337)SJTV TW        377)--------------    417)America Thinks     457)CBS Sports HQ      497)CBN News          537)------------"
+   echo "298)HMT Telugu       338)LLBN Chinese   378)Africa News       418)Bloomberg Europe   458)11 Sports          498)NRB               538)------------"
+   echo "299)India TV IN      339)SDTV TW        379)Africa24          419)Bloomberg Asia     459)Sorgatronmedia     499)Trinity Channel   539)------------"
+   echo "300)Survana News     340)FANS TV TW     380)SIKKA Afrique     420)HSN                460)Adult Swim         500)IHOP              540)------------"
+   echo "301)i News Telugu    341)Hong Kong TV   381)Channels 24 NG    421)HSN 2              461)Geek and Sundry    501)Amazing Facts     541)------------"
+   echo "302)PTTV Tamil IN    342)OnTV HK CN     382)TVC News NG       422)Bloomberg Australia462)CON TV             502)It's Supernatural 542)-------------"
    echo "303)DD News          343)GET TV USA     383)NTV Uganda UG     423)Bloomberg USPoli   463)Shout Factory      503)Shepherd's Chapel 543)-------------"
-   echo "304)REPORTER LIVE    344)Arirang Korea  384)SPARK UG          424)Bloomberg Live     464)RetroTV            504)BVOVN             544)------------"
-   echo "305)AsiaNet News     345)TBS KR         385)EbruTV KE         425)Bloomberg EU Live  465)RobotChicken       505)3ABN              545)------------"
-   echo "306)V6 News          346)YTN DMB KR     386)KTN Kenya KE      426)Bloomberg Asia Live466)POP TV             506)3ABN Latino       546)------------"
-   echo "307)Aaj Tak IN       347)YTN Sci KR     387)KTN Home KE       427)PBS NewsHour       467)ET Live            507)3ABN Francais     547)------------"
-   echo "308)ETV AndhraPradesh348)Channel 23 KR  388)Joy News GH       428)CBC The National   468)Amouranth          508)LLBN SmartLife    548)------------"
-   echo "309)News 18 Tamil    349)KBS World24 KR 389)ADOM GH           429)AP Top Stories     469)Allkey Shop        509)LLBN His Word     549)------------"
-   echo "310)Jaya Plus        350)YTN 27 KR      390)Bukedde TV GH     430)Democracy Now      470)Talking Tom        510)LLBN His Light    550)-------------"
-   echo "311)TEZ TV           351)CGNTV          391)EBC ET            431)CNN PH             471)Talking Tom Mini   511)LLBN Latino TV    551)-------------"
-   echo "312)Dili Aaj Tak     352)LLBN Korean TV 392)Walf SN           432)CNN Live USA       472)PJ Masks           512)Salt and Light    552)-------------"
-   echo "313)Derana LK        353)YTV USA        393)EriTV ER          433)Lake Tahoe TV      473)-------------      513)Harbor Light      553)-------------"
-   echo "314)Swarnavahini LK  354)Atlanta AM790  394)SABC ZA           434)HLN                474)-------------      514)St. Mary's Coptic 554)-------------"
-   echo "315)Kaliagnar News   355)ANN24 JP       395)ITV ZA            435)----------         475)-------------      515)Word of God Greek 555)-------------"
-   echo "316)Sangat UK        356)Sol!ve 24 JP   396)Parliament ZA     436)Jupiter Broadcast  476)-------------      516)Shalom America    556)-------------"
-   echo "317)Sikh Channel     357)KBS 24 JP      397)D24               437)News12TW CT        477)-------------      517)Shalom India      557)-------------"
-   echo "318)NTV Bangladesh   358)QVC Japan      398)Afrique Media     438)TG4 Gaelic IE      478)-------------      518)Powervision TV    558)-------------"
-   echo "319)ATN Bangladesh   359)BSC 24 1 JP    399)DMB               439)CNBC               479)NASA Public Media  519)LLBN Arabic       559)-------------"
-   echo "320)Channel 24 IN    360)BSC 24 2 JP    400)--------------    440)Euronews English   480)NASA Education     520)LLBN SouthAsia    560)-------------"
+   echo "304)REPORTER LIVE    344)KCTV KP        384)SPARK UG          424)Bloomberg Live     464)RetroTV            504)BVOVN             544)------------"
+   echo "305)AsiaNet News     345)Arirang Korea  385)EbruTV KE         425)Bloomberg EU Live  465)RobotChicken       505)3ABN              545)------------"
+   echo "306)V6 News          346)TBS KR         386)KTN Kenya KE      426)Bloomberg Asia Live466)POP TV             506)3ABN Latino       546)------------"
+   echo "307)Aaj Tak IN       347)YTN DMB KR     387)KTN Home KE       427)PBS NewsHour       467)ET Live            507)3ABN Francais     547)------------"
+   echo "308)ETV AndhraPradesh348)YTN Sci KR     388)Joy News GH       428)CBC The National   468)Amouranth          508)LLBN SmartLife    548)------------"
+   echo "309)News 18 Tamil    349)Channel 23 KR  389)ADOM GH           429)AP Top Stories     469)Allkey Shop        509)LLBN His Word     549)------------"
+   echo "310)Jaya Plus        350)KBS World24 KR 390)Bukedde TV GH     430)Democracy Now      470)Talking Tom        510)LLBN His Light    550)-------------"
+   echo "311)TEZ TV           351)YTN 27 KR      391)EBC ET            431)CNN PH             471)Talking Tom Mini   511)LLBN Latino TV    551)-------------"
+   echo "312)Dili Aaj Tak     352)CGNTV          392)Walf SN           432)CNN Live USA       472)PJ Masks           512)Salt and Light    552)-------------"
+   echo "313)Derana LK        353)LLBN Korean TV 393)EriTV ER          433)Lake Tahoe TV      473)-------------      513)Harbor Light      553)-------------"
+   echo "314)Swarnavahini LK  354)YTV USA        394)SABC ZA           434)HLN                474)-------------      514)St. Mary's Coptic 554)-------------"
+   echo "315)Kaliagnar News   355)Atlanta AM790  395)ITV ZA            435)----------         475)-------------      515)Word of God Greek 555)-------------"
+   echo "316)Sangat UK        356)ANN24 JP       396)Parliament ZA     436)Jupiter Broadcast  476)-------------      516)Shalom America    556)-------------"
+   echo "317)Sikh Channel     357)Sol!ve 24 JP   397)D24               437)News12TW CT        477)-------------      517)Shalom India      557)-------------"
+   echo "318)NTV Bangladesh   358)KBS 24 JP      398)Afrique Media     438)TG4 Gaelic IE      478)-------------      518)Powervision TV    558)-------------"
+   echo "319)ATN Bangladesh   359)QVC Japan      399)DMB               439)CNBC               479)NASA Public Media  519)LLBN Arabic       559)-------------"
+   echo "320)Channel 24 IN    360)BSC 24 1 JP    400)--------------    440)Euronews English   480)NASA Education     520)LLBN SouthAsia    560)-------------"
    echo "================================================================================================================================================================="
 }
 #
@@ -1150,8 +1150,16 @@ chan_name="Arise News Nigeria/London";;
 
 if [ "$getlink" = 1 ]
 then
+
+#link="https://d7g1ebft2592.cloudfront.net/mblivev3/hd/playlist.m3u8"
+link="https://d7g1ebft2592.cloudfront.net/mblivev3/hd/chunklist_w733334674.m3u8"
+
+#link=https://d7g1ebft2592.cloudfront.net/mblivev3/480p/playlist.m3u8
+#link=https://d7g1ebft2592.cloudfront.net/mblivev3/360p/playlist.m3u8
+
 #link="https://593fa17dec176.streamlock.net/test/test/playlist.m3u8"
-link="https://593fa17dec176.streamlock.net/test/test/chunklist_w596810742.m3u8"
+#link="https://593fa17dec176.streamlock.net/test/test/chunklist_w596810742.m3u8"
+
 use_cookies="no"
 ###method="Tor"
 fi
@@ -1239,9 +1247,8 @@ chan_name="Infowars Event" ;;
 25)
 if [ "$getlink" = 1 ]
 then
-link="https://freespeech.akamaized.net/hls/live/2016873/live3/playlist.m3u8"
-
-#link="https://freespeech.akamaized.net/hls/live/2016873-b/live3/playlist.m3u8"
+#link="https://freespeech.akamaized.net/hls/live/2016873/live3/playlist.m3u8"
+link="https://freespeech.akamaized.net/hls/live/2016873-b/live3/playlist.m3u8"
 
 #link="https://freespeech.akamaized.net/hls/live/2016873/live3/video_0/video_0.m3u8"
 #link="https://freespeech.akamaized.net/hls/live/2016873/live3/audio_0_eng/audio_0_eng.m3u8"
@@ -1258,8 +1265,8 @@ chan_name="Infowars RealNews" ;;
 if [ "$getlink" = 1 ]
 then
 
-link="https://freespeech.akamaized.net/hls/live/2016873-b/live4/playlist.m3u8"
 #link="https://freespeech.akamaized.net/hls/live/2016873/live4/playlist.m3u8"
+link="https://freespeech.akamaized.net/hls/live/2016873-b/live4/playlist.m3u8"
 
 #link="https://freespeech.akamaized.net/hls/live/2016873/live3/playlist.m3u8"
 #link="https://freespeech.akamaized.net/hls/live/2016873-b/live3/playlist.m3u8"
@@ -1372,9 +1379,9 @@ then
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1328000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
 #link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_1200_av-b.m3u8?sd=10&rebase=on"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2528000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-p.m3u8?sd=10&rebase=on"
+#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-p.m3u8?sd=10&rebase=on"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2528000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-b.m3u8?sd=10&rebase=on"
+link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-b.m3u8?sd=10&rebase=on"
 
 fi
 #####method="Tor"
@@ -1388,19 +1395,28 @@ chan_name="The Weather Channel" ;;
 
 if [ "$getlink" = 1 ]
 then
-link=https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/master.m3u8
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=857000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0288_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=613000,RESOLUTION=512x288,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0288_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1589000,RESOLUTION=720x404,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0404_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1101000,RESOLUTION=720x404,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0404_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2078000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0540_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2078000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0540_av-b.m3u8?sd=10&rebase=on"
+#link=https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/master.m3u8
+
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=613000,RESOLUTION=426x240,CODECS="avc1.66.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0240_av-p.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=613000,RESOLUTION=426x240,CODECS="avc1.66.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0240_av-b.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1101000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0360_av-p.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1101000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0360_av-b.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1589000,RESOLUTION=854x480,CODECS="avc1.77.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0480_av-p.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1589000,RESOLUTION=1920x1080,CODECS="avc1.77.30, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0480_av-b.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2859000,RESOLUTION=1280x720,CODECS="avc1.64001f, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0720_av-p.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2859000,RESOLUTION=1280x720,CODECS="avc1.640029, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_0720_av-b.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=5789000,RESOLUTION=1920x1080,CODECS="avc1.640028, mp4a.40.2"
+link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_1080_av-p.m3u8?sd=10&rebase=on"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=5789000,RESOLUTION=1280x720,CODECS="avc1.64001f, mp4a.40.2"
+#link="https://voa-lh.akamaihd.net/i/voa_mpls_tvmc6@320298/index_1080_av-b.m3u8?sd=10&rebase=on"
 
 #link=https://www.filmon.com/tv/voa-english
 fi
@@ -1595,6 +1611,7 @@ chan_name="RTE News NOW Ireland" ;;
 if [ "$getlink" = 1 ]
 then
 
+keyword="Sky News live"
 channelURL="https://www.youtube.com/user/skynews/videos?view=2"
 youTubeGrab
 
@@ -1614,7 +1631,27 @@ use_cookies="no"
 chan_name="Africa News English";;
 
 
-# 40)
+# 40) EuroNews English
+40)
+if [ "$getlink" = 1 ]
+then
+
+keyword="Euronews English Live"
+channelURL="https://www.youtube.com/EuronewsUSA/videos?view=2&flow=grid"
+youTubeGrab
+
+fi
+#method="Tor"
+#method="Proxychains"
+
+use_cookies="no"
+chan_name="Euronews English Live" ;;
+
+
+
+
+
+
 
 #############################  ENGLISH EXTRA #############################################
 
@@ -5512,7 +5549,7 @@ use_cookies="no"
 chan_name="Formosa News HD Taiwan";;
 #  332) TzuChi DaAi World Taiwan
 332)
-keyword="1647"
+keyword="大愛海外頻道"
 #link=https://www.dailymotion.com/video/x5crdro
 
 channelURL="https://www.youtube.com/user/DaAiVideo/videos?&view=2" 
@@ -5522,7 +5559,7 @@ use_cookies="no"
 chan_name="Tzu Chi DaAi World Taiwan" ;;
 # 333) 大愛電視 Tzu Chi DaAiVideo
 333)
-keyword="大愛一臺HD Live 直播"
+keyword="全球直播"
 
 channelURL="https://www.youtube.com/user/DaAiVideo/videos?&view=2"
 youTubeGrab
@@ -5531,16 +5568,15 @@ use_cookies="no"
 chan_name="Tzu Chi DaAiVideo 1" ;;
 # 334) 大愛一臺HD Live 直播
 334)
-keyword="1388"
+keyword="直播"
 
 channelURL="https://www.youtube.com/user/DaAiVideo/videos?&view=2"
 youTubeGrab
 
 use_cookies="no"
 chan_name="Tzu Chi DaAiVideo 2" ;;
-# 335)
-# 336) Sinda Television
-336)
+# 335) Sinda Television
+335)
 keyword="信大電視台"
 
 channelURL="https://www.youtube.com/channel/UCZIvbuuP-xGgMG-_0tLLadg/videos?&view=2"
@@ -5548,8 +5584,8 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="Sinda Television" ;;
-# 337) CTS World News HD 2 Taiwan
-337)
+# 336) CTS World News HD 2 Taiwan
+336)
 keyword="Live"
 
 channelURL="https://www.youtube.com/channel/UCA_hK5eRICBdSOLlXKESvEg/videos?&view=2"
@@ -5557,8 +5593,8 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="CTS World News HD 2" ;;
-# 338) SJTV TW
-338)
+# 337) SJTV TW
+337)
 keyword="SJTV"
 
 channelURL="https://www.youtube.com/user/SJTVonline/videos?&view=2"
@@ -5566,8 +5602,8 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="SJTV TW";;
-# 339) #LLBN Chinese TV
-339)
+# 338) #LLBN Chinese TV
+338)
 keyword="Live"
 #https://t01587-lh.akamaihd.net/i/t01587Chinese_1@692075/index_1250_av-p.m3u8?sd=10&set-akamai-hls-revision=5&rebase=on
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=414000,RESOLUTION=320x240,CODECS="avc1.66.30, mp4a.40.2"
@@ -5579,8 +5615,8 @@ link="https://t01587-lh.akamaihd.net/i/t01587Chinese_1@692075/index_1250_av-p.m3
 use_cookies="no"
 chan_name="LLBN Chinese  TV" ;;
 
-# 340) SDTV 04CH Taiwan
-340)
+# 339) SDTV 04CH Taiwan
+339)
 keyword="04CH"
 
 channelURL="https://www.youtube.com/channel/UCBWzi-vMywDa05QYA2jHxwQ/videos?view=2"
@@ -5588,8 +5624,8 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="SDTV 04CH TW" ;;
-# 341) Fanstelevision Taiwan
-341)
+# 340) Fanstelevision Taiwan
+340)
 keyword="番薯衛星電視台現場直播"
 
 channelURL="https://www.youtube.com/channel/UC2UCHUxTWVkSqP6MILU5Bqw/videos?view=2"
@@ -5597,11 +5633,22 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="Fans TV TW" ;;
-# 342) Hong Kong TV
-342)
+# 341) Hong Kong TV
+341)
 link=rtmp://live.hkstv.hk.lxdns.com/live/hks
 use_cookies="no"
 chan_name="Hong Kong TV" ;;
+
+# 342) OnTV Hong Kong
+342)
+keyword="ontv"
+
+channelURL="https://www.youtube.com/channel/UCZ79ABUb7OO4iMiNK2QPM7g/videos?&view=2"
+youTubeGrab
+
+use_cookies="no"
+chan_name="OnTV Hong Kong";;
+
 # 343) GETV Chinese California USA
 343)
 
@@ -5610,25 +5657,27 @@ liveStreamGrab
 
 use_cookies="no"
 chan_name="GETV Chinese California USA" ;;
-# 344) Arirang TV Korea English
+
+# 344) KCTV North Korea Central Television
 344)
-keyword="Arirang"
-#link=http://www.filmon.com/tv/arirang-tv
-link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/user/arirang/videos?&view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d ? -f 2 | cut -d \" -f1 | cut -d = -f 2 )"
-#BANDWIDTH=1728000,RESOLUTION=1280x720
-#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b1728000_sleng.m3u8
-#BANDWIDTH=1328000,RESOLUTION=960x540
-#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b1328000_sleng.m3u8
-#BANDWIDTH=928000,RESOLUTION=850x480
-#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b928000_sleng.m3u8
-#BANDWIDTH=528000,RESOLUTION=640x360
-#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b528000_sleng.m3u8
-#link=http://worldlive-ios.arirang.co.kr/arirang/arirangtvworldios.mp4.m3u8
-#link=http://worldlive-ios.arirang.co.kr/cdnlive-hls/arirangwlive/_definst_/liveevent/tvworld2.m3u8
+#link=https://tv.nknews.org/tvdash/stream.mpd
+link=https://tv.nknews.org/tvhls/stream.m3u8
 use_cookies="no"
-chan_name="Arirang TV Korea" ;;
-# 345) TBS Live Korea
+chan_name="KCTV North Korea Central Television";;
+
+# 345) Arirang Culture TV Korean
 345)
+keyword="Arirang TV"
+
+channelURL="https://www.youtube.com/user/arirangkorean/videos?&view=2"
+youTubeGrab
+
+use_cookies="no"
+chan_name="Arirang Culture TV Korean" ;;
+
+
+# 346) TBS Live Korea
+346)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/channel/UC5HSw5OY2vfVFSihpiB-AVQ/videos?&view=2"
@@ -5636,8 +5685,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="TBS Live Korea" ;;
-# 346) YTN DMB Korea
-346)
+
+# 347) YTN DMB Korea
+347)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/user/ytndmb/videos?&view=2"
@@ -5645,8 +5695,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="YTN DMB Korea" ;;
-# 347) YTN Science Korea
-347)
+
+# 348) YTN Science Korea
+348)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/user/ytnscience/videos?&view=2"
@@ -5654,8 +5705,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="YTN Science Korea" ;;
-# 348) Channel 23 Korea
-348)
+
+# 349) Channel 23 Korea
+349)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/channel/UCTHCOPwqNfZ0uiKOvFyhGwg/videos?&view=2"
@@ -5663,8 +5715,8 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="Channel 23 Korea" ;;
-# 349) KBS World 24 Korea
-349)
+# 350) KBS World 24 Korea
+350)
 keyword="On-Air"
 
 channelURL="https://www.youtube.com/channel/UCWw_gejTX29Yn89LLpcINZQ/videos?&view=2"
@@ -5672,8 +5724,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="KBS World 24 News" ;;
-# 350) YTN 27 Korea
-350)
+
+# 351) YTN 27 Korea
+351)
 keyword="YTN LIVE"
 
 channelURL="https://www.youtube.com/user/ytnnews24/videos?&view=2"
@@ -5681,16 +5734,18 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="YTN LIVE Korea" ;;
-# 351) CGNTV America Korean Los Angeles California
-351)
 
-channelURL="https://livestream.com/accounts/13207573/events/8414889"
+# 352) CGNTV America Korean Los Angeles California
+352)
+
+channelURL="https://livestream.com/accounts/13207573/events/8418527"
 liveStreamGrab
 
 use_cookies="no"
 chan_name="CGNTV America Korean Los Angeles California " ;;
-# 352) LLBN Korean TV
-352)
+
+# 353) LLBN Korean TV
+353)
 keyword="Live"
 #https://t01587-lh.akamaihd.net/i/t01587Korean_1@692076/index_1250_av-p.m3u8?sd=10&set-akamai-hls-revision=5&rebase=on
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=414000,RESOLUTION=320x240,CODECS="avc1.66.30, mp4a.40.2"
@@ -5701,24 +5756,26 @@ keyword="Live"
 link="https://t01587-lh.akamaihd.net/i/t01587Korean_1@692076/index_1250_av-p.m3u8?sd=10&rebase=on"
 use_cookies="no"
 chan_name="LLBN Korean TV" ;;
-# 353) YTV America Live Korean LA CA USA
-353)
+
+# 354) YTV America Live Korean LA CA USA
+354)
 
 channelURL="https://livestream.com/accounts/15217951/events/4355473"
 liveStreamGrab
 
 use_cookies="no"
 chan_name="YTV America Live Korean LA CA USA" ;;
-# 354) Atlanta Radio Korea AM790
-354)
+# 355) Atlanta Radio Korea AM790
+355)
 
-channelURL="https://livestream.com/ark790/events/6357808"
+channelURL="https://livestream.com/ark790/events/8866824"
 liveStreamGrab
 
 use_cookies="no"
 chan_name="Atlanta Radio Korea AM790" ;;
-# 355) ANN JapaNews 24 Japan
-355)
+
+# 356) ANN JapaNews 24 Japan
+356)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/user/ANNnewsCH/videos?&view=2"
@@ -5726,8 +5783,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="ANN News 24 Japan" ;;
-# 356) Sol!ve 24 Japan
-356)
+
+# 357) Sol!ve 24 Japan
+357)
 keyword="LIVE"
 
 channelURL="https://www.youtube.com/channel/UCNsidkYpIAQ4QaufptQBPHQ/videos?&view=2"
@@ -5735,8 +5793,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="Sol!ve 24 Japan";;
-# 357) KBS Live 24 Japan
-357)
+
+# 358) KBS Live 24 Japan
+358)
 keyword="KBSLIVE24"
 
 channelURL="https://www.youtube.com/channel/UChSodm7QfwnUqD63BpqZC6Q/videos?&view=2"
@@ -5744,8 +5803,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="KBS Live 24 Japan" ;;
-#  358) QVC JAPAN SHOPPING CHANNEL
-358)
+
+#  359) QVC JAPAN SHOPPING CHANNEL
+359)
 keyword="QVC"
 #link="https://cdn-live1.qvc.jp/iPhone/1501/1501.m3u8"
 
@@ -5754,8 +5814,9 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="QVC JAPAN SHOPPING CHANNEL" ;;
-# 359) BSC 24 1
-359)
+
+# 360) BSC 24 1
+360)
 keyword="BSC24-第1"
 
 channelURL="https://www.youtube.com/user/bousaishare/videos?&view=2"
@@ -5763,15 +5824,6 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="BSC 24 1" ;;
-# 360) BSC 24 2
-360)
-keyword="BSC24-第2"
-
-channelURL="https://www.youtube.com/channel/UCeEkbpBLgTEHy9NP-JHnPYQ/videos?&view=2"
-youTubeGrab
-
-use_cookies="no"
-chan_name="BSC 24 2" ;;
 
 ####################################### SOUTH ASIAN ####################################################################
 ################# TAGALOG FILIPINO #############################
@@ -5871,37 +5923,36 @@ youTubeGrab
 
 use_cookies="no"
 chan_name="Arirang News TV" ;;
-# 372) Arirang Culture TV Korean
+
+# 372) Arirang TV Korea English
 372)
-keyword="Arirang TV"
+keyword="Arirang"
 
-channelURL="https://www.youtube.com/user/arirangkorean/videos?&view=2"
-youTubeGrab
-
+#link=http://www.filmon.com/tv/arirang-tv
+#link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/user/arirang/videos?&view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d ? -f 2 | cut -d \" -f1 | cut -d = -f 2 )"
+#BANDWIDTH=1728000,RESOLUTION=1280x720
+link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b1728000_sleng.m3u8
+#BANDWIDTH=1328000,RESOLUTION=960x540
+#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b1328000_sleng.m3u8
+#BANDWIDTH=928000,RESOLUTION=850x480
+#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b928000_sleng.m3u8
+#BANDWIDTH=528000,RESOLUTION=640x360
+#link=http://amdlive.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/chunklist_b528000_sleng.m3u8
+#link=http://worldlive-ios.arirang.co.kr/arirang/arirangtvworldios.mp4.m3u8
+#link=http://worldlive-ios.arirang.co.kr/cdnlive-hls/arirangwlive/_definst_/liveevent/tvworld2.m3u8
 use_cookies="no"
-chan_name="Arirang Culture TV Korean" ;;
-# 373) OnTV Hong Kong
+chan_name="Arirang TV Korea" ;;
+
+
+# 373) BSC 24 2
 373)
-keyword="ontv"
+keyword="BSC24-第2"
 
-channelURL="https://www.youtube.com/channel/UCZ79ABUb7OO4iMiNK2QPM7g/videos?&view=2"
+channelURL="https://www.youtube.com/channel/UCeEkbpBLgTEHy9NP-JHnPYQ/videos?&view=2"
 youTubeGrab
 
 use_cookies="no"
-chan_name="OnTV Hong Kong";;
-# 374) NHK World Chinese
-374)
-link=https://player.ooyala.com/hls/player/all/tsbDU4aDE6YAEKog3p0IfCoQFIZg2Koy/media/1116.m3u8
-use_cookies="no"
-chan_name="NHK World Chinese";;
-
-# 375) KCTV North Korea Central Television
-375)
-#link=https://tv.nknews.org/tvdash/stream.mpd
-link=https://tv.nknews.org/tvhls/stream.m3u8
-use_cookies="no"
-chan_name="KCTV North Korea Central Television";;
-
+chan_name="BSC 24 2" ;;
 
 # 376)
 # 377)
@@ -5913,7 +5964,6 @@ keyword="africanews Live"
 
 channelURL="https://www.youtube.com/channel/UC1_E8NeF5QHY2dtdLRBCCLA/videos?&view=2"
 youTubeGrab
-
 use_cookies="no"
 chan_name="Africa News English";;
 # 379) Africa24 Francaise
