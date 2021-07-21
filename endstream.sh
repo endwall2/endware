@@ -7,8 +7,8 @@
 # Copyright: 2017-2019, The Endware Development Team,
 # All Rights Reserved
 # Creation Date: February 22, 2017
-# Version: 0.63555
-# Revision Date: June 27, 2021
+# Version: 0.63557
+# Revision Date: July 20, 2021
 #####################################################################
 # Dependencies: youtube-dl, mpv, streamlink, read , curl, sed, awk, grep
 #####################################################################
@@ -140,8 +140,8 @@
 ######################################## BEGINNING OF PROGRAM    ##########################################################
 
 ###############  VERSION INFORMATION  ##############
-version="0.63555"
-rev_date="28/06/2021"
+version="0.63557"
+rev_date="20/07/2021"
 branch="gnu/linux"
 product="ENDSTREAM"
 ##################################################
@@ -162,8 +162,8 @@ HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 uamode="off"
 headmode="off"
 
-torsocks_ip=127.0.0.1
-#torsocks_ip=192.168.1.103
+#torsocks_ip=127.0.0.1
+torsocks_ip=192.168.1.103
 torsocks_port=9050
 
 ### Define function for displaying channels  CHANGE MENU HERE
@@ -207,11 +207,11 @@ channel_matrix_0()
    echo "33)CBC CA             73)CBSN Pittsburgh 113)GONG MAX         153)TVO VE           193)RT Docs RU        233)-------------             273)------------"
    echo "34)CPAC 1 CA          74)NDTV IN         114)BX1 BE           154)TeleSUR VE       194)-------------     234)-------------             274)------------"
    echo "35)SKY News UK        75)Times IN        115)France Info Radio155)Telecafe CO      195)-------------     235)-------------             275)------------"
-   echo "36)Euronews Eng       76)ET Now IN       116)Europe 1 FR      156)EsteCanal TV     196)-------------     236)-------------             276)------------"
-   echo "37)Oireachtas TV IE   77)NewsX IN        117)OUATCH TV        157)A24 AR           197)-------------     237)-------------             277)------------"
-   echo "38)RTE News NOW IE    78)NewsX NE        118)RTL BE           158)TeleDiario MX    198)-------------     238)-------------             278)------------"
-   echo "39)Weather Nation     79)NDTV Profit     119)France Inter     159)BoliviaTV        199)-------------     239)-------------             279)------------"
-   echo "40)Weather Channel    80)-------------   120)RMC INFO FR      160)MONARCA MX       200)-------------     240)-------------             280)------------"
+   echo "36)-------------      76)ET Now IN       116)Europe 1 FR      156)EsteCanal TV     196)-------------     236)-------------             276)------------"
+   echo "37)-------------      77)NewsX IN        117)OUATCH TV        157)A24 AR           197)-------------     237)-------------             277)------------"
+   echo "38)-------------      78)NDTV Profit     118)RTL BE           158)TeleDiario MX    198)-------------     238)-------------             278)------------"
+   echo "39)-------------      79)Euronews Eng    119)France Inter     159)BoliviaTV        199)-------------     239)-------------             279)------------"
+   echo "40)-------------      80)-------------   120)RMC INFO FR      160)MONARCA MX       200)-------------     240)-------------             280)------------"
    echo "=========================================================================================================================================================="
 
 }    
@@ -251,8 +251,8 @@ channel_matrix_1()
    echo "308)ETV AndhraPradesh348)YTN Sci KR     388)Joy News GH       428)CBC The National   468)Talking Tom        508)LLBN SmartLife    548)------------"
    echo "309)News 18 Tamil    349)Channel 23 KR  389)ADOM GH           429)AP Top Stories     469)Talking Tom Mini   509)LLBN His Word     549)------------"
    echo "310)Jaya Plus        350)KBS World24 KR 390)Bukedde TV GH     430)Democracy Now      470)PJ Masks           510)LLBN His Light    550)-------------"
-   echo "311)TEZ TV           351)YTN 27 KR      391)EBC ET            431)CNN PH             471)Allkey Shop        511)LLBN Latino TV    551)-------------"
-   echo "312)Dili Aaj Tak     352)CGNTV          392)Walf SN           432)CNN Live USA       472)TYT                512)Salt and Light    552)-------------"
+   echo "311)TEZ TV           351)YTN 27 KR      391)EBC ET            431)CNN PH             471)TYT                511)LLBN Latino TV    551)-------------"
+   echo "312)Dili Aaj Tak     352)CGNTV          392)Walf SN           432)CNN Live USA       472)Allkey Shop        512)Salt and Light    552)-------------"
    echo "313)Derana LK        353)LLBN Korean TV 393)EriTV ER          433)Lake Tahoe TV      473)Amouranth          513)Harbor Light      553)-------------"
    echo "314)Swarnavahini LK  354)YTV USA        394)SABC ZA           434)HLN                474)CopyKat            514)St. Mary's Coptic 554)-------------"
    echo "315)Kaliagnar News   355)Atlanta AM790  395)ITV ZA            435)----------         475)Foxenkin           515)Word of God Greek 555)-------------"
@@ -429,7 +429,7 @@ if [ "$getlink" = 1 ]
 then
 #link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/user/france24english/videos?view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d = -f 11 | cut -d \" -f 1 )"
 
-link=http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/master.m3u8
+#link=http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/master.m3u8
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=673025,CODECS="avc1.4d401f,mp4a.40.2",RESOLUTION=640x360
 #link="http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/05.m3u8"
@@ -438,7 +438,7 @@ link=http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/master.m3u8
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2512155,CODECS="avc1.640029,mp4a.40.2",RESOLUTION=1280x720
 #link="http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/03.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=5270851,CODECS="avc1.640028,mp4a.40.2",RESOLUTION=1920x1080
-#link="http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/01.m3u8"
+link="http://f24hls-i.akamaihd.net/hls/live/221147/F24_EN_HI_HLS/01.m3u8"
 
 
 #link=http://static.france24.com/live/F24_EN_LO_HLS/live_web.m3u8
@@ -493,34 +493,18 @@ keyword="DW"
 
 if [ "$getlink" = 1 ]
 then
-
-#link=https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/master.m3u8
-#EXTM3U
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_5_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_5_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_4_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_4_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_3_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_3_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_2_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_2_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_1_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_1_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_5_a-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_5_a-b.m3u8?sd=10&rebase=on"
-#link= https://dwstream1-lh.akamaihd.net/i/dwstream1_live@120422/master.m3u8
+link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8"
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="ENG_301_150",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="ENG",URI="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream106/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1140853,AVERAGE-BANDWIDTH=950711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=640x360,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream01/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2100853,AVERAGE-BANDWIDTH=1750711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=711x400,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3780853,AVERAGE-BANDWIDTH=3150711,CODECS="avc1.77.32,mp4a.40.2",RESOLUTION=1024x576,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream03/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4780088,AVERAGE-BANDWIDTH=3983407,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=1280x720,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream04/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6898557,AVERAGE-BANDWIDTH=5748798,CODECS="avc1.100.42,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=50.000,SUBTITLES="subs"
+link="https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream05/streamPlaylist.m3u8"
 # link=https://www.filmon.com/tv/dw-english
 #link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/user/deutschewelleenglish/videos?view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d = -f 11 | cut -d \" -f 1 )"
 
@@ -1133,14 +1117,14 @@ radix="$(curl -A "$UA" "https:$(curl -A "$UA" "https://www.africanews.com/api/wa
 
 #link="$radix/playlist.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3300000,RESOLUTION=1280x720
-#link="$radix/afrnabren_eng_720p33.m3u8"
+link="$radix/afrnabren_eng_720p33.m3u8"
 #link="$radix/ewnsabren_eng_720p33.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000,RESOLUTION=1280x720
 #link="$radix/afrnabren_eng_720p20.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=900000,RESOLUTION=1024x576
 #link="$radix/afrnabren_eng_576p.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=500000,RESOLUTION=848x480
-link="$radix/afrnabren_eng_480p.m3u8"
+#link="$radix/afrnabren_eng_480p.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=250000,RESOLUTION=640x360
 #link="$radix/afrnabren_eng_360p.m3u8"
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=120000,RESOLUTION=432x240
@@ -1528,20 +1512,37 @@ chan_name="CBC Canada";;
 if [ "$getlink" = 1 ]
 then
 
-link="https://bcsecurelivehls-i.akamaihd.net/hls/live/680602/1242843915001_1/master.m3u8"
+#link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/.m3u8"
+link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/.m3u8"
 
+#audio_file="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-audio_track_0_0_eng=96000.m3u8"
+#video_file="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-video_track=600000.m3u8"
+#link=""$video_file" --audio-file="$audio_file" "
 
-#link="https://bcsecurelivehls-i.akamaihd.net/hls/live/680602/1242843915001_1/master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=613469,RESOLUTION=640x360,CODECS="avc1.77.31,mp4a.40.5"
-#link="https://bcsecurelivehls-i.akamaihd.net/hls/live/680602/1242843915001_1//Assets_1586134027986/Layer1_master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=919077,RESOLUTION=720x404,CODECS="avc1.77.31,mp4a.40.5"
-#link="https://bcsecurelivehls-i.akamaihd.net/hls/live/680602/1242843915001_1//Assets_1586134027986/Layer2_master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3167564,RESOLUTION=1280x720,CODECS="avc1.77.31,mp4a.40.5"
-#link="https://bcsecurelivehls-i.akamaihd.net/hls/live/680602/1242843915001_1//Assets_1586134027986/Layer3_master.m3u8"
+#AUDIO groups
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aacl-96",LANGUAGE="en",NAME="English",DEFAULT=YES,AUTOSELECT=YES,CHANNELS="2",URI="live-audio_track_0_0_eng=96000.m3u8"
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aacl-96",LANGUAGE="fr",NAME="French",AUTOSELECT=YES,CHANNELS="2",URI="live-audio_track_1_1_fre=96000.m3u8"
+#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aacl-96",NAME="audio_track_2_2_und",AUTOSELECT=YES,CHANNELS="2",URI="live-audio_track_2_2_und=96000.m3u8"
 
+# CLOSED-CAPTIONS groups
+#EXT-X-MEDIA:TYPE=CLOSED-CAPTIONS,GROUP-ID="textstream",NAME="textstream",DEFAULT=YES,AUTOSELECT=YES,INSTREAM-ID="CC1"
 
-#https://bcsecurelivehls-i.akamaihd.net/hls/live/680604/1242843915001_3/master.m3u8
-#https://bcsecurelivehls-i.akamaihd.net/hls/live/680604/1242843915001_3//Assets_1572351842277/Layer3_master.m3u8
+# variants
+#EXT-X-STREAM-INF:BANDWIDTH=807000,AVERAGE-BANDWIDTH=733000,CODECS="mp4a.40.2,avc1.4D401E",RESOLUTION=640x360,FRAME-RATE=30,AUDIO="audio-aacl-96",CLOSED-CAPTIONS="textstream"
+#link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-video_track=600000.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=1740000,AVERAGE-BANDWIDTH=1581000,CODECS="mp4a.40.2,avc1.4D401F",RESOLUTION=960x540,FRAME-RATE=30,AUDIO="audio-aacl-96",CLOSED-CAPTIONS="textstream"
+#link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-video_track=1400000.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=2906000,AVERAGE-BANDWIDTH=2641000,CODECS="mp4a.40.2,avc1.4D401F",RESOLUTION=1280x720,FRAME-RATE=30,AUDIO="audio-aacl-96",CLOSED-CAPTIONS="textstream"
+#link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-video_track=2400000.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=6404000,AVERAGE-BANDWIDTH=5821000,CODECS="mp4a.40.2,avc1.4D4028",RESOLUTION=1920x1080,FRAME-RATE=30,AUDIO="audio-aacl-96",CLOSED-CAPTIONS="textstream"
+#link="https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/live-video_track=5400000.m3u8"
+
+# keyframes
+#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=88000,CODECS="avc1.4D401E",RESOLUTION=640x360,URI="keyframes/live-video_track=600000.m3u8"REM 
+#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=205000,CODECS="avc1.4D401F",RESOLUTION=960x540,URI="keyframes/live-video_track=1400000.m3u8"R
+#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=350000,CODECS="avc1.4D401F",RESOLUTION=1280x720,URI="keyframes/live-video_track=2400000.m3u8"
+#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=788000,CODECS="avc1.4D4028",RESOLUTION=1920x1080,URI="keyframes/live-video_track=5400000.m3u8"
+
 
 fi
 ####method="Tor"
@@ -1568,199 +1569,11 @@ use_cookies="no"
 chan_name="Sky News" ;;
 
 
-# 36) EuroNews English
-36)
-if [ "$getlink" = 1 ]
-then
-
-keyword="Live"
-#channelURL="https://www.youtube.com/EuronewsUSA/videos?view=2&live_view=501"
-#youTubeGrab
-
-#link="https://www.euronews.com/live"
-#radix=$( curl "https://en.euronews.com/api/watchlive.json"
-
-# endcurl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5
-# endcurl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 | sed 's/[\\"]//g')"
-
-
-# endcurl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 | sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8
-#radix="$(torsocks -i -a "$torsocks_ip" -P "$torsocks_port" curl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 | sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
-
-# SOURCE 
-
-#radix="$(curl -A "$UA" "https:$(curl -A "$UA"  "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
-
-base_url="https://www.euronews.com/api/watchlive.json"
-radix="$(curl --socks5 "$torsocks_ip":"$torsocks_port" -A "$UA" "https:$(curl -A "$UA"  "$base_url" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
-
-#link="$radix/playlist.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3300000,RESOLUTION=1280x720
-#link="$radix/ewnsabren_eng_720p33.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000,RESOLUTION=1280x720
-#link="$radix/ewnsabren_eng_720p20.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=900000,RESOLUTION=1024x576
-#link="$radix/ewnsabren_eng_576p.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=500000,RESOLUTION=848x480
-link="$radix/ewnsabren_eng_480p.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=250000,RESOLUTION=640x360
-#link="$radix/ewnsabren_eng_360p.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=120000,RESOLUTION=432x240
-#link="$radix/ewnsabren_eng_240p.m3u8"
-
-fi
-
-method="Tor"
-#method="Proxychains"
-
-use_cookies="no"
-chan_name="Euronews English Live" ;;
-
-
-
-#################### NATIONAL / LOCAL Weather #####################################################
-# 37) Weather Nation
-37)
-
-if [ "$getlink" = 1 ]
-then
-link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/a.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=2128000,RESOLUTION=1280x720
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b2128000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=504000,RESOLUTION=480x270
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b464000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=724000,RESOLUTION=640x360
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b664000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1054000,RESOLUTION=640x360
-#####link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b964000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=2192000,RESOLUTION=1280x720
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b2192000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=504000,RESOLUTION=480x270
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b464000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=724000,RESOLUTION=640x360
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b664000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1054000,RESOLUTION=640x360
-#link=https://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/chunklist_b964000.m3u8
-
-fi
-#####method="Tor"
-use_cookies="no"
-TAG="WEATHNERNA"
-chan_name="Weather Nation" ;;
-
-# 38) The Weather Channel
-38)
-
-if [ "$getlink" = 1 ]
-then
-link=https://weather-lh.akamaihd.net/i/twc_1@92006/master.m3u8
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#####link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_400_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_400_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_800_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_800_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1328000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_1200_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1328000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_1200_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2528000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2528000,RESOLUTION=1280x720,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://weather-lh.akamaihd.net/i/twc_1@92006/index_2400_av-b.m3u8?sd=10&rebase=on"
-
-fi
-#####method="Tor"
-use_cookies="no"
-TAG="WEATHNERCH"
-chan_name="The Weather Channel" ;;
-
-
-
-########################## IRELAND ##############################################
-# 39) OIreachtas TV IE
-39)
-if [ "$getlink" = 1 ]
-then
-link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8
-#link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/chunklist_b1228000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1338000,CODECS="avc1.66.32,mp4a.40.2",RESOLUTION=854x480
-#link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/chunklist_b1228000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1063000,CODECS="avc1.66.31,mp4a.40.2",RESOLUTION=640x360
-#link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/chunklist_b978000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=513000,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=426x240
-####link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/chunklist_b478000.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=128000,CODECS="mp4a.40.2"q
-#link=https://oirlive.heanet.ie/oireachtas/ngrp:oireachtas.stream_all/chunklist_b128000.m3u8
-fi
-####method="Tor"
-use_cookies="no"
-TAG="ORIEACHTAS_IE"
-chan_name="Oireachtas TV IE" ;;
-
-############### IRELAND ###########################################################
-# 40) RTE News NOW  Ireland
-40)
-
-TAG=" SKYNEWS____"
-keyword="Watch Sky News live"
-
-if [ "$getlink" = 1 ]
-then
-
-#link="https://www.rte.ie/manifests/newsnow.f4m"
-#link="https://www.rte.ie/manifests/newsnow.m3u8"
-link="https://live.rte.ie/live/a/channel3/news.isml/news.m3u8"
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-TTML_English=64000.m3u8"
-#https://live.rte.ie/live/a/channel3/news.isml/news-audio_128k=128000.m3u8
-#https://live.rte.ie/live/a/channel3/news.isml/news-video=2000000.m3u8
-#link=https://live.rte.ie/live/a/channel3/news.isml/news-video=4499968.m3u8
-#news-video=4499968.m3u8
-#https://live.rte.ie/live/a/channel3/news.isml/news-video=2000000.m3u8
-#https://live.rte.ie/live/a/channel3/news.isml/news-video=4499968.m3u8
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=6000000.m3u8"
-
-# AUDIO groups
-#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aacl-128",NAME="English",LANGUAGE="en",AUTOSELECT=YES,DEFAULT=YES,CHANNELS="2",URI="news-audio_128k=128000.m3u8"
-#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aach-64",NAME="English",LANGUAGE="en",AUTOSELECT=YES,DEFAULT=YES,CHANNELS="2",URI="news-audio_64k=64000.m3u8"
-#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="audio-aach-96",NAME="English",LANGUAGE="en",AUTOSELECT=YES,DEFAULT=YES,CHANNELS="2",URI="news-audio_96k=96000.m3u8"
-
-# SUBTITLES groups
-#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="textstream",NAME="English",LANGUAGE="en",AUTOSELECT=YES,DEFAULT=YES,URI="news-TTML_English=64000.m3u8"
-
-# variants
-#EXT-X-STREAM-INF:BANDWIDTH=311000,AVERAGE-BANDWIDTH=283000,CODECS="mp4a.40.5,avc1.64000D",RESOLUTION=454x234,FRAME-RATE=25,AUDIO="audio-aach-64",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=144960.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=603000,AVERAGE-BANDWIDTH=548000,CODECS="mp4a.40.5,avc1.640015",RESOLUTION=524x270,FRAME-RATE=25,AUDIO="audio-aach-96",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=364992.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=1064000,AVERAGE-BANDWIDTH=968000,CODECS="mp4a.40.2,avc1.64001E",RESOLUTION=699x360,FRAME-RATE=25,AUDIO="audio-aacl-128",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=729984.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=1496000,AVERAGE-BANDWIDTH=1360000,CODECS="mp4a.40.2,avc1.64001E",RESOLUTION=839x432,FRAME-RATE=25,AUDIO="audio-aacl-128",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=1099968.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=2545000,AVERAGE-BANDWIDTH=2314000,CODECS="mp4a.40.2,avc1.64001F",RESOLUTION=1048x540,FRAME-RATE=25,AUDIO="audio-aacl-128",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=2000000.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=5460000,AVERAGE-BANDWIDTH=4964000,CODECS="mp4a.40.2,avc1.64001F",RESOLUTION=1398x720,FRAME-RATE=25,AUDIO="audio-aacl-128",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=4499968.m3u8"
-#EXT-X-STREAM-INF:BANDWIDTH=7209000,AVERAGE-BANDWIDTH=6554000,CODECS="mp4a.40.2,avc1.640028",RESOLUTION=2097x1080,FRAME-RATE=25,AUDIO="audio-aacl-128",SUBTITLES="textstream",CLOSED-CAPTIONS=NONE
-#link="https://live.rte.ie/live/a/channel3/news.isml/news-video=6000000.m3u8"
-
-# keyframes
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=22000,CODECS="avc1.64000D",RESOLUTION=454x234,URI="keyframes/news-video=144960.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=54000,CODECS="avc1.640015",RESOLUTION=524x270,URI="keyframes/news-video=364992.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=107000,CODECS="avc1.64001E",RESOLUTION=699x360,URI="keyframes/news-video=729984.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=161000,CODECS="avc1.64001E",RESOLUTION=839x432,URI="keyframes/news-video=1099968.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=292000,CODECS="avc1.64001F",RESOLUTION=1048x540,URI="keyframes/news-video=2000000.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=656000,CODECS="avc1.64001F",RESOLUTION=1398x720,URI="keyframes/news-video=4499968.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=875000,CODECS="avc1.640028",RESOLUTION=2097x1080,URI="keyframes/news-video=6000000.m3u8"
-
-fi
-#method="Tor"
-use_cookies="no"
-TAG=" RTENEWS_IE_"
-chan_name="RTE News NOW Ireland" ;;
-
+# 36)
+# 37)
+# 38)
+# 39)
+# 40)
 
 #############################  ENGLISH EXTRA #############################################
 
@@ -2031,14 +1844,15 @@ chan_name="District of Columbia" ;;
 if [ "$getlink" = 1 ]
 then
 #link=https://video.oct.dc.gov/out/u/DKN.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=428009,RESOLUTION=416x234,CODECS="avc1.4D400D,mp4a.40.2"
-#link=https://video.oct.dc.gov/out/u/96_7.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=728053,RESOLUTION=640x360,CODECS="avc1.4D401E,mp4a.40.2"
-#link=https://video.oct.dc.gov/out/u/96_8.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=927908,RESOLUTION=640x360,CODECS="avc1.4D401E,mp4a.40.2"
-#link=https://video.oct.dc.gov/out/u/96_9.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1127917,RESOLUTION=1920x1080,CODECS="avc1.4D4028,mp4a.40.2"
-link=https://video.oct.dc.gov/out/u/96_10.m3u8
+#link="http://video.oct.dc.gov/out/u/119_8.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=427875,RESOLUTION=416x234,CODECS="avc1.4D401E,mp4a.40.2"
+#link="http://video.oct.dc.gov/out/u/119_5.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=727840,RESOLUTION=640x360,CODECS="avc1.4D401F,mp4a.40.2"
+#link="http://video.oct.dc.gov/out/u/119_6.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=928015,RESOLUTION=640x360,CODECS="avc1.4D401F,mp4a.40.2"
+#link="http://video.oct.dc.gov/out/u/119_7.m3u8"
+#EXT-X-STREAM-INF:BANDWIDTH=1128034,RESOLUTION=1920x1080,CODECS="avc1.4D402A,mp4a.40.2"
+link="http://video.oct.dc.gov/out/u/119_8.m3u8"
 fi
 #method="Tor"
 use_cookies="no"
@@ -2621,28 +2435,14 @@ chan_name="Economic Times India" ;;
 77)
 if [ "$getlink" = 1 ]
 then
-link="https://multitvido.c.s73cdn.net/idvo/newsx_360p/index.m3u8"
-#link="https://multitvido.c.s73cdn.net/idvo/newsx_240p/index.m3u8"
+link="https://itvoign.multitvsolution.com/hls/newsx_480p/index.m3u8"
 fi
 use_cookies="no"
 TAG="NEWSX_IN_____"
 chan_name="NewsX India" ;;
 
-
-# 78) NewsX NE
+# 78) NDTV Profit
 78)
-if [ "$getlink" = 1 ]
-then
-link="https://multitvido.c.s73cdn.net/idvo/newsxkannada_360p/index.m3u8"
-#link="https://multitvido.c.s73cdn.net/idvo/newsxkannada_240p/index.m3u8"
-fi
-use_cookies="no"
-TAG="NEWSX_NE_IN___"
-chan_name="NewsX India NE News" ;;
-
-
-# 79) NDTV Profit
-79)
 if [ "$getlink" = 1 ]
 then
 
@@ -2665,6 +2465,45 @@ TAG="NDTV Profit__"
 chan_name="NDTV Profit" ;;
 
 
+
+# 79) EuroNews English
+79)
+if [ "$getlink" = 1 ]
+then
+
+keyword="Live"
+#channelURL="https://www.youtube.com/EuronewsUSA/videos?view=2&live_view=501"
+#youTubeGrab
+
+# endcurl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 | sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8
+#radix="$(torsocks -i -a "$torsocks_ip" -P "$torsocks_port" curl "https:$(curl "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 | sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
+
+#radix="$(curl -A "$UA" "https:$(curl -A "$UA"  "https://www.euronews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
+
+base_url="https://www.euronews.com/api/watchlive.json"
+radix="$(curl --socks5 "$torsocks_ip":"$torsocks_port" -A "$UA" "https:$(curl -A "$UA"  "$base_url" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
+
+#link="$radix/playlist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3300000,RESOLUTION=1280x720
+#link="$radix/ewnsabren_eng_720p33.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000,RESOLUTION=1280x720
+#link="$radix/ewnsabren_eng_720p20.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=900000,RESOLUTION=1024x576
+#link="$radix/ewnsabren_eng_576p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=500000,RESOLUTION=848x480
+link="$radix/ewnsabren_eng_480p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=250000,RESOLUTION=640x360
+#link="$radix/ewnsabren_eng_360p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=120000,RESOLUTION=432x240
+#link="$radix/ewnsabren_eng_240p.m3u8"
+
+fi
+
+method="Tor"
+#method="Proxychains"
+
+use_cookies="no"
+chan_name="Euronews English Live" ;;
 
 # 80)
 
@@ -2789,7 +2628,14 @@ then
 #link=https://www.dailymotion.com/video/x4rdeu6_live-franceinfo-tv_news
 #link=https://livefrancetv.akamaized.net/simulcast/France_Info/dash_monde/ZXhwPTE1MjUxODIxMzZ+YWNsPSUyZnNpbXVsY2FzdCUyZkZyYW5jZV9JbmZvJTJmZGFzaF9tb25kZSp+aG1hYz1mZDU1NmM2NmE5ODExZWNlOGI5YjQ1MDc3ZDA2ZTQ4YTg1Y2FmNTkyNTdiY2Q4MWI1YzU4YjRiMWE0M2MxYmUw/France_Info.mpd
 #link="https://videos.francetv.fr/video/SIM_Franceinfo"
-link="https://simulcast.ftven.fr/ZXhwPTE2MTA1ODA0Nzd+YWNsPSUyZip+aG1hYz0xZDNiNTgwMTcyOGU3ZTQ3MTIzZmU1OWNhNTQ2MTg0YzQ5OGY0ZTQ1NTI1ZjU5MzFlOTU1MTNmNDI1YzdjMWU2/simulcast/France_Info/dash_monde_frinfo/France_Info.mpd"
+
+
+channelURL="https://hdfauthftv-a.akamaihd.net/esi/TA?format=json&url=https%3A%2F%2Fsimulcast.ftven.fr%2Fsimulcast%2FFrance_Info%2Fhls_monde_frinfo%2Findex.m3u8"
+
+link=$(curl -A "$UA" $channelURL | cut -d \" -f 4)
+
+#link="https://simulcast.ftven.fr/ZXhwPTE2MjY2MTIxMTd+YWNsPSUyZip+aG1hYz03M2Y4YzgzZDg2YzQ2MzBhODQ5MjczOTM4NDk5ZDUxZWUyYjFmYThlMWM1Y2FjMTZjOWE2MzVjNzJmYjI1YWY0/simulcast/France_Info/hls_monde_frinfo/index.m3u8?hdnea=exp=1626591117~acl=%2f*~hmac=9c28625032f41f25be583624d7df4a5280b956b83234ec60c5b3f1bb1822b6f9"
+
 fi
 #format=hls-720
 #format=hls-480
@@ -2895,7 +2741,25 @@ keyword="DIRECT"
 if [ "$getlink" = 1 ]
 then
 #link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/channel/UC25EuGAePOPvPrUA5cmu3dQ/videos?&view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d = -f 11 | cut -d \" -f 1 )"
-link="https://www.dailymotion.com/video/x6i37o5"
+
+#link="https://www.dailymotion.com/video/x6i37o5"
+
+radix="$(curl -A "$UA" "https:$(curl -A "$UA" "https://fr.africanews.com/api/watchlive.json" | cut -d : -f 2 | cut -d \} -f 1 |sed 's/[\\"]//g')" | cut -d \: -f 4,5 | sed 's/[\\"]//g' | cut -d \, -f 1 | cut -d \/ -f 1,2,3,4,5,6,7,8 )"
+
+#link="$radix/playlist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3300000,RESOLUTION=1280x720
+#link="$radix/afrnabrfr_fre_720p33.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000,RESOLUTION=1280x720
+link="$radix/afrnabrfr_fre_720p20.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=900000,RESOLUTION=1024x576
+#link="$radix/afrnabrfr_fre_576p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=500000,RESOLUTION=848x480
+#link="$radix/afrnabrfr_fre_480p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=250000,RESOLUTION=640x360
+#link="$radix/afrnabrfr_fre_360p.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=120000,RESOLUTION=432x240
+#link="$radix/afrnabrfr_fre_240p.m3u8"
+
 fi
 
 use_cookies="no"
@@ -3305,31 +3169,21 @@ keyword="DW Español en VIVO"
 
 if [ "$getlink" = 1 ]
 then
-#link=https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/master.m3u8
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_5_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_5_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#####link="http://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_4_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_4_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_3_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_3_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_2_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_2_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_1_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link=https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_1_av-b.m3u8?sd=10&rebase=on
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_5_a-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream3-lh.akamaihd.net/i/dwstream3_live@124409/index_5_a-b.m3u8?sd=10&rebase=on"
+
+#link="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8"
+
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="SPA_301_150",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="SPA",URI="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream106/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1140853,AVERAGE-BANDWIDTH=950711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=640x360,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="ttps://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream01/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2100853,AVERAGE-BANDWIDTH=1750711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=711x400,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream02/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3780853,AVERAGE-BANDWIDTH=3150711,CODECS="avc1.77.32,mp4a.40.2",RESOLUTION=1024x576,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream03/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4780088,AVERAGE-BANDWIDTH=3983407,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=1280x720,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream04/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6898557,AVERAGE-BANDWIDTH=5748798,CODECS="avc1.100.42,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=50.000,SUBTITLES="subs"
+link="https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream05/streamPlaylist.m3u8"
+
 
 #link=https://www.youtube.com/watch?v="$(curl -A "$UA" "https://www.youtube.com/user/DeutscheWelleEspanol/videos?&view=2" | grep "$keyword" | grep "watch?v=" | head -n 1 | cut -d = -f 11 | cut -d \" -f 1)"
 fi
@@ -3943,19 +3797,18 @@ keyword="DW"
 
 if [ "$getlink" = 1 ]
 then
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_5_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_4_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_3_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_2_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_1_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream6-lh.akamaihd.net/i/dwstream6_live@123962/index_5_a-b.m3u8?sd=10&rebase=on"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/index.m3u8"
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="DEU_301_100",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="DEU",URI="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream106/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1140853,AVERAGE-BANDWIDTH=950711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=640x360,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream01/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2100853,AVERAGE-BANDWIDTH=1750711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=711x400,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream02/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3780853,AVERAGE-BANDWIDTH=3150711,CODECS="avc1.77.32,mp4a.40.2",RESOLUTION=1024x576,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream03/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4780088,AVERAGE-BANDWIDTH=3983407,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=1280x720,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream04/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6898557,AVERAGE-BANDWIDTH=5748798,CODECS="avc1.100.42,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream106.akamaized.net/hls/live/2017965/dwstream106/stream05/streamPlaylist.m3u8"
 
 channelURL="https://www.youtube.com/user/deutschewelle/videos?view=2&live_view=501" 
 youTubeGrab
@@ -4078,31 +3931,22 @@ chan_name="Radio 21 Nachreichten DE" ;;
 169)
 if [ "$getlink" = 1 ]
 then
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_5_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_5_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_4_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_4_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_3_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_3_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_2_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_2_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_1_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_1_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_5_a-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream5-lh.akamaihd.net/i/dwstream5_live@124540/index_5_a-b.m3u8?sd=10&rebase=on"
+
+#link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/index.m3u8
+
+#EXT-X-INDEPENDENT-SEGMENTS
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="ENG_301_149",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="ENG",URI="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream106/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1140853,AVERAGE-BANDWIDTH=950711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=640x360,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream01/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2100853,AVERAGE-BANDWIDTH=1750711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=711x400,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream02/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3780853,AVERAGE-BANDWIDTH=3150711,CODECS="avc1.77.32,mp4a.40.2",RESOLUTION=1024x576,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream03/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4780088,AVERAGE-BANDWIDTH=3983407,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=1280x720,FRAME-RATE=50.000,SUBTITLES="subs"
+link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream04/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6898557,AVERAGE-BANDWIDTH=5748798,CODECS="avc1.100.42,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/stream05/streamPlaylist.m3u8"
+
 fi
 method="Tor"
 use_cookies="no"
@@ -4855,33 +4699,18 @@ chan_name="BBC Arabic" ;;
 keyword="DW عربية مباشر"
 if [ "$getlink" = 1 ]
 then
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/master.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_5_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=163000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_5_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_4_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=264000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_4_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_3_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=464000,RESOLUTION=400x224,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_3_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_2_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=864000,RESOLUTION=640x360,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_2_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_1_av-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1664000,RESOLUTION=720x400,CODECS="avc1.77.30, mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_1_av-b.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_5_a-p.m3u8?sd=10&rebase=on"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=64000,CODECS="mp4a.40.2"
-#link="https://dwstream2-lh.akamaihd.net/i/dwstream2_live@124400/index_5_a-b.m3u8?sd=10&rebase=on"
-
-#link=http://www.metafilegenerator.de/DWelle/tv-arabia/ios/master.m3u8
+#link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/index.m3u8"
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="ARA_301_100",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="ARA",URI="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream106/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1140853,AVERAGE-BANDWIDTH=950711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=640x360,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream01/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2100853,AVERAGE-BANDWIDTH=1750711,CODECS="avc1.77.31,mp4a.40.2",RESOLUTION=711x400,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream02/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3780853,AVERAGE-BANDWIDTH=3150711,CODECS="avc1.77.32,mp4a.40.2",RESOLUTION=1024x576,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream03/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4780088,AVERAGE-BANDWIDTH=3983407,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=1280x720,FRAME-RATE=50.000,SUBTITLES="subs"
+link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream04/streamPlaylist.m3u8"
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6898557,AVERAGE-BANDWIDTH=5748798,CODECS="avc1.100.42,mp4a.40.2",RESOLUTION=1920x1080,FRAME-RATE=50.000,SUBTITLES="subs"
+#link="https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/stream05/streamPlaylist.m3u8"
 
 #channelURL="https://www.youtube.com/user/deutschewellearabic/videos?&view=2" 
 #youTubeGrab
