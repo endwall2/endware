@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 #################################################################################################################################################
 # NAME: oldtube.sh
 # TYPE: BOURNE SHELL SCRIPT
@@ -8,9 +8,9 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9, 2016
-# VERSION: 0.02
-# REVISION DATE: FEBRUARY 11, 2016
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016 
+# VERSION: 0.031
+# REVISION DATE: November 08, 2021
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2019 
 #
 # CHANGE LOG: 
 #              - set refmode=off initial state, added list index to start downloading 1st file with no delay
@@ -133,10 +133,11 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.15
-#  VERSION DATE: JULY 05, 2017
-#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-#      
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
+#  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
+#  ALL RIGHTS RESERVED  
+#    
 #  WHAT CONSTITUTES "USE"? WHAT IS A "USER"?
 #  0) a) Use of this program means the ability to study, possess, run, copy, modify, publish, distribute and sell the code as included in all lines of this file,
 #        in text format or as a binary file constituting this particular program or its compiled binary machine code form, as well as the the performance 
@@ -146,17 +147,18 @@
 #  1) a) This program may be used by any living human being, any person, any corporation, any company, and by any sentient individual with the willingness and ability to do so.
 #  1) b) This program may be used by any citizen or resident of any country, and by any human being without citizenship or residency.
 #  1) c) This program may be used by any civilian, military officer, government agent, private citizen, government official, sovereign, monarch, head of state,
-#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, 
-#        noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
-#  1) d) This program may be used by any human being of any gender, including men, women, and any other gender not mentioned.       
-#  1) e) This program may be used by anyone of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
-#  1) f) This program may be used by any person of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
+#        dignitary, ambassador, legislator,congressional representative, member of parliament, senator, judicial official, judge, prosecutor, lawyer, law enforcement officer, 
+#        police constable, noble, commoner, clergy, laity, and generally all classes and ranks of people, persons, and human beings mentioned and those not mentioned.
+#  1) d) This program may be used by any human being of any sex or gender, including men, women, or any other sex, or gender not mentioned.       
+#  1) e) This program may be used by any human being of any affiliation, political viewpoint, political affiliation, religious belief, religious affiliation, and by those of non-belief or non affiliation.
+#  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -165,14 +167,16 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
-#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any neighbor of their choice electronically or by any other method of transmission. 
+#  4) Any user of this program is granted the freedom to read and study the code.
+#  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
-#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or salable goods.
-#  6) a) Any user of this program is granted the freedom to modify and improve the code.
-#  6) b) When modified or improved, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
+#  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
+#  6) a) Any user of this program is granted the freedom to modify the code.
+#  6) b) When modified, any user of this program is granted the freedom of re-distribution of their modified code if and only if the user attatchs the LICENSE AGREEMENT
 #        in its entirety to their modified code before re-distribution.
-#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or salable goods.
+#  6) c) Any user of this software is granted the freedom to sell their modified copy of this software or to bundle their modified copy with other software or saleable goods.
+#  6) d) Any modified code shall be sublicensed by the modifier and distributor only under the original terms of the Endware End User License Agreement as presented in this LICENSE AGREEMENT.
+#  6) e) Any user of this software agrees that any derivative works produced as a result of user modification will be sublicensed when re-distributed under the original terms of this LICENSE AGREEMENT exactly as presented.
 #  7) a) Any user of this program is granted the freedom to run this code on any computer of their choice.
 #  7) b) Any user of this program is granted the freedom to run as many simultaneous instances of this code, on as many computers as they are able to and desire, and for as long as they desire and are
 #        able to do so with any degree of simultaneity in use. 
@@ -181,14 +185,14 @@
 #  9) Any user of this program is not granted the freedom to arbitrarily procure a copyright on this software as presented, and agrees not to do so.
 #  10) Any user of this program is not granted the freedom to obtain or retain intellectual property rights on this software as presented and agrees not to do so.
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
-#      b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
+#  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
 #  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "as is" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
 #  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
@@ -201,16 +205,16 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) h) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 # version information
-version="0.02"
+version="0.031"
 branch="gnu/linux"
-rev_date="10/02/2017"
+rev_date="08/11/2021"
 
 # user agents file
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -218,7 +222,7 @@ REFERERS="$HOME/bin/referers.txt"
 
 # min delay max delay time between downloads
 min_delay=30
-max_delay=600
+max_delay=1200
 
 ## initial flag switch states
 enode="off"
@@ -235,18 +239,18 @@ urlmode="no"
 for arg in $@
 do 
 
- if [ "$proxypick" == "on" ]
+ if [ "$proxypick" = "on" ]
  then 
  Punsort="$arg"
  proxypick="off"
  shift
- elif [ "$listpick" == "on" ]
+ elif [ "$listpick" = "on" ]
  then
  Lunsort="$arg"
  listpick="off"
  listmode="yes"
  shift 
- elif [ "$urlpick" == "on" ]
+ elif [ "$urlpick" = "on" ]
  then
  url="$arg"
  urlpick="off"
@@ -254,7 +258,7 @@ do
  shift 
  fi 
 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "OLDTUBE: Download videos using tor and youtube-dl, random user-agents and proxies"
  echo " "
@@ -274,7 +278,7 @@ do
  echo "Type: youtube-dl --help for more options to add after the --list list.txt option to pass through to youtube-dl"
  shift 
  exit 0
- elif [ "$arg" == "--version" ]
+ elif [ "$arg" = "--version" ]
  then
  echo "OLDTUBE: version "$version", branch: "$branch", revision date: "$rev_date" "
  echo "Copyright: 2017, THE ENDWARE DEVELOPMENT TEAM" 
@@ -282,63 +286,63 @@ do
  exit 0
 
 
- elif [ "$arg" == "--ua-rand" ]
+ elif [ "$arg" = "--ua-rand" ]
  then
  state="rand"
  uamode="on"
  syntax="good"
  shift
- elif [ "$arg" == "--ua-ranstr" ]
+ elif [ "$arg" = "--ua-ranstr" ]
  then
  state="ranstr"
  uamode="on"
  syntax="good"
  shift
- elif [ "$arg" == "--ua-tor" ]
+ elif [ "$arg" = "--ua-tor" ]
  then
  state="tor"
  uamode="on"
  syntax="good"
  shift
- elif [ "$arg" == "--ua-row1" ]
+ elif [ "$arg" = "--ua-row1" ]
  then
  state="row1"
  uamode="on"
  syntax="good"
  shift
- elif [ "$arg" == "--referer" ]
+ elif [ "$arg" = "--referer" ]
  then
  refmode="off"
  syntax="good"
- elif [ "$arg" == "--refer-rand" ]
+ elif [ "$arg" = "--refer-rand" ]
  then
  refmode="on"
  reftype="rand"
  syntax="good"
  shift 
- elif [ "$arg" == "--refer-ranstr" ]
+ elif [ "$arg" = "--refer-ranstr" ]
  then
  refmode="on"
  reftype="ranstr"
  syntax="good"
  shift 
- elif [ "$arg" == "--exitnode" ]
+ elif [ "$arg" = "--exitnode" ]
  then
  enode="on"
  syntax="good"
  shift  
- elif [ "$arg" == "--proxylist" ]
+ elif [ "$arg" = "--proxylist" ]
  then
  proxies="on"
  proxypick="on"
  syntax="good"
  shift
- elif [ "$arg" == "--list" ]
+ elif [ "$arg" = "--list" ]
  then
  listpick="on"
  syntax="good"
  shift
- elif [ "$arg" == "--url" ]
+ elif [ "$arg" = "--url" ]
  then
  urlpick="on"
  syntax="good"
@@ -354,7 +358,9 @@ json_dump=json.tmp
 json_unpack=json.col
 
 # define the current tor browser user agent
-UA_torbrowser="Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0"
+UA_torbrowser="Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0"
+
+
 # define default headers
 
 HEAD1="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
@@ -363,25 +369,29 @@ HEAD3="Accept-Encoding: gzip, deflate"
 HEAD4="Connection: close"
 HEAD5="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7"
 
+#torsocks_ip=127.0.0.1
+torsocks_ip=192.168.1.103
+torsocks_port=9050
+
 ## Assume final argument is a url and begin download
-if [ "$listmode" == "no" ]
+if [ "$listmode" = "no" ]
 then
   
- if [ "$uamode" == "on" ]
+ if [ "$uamode" = "on" ]
  then
-   if [ "$state" == "rand" ]
+   if [ "$state" = "rand" ]
    then 
     # pick a random user agent
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$state" == "ranstr" ]
+   elif [ "$state" = "ranstr" ]
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
      UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
-   elif [ "$state" == "tor" ] 
+   elif [ "$state" = "tor" ] 
    then
      UA="$UA_torbrowser" 
-   elif [ "$state" == "row1" ] 
+   elif [ "$state" = "row1" ] 
    then
      UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    else 
@@ -390,12 +400,12 @@ then
  fi
 
 
-  if [ "$enode" == "on" ] 
+  if [ "$enode" = "on" ] 
   then
     # check tor project ip
-    torsocks wget -T 60 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
-    torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
-    torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 60 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
+    torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
     
     gunzip "$check_tor".gz    
 
@@ -412,34 +422,34 @@ then
     sleep "$delay"
   fi 
 
-  if [ "$urlmode" == "yes" ]
+  if [ "$urlmode" = "yes" ]
   then
   echo "Downloading "$url""
 
     site_root=$( echo "$url" | cut -d "/" -f 3 )
     web_proto=$( echo "$url" | cut -d "/" -f 1 )
     
-    if [ "$proxies" == "on" ]
+    if [ "$proxies" = "on" ]
     then
      # randomly sort proxies and load the random proxy
      Prxy=$( shuf -n 1 "$Punsort" )
      echo "Random Proxy is" "$Prxy" 
      proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
      geoiplookup "$proxy_ip"
-      if [ "$uamode" == "on" ]
+      if [ "$uamode" = "on" ]
       then 
-      echo "user-agent=" "$UA"    
-      torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$url"
+      echo "user-agent=""$UA"    
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl --restrict-filenames --user-agent "$UA" --proxy "$Prxy" "$url"
       else
-      torsocks -i youtube-dl --proxy "$Prxy" "$url"
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl --restrict-filenames --proxy "$Prxy" "$url"
       fi
     else
-      if [ "$uamode" == "on" ]
+      if [ "$uamode" = "on" ]
       then 
-         echo "user-agent=" "$UA"    
-         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$@" "$url"  
+         echo "user-agent=""$UA"    
+         youtube-dl --restrict-filenames --proxy socks5://"$torsocks_ip":"$torsocks_port" --user-agent "$UA" "$@" "$url"  
       else
-         youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$url"        
+         youtube-dl --restrict-filenames --proxy socks5://"$torsocks_ip":"$torsocks_port" "$@" "$url"        
       fi     
     fi
   else
@@ -449,27 +459,27 @@ then
     site_root=$( echo "$arghold" | cut -d "/" -f 3 )
     web_proto=$( echo "$arghold" | cut -d "/" -f 1 )
     
-   if [ "$proxies" == "on" ]
+   if [ "$proxies" = "on" ]
     then
      # randomly sort proxies and load the random proxy
      Prxy=$( shuf -n 1 "$Punsort" )
      echo "Random Proxy is" "$Prxy" 
      proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
      geoiplookup "$proxy_ip"
-      if [ "$uamode" == "on" ]
+      if [ "$uamode" = "on" ]
       then 
-      echo "user-agent=" "$UA"    
-      torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@"
+      echo "user-agent=""$UA"    
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl --restrict-filenames --user-agent "$UA" --proxy "$Prxy" "$@"
       else
-      torsocks -i youtube-dl --proxy "$Prxy" "$@"
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl --restrict-filenames--proxy "$Prxy" "$@"
       fi
     else
-      if [ "$uamode" == "on" ]
+      if [ "$uamode" = "on" ]
       then 
-         echo "user-agent=" "$UA"    
-         youtube-dl --proxy socks5://127.0.0.1:9050 --user-agent "$UA" "$@"  
+         echo "user-agent=""$UA"    
+         youtube-dl --restrict-filenames --proxy socks5://"$torsocks_ip":"$torsocks_port" --user-agent "$UA" "$@"  
       else
-         youtube-dl --proxy socks5://127.0.0.1:9050 "$@"        
+         youtube-dl --restrict-filenames --proxy socks5://"$torsocks_ip":"$torsocks_port" "$@"        
       fi     
     fi
   fi
@@ -495,16 +505,16 @@ for link in $(cat "$list" ); do
   site_root=$( echo "$link" | cut -d "/" -f 3 )
   web_proto=$( echo "$link" | cut -d "/" -f 1 )
 
-  if [ "$site_root" == "www.youtube.com" ]
+  if [ "$site_root" = "www.youtube.com" ]
   then 
   youtube_site="yes"
-  elif [ "$site_root" == "youtube.com" ]
+  elif [ "$site_root" = "youtube.com" ]
   then 
   youtube_site="yes"
-  elif [ "$site_root" == "wwww.youtu.be" ]
+  elif [ "$site_root" = "wwww.youtu.be" ]
   then 
   youtube_site="yes"
-  elif [ "$site_root" == "youtu.be" ]
+  elif [ "$site_root" = "youtu.be" ]
   then 
   youtube_site="yes"
   else 
@@ -512,21 +522,21 @@ for link in $(cat "$list" ); do
   fi   
 
 
- if [ "$uamode" == "on" ]
+ if [ "$uamode" = "on" ]
  then
-   if [ "$state" == "rand" ]
+   if [ "$state" = "rand" ]
    then 
     # pick a random user agent
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$state" == "ranstr" ]
+   elif [ "$state" = "ranstr" ]
    then 
     # make a random string as the user agent 
     bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
     UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
-   elif [ "$state" == "tor" ]
+   elif [ "$state" = "tor" ]
    then 
    UA="$UA_torbrowser" 
-   elif [ "$state" == "row1" ] 
+   elif [ "$state" = "row1" ] 
    then
    UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    else 
@@ -535,7 +545,7 @@ for link in $(cat "$list" ); do
  fi
 
   
-  if [ "$index" == 1 ]
+  if [ "$index" = 1 ]
   then
   echo "Oldtube is starting now"
   else
@@ -546,12 +556,11 @@ for link in $(cat "$list" ); do
   sleep "$delay"
   fi
  
-  if [ "$enode" == "on" ] 
+  if [ "$enode" = "on" ] 
   then
   # check tor project ip
-  torsocks wget -T 60 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
-  torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png 
-  torsocks wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.ico 
+  torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 60 --secure-protocol=auto --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
+  torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 30 --secure-protocol=auto --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" https://check.torproject.org/torcheck/img/tor-on.png  https://check.torproject.org/torcheck/img/tor-on.ico 
 
   gunzip "$check_tor".gz
 
@@ -571,7 +580,7 @@ for link in $(cat "$list" ); do
   echo "Downloading "$link""
   # initiate download and change user agent
 
-  if [ "$proxies" == "on" ]
+  if [ "$proxies" = "on" ]
   then
     # randomly sort proxies and load the random proxy
     Prxy=$( shuf -n 1 "$Punsort" )
@@ -579,20 +588,20 @@ for link in $(cat "$list" ); do
     proxy_ip=$( echo "$Prxy" | cut -d / -f 3 | cut -d : -f 1 )
     geoiplookup "$proxy_ip"
     
-    if [ "$uamode" == "on" ]
+    if [ "$uamode" = "on" ]
     then 
-      echo "user-agent=" "$UA"
-      torsocks -i youtube-dl --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
+      echo "user-agent=""$UA"
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl  --restrict-filenames --user-agent "$UA" --proxy "$Prxy" "$@" "$link"
     else 
-      torsocks -i youtube-dl --proxy "$Prxy" "$@" "$link"
+      torsocks -a "$torsocks_ip" -P "$torsocks_port" -i youtube-dl  --restrict-filenames --proxy "$Prxy" "$@" "$link"
     fi
   else 
-    if [ "$uamode" == "on" ]
+    if [ "$uamode" = "on" ]
     then 
-      echo "user-agent=" "$UA"
-      youtube-dl --user-agent "$UA" --proxy socks5://127.0.0.1:9050 "$@" "$link"
+      echo "user-agent=""$UA"
+      youtube-dl  --restrict-filenames --user-agent "$UA" --proxy socks5://"$torsocks_ip":"$torsocks_port" "$@" "$link"
     else
-      youtube-dl --proxy socks5://127.0.0.1:9050 "$@" "$link"
+      youtube-dl  --restrict-filenames --proxy socks5://"$torsocks_ip":"$torsocks_port" "$@" "$link"
     fi 
   fi
 date

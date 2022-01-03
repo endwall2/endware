@@ -4,9 +4,9 @@
 # TYPE: BOURNE SHELL SCRIPT
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUNE 21, 2016
-# VERSION: 0.05
+# VERSION: 0.051
 # BRANCH: GNU/LINUX
-# REVISION DATE: July 08, 2019
+# REVISION DATE: November 08, 2021
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2019
 #
 #
@@ -172,9 +172,9 @@
 #################################################################################################################################################################################
 
 ###################################################     BEGINNING OF PROGRAM        #############################################################################################
-version="0.05"
+version="0.051"
 branch="gnu/linux"
-rev_date="08/06/2019"
+rev_date="08/11/2021"
 len_switch="off"
 byte_switch="off"
 random_switch="off"
@@ -184,7 +184,7 @@ nargs=$#
 for arg in "$@"
 do
 
-if [ "$byte_switch"  == "on" ]
+if [ "$byte_switch"  = "on" ]
 then
 bytes="$arg"
 byte_switch="off" 
@@ -193,7 +193,7 @@ syntax="good"
 shift
 fi 
 
-if [ "$file_switch"  == "on" ]
+if [ "$file_switch"  = "on" ]
 then
 outfile="$arg"
 file_switch="off"
@@ -202,7 +202,7 @@ syntax="good"
 shift
 fi 
 
-if [ "$arg" == --help ] 
+if [ "$arg" = --help ] 
 then 
 echo "PASSGEN outputs random passwords using /dev/urandom and base64"
 echo " "
@@ -220,7 +220,7 @@ shift
 exit 1 
 fi
 
-if [ "$arg" == --version ] 
+if [ "$arg" = --version ] 
 then 
 echo "PASSGEN version: "$version" branch: "$branch" revised on: "$rev_date" "
 echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016-2019 "
@@ -228,25 +228,25 @@ shift
 exit 1 
 fi
 
-if [ "$arg" == --rand ]
+if [ "$arg" = --rand ]
 then
 random_switch="on"
 syntax="good"
 shift
 fi
 
-if [ "$arg" == --bytes ]
+if [ "$arg" = --bytes ]
 then
 byte_switch="on"
 syntax="good"
 shift
-elif [ "$arg" == --outfile ]
+elif [ "$arg" = --outfile ]
 then
 file_switch="on"
 syntax="good"
 shift
 else
- if [ "$syntax" == "check" ]
+ if [ "$syntax" = "check" ]
  then 
  echo " BAD SYNTAX: please type $ passgen --help "
  exit 1
@@ -257,23 +257,23 @@ syntax="check"
 
 done
 
-if [ "$random_switch" == "on" ]
+if [ "$random_switch" = "on" ]
 then 
    device="random"
 else 
    device="urandom"
 fi
 
-if [ "$has_file" == "yes" ] 
+if [ "$has_file" = "yes" ] 
 then 
- if [ "$has_byte" == "yes" ] 
+ if [ "$has_byte" = "yes" ] 
  then 
  head -c "$bytes" /dev/"$device" | base64 -i >> "$outfile"
  else
  head -n 3 /dev/"$device" | base64 -i >> "$outfile"
  fi
 else
- if [ "$has_byte" == "yes" ] 
+ if [ "$has_byte" = "yes" ] 
  then 
  head -c "$bytes" /dev/"$device" | base64 -i 
  else

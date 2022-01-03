@@ -7,8 +7,8 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.18
-# REVISION DATE: December 29 2018
+# VERSION: 0.181
+# REVISION DATE: December 27 2021
 # COPYRIGHT: THE ENDWALL DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG:  - Header bug fix
@@ -171,9 +171,9 @@
 #####################################################     BEGINNING OF PROGRAM      #####################################################################################
 
 ########  VERSION INFORMATION  ###################
-version="0.17"
+version="0.181"
 branch="gnu/linux"
-rev_date="23/10/2016"
+rev_date="27/12/2021"
 ##################################################
 
 #change this to whatever path/file you what to use as your user agents file
@@ -190,7 +190,7 @@ nargs=$#
 for arg in $@
 do 
 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "ENDGET: download files remotely using wget, tor, torsocks, random user-agents"
  echo "endget http://www.website.com/index.html"
@@ -202,22 +202,22 @@ do
  echo "type wget --help for more options to add before the web link"
  shift
  exit 0
- elif [ "$arg" == "--version" ]
+ elif [ "$arg" = "--version" ]
  then
  echo "ENDGET: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
  echo "Copyright: The Endware Development Team, 2016"
  shift
  exit 0
- elif [ "$arg" == "--uarand" ]
+ elif [ "$arg" = "--uarand" ]
  then
  state="rand"
  uamode="on"
  shift
- elif [ "$arg" == "--no-agent" ]
+ elif [ "$arg" = "--no-agent" ]
  then
  uamode="off"
  shift 
- elif [ "$arg" == "--no-header" ]
+ elif [ "$arg" = "--no-header" ]
  then
  headmode="off"
  shift  
@@ -227,7 +227,7 @@ do
 
 done
 
-if [ "$state" == "rand" ]
+if [ "$state" = "rand" ]
 then
 #select random user agent
 UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )  
@@ -250,10 +250,10 @@ echo "$UA"
 echo "Downloading "$link""
 echo "UAMODE="$uamode" STATE="$state" HEADMODE="$headmode" "
 
-if [ "$uamode" == "on" ]
+if [ "$uamode" = "on" ]
 then 
 echo "$UA"
- if [ "$headmode" == "on" ]
+ if [ "$headmode" = "on" ]
  then 
  # initate curl download +tor + random agent
  torsocks -a "$torsocks_ip" -P "$torsocks_port" -i wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" "$@" 

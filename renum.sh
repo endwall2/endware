@@ -1,13 +1,13 @@
-#!/bin/sh
+#! /bin/sh
 ################################################################################################
 # TITLE: renum.sh
 # TYPE: Bourne Shell Script
 # DESCRIPTION: Renames files in a directory by number and extention from 000000-999999 sequentially 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: JUL 17, 2016
-# VERSION: 0.10
-# REVISION DATE: AUG 5, 2017
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
+# VERSION: 0.111
+# REVISION DATE: November 08, 2021
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2022
 #
 # CHANGE LOG: - Fixed a bug with for loop read in blank spaces as 1 line 
 #             - Added switch -r for random sort ordering, regular ordering is default 
@@ -39,21 +39,19 @@
 #
 ##################################################################################################
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGMENTS
+#                                         ACKNOWLEDGEMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
-#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
-#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
+#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
-#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
+#  Thank you also to early beta testers including a@a, and to other contributors 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -149,8 +147,8 @@
 #################### BEGINNING OF PROGRAM ###########################
 
 ################### VERSION INFORMATION #################
-version="0.11"
-rev_date="11/08/2017"
+version="0.111"
+rev_date="08/11/2021"
 branch="gnu/linux"
 ############################################
 name_style="number"
@@ -159,7 +157,7 @@ check_type="no"
 
 for arg in "$@"
 do
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
    echo "RENUM: rename randomly named picture files to numbers or string filenames and backup original files"
    echo ""
@@ -174,29 +172,29 @@ do
    echo "$ renum               # default to numbers as filenames in alphabetic sort"
    shift
    exit 0
-   elif [ "$arg" == "--version" ]
+   elif [ "$arg" = "--version" ]
    then
    echo "RENUM: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
    echo "Copyright: The Endware Development Team, 2016"
    shift
    exit 0
-   elif [ "$arg" == --rand ]
+   elif [ "$arg" = --rand ]
    then
    sort_style="rand" 
    shift
-   elif [ "$arg" == --md5str ]
+   elif [ "$arg" = --md5str ]
    then
    name_style="md5str"
    shift
-   elif [ "$arg" == --sha256str ]
+   elif [ "$arg" = --sha256str ]
    then
    name_style="sha256str"
    shift
-   elif [ "$arg" == --ranstr ]
+   elif [ "$arg" = --ranstr ]
    then
    name_style="ranstr"
    shift
-   elif [ "$arg" == --check-type ]
+   elif [ "$arg" = --check-type ]
    then
    check_type="yes"
    shift
@@ -208,7 +206,7 @@ echo "Backing up all files in the current working directory to backup.tar"
 tar -cvf backup.tar *
 
 # switch -r for random file sequential renumbering
-if [ "$sort_style" == "rand" ] ;
+if [ "$sort_style" = "rand" ] ;
 then
 # randomly sort a list of the directory files into a temp file
 ls | sort -R | sort -R | sort -R > filelist.txt
@@ -227,11 +225,11 @@ IFS=$'\n'
 for file in $(cat filelist.txt)
 do
 
-if [ "$check_type" == "yes" ]
+if [ "$check_type" = "yes" ]
 then
 # Get the file type"
 file_type=$( exiftool "$file" | grep "File Type" | head -n 1 | awk ' {print $4}' )
-  if [ "$file_type" == "" ]
+  if [ "$file_type" = "" ]
   then
   ext="unk"
   else
@@ -255,53 +253,53 @@ end=$( echo "$file" | cut -d - -f 2 )
 fi
 
 # Standardize Extentions 
-if [ "$ext" == "jpeg" ]
+if [ "$ext" = "jpeg" ]
  then 
  ext=jpg
-elif [ "$ext" == "JPEG" ]
+elif [ "$ext" = "JPEG" ]
  then 
  ext=jpg
-elif [ "$ext" == "JPG" ]
+elif [ "$ext" = "JPG" ]
  then 
  ext=jpg
-elif [ "$ext" == "jpg" ]
+elif [ "$ext" = "jpg" ]
  then 
  ext=jpg
-elif [ "$ext" == "GIF" ]
+elif [ "$ext" = "GIF" ]
  then 
  ext=gif
-elif [ "$ext" == "gif" ]
+elif [ "$ext" = "gif" ]
  then 
  ext=gif 
-elif [ "$ext" == "TIFF" ]
+elif [ "$ext" = "TIFF" ]
  then 
  ext=tif
-elif [ "$ext" == "tiff" ]
+elif [ "$ext" = "tiff" ]
  then 
  ext=tif 
-elif [ "$ext" == "BMP" ]
+elif [ "$ext" = "BMP" ]
  then 
  ext=bmp
-elif [ "$ext" == "bmp" ]
+elif [ "$ext" = "bmp" ]
  then 
  ext=bmp 
-elif [ "$ext" == "PNG" ]
+elif [ "$ext" = "PNG" ]
  then 
  ext=png
-elif [ "$ext" == "png" ]
+elif [ "$ext" = "png" ]
  then 
  ext=png
-elif [ "$ext" == "SVG" ]
+elif [ "$ext" = "SVG" ]
  then 
  ext=svg 
-elif [ "$ext" == "svg" ]
+elif [ "$ext" = "svg" ]
  then 
  ext=svg  
 else
  ext="$ext"
 fi
 
-if [ $name_style == "number" ]
+if [ $name_style = "number" ]
 then
  # Relabel index to an 8 digit number
   if [ "$index" -lt 10 ]
@@ -331,40 +329,40 @@ then
    fi
 fi
 # skip renaming the list or the backups or hash lists
-if [ "$file" == "filelist.txt"  ]
+if [ "$file" = "filelist.txt"  ]
  then  
  echo "Skipping $file" 
-elif [ "$file" == "concordance.txt"  ]
+elif [ "$file" = "concordance.txt"  ]
  then  
  echo "Skipping $file" 
-elif [ "$file" == "backup.tar" ]
+elif [ "$file" = "backup.tar" ]
  then 
  echo "Skipping $file" 
-elif [ "$file" == "backup.tar.gz" ]
+elif [ "$file" = "backup.tar.gz" ]
  then 
  echo "Skipping $file" 
-elif [ "$file" == "sha256.txt" ]
+elif [ "$file" = "sha256.txt" ]
  then
  echo "Skipping $file" 
-elif [ "$file" == "md5.txt" ]
+elif [ "$file" = "md5.txt" ]
  then
  echo "Skipping $file" 
-elif [ "$file" == "sha256_renum.txt" ]
+elif [ "$file" = "sha256_renum.txt" ]
  then
  echo "Skipping $file" 
-elif [ "$file" == "md5_renum.txt" ]
+elif [ "$file" = "md5_renum.txt" ]
  then
  echo "Skipping $file" 
-elif [ "$file" == "renum" ]
+elif [ "$file" = "renum" ]
  then
  echo "Skipping $file" 
 else
- if [ "$name_style" == "md5str" ] 
+ if [ "$name_style" = "md5str" ] 
  then
   md5var=$( md5sum "$file" | awk '{print $1}' )
   sha256var=$(sha256sum "$file" | awk '{print $1}')
   filename=""
-  while [ "$filename" == "" ]
+  while [ "$filename" = "" ]
   do
   filename="$( echo "$md5var" | base64 -i | tr -d "\n=+=\/" )"
   done
@@ -377,14 +375,14 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)    
- elif [ "$name_style" == "sha256str" ] 
+ elif [ "$name_style" = "sha256str" ] 
  then
   md5var=$( md5sum "$file" | awk '{print $1}' )
   sha256var=$( sha256sum "$file" | awk '{print $1}')
   # make a random string for the name
   bytes=$( expr 18 + $RANDOM  % 48  )
   filename=""
-  while [ "$filename" == "" ]
+  while [ "$filename" = "" ]
   do
   echo "$sha256var"
   filename="$( echo "$sha256var" | base64 -i | tr -d "\n=+=\/" )"
@@ -398,14 +396,14 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)     
- elif [ "$name_style" == "ranstr" ] 
+ elif [ "$name_style" = "ranstr" ] 
  then
   md5var=$( md5sum "$file" | awk '{print $1}' )
   sha256var=$(sha256sum "$file" | awk '{print $1}')
   # make a random string for the name
   bytes=$( expr 18 + $RANDOM  % 48  )
   filename=""
-  while [ "$filename" == "" ]
+  while [ "$filename" = "" ]
   do
   filename="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')"
   done
@@ -418,7 +416,7 @@ else
   echo "$md5var" " $filename.$ext" >> renum/md5_renum.txt
   echo ""$file" ->  "$filename.$ext" " >> renum/concordance.txt
   index=$(expr "$index" + 1)    
- elif [ "$name_style" == "number" ]
+ elif [ "$name_style" = "number" ]
  then
   echo "Renaming file: "$file"  to "$filenum.$ext" "
   md5var=$( md5sum "$file" | awk '{print $1}' )

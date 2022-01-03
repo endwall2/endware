@@ -1,23 +1,18 @@
 #! /bin/sh
 ######################################################################################
-# TITLE: pdfclean.sh
+# TITLE: pdfmerge.sh
 # TYPE: Bourne Shell Script
-# DESCRIPTION: Cleans a pdf file
+# DESCRIPTION: merge multiple pdf files sequentially using ghostscript
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-# CREATION DATE: JUNE 3 2016
-# VERSION: 0.071
-# REVISION DATE: November 08, 2021
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2019
+# CREATION DATE: Jan 12 2019
+# VERSION: 0.021
+# REVISION DATE: Dec 27 2021
 #
-# CHANGE LOG: - Added --all flag for batch job inside a directory
-#             - Changed instructions
+# CHANGE LOG: - Fork from pdfclean
 #             - Worked on instructions section + Added Acknowledgements + EULA
-#             - Commented out pdfcop
-#             - Commented out verapdf 
-#             - File Creation
 #####################################################################################
 # DEPENDENCIES: perl-image-exiftool, qpdf, pdfid.py, ghostscript  
-#               libfaketime, faketime, date, pdfcop,verapdf
 #####################################################################################
 # INSTRUCTIONS: 
 #  STEP 1) RETRIEVE PACKAGES 
@@ -31,61 +26,8 @@
 # $ mkdir ~/git
 # $ export PATH=$PATH:/home/$USER/bin
 #
-#  STEP 3) DOWNLOAD pdfid
-# $ cd ~/src
-# $ torsocks wget http://didierstevens.com/files/software/pdfid_v0_2_1.zip
-# $ unzip pdfid_v0_2_1.zip
-# $ cp *.py ~/bin	e
-# 
-# STEP 3) INSTALL origami 
-# $ gem install origami 
-# $ gem install core_ext
-# $ gem install psych
-#
-# STEP 4) DOWNLOAD origami git 
-# $ cd ~/git 
-# $ torsocks -i git clone https://github.com/gdelugre/origami.git
-# $ cd ~/bin 
-# $ mkdir -p ~/bin/config
-# $ cp ~/git/origami/bin/config/pdfcop.conf.yml ~/bin/config/
-# $ ln -s ~/git/origami/bin/pdfcop  pdfcop
-# $ ln -s ~/git/origami/bin/pdfmetadata  pdfmetadata
-# $ ln -s ~/git/origami/bin/pdf2pdfa  pdf2pdfa
-# 
-# STEP 5) INSTAL mat  (Not Working)
-# $ cd ~/git
-# $ t  torsocks git clone https://git.torproject.org/user/jvoisin/mat.git
-# or
-# $ torsocks git clone http://dccbbv6cooddgcrq.onion/user/jvoisin/mat.git
-# $ cd ~/bin
-# $ ln -s ~/git/MAT/mat mat
-# $ torsocks pacman -S poppler python2-poppler mutagen python-mutagen python-cairo 
-#
-# STEP 6) INSTALL verapdf  ( optional requires JAVA/ Untested)
-# $ cd ~/git
-# $ torsocks git clone https://github.com/veraPDF/veraPDF-apps.git
-# $ cd ~/git/veraPDF-apps/installer/src/main/scripts
-# $ ./verapdf.sh
-#
-# STEP 7) Download pdf file with safedown
-# $ safedown http://www.website.com/strange.pdf 
-#
-# STEP 8) Get and configure pdfclean.sh
-# $ cd ~/bin
-# $ torsocks wget https://github.com/endwall2/endware/raw/master/pdfclean.sh
-# $ mv pdfclean.sh pdfclean
-# $ chmod u+rwx pdfclean  
-#
-# STEP 9) Safemode / firejail
-# $ firejail --protocol=unix  --private-tmp --private-etc=localtime --nogroups --net=none
-# $ cd /dev/shm/temp
-# or
-# $ safemode
-# STEP 10) Clean the pdf that was downloaded
-# $ pdfclean strange.pdf
-# 
-# STEP 11) Open file with pdfviewer while in safemode
-# $ mupdf strange.clean.pdf
+# $ pdfmerge doc1.pdf doc2.pdf
+# $ mupdf merge.pdf
 ########################################################################################
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGEMENTS
@@ -198,9 +140,9 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 ####################################               BEGINNING OF PROGRAM              ########################################################################
-version="0.071"
+version="0.021"
 branch="gnu/linux"
-rev_date="08/11/2021"
+rev_date="27/12/2021"
 
 ## initial flag switch states
 state="file"
@@ -210,13 +152,13 @@ for arg in $@
 do 
  if [ "$arg" = "--help" ]
  then
- echo "PDFCLEAN: Clean a pdf of metadata and javascript and format it using ghostscript."
+ echo "PDFMERGE: Merge a set of pdfs into a merged output pdf file merge.pdf"
  echo " "
- echo "USAGE:  pdfclean --option file.pdf" 
- echo "pdfclean --help    # print usage information"
- echo "pdfclean --version # print version information"
- echo "pdfclean file.pdf  # standard pdf clean on one file" 
- echo "pdfclean --all # creates a list of all pdf files in the pwd and operates on them"
+ echo "USAGE:  pdfmerge --option file1.pdf file2.pdf" 
+ echo "pdfmerge --help    # print usage information"
+ echo "pdfmerge --version # print version information"
+ echo "pdfmerge file1.pdf file2.pdf  # merge file1 and file2 into merge.pdf" 
+ echo "pdfmerge file1.pdf file2.pdf file3.pdf ...  # merge file1,file2 and file3 into merge.pdf" 
  echo " "
  shift 
  exit 0
@@ -226,11 +168,6 @@ do
  echo "Copyright: 2015-2017, THE ENDWARE DEVELOPMENT TEAM" 
  shift
  exit 0
- elif [ "$arg" = "--all" ]
- then
- state="all"
- shift
- shift 
  fi  
 
 # store the argument
@@ -240,66 +177,8 @@ done
 
 # last argument is assumed to be a filename
 
-## pdf cleaning function
-cleanpdf(){
-file=$1
-rt=$( echo "$file" | cut -d . -f 1 ) 
-
-exiftool -all= "$file" 
-qpdf --suppress-recovery --object-streams=generate --decrypt --linearize "$file" "$file"_sane 
-
-# set pdfmark with metadata
-echo "[ /Producer () /DOCINFO pdfmark ]" > pdfmark 
-LANG=C 
-TZ=UTC 
-faketime "1970-01-01 00:00:00 UTC" /bin/date
 # reconstruct file with ghostscript
-gs -dPDFA=2 -dColorConversionStrategy=/UseDeviceIndependentColor -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -dPDFACompatibilityPolicy=1 -sOutputFile="${file%.*}".clean.pdf "$file"_sane "$(pwd)"/pdfmark 
-
-## Add this back in  if you have a custom PDFA_def.ps file
-#/path/to/custom/PDFA_def.ps "$file"_sane "$(pwd)"/pdfmark 
-
-##### ENFORCE PDFA  
-pdf2pdfa -o "$rt".pdfa_clean.pdf "${file%.*}".clean.pdf  
-
-## VERAPDF ##  JAVA required
-#verapdf --flavour 2b --format text "$rt".pdfa_clean.pdf 2>/dev/null PASS /dev/shm/temp/"$rt".pdfa_clean.pdf 
-
-##  PDFCOP 
-pdfcop -p paranoid "$rt".pdfa_clean.pdf    
-
-## observe data types post cleaning/ reconstruction
-pdfid.py "$rt".pdfa_clean.pdf 
-## observe the metadata post cleaning/ reconstruction
-pdfmetadata "$rt".pdfa_clean.pdf
-
-## Re output results of pdfcop 
-pdfcop -p paranoid "$rt".pdfa_clean.pdf | grep policy
-
-## delete intermediary files
-rm "$file"_sane
-rm "$rt".clean.pdf
-rm pdfmark
-}
-
-if [ "$state" = "all" ]
-then
-ls *.pdf > file_list.txt 
-IFS=$'\n' 
-# main loop
- for file in $(cat file_list.txt) 
- do
- echo "Cleaning $file"
- cleanpdf $file
- echo "$file has been cleaned."
- done
- rm file_list.txt
-elif [ "$arghold" != "" ]
-then
- cleanpdf $arghold
-else 
- echo "Usage Error: Type pdfclean --help for usage "
-fi
+gs -dPDFA=2 -dColorConversionStrategy=/UseDeviceIndependentColor -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -dPDFACompatibilityPolicy=1 -sOutputFile=merge.pdf "$@"  
 
 exit "$?"
 

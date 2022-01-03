@@ -5,9 +5,9 @@
 # DESCRIPTION: Checks a /24,/16 or /8, CIDR block using geoiplookup or iplookup for an input ip address
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: MAY 12 26, 2016
-# VERSION: 0.06
-# REVISION DATE: AUGUST 25, 2018
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
+# VERSION: 0.061
+# REVISION DATE: November 08, 2021
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2022
 #
 # CHANGE LOG:   - Merge check16,24,8 into ipsweep
 #               - Added flag -e for endware iplookup (default: geoiplookup)
@@ -144,8 +144,8 @@
 
 ############################################    BEGINNING OF PROGRAM             ##########################################################
 ####################    VERSION INFORMATION    ##################################
-version="0.06"
-rev_date="28/08/2018"
+version="0.061"
+rev_date="08/11/2021"
 branch="gnu/linux"
 product="ipsweep"
 #########################   DEFAULTS   ##################################

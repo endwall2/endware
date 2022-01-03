@@ -1,106 +1,50 @@
 #! /bin/sh
-######################################################################################
-# TITLE: pdfclean.sh
+################################################################################################
+# TITLE: condense.sh
 # TYPE: Bourne Shell Script
-# DESCRIPTION: Cleans a pdf file
+# DESCRIPTION: Traverses all directories recursively and then copies all files into the directory "condense"
+#              preventing overwriting exact duplicates by testing, and then incrementing number until unique filename is found
+# 
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
-# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017
-# CREATION DATE: JUNE 3 2016
-# VERSION: 0.071
+# CREATION DATE: SEP 27, 2019
+# VERSION: 0.031
 # REVISION DATE: November 08, 2021
+# COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2019-2022
 #
-# CHANGE LOG: - Added --all flag for batch job inside a directory
-#             - Changed instructions
-#             - Worked on instructions section + Added Acknowledgements + EULA
-#             - Commented out pdfcop
-#             - Commented out verapdf 
-#             - File Creation
-#####################################################################################
-# DEPENDENCIES: perl-image-exiftool, qpdf, pdfid.py, ghostscript  
-#               libfaketime, faketime, date, pdfcop,verapdf
-#####################################################################################
-# INSTRUCTIONS: 
-#  STEP 1) RETRIEVE PACKAGES 
-# $ sudo pacman -S firejail gem tor torsocks qpdf git wget perl-image-exiftool ghostscript libfaketime
-# $ sudo apt-get install firejail gem tor torsocks qpdf git wget perl-image-exiftool ghostscript libfaketime
-# $ sudo yum install firejail gem tor torsocks qpdf git wget perl-image-exiftool ghostscript libfaketime
+# CHANGE LOG: 
 #
-#  STEP 2) MAKE SOME DIRECTORIES
+#################################################################################################
+#  DEPENDENCIES:  find, cut, cp , expr 
+#################################################################################################
+#####################################################################
+# Instructions:  make a directory ~/bin and copy this file there, add this to the $PATH
+#                then make the file executable and run it.
 # $ mkdir ~/bin
-# $ mkdir ~/src
-# $ mkdir ~/git
-# $ export PATH=$PATH:/home/$USER/bin
-#
-#  STEP 3) DOWNLOAD pdfid
-# $ cd ~/src
-# $ torsocks wget http://didierstevens.com/files/software/pdfid_v0_2_1.zip
-# $ unzip pdfid_v0_2_1.zip
-# $ cp *.py ~/bin	e
-# 
-# STEP 3) INSTALL origami 
-# $ gem install origami 
-# $ gem install core_ext
-# $ gem install psych
-#
-# STEP 4) DOWNLOAD origami git 
-# $ cd ~/git 
-# $ torsocks -i git clone https://github.com/gdelugre/origami.git
-# $ cd ~/bin 
-# $ mkdir -p ~/bin/config
-# $ cp ~/git/origami/bin/config/pdfcop.conf.yml ~/bin/config/
-# $ ln -s ~/git/origami/bin/pdfcop  pdfcop
-# $ ln -s ~/git/origami/bin/pdfmetadata  pdfmetadata
-# $ ln -s ~/git/origami/bin/pdf2pdfa  pdf2pdfa
-# 
-# STEP 5) INSTAL mat  (Not Working)
-# $ cd ~/git
-# $ t  torsocks git clone https://git.torproject.org/user/jvoisin/mat.git
-# or
-# $ torsocks git clone http://dccbbv6cooddgcrq.onion/user/jvoisin/mat.git
+# $ cp condense.sh ~/bin/condense
 # $ cd ~/bin
-# $ ln -s ~/git/MAT/mat mat
-# $ torsocks pacman -S poppler python2-poppler mutagen python-mutagen python-cairo 
+# $ chmod u+wrx condense
+# $ export PATH=~/bin:"$PATH"
 #
-# STEP 6) INSTALL verapdf  ( optional requires JAVA/ Untested)
-# $ cd ~/git
-# $ torsocks git clone https://github.com/veraPDF/veraPDF-apps.git
-# $ cd ~/git/veraPDF-apps/installer/src/main/scripts
-# $ ./verapdf.sh
+# Navigate to the directory of interest and Run condense
+# $ condense
 #
-# STEP 7) Download pdf file with safedown
-# $ safedown http://www.website.com/strange.pdf 
-#
-# STEP 8) Get and configure pdfclean.sh
-# $ cd ~/bin
-# $ torsocks wget https://github.com/endwall2/endware/raw/master/pdfclean.sh
-# $ mv pdfclean.sh pdfclean
-# $ chmod u+rwx pdfclean  
-#
-# STEP 9) Safemode / firejail
-# $ firejail --protocol=unix  --private-tmp --private-etc=localtime --nogroups --net=none
-# $ cd /dev/shm/temp
-# or
-# $ safemode
-# STEP 10) Clean the pdf that was downloaded
-# $ pdfclean strange.pdf
-# 
-# STEP 11) Open file with pdfviewer while in safemode
-# $ mupdf strange.clean.pdf
-########################################################################################
+####################################################################
 #############################################################################################################################################################################
-#                                         ACKNOWLEDGEMENTS
+#                                         ACKNOWLEDGMENTS
 #############################################################################################################################################################################
-#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, and SnakeDude who graciously hosted and promoted this software project.  
-#  Without their efforts and their wonderful website www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
+#  The Endware Development Team would like to acknowledge the work and efforts of OdiliTime, Balrog and SnakeDude who graciously hosted and promoted this software project. 
+#  We would also like to acknowledge the work and efforts of Stephen Lynx, the creator and maintainer of LynxChan.  
+#  Without their efforts and their wonderful web site www.endchan.xyz, The Endware Suite would not exist in the public domain at all in any form. 
 #
-#  So thanks to OdiliTime, and to SnakeDude for inspiring this work and for hosting and promoting it. 
+#  So thanks to OdiliTime, Balrog, SnakeDude, and Stephen Lynx for inspiring this work and for hosting and promoting it. 
 #  
 #  The Endware Suite including Endwall,Endsets,Endlists,Endtools,Endloads and Endtube are named in honor of Endchan.
 #
 #  The Endware Suite is available for download at the following locations:
 #  https://gitgud.io/Endwall/ , https://github.com/endwall2/, https://www.endchan.xyz/os/, http://42xlyaqlurifvvtq.onion,
 #
-#  Thank you also to early beta testers including a@a, and to other contributors 
+#  Special thanks to the designer of the current EndWare logo which replaces the previous logo. It looks great!
+#  Thank you also to early beta testers including a@a, and to other contributors including Joshua Moon (for user_agents.txt split and other good suggestions) 
 #  as well as to the detractors who helped to critique this work and to ultimately improve it.  
 #  
 #  We also acknowledge paste.debian.net, ix.io, gitgud and github for their hosting services, 
@@ -120,8 +64,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.17
-#  VERSION DATE: JUNE 16, 2018
+#  VERSION: 1.18
+#  VERSION DATE: JUNE 28, 2018
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
 #  ALL RIGHTS RESERVED  
 #    
@@ -141,11 +85,11 @@
 #  1) f) This program may be used by any human being of any race, ethnicity, identity, origin, genetic makeup, physical appearance, mental ability, and by those of any other physical 
 #        or non physical characteristics of differentiation.
 #  1) g) This program may be used by any human being of any sexual orientation, including heterosexual, homosexual, bisexual, asexual, or any other sexual orientation not mentioned.
-#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. i
-#  1) j) This program may be used by anyone. 
+#  1) h) This program may be used by all business classes and business entities, including corporations, limited liability companies, sole proprietorships, partnerships, joint venture companies, private companies, publicly owned companies, and any other business class not specifically mentioned. 
+#  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus,  motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
 #        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
@@ -154,7 +98,7 @@
 #      business use, commercial use, government use, non-governmental organization use, non-profit organization use, military use, civilian use, and generally any other use 
 #      not specifically mentioned.
 #  WHAT MAY A "USER" DO WITH THIS PROGRAM ?
-#  4) Any user of this program is granted the freedom to study the code.
+#  4) Any user of this program is granted the freedom to read and study the code.
 #  5) a) Any user of this program is granted the freedom to distribute, publish, and share the code with any recipient of their choice electronically or by any other method of transmission. 
 #  5) b) The LICENCSE AGREEMENT, ACKNOWLEDGMENTS, Header and Instructions must remain attached to the code in their entirety when re-distributed.
 #  5) c) Any user of this program is granted the freedom to sell this software as distributed or to bundle it with other software or saleable goods.
@@ -192,115 +136,128 @@
 #  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) j) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
-####################################               BEGINNING OF PROGRAM              ########################################################################
-version="0.071"
-branch="gnu/linux"
+
+#################### BEGINNING OF PROGRAM ###########################
+
+################### VERSION INFORMATION #################
+version="0.031"
 rev_date="08/11/2021"
+branch="gnu/linux"
 
-## initial flag switch states
-state="file"
-
-##  get input list from shell argument 
-for arg in $@
-do 
+##################  SHELL ARGUMENT CONTROL #########################
+for arg in "$@"
+do
  if [ "$arg" = "--help" ]
  then
- echo "PDFCLEAN: Clean a pdf of metadata and javascript and format it using ghostscript."
- echo " "
- echo "USAGE:  pdfclean --option file.pdf" 
- echo "pdfclean --help    # print usage information"
- echo "pdfclean --version # print version information"
- echo "pdfclean file.pdf  # standard pdf clean on one file" 
- echo "pdfclean --all # creates a list of all pdf files in the pwd and operates on them"
- echo " "
- shift 
- exit 0
- elif [ "$arg" = "--version" ]
- then
- echo "PDFCLEAN: version "$version", branch: "$branch", revision date: "$rev_date" "
- echo "Copyright: 2015-2017, THE ENDWARE DEVELOPMENT TEAM" 
- shift
- exit 0
- elif [ "$arg" = "--all" ]
- then
- state="all"
- shift
- shift 
+   echo "CONDENSE: condense the files in all subfolders of the current folder into the directory \"condense\" "
+   echo ""
+   echo "USAGE:"
+   echo "$ condense --help        # usage messages"
+   echo "$ condense --version     # print version information"
+   echo "$ condense               # default to running in current directory and on it's subfolders"
+   shift
+   exit 0
+   elif [ "$arg" = "--version" ]
+   then
+   echo "RENUM: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
+   echo "Copyright: The Endware Development Team, 2019"
+   shift
+   exit 0
  fi  
+done 
 
-# store the argument
-arghold="$arg"
- 
-done
+########################## BEGINING OF THE PROGRAM #######################
 
-# last argument is assumed to be a filename
-
-## pdf cleaning function
-cleanpdf(){
-file=$1
-rt=$( echo "$file" | cut -d . -f 1 ) 
-
-exiftool -all= "$file" 
-qpdf --suppress-recovery --object-streams=generate --decrypt --linearize "$file" "$file"_sane 
-
-# set pdfmark with metadata
-echo "[ /Producer () /DOCINFO pdfmark ]" > pdfmark 
-LANG=C 
-TZ=UTC 
-faketime "1970-01-01 00:00:00 UTC" /bin/date
-# reconstruct file with ghostscript
-gs -dPDFA=2 -dColorConversionStrategy=/UseDeviceIndependentColor -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sProcessColorModel=DeviceCMYK -dPDFACompatibilityPolicy=1 -sOutputFile="${file%.*}".clean.pdf "$file"_sane "$(pwd)"/pdfmark 
-
-## Add this back in  if you have a custom PDFA_def.ps file
-#/path/to/custom/PDFA_def.ps "$file"_sane "$(pwd)"/pdfmark 
-
-##### ENFORCE PDFA  
-pdf2pdfa -o "$rt".pdfa_clean.pdf "${file%.*}".clean.pdf  
-
-## VERAPDF ##  JAVA required
-#verapdf --flavour 2b --format text "$rt".pdfa_clean.pdf 2>/dev/null PASS /dev/shm/temp/"$rt".pdfa_clean.pdf 
-
-##  PDFCOP 
-pdfcop -p paranoid "$rt".pdfa_clean.pdf    
-
-## observe data types post cleaning/ reconstruction
-pdfid.py "$rt".pdfa_clean.pdf 
-## observe the metadata post cleaning/ reconstruction
-pdfmetadata "$rt".pdfa_clean.pdf
-
-## Re output results of pdfcop 
-pdfcop -p paranoid "$rt".pdfa_clean.pdf | grep policy
-
-## delete intermediary files
-rm "$file"_sane
-rm "$rt".clean.pdf
-rm pdfmark
-}
-
-if [ "$state" = "all" ]
-then
-ls *.pdf > file_list.txt 
-IFS=$'\n' 
-# main loop
- for file in $(cat file_list.txt) 
- do
- echo "Cleaning $file"
- cleanpdf $file
- echo "$file has been cleaned."
- done
- rm file_list.txt
-elif [ "$arghold" != "" ]
-then
- cleanpdf $arghold
+## Make the condense folder
+if [ ! -d "condense" ]
+then 
+  mkdir -p "condense"
 else 
- echo "Usage Error: Type pdfclean --help for usage "
+  echo "condense folder already exists"
 fi
 
-exit "$?"
+index=0   # index for appending number to copies 
+IFS=$'\n' # internal field separator 
 
-####################################                END OF PROGRAM                ##########################################################################
+basedir=$(pwd)
+#currentDir=$(pwd)
+
+## find all files and subdirectories place the result in a text file
+find  > "$basedir"/condense/find.txt
+
+# loop through the results and save only the files that are relevant into a new text file files.txt
+for file in $(cat "$basedir"/condense/find.txt)
+do
+ if [ -d $file ]
+ then
+   echo " "$file" is a directory, skipping"
+ elif [ "$file" = "./condense/find.txt" ]
+ then
+   echo "Skipping file" "$file"
+ elif [ "$file" = "./condense/files.txt" ]
+ then 
+   echo "Skipping file" "$file"
+ else
+  ## echo " "$file" is a file"
+ trunc=$( echo $file | cut -d / -f 1 --complement ) 
+ echo "$basedir/$trunc" >> "$basedir"/condense/files.txt
+ fi
+done 
+
+##  Now you should have a list of absolute path files in files.txt
+##  we are going to loop over this list and test if the filename already exists
+##  in the directory condense, if not copy the file, if so, increment the counter and test if that 
+##  next name exists, when it doesn't then use this as the name to copy the file to
+
+for file in $( cat "$basedir"/condense/files.txt )
+do
+
+index=2
+filename=$( echo "$file" | cut -d '/' -f "$index" ) # set the filename
+
+# while loop attempts to get the filename after the terminal /
+  while [ "$filename" != "" ]
+  do
+  index=$( expr "$index" + 1 )
+  filename=$( echo "$file" | cut -d '/' -f "$index" ) 
+  # echo "$filename" "$index"
+  done
+  
+index=$( expr "$index" - 1 )  # step back one
+filename=$( echo "$file" | cut -d '/' -f "$index" ) # set the filename
+ 
+index=1 # set the index to 1 for the first copy
+basename=$(echo "$filename" | cut -d  '.' -f 1 ) # store the base name of the file
+ext=$(echo "$filename" | cut -d '.' -f 2 ) # store the extention
+   
+# echo "$basename"   
+   
+  # check if the filename exists in condense if so increment index and add it to the basename and try again  
+  while [ -e "$basedir"/condense/"$filename" ]
+  do
+  filename="$basename"_"$index".$ext
+  index=$(expr "$index" + 1)
+  done
+
+# now that you have a unique filename 
+# copy the file to the folder condense
+
+cp -n "$file" "$basedir"/condense/"$filename"
+
+done
+
+echo "All files have been copied into the folder $basedir/condense"
+
+## cleanup
+rm "$basedir"/condense/files.txt
+rm "$basedir"/condense/find.txt
+
+exit $?
+######################################## END OF PROGRAM ##########################################################
+
+

@@ -6,7 +6,7 @@
 # Copyright: 2017, The Endware Development Team
 # Creation Date: May 7, 2017
 # Version: 0.1172
-# Revision Date: December 27, 2021
+# Revision Date: July 27, 2021
 #
 # Recent Changes: - Add multi language channels
 #                 - forked from endstream 0.26
@@ -143,8 +143,8 @@
 
 ###############  VERSION INFORMATION  ##############
 version="0.1172"
-rev_date="27/12/2021"
-branch="gnu/linux"
+rev_date="27/07/2021"
+branch="BSD"
 product="ENDRADIO"
 ##################################################
 chan_columns="$HOME/bin/radio.txt"
@@ -372,7 +372,7 @@ echo " "
 
 for arg in $@
 do 
- if [ "$arg" = "--help" ]
+ if [ "$arg" == "--help" ]
  then
    echo "ENDRADIO: listen to online radio streams behind tor using mpv"
    echo "Type in the terminal $ endradio "
@@ -390,60 +390,60 @@ do
    echo "$ endradio  "
    shift
    exit 0
-   elif [ "$arg" = "--version" ]
+   elif [ "$arg" == "--version" ]
    then
    echo "ENDRADIO: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
    echo "Copyright: The Endware Development Team, 2016"
    shift
    exit 0
-   elif [ "$arg" = "--list-matrix" ]
+   elif [ "$arg" == "--list-matrix" ]
    then 
    channel_matrix
    shift
    exit 0
-   elif [ "$arg" = "--list-all" ]
+   elif [ "$arg" == "--list-all" ]
    then
    more "$chan_columns"
    shift
-   elif [ "$arg" = "--uarand" ]
+   elif [ "$arg" == "--uarand" ]
    then
    state="rand"
    uamode="on"
    shift
-   elif [ "$arg" = "--no-agent" ]
+   elif [ "$arg" == "--no-agent" ]
    then
    uamode="off"
    shift 
-   elif [ "$arg" = "--no-header" ]
+   elif [ "$arg" == "--no-header" ]
    then
    headmode="off"
    shift  
    exit 0   
-   elif [ "$arg" = "--ua-rand" ]
+   elif [ "$arg" == "--ua-rand" ]
    then
    uastate="rand"
    uamode="on"
    shift
-   elif [ "$arg" = "--ua-ranstr" ]
+   elif [ "$arg" == "--ua-ranstr" ]
    then
    uastate="ranstr"
    uamode="on"
    shift
-   elif [ "$arg" = "--ua-tor" ]
+   elif [ "$arg" == "--ua-tor" ]
    then
    uastate="tor"
    uamode="on"
    shift
-   elif [ "$arg" = "--ua-row1" ]
+   elif [ "$arg" == "--ua-row1" ]
    then
    uastate="row1"
    uamode="on"
    shift
-   elif [ "$arg" = "--no-agent" ]
+   elif [ "$arg" == "--no-agent" ]
    then
    uamode="off"
    shift 
-   elif [ "$arg" = "--no-header" ]
+   elif [ "$arg" == "--no-header" ]
    then
    headmode="off"
    shift   
@@ -478,7 +478,8 @@ use_playlist="no"
 chan_name="WKSU News";;
 # 5) Infowars
 5) 
-  rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 7 ) 
+  rnum="$(expr $(expr $(head -n 1 /dev/urandom | od -A n -i | head -n 1 | awk '{ print $1 }' ) % 7 + 20 ) % 7)"
+
   case $rnum in 
   0) link="http://50.7.79.92:80"
      #link=http://stream-aac.infowars.com 
@@ -602,7 +603,8 @@ chan_name="Bloomberg Radio";;
 # 26) Genesis Communications Network 
 26) 
 
- rnum=$( expr $( head -c 2 /dev/urandom | od -A n -i ) % 6 ) 
+ rnum="$(expr $(expr $(head -n 1 /dev/urandom | od -A n -i | head -n 1 | awk '{ print $1 }' ) % 6 + 30 ) % 6)" 
+ 
  case $rnum in 
  0) link=http://www.gcnlive.com/playlists/live/channel1.m3u ;;
  1) link=http://www.gcnlive.com/playlists/live/channel2.m3u ;;
@@ -1979,81 +1981,81 @@ esac
 menu_status()
 {
 input=$1
-if [ "$input" = "" ]
+if [ "$input" == "" ]
 then
 chan_state="return"
 menstat="no"
-elif [ "$input" = "q" ]
+elif [ "$input" == "q" ]
 then
 menstat="yes"
 menu="q"
-elif [ "$input" = "n" ]
+elif [ "$input" == "n" ]
 then 
 menstat="yes"
 menu="n"
-elif [ "$input" = "m" ]
+elif [ "$input" == "m" ]
 then
 menstat="yes"
 menu="m"
-elif [ "$input" = "ua-tor" ]
+elif [ "$input" == "ua-tor" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="tor"
 uamode="on"
-elif [ "$input" = "ua-row1" ]
+elif [ "$input" == "ua-row1" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="row1"
 uamode="on"
-elif [ "$input" = "ua-rand" ]
+elif [ "$input" == "ua-rand" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="rand"
 uamode="on"
-elif [ "$input" = "ua-ranstr" ]
+elif [ "$input" == "ua-ranstr" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="ranstr"
 uamode="on"
-elif [ "$input" = "ua-off" ]
+elif [ "$input" == "ua-off" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="off"
 uamode="off"
-elif [ "$input" = "+" ]
+elif [ "$input" == "+" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" = "++" ]
+elif [ "$input" == "++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" = "+++" ]
+elif [ "$input" == "+++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" = "++++" ]
+elif [ "$input" == "++++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" = "-" ]
+elif [ "$input" == "-" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" = "--" ]
+elif [ "$input" == "--" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" = "[" ]
+elif [ "$input" == "[" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" = "]" ]
+elif [ "$input" == "]" ]
 then
 menstat="no"
 chan_state="+"
@@ -2097,16 +2099,16 @@ esac
 ######################## Function for setting the channel number
 set_channel()
 {
-if [ "$chan_state" = "+" ]
+if [ "$chan_state" == "+" ]
 then
 num=$(expr "$num" + 1 )
-elif [ "$chan_state" = "-" ]
+elif [ "$chan_state" == "-" ]
 then
 num=$(expr "$num" - 1 )
-elif [ "$chan_state" = "return" ]
+elif [ "$chan_state" == "return" ]
 then
 num="$num"
-elif [ "$chan_state" = "numeric" ]
+elif [ "$chan_state" == "numeric" ]
 then
 num="$entry"
 else 
@@ -2118,22 +2120,22 @@ fi
 select_agent()
 {
 ### Select the user agent
- if [ "$uamode" = "on" ]
+ if [ "$uamode" == "on" ]
  then
-   if [ "$uastate" = "rand" ]
+   if [ "$uastate" == "rand" ]
    then 
     # pick a random user agent
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$uastate" = "ranstr" ]
+   elif [ "$uastate" == "ranstr" ]
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
      #UA="$( head -c "$bytes" /dev/urandom | base64 -i | cut -d "=" -f 1 | cut -d "+" -f 1 | cut -d "/" -f 1 )"
      UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
-   elif [ "$uastate" = "tor" ] 
+   elif [ "$uastate" == "tor" ] 
    then
      UA="$UA_torbrowser" 
-   elif [ "$uastate" = "row1" ] 
+   elif [ "$uastate" == "row1" ] 
    then
      UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    else 
@@ -2146,24 +2148,24 @@ select_agent()
 ########################  Function for playing the channel 
 play_channel()
 {
-if [ "$menstat" = "no" ]
+if [ "$menstat" == "no" ]
 then
  channel_select "$num"
  echo "$chan_name Channel $num"
  
  
- if [ "$uamode" = "on" ]
+ if [ "$uamode" == "on" ]
   then 
   echo "$UA"
 
-  if [ "$use_playlist" = "yes" ]
+  if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  elif [ "$method" = "stream_dump" ]
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent="$UA" --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
      then
-     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
+     mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
      sleep 3
      else
@@ -2171,23 +2173,23 @@ then
      echo "wait for a couple of seconds and try the station again"
      sleep 3
      fi 
-  elif [ "$method" = "mplayer" ]
+  elif [ "$method" == "mplayer" ]
   then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" -playlist "$link" 
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" -playlist "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent=yes --no-video --cache="$cache_size" "$link" 
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --user-agent=yes --no-video --cache="$cache_size" "$link" 
   fi
   
  else
  
-   if [ "$use_playlist" = "yes" ]
+  if [ "$use_playlist" == "yes" ]
   then
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
-  elif [ "$method" = "stream_dump" ]
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes --loop-playlist=inf --stream-lavf-o=timeout=10000000 --playlist="$link" 
+  elif [ "$method" == "stream_dump" ]
   then
      if  [ -s "$pidstore" ]
      then
-     firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix mplayer "$stream_dump" 
+     mplayer "$stream_dump" 
      echo "wait for a couple of seconds for more data to load and then try the station again"
      sleep 3
      else
@@ -2195,15 +2197,15 @@ then
      echo "wait for a couple of seconds and try the station again"
      sleep 3
      fi 
-  elif [ "$method" = "mplayer" ]
+  elif [ "$method" == "mplayer" ]
   then 
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" "$link" 
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mplayer -novideo -cache "$cache_size" "$link" 
   else
-  firejail --noprofile --caps.drop=all --netfilter --nonewprivs --nogroups --seccomp --protocol=unix,inet torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes "$link" 
+  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" mpv --no-video --cache=yes "$link" 
   fi
  fi
 
-if [ "$method" = "$stream_dump" ]
+if [ "$method" == "$stream_dump" ]
 then
  if [ -s "$stream_dump" ]
  then
@@ -2243,16 +2245,16 @@ then
   echo "$1"
   # take channel input from command line
   entry="$1" 
-elif [ "$1" = "" ]  # else redisplay the channel matrix at previous page and ask for user input
+elif [ "$1" == "" ]  # else redisplay the channel matrix at previous page and ask for user input
 then
   channel_matrix_"$men_num"
   echo "Please Select a Number corresponding to a Media Live Stream:"
   read entry
-  if [ "$entry" = "q" ]
+  if [ "$entry" == "q" ]
   then 
    echo "Type endstream to open a new stream."
    exit "$?"
-  elif [ "$entry" = "" ]
+  elif [ "$entry" == "" ]
   then
    entry=1
    num=1
@@ -2263,12 +2265,12 @@ fi
 menu_status $entry
 
 ### Case to remove void input on channel +/- at first selection 
-if [ "$chan_state" = "+" ]
+if [ "$chan_state" == "+" ]
 then 
 chan_state="return"
 entry=1
 num=1
-elif [ "$chan_state" = "-" ]
+elif [ "$chan_state" == "-" ]
 then 
 chan_state="return"
 entry=1

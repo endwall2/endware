@@ -5,8 +5,8 @@
 # DESCRIPTION: Checks the /16 CIDR block using geoiplookup or iplookup
 # AUTHOR: THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: MAY 12, 2016
-# VERSION: 0.04
-# REVISION DATE: JUNE 2, 2016
+# VERSION: 0.041
+# REVISION DATE: November 8, 2021
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
 # CHANGE LOG:   - Added flag -e for endware iplookup (default: geoiplookup)
@@ -140,7 +140,7 @@
 #################################################################################################################################################################################
 #################### BEGINNING OF PROGRAM ###########################
 
-if [ "$1" == "-e" ]
+if [ "$1" = "-e" ]
 then
   lookup_tool="iplookup"
   ip=$2
@@ -157,7 +157,7 @@ while [ $x -lt "260" ]; do
 
 end=$( expr $(head -c 2 /dev/urandom | od -A n -i) % 255 | awk '{print $1}')
 
-if [ "$lookup_tool" == "geoiplookup" ]
+if [ "$lookup_tool" = "geoiplookup" ]
 then
 echo "$rt.$x.$end"
 fi
@@ -170,7 +170,7 @@ sleep 1
 
 done
 
-if [ "$lookup_tool" == "geoiplookup" ]
+if [ "$lookup_tool" = "geoiplookup" ]
 then
 echo "$ip"
 fi

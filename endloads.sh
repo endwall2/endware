@@ -8,8 +8,8 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.26
-# REVISION DATE: December 29 2018
+# VERSION: 0.261
+# REVISION DATE: December 27 2021
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2019
 #
 # CHANGE LOG:   - exit node bug fix
@@ -171,8 +171,8 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##  get input list from shell argument 
-version="0.26"
-rev_date="28/12/2018"
+version="0.261"
+rev_date="27/12/2021"
 branch="gnu/linux"
 
 USERAGENTS="$HOME/bin/user_agents.txt"
@@ -192,7 +192,7 @@ torsocks_port=9050
 for arg in $@
 do 
 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "ENDTUBE: A command line anonymous download manager using wget, tor, and randomization of order, timing and user-agents"
  echo " "
@@ -209,26 +209,26 @@ do
  echo "Type: wget --help for more options to add before the list but after endloads options"
  shift
  exit 0
- elif [ "$arg" == "--version" ]
+ elif [ "$arg" = "--version" ]
  then
  echo " ENDLOADS VERSION: "$version" BRANCH: "$branch" REVISION DATE: "$rev_date" " 
  echo " Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016"
  shift
  exit 0
- elif [ "$arg" == "--uarand" ]
+ elif [ "$arg" = "--uarand" ]
  then
  state="rand"
  uamode="on"
  shift
- elif [ "$arg" == "--no-agent" ]
+ elif [ "$arg" = "--no-agent" ]
  then
  uamode="off"
  shift 
- elif [ "$arg" == "--no-header" ]
+ elif [ "$arg" = "--no-header" ]
  then
  headmode="off"
  shift  
- elif [ "$arg" == "--exitnode" ]
+ elif [ "$arg" = "--exitnode" ]
  then
  enode="on"
  shift  
@@ -249,7 +249,7 @@ index=1
 #main loop to select random user agent
 for link in $(cat "$list" ); do  
 
-if [ "$state" == "rand" ]
+if [ "$state" = "rand" ]
 then
 # pick a random user agent
 UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
@@ -267,7 +267,7 @@ HEAD4="Connection: keep-alive"
 
 echo "$UA"
 
-if [ "$index" == "1" ]
+if [ "$index" = "1" ]
 then
 echo "Endloads is starting now"
 else
@@ -278,7 +278,7 @@ echo "Delaying download for "$delay" seconds"
 sleep "$delay"
 fi
 
-if [ "$enode" == "on" ] 
+if [ "$enode" = "on" ] 
 then
 # check tor project ip
 torsocks -a "$torsocks_ip" -P "$torsocks_port" wget -T 30 --secure-protocol=TLSv1 --user-agent="$UA_torbrowser" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" -O "$check_tor".gz https://check.torproject.org/ 
@@ -304,10 +304,10 @@ fi
 
 echo "Downloading "$link""
 
-if [ "$uamode" == "on" ]
+if [ "$uamode" = "on" ]
 then 
 echo "$UA"
- if [ "$headmode" == "on" ]
+ if [ "$headmode" = "on" ]
  then 
  # initate curl download +tor + random agent
  torsocks -i -a "$torsocks_ip" -P "$torsocks_port" wget --user-agent="$UA" --header="$HEAD1" --header="$HEAD2" --header="$HEAD3" --header="$HEAD4" "$link" 

@@ -6,8 +6,8 @@
 #
 # AUTHOR:  THE ENDWARE DEVELOPEMENT TEAM
 # CREATION DATE: APRIL 30 2016
-# VERSION: 0.21
-# REVISION DATE: DECEMBER 16 2016
+# VERSION: 0.211
+# REVISION DATE: DECEMBER 27 2021
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2017 
 #
 #
@@ -168,9 +168,9 @@
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 ##### Version information ######
-version="0.21"
+version="0.211"
 branch="gnu/linux"
-rev_date="29/12/2018"
+rev_date="27/12/2021"
 #####                     ######
 
 ##  get input list from shell argument
@@ -182,13 +182,13 @@ lookup_tool="geoiplookup"
 for arg in "$@"
 do
 
-if [ "$arg" == "--version" ]
+if [ "$arg" = "--version" ]
 then
 echo "ENDNODE version: "$version" branch: "$branch" revised: "$rev_date" "
 echo "Copyright: The Endware Development Team, 2016"
 shift
 exit 0
-elif [ "$arg" == "--help" ]
+elif [ "$arg" = "--help" ]
 then
 echo "ENDNODE is a command line lookup tool for your current tor exit node"
 echo " "
@@ -202,18 +202,18 @@ shift
 exit 0
 fi
 
-if [ "$arg" == "--endlook" ]
+if [ "$arg" = "--endlook" ]
 then
 lookup_tool="iplookup"
 shift
-elif [ "$arg" == "--uarand" ]
+elif [ "$arg" = "--uarand" ]
 then 
 state="rand"
 shift
 fi
 done
 
-if [ "$state" == "rand" ]
+if [ "$state" = "rand" ]
 then
 # select random user agent
 UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 )
@@ -227,7 +227,8 @@ HEAD2="Accept-Language: en-US,en;q=0.5"
 HEAD3="Accept-Encoding: gzip, deflate"
 HEAD4="Connection: keep-alive"
 
-torsocks_ip=127.0.0.1
+#torsocks_ip=127.0.0.1
+torsocks_ip=192.168.1.103
 torsocks_port=9050
 
 check_tor=check.tmp

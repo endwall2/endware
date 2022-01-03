@@ -6,8 +6,8 @@
 #
 # AUTHOR:  THE ENDWALL DEVELOPMENT TEAM
 # CREATION DATE: APRIL 9 2016
-# VERSION: 0.200
-# REVISION DATE: December 29, 2018
+# VERSION: 0.201
+# REVISION DATE: December 27, 2021
 # COPYRIGHT: (c) THE ENDWARE DEVELOPMENT TEAM, 2016-2017 
 # 
 # CHANGE LOG:  - Fixed headers
@@ -162,9 +162,9 @@
 #       and it will be taken into consideration.  
 #################################################################################################################################################################################
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
-version="0.200"
+version="0.201"
 branch="gnu/linux"
-rev_date="29/12/2018"
+rev_date="27/12/2021"
 
 ##  get input list from shell argument 
 
@@ -257,7 +257,8 @@ HEAD3="Accept-Encoding: gzip, deflate"
 HEAD4="Connection: keep-alive"
 
 ## Define torsocks port and ip address
-torsocks_ip=127.0.0.1
+#torsocks_ip=127.0.0.1
+torsocks_ip=192.168.1.103
 torsocks_port=9050
 
 if [ "$state" = "rand" ]

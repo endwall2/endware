@@ -331,7 +331,7 @@ channel_matrix_2()
 
 for arg in $@
 do 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
    echo "ENDTV: watch entertainment and news streams in CLEARNET from filmontv using youtube-dl mpv using"
    echo "Type in the terminal $ endtv "
@@ -349,45 +349,45 @@ do
    echo "$ endtv  "
    shift
    exit 0
-   elif [ "$arg" == "--version" ]
+   elif [ "$arg" = "--version" ]
    then
    echo "ENDTV: version: "$version", branch: "$branch" , revision date: "$rev_date" " 
    echo "Copyright: The Endware Development Team, 2016"
    shift
    exit 0
-   elif [ "$arg" == "--list-matrix" ]
+   elif [ "$arg" = "--list-matrix" ]
    then 
    channel_matrix
    exit 0
-   elif [ "$arg" == "--list-all" ]
+   elif [ "$arg" = "--list-all" ]
    then
    more "$chan_columns"
    exit 0  
-   elif [ "$arg" == "--ua-rand" ]
+   elif [ "$arg" = "--ua-rand" ]
    then
    uastate="rand"
    uamode="on"
    shift
-   elif [ "$arg" == "--ua-ranstr" ]
+   elif [ "$arg" = "--ua-ranstr" ]
    then
    uastate="ranstr"
    uamode="on"
    shift
-   elif [ "$arg" == "--ua-tor" ]
+   elif [ "$arg" = "--ua-tor" ]
    then
    uastate="tor"
    uamode="on"
    shift
-   elif [ "$arg" == "--ua-row1" ]
+   elif [ "$arg" = "--ua-row1" ]
    then
    uastate="row1"
    uamode="on"
    shift
-   elif [ "$arg" == "--no-agent" ]
+   elif [ "$arg" = "--no-agent" ]
    then
    uamode="off"
    shift 
-   elif [ "$arg" == "--no-header" ]
+   elif [ "$arg" = "--no-header" ]
    then
    headmode="off"
    shift    
@@ -2042,82 +2042,82 @@ esac
 menu_status()
 {
 input=$1
-if [ "$input" == "" ]
+if [ "$input" = "" ]
 then
 chan_state="return"
 menstat="no"
-elif [ "$input" == "q" ]
+elif [ "$input" = "q" ]
 then
 menstat="yes"
 menu="q"
-elif [ "$input" == "n" ]
+elif [ "$input" = "n" ]
 then 
 menstat="yes"
 menu="n"
-elif [ "$input" == "m" ]
+elif [ "$input" = "m" ]
 then
 menstat="yes"
 menu="m"
-elif [ "$input" == "ua-tor" ]
+elif [ "$input" = "ua-tor" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="tor"
 uamode="on"
-elif [ "$input" == "ua-row1" ]
+elif [ "$input" = "ua-row1" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="row1"
 uamode="on"
-elif [ "$input" == "ua-rand" ]
+elif [ "$input" = "ua-rand" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="rand"
 uamode="on"
-elif [ "$input" == "ua-ranstr" ]
+elif [ "$input" = "ua-ranstr" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="ranstr"
 uamode="on"
-elif [ "$input" == "ua-off" ]
+elif [ "$input" = "ua-off" ]
 then
 menstat="yes"
 menu="$menu"
 uastate="off"
 uamode="off"
-elif [ "$input" == "+" ]
+elif [ "$input" = "+" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "]" ]
+elif [ "$input" = "]" ]
 then
 menstat="no"
 chan_state="+"
 
-elif [ "$input" == "++" ]
+elif [ "$input" = "++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "+++" ]
+elif [ "$input" = "+++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "++++" ]
+elif [ "$input" = "++++" ]
 then
 menstat="no"
 chan_state="+"
-elif [ "$input" == "-" ]
+elif [ "$input" = "-" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" == "[" ]
+elif [ "$input" = "[" ]
 then
 menstat="no"
 chan_state="-"
-elif [ "$input" == "--" ]
+elif [ "$input" = "--" ]
 then
 menstat="no"
 chan_state="-"
@@ -2161,16 +2161,16 @@ esac
 set_channel()
 {
 chan_state=$1
-if [ "$chan_state" == "+" ]
+if [ "$chan_state" = "+" ]
 then
 num=$(expr "$num" + 1 )
-elif [ "$chan_state" == "-" ]
+elif [ "$chan_state" = "-" ]
 then
 num=$(expr "$num" - 1 )
-elif [ "$chan_state" == "return" ]
+elif [ "$chan_state" = "return" ]
 then
 num="$num"
-elif [ "$chan_state" == "numeric" ]
+elif [ "$chan_state" = "numeric" ]
 then 
 num="$entry"
 else 
@@ -2181,21 +2181,21 @@ fi
 ################################# Function to select the user agent
 select_agent()
 {
-if [ "$uamode" == "on" ]
+if [ "$uamode" = "on" ]
  then
-   if [ "$uastate" == "rand" ]
+   if [ "$uastate" = "rand" ]
    then 
     # pick a random user agent
     UA=$( grep -v "#" "$USERAGENTS" | shuf -n 1 ) 
-   elif [ "$uastate" == "ranstr" ]
+   elif [ "$uastate" = "ranstr" ]
    then 
      # make a random string as the user agent 
      bytes="$( expr 12 + $(head -c 2 /dev/urandom | od -A n -i) % 48 | awk '{print $1}')"
      UA="$( head -c "$bytes" /dev/urandom | base64 -i | tr -d "\n=+-\/" | tr -s " " | awk '{print $1}')" 
-   elif [ "$uastate" == "tor" ] 
+   elif [ "$uastate" = "tor" ] 
    then
      UA="$UA_torbrowser" 
-   elif [ "$uastate" == "row1" ] 
+   elif [ "$uastate" = "row1" ] 
    then
      UA=$( grep -v "#" "$USERAGENTS" | head -n 1 )
    else 
@@ -2317,16 +2317,16 @@ then
   echo "$1"
   # take channel input from command line
   entry="$1" 
-elif [ "$1" == "" ]  # else redisplay the channel matrix at previous page and ask for user input
+elif [ "$1" = "" ]  # else redisplay the channel matrix at previous page and ask for user input
 then
   channel_matrix_"$men_num"
   echo "Please Select a Number corresponding to a Media Live Stream:"
   read entry
-  if [ "$entry" == "q" ]
+  if [ "$entry" = "q" ]
   then 
    echo "Type endstream to open a new stream."
    exit "$?"
-  elif [ "$entry" == "" ]
+  elif [ "$entry" = "" ]
   then
    entry=1
    num=1
@@ -2337,12 +2337,12 @@ fi
 menu_status $entry
 
 ### Case to remove void input on channel +/- at first selection 
-if [ "$chan_state" == "+" ]
+if [ "$chan_state" = "+" ]
 then 
 chan_state="return"
 entry=1
 num=1
-elif [ "$chan_state" == "-" ]
+elif [ "$chan_state" = "-" ]
 then 
 chan_state="return"
 entry=1
@@ -2380,4 +2380,3 @@ fi
 exit "$?"
 
 ############################################     END OF PROGRAM      ############################################################
-

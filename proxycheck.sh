@@ -7,7 +7,7 @@
 # AUTHOR:  ENDWALL DEVELOPEMENT TEAM
 # CREATION DATE: JUNE 10 2016
 # VERSION: 0.19
-# REVISION DATE: AUGUST 23 2018
+# REVISION DATE: November 08 2021
 # 
 # CHANGE LOG:  - --version --help + headers
 #              - added -i torsocks --isolate flag
@@ -168,9 +168,9 @@
 #####################################################        BEGINNING OF PROGRAM      #####################################################################################
 
 ########################### VERSION TRACKING ############################
-version="0.19"
+version="0.191"
 branch="gnu/linux"
-rev_date="23/07/2018"
+rev_date="08/11/2021"
 
 ##  get input list from shell argument 
 USERAGENTS="$HOME/bin/user_agents.txt" 

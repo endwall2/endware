@@ -6,8 +6,8 @@
 # AUTHOR: ENDWALL
 # COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2018
 # CREATION DATE: MARCH 23, 2018
-# VERSION: 0.06
-# REVISION DATE: December 28, 2018
+# VERSION: 0.061
+# REVISION DATE: November 08, 2021
 ######################################################################################
 # Description: Dateloop is a simple clock that calls the function date in a while loop for
 #              10,000 iterations. Updates every 5 seconds,  Stop with CNTRL + C .
@@ -139,9 +139,9 @@
 ### Date loop
 
 ######################################   BEGINNING OF PROGRAM          ###################################################
-version=0.06
+version=0.061
 branch="gnu/linux"
-rev_date="28/12/2018"
+rev_date="10/11/2021"
 
 locate=""
 line_buffer=5
@@ -152,7 +152,7 @@ interval=5
 ##  get input list from shell argument 
 for arg in $@
 do 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "DATELOOP: a terminal clock with positioning for use in tmux."
  echo " "
@@ -169,30 +169,30 @@ do
  echo " "
  shift 
  exit 0
- elif [ "$arg" == "--version" ]
+ elif [ "$arg" = "--version" ]
  then
  echo "DATELOOP: version "$version", branch: "$branch", revision date: "$rev_date" "
  echo "Copyright: 2015-2018, THE ENDWARE DEVELOPMENT TEAM" 
  shift
  exit 0
- elif [ "$arg" == "--left" ]
+ elif [ "$arg" = "--left" ]
  then
  locate=""
  shift
- elif [ "$arg" == "--mid" ]
+ elif [ "$arg" = "--mid" ]
  then
  locate="                                                                             "  
  shift                                                                                                    
- elif [ "$arg" == "--right" ]                                         
+ elif [ "$arg" = "--right" ]                                         
  then
  locate="                                                                                                                                               "                                                                                                                                                                           
  shift
- elif [ "$arg" == "--update" ]
+ elif [ "$arg" = "--update" ]
  then     
  interval="$2"
  shift
  shift 
- elif [ "$arg" == "--buffer" ]
+ elif [ "$arg" = "--buffer" ]
  then     
  line_buffer="$2"
  shift
