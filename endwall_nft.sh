@@ -26,15 +26,22 @@
 #           - requires macchanger (optional)
 #           - comment out lines starting at 1335 for alternate distributions you don't use
 #
-# $ mkdir ~/endwall
-# $ cp endwall_v1xx.sh endwall.sh
-# $ nano endwall.sh   # go to the section below labeled GLOBAL VARIABLES
-#                       edit the variables client1_ip,client1_mac,client1_ip,client2_mac 
-#                       so that they match your needs and save. ^X  
-#                     # uncomment the macchanger lines to use machanger
-#                     # comment out save rules on line 1335 for distributions not used
+####################################### INSTRUCTIONS ########################################################
+#
+# for systemd enable and start nftables as follows:
+# # systemctl enable nftables
+# # systemctl start nftables
+#
+#     Now lets run endwall_nft.sh
+# $ mkdir ~/sec
+# $ cp endwall_nft.sh ~/sec
+# $ cd ~/sec
+# $ nano endwall_nft.sh   # go to the section below labeled GLOBAL VARIABLES
+#                          edit the variables client1_ip,client1_mac,client1_ip,client2_mac 
+#                          so that they match your needs and save. ^X  
+#                                                
 # $ chmod u+rwx endwall_nft.sh          # changer permisions to allow script execution
-# $ su                              # become root
+# $ su                                  # become root
 # # ./endwall_nft.sh                    # execute/run the file
 #
 #  If the firewall fails (bad interface pickup or bad ipv4 pickup) then run ./endwall_nft.sh --open to return to open policies
@@ -42,12 +49,7 @@
 # Then manually set the interface ipv4 for ip1 and ip2 or play with the assignments of the internal variables (Switch 1 to 2 and retry etc)
 #
 ############################################################################################################################################################################
-# Note that ip6tables is not enabled by default on some distributions
-# for systemd enable and start nftables as follows:
-# # systemctl enable nftables
-# # systemctl start nftables
 #
-######################################################################### 
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGMENTS
 #############################################################################################################################################################################
@@ -726,12 +728,16 @@ lo_open tcp 8332,8333
 ################################  MYSQL #####################################################
 #lo_open tcp 25565
 #lo_open udp 25565
+############################### MUMBLE #####################################################
+lo_open tcp 64738
+lo_open udp 64738
+
 ######################## ICMP ###############################################################
 
 ### ICMP Outbound
-nft add rule inet filter output oifname lo ip protocol icmp icmp type { echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+nft add rule inet filter output oifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
 ### ICMP Inbound
-nft add rule inet filter output iifname lo ip protocol icmp icmp type {echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
+nft add rule inet filter input iifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem }  counter accept 
 
 
 ############################ LOCAL HOST DROP ############################################## 
@@ -840,8 +846,6 @@ client_out tcp 114,993
 client_out udp 123
 client_out tcp 123
 #######################################            BOOTP  Client       #######################################################################################
-
-
 ### Change to an internal locked to the gateway ip 
 client_out udp 67,68
 server_in udp 67,68
@@ -850,11 +854,11 @@ server_in udp 67,68
 #iptables -A INPUT  -i $int_if -d "$int_ip" -s "$gateway_ip" -p udp -m multiport --sports 67,68 -m state --state ESTABLISHED -j PASS
 
 
-###########################################        ICMP Ping         ############################################################################### 
+###########################################        ICMP Client         ############################################################################### 
 ### ICMP Outbound
-nft add rule inet filter output oifname "$int_if" ip protocol icmp icmp type { echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
 ### ICMP Inbound
-nft add rule inet filter output iifname "$int_if" ip protocol icmp icmp type {echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
+nft add rule inet filter output iifname "$int_if" ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
 
 ##########################################    SPECIALIZED OUTPUT   ##################################################################################
 ##########################################        GIT Client        #################################################################################
@@ -906,13 +910,25 @@ client_out tcp 8332,8333
 ##########################################      BITMESSAGE Client    ##############################################################
 client_out tcp 8444
 ##########################################      LITECOIN Client      ##############################################################
-client_out tcp 9332,9333
+# client_out tcp 9332,9333
 ##########################################      GOOGLE TALK Client   ##############################################################
-client_out tcp 19294
-client_out udp 19294
+#client_out tcp 19294
+#client_out udp 19294
 ##########################################     SKYPE Client          ##############################################################
-client_out tcp 23399
-client_out udp 23399
+#client_out tcp 23399
+#client_out udp 23399
+
+############################################### MUMBLE Client #############################################################################
+client_out tcp 64738
+client_out udp 64738
+
+######################## ICMP ###############################################################
+
+### ICMP Outbound
+nft add rule inet filter output oifname "$int_if" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+nft add rule inet filter input iifname "$int_if" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
+
 ###################################################################################################################################
 echo "LOADING PUBLIC SERVER INPUTS"
 ###################################################################################################################################
@@ -955,6 +971,7 @@ echo "LOADING PUBLIC SERVER INPUTS"
 #server_in tcp 2086
 #server_in udp 2086
 echo "LOADING INTERNAL LAN SERVER INPUTS"
+
 ###################################################################################################################################################################
 #                                 LOCAL / PRIVATE INPUTS  # mac address bind local clients to hosts
 ##################################          BOOTP SERVER             ################################################################################################### 
