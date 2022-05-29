@@ -6,8 +6,8 @@
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
 # Branch: wired
-# Current Version: 1.42
-# Revision Date: May 28, 2022
+# Current Version: 1.41
+# Revision Date: May 8, 2022
 # Previous Version: 1.39, August 30, 2017
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
@@ -167,9 +167,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.42"
+version="1.41"
 branch="wired"
-rev_date="28/05/2022"
+rev_date="08/05/2022"
 state="closed"
 
 for arg in "$@"
@@ -437,13 +437,23 @@ lo6_open()
 proto=$1
 ports=$2
 
-nft add rule ip6 filter input iifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
-nft add rule ip6 filter input iifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
-nft add rule ip6 filter output oifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
-nft add rule ip6 filter output oifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
+nft add rule inet filter input iifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
+nft add rule inet filter input iifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
+nft add rule inet filter output oifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
+nft add rule inet filter output oifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
 
 }
 
+
+### ICMP on localhost
+lo_icmp()
+{
+### ICMP Outbound
+nft add rule inet filter output oifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+nft add rule inet filter input iifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem }  counter accept 
+
+} 
 
 ##################### CLIENT OUTBOUND CONNECTIONS ###############################
 
@@ -462,6 +472,7 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established } counter accept
 
 }
+
 
 ###  allow related connections more permisive  
 client_out_rel()
@@ -491,6 +502,18 @@ nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  counter accept # jump PASS
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { established, related } counter accept
 
+}
+
+
+############   ICMP #########
+icmp_out()
+{
+interface=$1
+
+### ICMP Outbound
+nft add rule inet filter output oifname "$interface" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+nft add rule inet filter input iifname "$interface" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
 }
 
 ##################### SERVER INBOUND CONNECTIONS #################################
@@ -534,6 +557,8 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { new, established } counter accept
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  ct state {established} counter accept # jump PASS
 }
+
+
 
 
 ############################# NOT FIXED / TRANSLATE THESE LATER ###########################################33 
@@ -710,12 +735,9 @@ lo_open tcp 64738
 lo_open udp 64738
 
 ######################## ICMP ###############################################################
+lo_icmp
 
-### ICMP Outbound
-nft add rule inet filter output oifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
-### ICMP Inbound
-nft add rule inet filter input iifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem }  counter accept 
-
+### make a function for this ICMP rule
 
 ############################ LOCAL HOST DROP ############################################## 
 # NO FURTHER INPUT/OUTPUT FROM LOCALHOST / SOURCE HOSTS
@@ -825,17 +847,15 @@ client_out tcp 123
 #######################################            BOOTP  Client       #######################################################################################
 ### Change to an internal locked to the gateway ip 
 client_out udp 67,68
-server_in udp 67,68
+
+#server_in udp 67,68
 
 #iptables -A OUTPUT -o $int_if -s "$int_ip" -d "$gateway_ip" -p udp -m multiport --dports 67,68 -m state --state NEW,ESTABLISHED -j PASS
 #iptables -A INPUT  -i $int_if -d "$int_ip" -s "$gateway_ip" -p udp -m multiport --sports 67,68 -m state --state ESTABLISHED -j PASS
 
 
 ###########################################        ICMP Client         ############################################################################### 
-### ICMP Outbound
-nft add rule inet filter output oifname "$int_if" ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
-### ICMP Inbound
-nft add rule inet filter output iifname "$int_if" ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+icmp_out "$int_if"
 
 ##########################################    SPECIALIZED OUTPUT   ##################################################################################
 ##########################################        GIT Client        #################################################################################
@@ -899,13 +919,6 @@ client_out tcp 8444
 client_out tcp 64738
 client_out udp 64738
 
-######################## ICMP ###############################################################
-
-### ICMP Outbound
-nft add rule inet filter output oifname "$int_if" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
-### ICMP Inbound
-nft add rule inet filter input iifname "$int_if" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
-
 ###################################################################################################################################
 echo "LOADING PUBLIC SERVER INPUTS"
 ###################################################################################################################################
@@ -958,64 +971,66 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #######################################      RELP LOG SERVER ########################################################################################################### 
 #iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 2514 --dport 2514 -m mac --mac-source "$gateway_mac" -m state --state NEW,ESTABLISHED -j PASS
 
+### server in 1-way should be ok for this application (SYSLOG,RELP,BOOTP input on UDP from the gateway/router) 
+### make a server_in_1way_internal 
 
 #######################################       DNS SERVER       ######################################################################################################## 
-#server_internal_1p udp 53 "$int_ip" "$int_mac"
-#server_internal_1p tcp 53 "$int_ip" "$int_mac"
+#server_in_internal udp 53 "$int_ip" "$int_mac"
+#server_in_internal tcp 53 "$int_ip" "$int_mac"
 
-#server_internal_1p udp 53 "$client1_ip" "$client1_mac"
-#server_internal_1p tcp 53 "$client1_ip" "$client1_mac"
+#server_in_internal udp 53 "$client1_ip" "$client1_mac"
+#server_in_internal tcp 53 "$client1_ip" "$client1_mac"
 
-#server_internal_1p udp 53 "$client2_ip" "$client2_mac"
-#server_internal_1p tcp 53 "$client2_ip" "$client2_mac"
+#server_in_internal udp 53 "$client2_ip" "$client2_mac"
+#server_in_internal tcp 53 "$client2_ip" "$client2_mac"
 ###################################         POP3 SERVER       ############################################################################################## 
-#server_internal_mp tcp 110,995 "$int_ip" "$int_mac"
-#server_internal_mp tcp 110,995 "$client1_ip" "$client1_mac"
-#server_internal_mp tcp 110,995 "$client2_ip" "$client2_mac"
+#server_in_internal tcp 110,995 "$int_ip" "$int_mac"
+#server_in_internal tcp 110,995 "$client1_ip" "$client1_mac"
+#server_in_internal tcp 110,995 "$client2_ip" "$client2_mac"
 ###################################         IMAP4 SERVER      ############################################################################################## 
-#server_internal_mp tcp 143,993 "$int_ip" "$int_mac"
-#server_internal_mp tcp 143,993 "$client1_ip" "$client1_mac"
-#server_internal_mp tcp 143,993 "$client2_ip" "$client2_mac"
+#server_in_internal tcp 143,993 "$int_ip" "$int_mac"
+#server_in_internal tcp 143,993 "$client1_ip" "$client1_mac"
+#server_in_internal tcp 143,993 "$client2_ip" "$client2_mac"
 ###################################        SMB SERVER         ##############################################################################################
 #server_internal_2p tcp 445 445 "$int_ip" "$int_mac"
 #server_internal_2p tcp 445 445 "$client1_ip" "$client1_mac"
 #server_internal_2p tcp 445 445 "$client2_ip" "$client2_mac"
 ###################################        NETBIOS  SERVER    ##############################################################################################
-#server_internal_mp tcp 135,137,138,139 "$int_ip" "$int_mac" 
-#server_internal_mp udp 135,137,138,139 "$int_ip" "$int_mac" 
+#server_in_internal tcp 135,137,138,139 "$int_ip" "$int_mac" 
+#server_in_internal udp 135,137,138,139 "$int_ip" "$int_mac" 
 
-#server_internal_mp tcp 135,137,138,139 "$client1_ip" "$client1_mac" 
-#server_internal_mp udp 135,137,138,139 "$client1_ip" "$client1_mac" 
+#server_in_internal tcp 135,137,138,139 "$client1_ip" "$client1_mac" 
+#server_in_internal udp 135,137,138,139 "$client1_ip" "$client1_mac" 
 
-#server_internal_mp tcp 135,137,138,139 "$client2_ip" "$client2_mac" 
-#server_internal_mp udp 135,137,138,139 "$client2_ip" "$client2_mac" 
+#server_in_internal tcp 135,137,138,139 "$client2_ip" "$client2_mac" 
+#server_in_internal udp 135,137,138,139 "$client2_ip" "$client2_mac" 
 ###################################        CUPS SERVER        ##############################################################################################
-#server_internal_1p tcp 631 "$int_ip" "$int_mac" 
-#server_internal_1p udp 631 "$int_ip" "$int_mac" 
+#server_in_internal tcp 631 "$int_ip" "$int_mac" 
+#server_in_internal udp 631 "$int_ip" "$int_mac" 
 
-#server_internal_1p tcp 631 "$client1_ip" "$client1_mac" 
-#server_internal_1p udp 631 "$clinet1_ip" "$client1_mac" 
+#server_in_internal tcp 631 "$client1_ip" "$client1_mac" 
+#server_in_internal udp 631 "$clinet1_ip" "$client1_mac" 
 
-#server_internal_1p tcp 631 "$client2_ip" "$client2_mac" 
-#server_internal_1p udp 631 "$clinet2_ip" "$client2_mac"
+#server_in_internal tcp 631 "$client2_ip" "$client2_mac" 
+#server_in_internal udp 631 "$clinet2_ip" "$client2_mac"
 ###################################    LDAP SERVER            ############################################################################################### 
-#server_internal_1p tcp 389 "$int_ip" "$int_mac" 
-#server_internal_1p udp 389 "$int_ip" "$int_mac" 
+#server_in_internal tcp 389 "$int_ip" "$int_mac" 
+#server_in_internal udp 389 "$int_ip" "$int_mac" 
 
-#server_internal_1p tcp 389 "$client1_ip" "$host_mac" 
-#server_internal_1p udp 389 "$client1_ip" "$host_mac" 
+#server_in_internal tcp 389 "$client1_ip" "$host_mac" 
+#server_in_internal udp 389 "$client1_ip" "$host_mac" 
 
-#server_internal_1p tcp 389 "$client2_ip" "$host_mac" 
-#server_internal_1p udp 389 "$client2_ip" "$host_mac" 
+#server_in_internal tcp 389 "$client2_ip" "$host_mac" 
+#server_in_internal udp 389 "$client2_ip" "$host_mac" 
 ####################################     XMPP SERVER          ############################################################################################### 
-#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac" 
-#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac"
+#server_in_internal tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac" 
+#server_in_internal udp 5222,5190,5223,5269,5280,5281,5298,8010 "$int_ip" "$int_mac"
 
-#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac" 
-#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac"
+#server_in_internal tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac" 
+#server_in_internal udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client1_ip" "$client1_mac"
 
-#server_internal_mp tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac" 
-#server_internal_mp udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac"
+#server_in_internal tcp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac" 
+#server_in_internal udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac"
 ##############################################################################################################################################################
 
 #### END OF LOOP OVER INTERFACES/IPs
