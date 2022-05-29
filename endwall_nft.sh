@@ -6,8 +6,8 @@
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
 # Branch: wired
-# Current Version: 1.41
-# Revision Date: May 8, 2022
+# Current Version: 1.42
+# Revision Date: May 28, 2022
 # Previous Version: 1.39, August 30, 2017
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
@@ -167,9 +167,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.41"
+version="1.42"
 branch="wired"
-rev_date="08/05/2022"
+rev_date="28/05/2022"
 state="closed"
 
 for arg in "$@"
@@ -419,6 +419,8 @@ echo "FIRST LINE SECURITY LOADED"
 #           delete rule [family] table chain handle handle
 # nft add rule filter input ip saddr { 10.0.0.0/8, 192.168.0.0/16 } tcp dport { 22, 443 } accept
 
+############### LOCAL HOST FUNCTIONS ###########################################
+
 lo_open()
 {
 proto=$1
@@ -429,21 +431,6 @@ nft add rule inet filter input iifname lo ip protocol "$proto" "$proto" sport { 
 nft add rule inet filter output oifname lo ip protocol "$proto" "$proto" dport { "$ports" } accept
 nft add rule inet filter output oifname lo ip protocol "$proto" "$proto" sport { "$ports" } accept
 }
-
-
-client_out()
-{
-proto=$1
-ports=$2
-
-#   add rule fam  table  chain statement 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } counter accept # jump PASS
-nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established, related } counter accept 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } counter accept # jump PASS
-nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established, related } counter accept
-
-}
-
 
 lo6_open()
 {
@@ -457,6 +444,56 @@ nft add rule ip6 filter output oifname lo ip6 protocol "$proto" "$proto" sport {
 
 }
 
+
+##################### CLIENT OUTBOUND CONNECTIONS ###############################
+
+
+
+### only allow new and established connections, to or from specified ports  
+client_out()
+{
+proto=$1
+ports=$2
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state {new, established} counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state {new, established} counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established } counter accept
+
+}
+
+###  allow related connections more permisive  
+client_out_rel()
+{
+proto=$1
+ports=$2
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state { new, established, related} counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established, related} counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state {new, established, related} counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established, related} counter accept
+
+}
+
+#### Send out to internal network mac address and ip address filtered to specific outbound target at $client_ip and $client_mac
+client_out_internal()
+{
+
+proto=$1
+ports=$2
+client_ip=$3
+client_mac=$4
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$client_ip" counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { established, related } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { established, related } counter accept
+
+}
+
+##################### SERVER INBOUND CONNECTIONS #################################
 
 server_in()
 {
@@ -481,9 +518,29 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 
 }
 
+#### extended / permisive but locked to a specifice machine by client_ip and client_mac on your internal network 
+#### only allow access to services based on specific ip/mac address combinations 
+server_in_internal()
+{
+
+proto=$1
+ports=$2
+client_ip=$3
+client_mac=$4
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { new, established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$client_ip" ct state { established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { new, established } counter accept
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  ct state {established} counter accept # jump PASS
+}
+
 
 ############################# NOT FIXED / TRANSLATE THESE LATER ###########################################33 
 
+################### OUTBOUND CLIENT
+
+### limit the burst rate / number of requests per second to stop DDOS 
 client_out_lim()
 {
 proto=$1
@@ -498,66 +555,9 @@ limburst=$4
 
 }
 
-client_out_rel()
-{
-proto=$1
-ports=$2
+################### SERVER INBOUND
 
-#iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
-#iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
-#iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED,RELATED -j PASS
-#iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED,RELATED -j PASS
-
-}
-
-
-client_out_internal_1p()
-{
-
-proto=$1
-port=$2
-client_ip=$3
-client_mac=$4
-
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --dport $port -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --sport $port -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --sport $port -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --dport $port -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-
-}
-
-client_out_internal_mp()
-{
-
-proto=$1
-ports=$2
-client_ip=$3
-client_mac=$4
-
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip -m multiport --dports $ports -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip -m multiport --sports $ports -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip -m multiport --sports $ports -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip -m multiport --dports $ports -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-
-}
-
-
-client_out_internal_2p()
-{
-
-proto=$1
-port1=$2
-port2=$3
-client_ip=$4
-client_mac=$5
-
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --dport $port1 --sport $port2 -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --sport $port1 --dport $port2 -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --sport $port1 --dport $port2 -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --dport $port1 --sport $port2 -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-
-}
-
+### Only allow inbound with no return from a specified client_ip and client_mac
 server_internal_1way()
 {
 ports=$1
@@ -566,30 +566,7 @@ client_mac=$3
 #iptables -A INPUT  -i $int_if -p udp -m multiport --dports "$ports" -d "$int_ip"  -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
 }
 
-server_internal_1p()
-{
-proto=$1
-port=$2
-client_ip=$3
-client_mac=$4
-#iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port" -s "$client_ip" -d "$int_ip"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port" -d "$client_ip" -s "$int_ip"   -m state --state ESTABLISHED -j PASS
-}
-
-server_internal_mp()
-{
-proto=$1
-ports=$2
-client_ip=$3
-client_mac=$4
-#iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --dports "$ports" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --sports "$ports" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p "$proto"  -m multiport --sports "$ports" -s "$client_ip" -d "$int_ip"   -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  -m multiport --dports "$ports" -d "$client_ip" -s "$int_ip"   -m state --state ESTABLISHED -j PASS
-}
-
+#### Inbound connection from one specified port to another (possibly different) port 
 server_internal_2p()
 {
 proto=$1
@@ -603,7 +580,7 @@ client_mac=$5
 #iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$client_ip" -s "$int_ip" -m state --state ESTABLISHED -j PASS
 }
 
-#####################################################################################################################################################
+#########################################################################################################################################################################
 
 #####################################################################################################################################################
 #                               LOCAL HOST RULES  
