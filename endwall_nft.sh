@@ -6,11 +6,11 @@
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
 # Branch: wired
-# Current Version: 1.41
-# Revision Date: May 8, 2022
-# Previous Version: 1.39, August 30, 2017
+# Current Version: 1.44
+# Revision Date: June 23, 2022
+# Previous Version: 1.42, May 28, 2022
 # Author: THE ENDWARE DEVELOPMENT TEAM
-# Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
+# Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016-2023
 #
 # Changes:     - Translate endwall.sh from iptables to nftables 
 #              - Update EULA, fix typo in if statement to loop over interfaces, add client_out_internal() function 
@@ -26,22 +26,15 @@
 #           - requires macchanger (optional)
 #           - comment out lines starting at 1335 for alternate distributions you don't use
 #
-####################################### INSTRUCTIONS ########################################################
-#
-# for systemd enable and start nftables as follows:
-# # systemctl enable nftables
-# # systemctl start nftables
-#
-#     Now lets run endwall_nft.sh
-# $ mkdir ~/sec
-# $ cp endwall_nft.sh ~/sec
-# $ cd ~/sec
-# $ nano endwall_nft.sh   # go to the section below labeled GLOBAL VARIABLES
-#                          edit the variables client1_ip,client1_mac,client1_ip,client2_mac 
-#                          so that they match your needs and save. ^X  
-#                                                
+# $ mkdir ~/endwall
+# $ cp endwall_v1xx.sh endwall.sh
+# $ nano endwall.sh   # go to the section below labeled GLOBAL VARIABLES
+#                       edit the variables client1_ip,client1_mac,client1_ip,client2_mac 
+#                       so that they match your needs and save. ^X  
+#                     # uncomment the macchanger lines to use machanger
+#                     # comment out save rules on line 1335 for distributions not used
 # $ chmod u+rwx endwall_nft.sh          # changer permisions to allow script execution
-# $ su                                  # become root
+# $ su                              # become root
 # # ./endwall_nft.sh                    # execute/run the file
 #
 #  If the firewall fails (bad interface pickup or bad ipv4 pickup) then run ./endwall_nft.sh --open to return to open policies
@@ -49,7 +42,12 @@
 # Then manually set the interface ipv4 for ip1 and ip2 or play with the assignments of the internal variables (Switch 1 to 2 and retry etc)
 #
 ############################################################################################################################################################################
+# Note that ip6tables is not enabled by default on some distributions
+# for systemd enable and start nftables as follows:
+# # systemctl enable nftables
+# # systemctl start nftables
 #
+######################################################################### 
 #############################################################################################################################################################################
 #                                         ACKNOWLEDGMENTS
 #############################################################################################################################################################################
@@ -167,41 +165,68 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.41"
+version="1.44"
 branch="wired"
-rev_date="08/05/2022"
+rev_date="23/06/2022"
 state="closed"
 
 for arg in "$@"
 do
 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "USAGE: ./endwall --help ## displays usage statements"
  echo "USAGE: ./endwall --version  ## displays version statements"
  echo "USAGE: ./endwall --open ## opens firewall to default open policies"
  echo "USAGE: ./endwall  ## enable endwall firewall system"
+  cho "USAGE: ./endwall --default ## default settings"
+ echo "USAGE: ./endwall --closed  ## closed settings"
+ echo "USAGE: ./endwall --test test settings"
+ echo "USAGE: ./endwall  ## enable endwall firewall system with closed settings"
+ 
  shift
  exit 0
- elif  [ "$arg" == "--version" ]
+ elif  [ "$arg" = "--version" ]
  then
  echo "ENDWALL version:"$version", branch:"$branch", revision date:"$rev_date" "
  echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016"
  shift
  exit 0 
- elif  [ "$arg" == "--open" ]
+ elif  [ "$arg" = "--open" ]
  then
  state="open"
  shift
- else
+ elif  [ "$arg" = "--default" ]
+ then
+ state="default"
+ shift
+ elif  [ "$arg" = "--test" ]
+ then
+ state="test"
+ shift 
+ elif  [ "$arg" = "--closed" ]
+ then
  state="closed"
+ shift 
+ else
+ # default state is closed not default
+ state="closed"  
  fi
 done
+
+############################  CLIENTS  ################################################
+# change these values but dont leave them blank
+# add more clients as you need them use $ arp or $ nmap -sS client_ip to determine values 
+
+#client1_mac=00:00:00:00:00:00  # change to be the mac address of client 1
+#client2_mac=00:00:00:00:00:00  # change to be the mac address of client 2
+
+#client1_ip=192.168.0.161   # change to be the static ip of your first internal client
+#client2_ip=192.168.0.162   # change to be the static ip of your second internal client
 
 ####################################################################################################
 #                           GLOBAL VARIABLES
 ####################################################################################################
-
 ### variable for the nft command location
 nft="/sbin/nft"
 
@@ -228,15 +253,7 @@ host_ip2=$(ip addr | grep -a "scope global"|awk 'BEGIN  {FS="/"} {if (FNR==2) pr
 # grab the ipv6 addresses frrom the interfaces
 host_ip1v6=$(ip addr | grep -a "inet6"| awk 'BEGIN  {FS="/"} {if (FNR==2) print $1}'| awk '{print $2}')
 host_ip2v6=$(ip addr | grep -a "inet6"| awk 'BEGIN  {FS="/"} {if (FNR==3) print $1}'| awk '{print $2}')
-############################  CLIENTS  ################################################
-# change these values but dont leave them blank
-# add more clients as you need them use $ arp or $ nmap -sS client_ip to determine values 
 
-#client1_mac=00:00:00:00:00:00  # change to be the mac address of client 1
-#client2_mac=00:00:00:00:00:00  # change to be the mac address of client 2
-
-#client1_ip=192.168.0.161   # change to be the static ip of your first internal client
-#client2_ip=192.168.0.162   # change to be the static ip of your second internal client
 ########################### INTERNAL VARIABLES ################################## 
 int_mac1="$host_mac1"         # internal mac address of interface 1
 int_mac2="$host_mac2"       # internal mac address of interface 2 
@@ -297,119 +314,6 @@ echo "SYSCTL SECURITY BOOLEANS LOADED"
 ## Flush old rules
 nft flush ruleset;
 
-############################     DEFUALT POLICY       ####################################################################
-# make a new table called filter
-nft add table inet filter     #inet does both ip and ip6 
-#nft add table ip filter      # ip filter table
-#nft add table ip6 filter     # ip6 filter table
-
-# Make some default chains 
-nft add chain inet filter input '{ type filter hook input priority 0 ; policy drop ; }'
-nft add chain inet filter forward '{ type filter hook forward priority 0 ; policy drop ; }' 
-nft add chain inet filter output '{ type filter hook output priority 0 ; policy drop ; }'
-
-##########################################################################################################################
-
-# load the previously saved rules
-# DEBIAN
-#nft -f /etc/nftables.conf
-
-####################################### OPEN WALL ########################################################################
-
-# Disable firewall if --open flag 
-if [ "$state" = "open" ];
-then
-
-################################  DISABLE THE FIREWALL #################################################################
-
-# Policies
-nft add rule filter input accept
-nft add rule filter forward accept
-nft add rule filter output accept
-
-##############################      SAVE RULES         ##############################################################
-echo SAVING RULES
-#DEBIAN
-nft list ruleset > /etc/nftables.conf
-
-echo "ENDWALL NFT DISABLED"
-##############################     PRINT RULES       ################################################################
-#list the rules
-nft list ruleset;
-#
-#
-#############################     PRINT ADDRESSES    ########################################################################
-echo "GATEWAY    :          MAC:"$gateway_mac"  IPv4:"$gateway_ip" " 
-echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
-echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
-# print the time the script finishes
-date
-exit 0
-fi 
-
-
-###OTHERWISE continue with the firewall implementation 
-##############################################################################################################################3
-
-
-############################   DEFINE CUSTOM CHAINS    #####################################################################
-#iptables -N LnD			# Define custom DROP chain
- 
-## create a new table. Error if this already exists
-#nft create table inet endtable 
-## add a new base chain: get input packets
-#nft add chain inet endtable LnD { type filter hook input priority filter; policy drop; }
-## count traffic in the chain
-#nft add rule inet endtable LnD counter
-## Log traffic in the chain
-#nft add rule inet endtable LnD comment "LnD"
-# drop 
-#nft add rule innet endtable LnD drop 
-
-#iptables -N LnD			# Define custom DROP chain
-#iptables -A LnD -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP drop] " 
-#iptables -A LnD -p udp -m limit --limit 1/s -j LOG --log-prefix "[UDP drop] " 
-#iptables -A LnD -p icmp -m limit --limit 1/s -j LOG --log-prefix "[ICMP drop] " 
-#iptables -A LnD -f -m limit --limit 1/s -j LOG --log-prefix "[FRAG drop] " 
-#iptables -A LnD -j DROP
-
-# iptables -N LnR			# Define custom REJECT chain
-
-# iptables -N PASS		# Define PASS chain
-
-### Figure out how to define custom chains 
-
-#######################################################################################################################
-#                   BASIC FIRST LINE SECURITY
-#######################################################################################################################
-echo "LOADING FIRST LINE SECURITY"
-###########################################################################################
-
-#######################################################################################################################
-#                     DROP RESTRICTED SPECIAL USE IPv4 NETWORKS / IP SPOOFING
-#######################################################################################################################
-############################# DROP LINK-LOCAL ADDRESSES ###############################################################
-# Drop invalid
-nft add rule inet filter input ct state invalid drop;
-#
-nft add rule inet filter input ip saddr 169.254.0.0/16 drop
-nft add rule inet filter input ip daddr 169.254.0.0/16 drop
-
-############################### DROP OUTBOUND BROADCAST ###############################################################
-# drop broadcast outbound
-nft add rule inet filter output ip daddr 255.255.255.255 drop
-
-#####################  DROP PRIVATE LAN INPUT OF WRONG CLASS/TYPE      ################################################ 
-
-# nft add rule filter input ip saddr 10.0.0.0/8  drop;
-# nft add rule filter input ip saddr 172.16.0.0/12  drop;
-# nft add rule filter input ip saddr 192.168.0.0/16 drop;
-
-# uncomment private lan network classss that are not not applicable to your network to drop them
-# use an if statement to check gateway ip against 10,172,192 (not implemented currently)
-
-echo "FIRST LINE SECURITY LOADED"
-
 #################################################################################################################################
 ######################################       FUNCTIONS       ####################################################################
 
@@ -419,8 +323,7 @@ echo "FIRST LINE SECURITY LOADED"
 #           delete rule [family] table chain handle handle
 # nft add rule filter input ip saddr { 10.0.0.0/8, 192.168.0.0/16 } tcp dport { 22, 443 } accept
 
-############### LOCAL HOST FUNCTIONS ###########################################
-
+########## LOCAL HOST FUNCTIONS
 lo_open()
 {
 proto=$1
@@ -432,31 +335,30 @@ nft add rule inet filter output oifname lo ip protocol "$proto" "$proto" dport {
 nft add rule inet filter output oifname lo ip protocol "$proto" "$proto" sport { "$ports" } accept
 }
 
+## 
 lo6_open()
 {
 proto=$1
 ports=$2
 
-nft add rule inet filter input iifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
-nft add rule inet filter input iifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
-nft add rule inet filter output oifname lo ip6 protocol "$proto" "$proto" dport { "$ports" } accept
-nft add rule inet filter output oifname lo ip6 protocol "$proto" "$proto" sport { "$ports" } accept
+nft add rule inet filter input iifname lo ip6 daddr "::1/128" "$proto" dport { "$ports" } accept
+nft add rule inet filter input iifname lo ip6 daddr "::1/128" "$proto" sport { "$ports" } accept
+nft add rule inet filter output oifname lo ip6 saddr "::1/128" "$proto" dport { "$ports" } accept
+nft add rule inet filter output oifname lo ip6 saddr "::1/128" "$proto" sport { "$ports" } accept
 
 }
-
 
 ### ICMP on localhost
 lo_icmp()
 {
 ### ICMP Outbound
-nft add rule inet filter output oifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+nft add rule inet filter output oifname lo ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
 ### ICMP Inbound
-nft add rule inet filter input iifname lo ip protocol icmp icmp type {echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem }  counter accept 
+nft add rule inet filter input iifname lo ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem }  counter accept 
 
-} 
+}
 
-##################### CLIENT OUTBOUND CONNECTIONS ###############################
-
+############ CLIENT OUTBOUND CONNECTIONS ###################
 
 
 ### only allow new and established connections, to or from specified ports  
@@ -466,13 +368,11 @@ proto=$1
 ports=$2
 
 #   add rule fam  table  chain statement 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state {new, established} counter accept # jump PASS
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established } counter accept 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state {new, established} counter accept # jump PASS
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state { new, established } counter accept # jump PASS
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established } counter accept
-
 }
-
 
 ###  allow related connections more permisive  
 client_out_rel()
@@ -480,14 +380,42 @@ client_out_rel()
 proto=$1
 ports=$2
 #   add rule fam  table  chain statement 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state { new, established, related} counter accept # jump PASS
-nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established, related} counter accept 
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state {new, established, related} counter accept # jump PASS
-nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established, related} counter accept
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ct state { established, related } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ct state { established, related } counter accept
+
+}
+### only allow new and established connections, to or from specified ports  
+client6_out()
+{
+proto=$1
+ports=$2
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" dport { "$ports" } ct state { established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6"  "$proto" dport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established } counter accept
 
 }
 
-#### Send out to internal network mac address and ip address filtered to specific outbound target at $client_ip and $client_mac
+###  allow related connections more permisive  
+client6_out_rel()
+{
+proto=$1
+ports=$2
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" protocol "$proto" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  protocol "$proto" ip6 daddr "$int_ipv6" "$proto" dport { "$ports" } ct state { established, related } counter accept 
+nft add rule inet filter output oifname "$int_if" protocol "$proto" ip6 saddr "$int_ipv6"  "$proto" dport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  protocol "$proto" ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established, related } counter accept
+
+}
+
+
+
+#########  Use this to lock to a specific internal server (DNS,SMTP,IMAP) by client_ip and client_mac of the host machine
 client_out_internal()
 {
 
@@ -501,11 +429,86 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { established, related } counter accept 
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  counter accept # jump PASS
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { established, related } counter accept
+}
+
+
+client_out_wifi()
+{
+proto=$1
+ports=$2
+int_if="wlan0"
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" dport { "$ports" } ct state { established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto"  "$proto" dport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" sport { "$ports" } ct state { established } counter accept
 
 }
 
 
-############   ICMP #########
+client6_out_wifi()
+{
+proto=$1
+ports=$2
+int_if="wlan0"
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" dport { "$ports" } ct state { established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" dport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established } counter accept
+
+}
+
+
+client_out_rel_wifi()
+{
+proto=$1
+ports=$2
+int_if="wlan0"
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" dport { "$ports" } ct state { established, related } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto"  "$proto" dport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" sport { "$ports" } ct state { established, related } counter accept
+
+}
+
+client6_out_rel_wifi()
+{
+proto=$1
+ports=$2
+int_if="wlan0"
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6"  "$proto" dport { "$ports" } ct state { established, related } counter accept 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" dport { "$ports" } ct state { new, established, related } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established, related } counter accept
+
+}
+
+
+### only allow new and established connections, to or from specified ports to a specific ip and mac address  
+client_out_internal()
+{
+proto=$1
+ports=$2
+client_ip=$3
+client_mac=$4
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" ip daddr "$client_ip" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" ip saddr "$client_ip"  "$proto" dport { "$ports" } ether saddr "$client_mac"  ct state { established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  ip daddr "$client_ip" "$proto" dport { "$ports" } ct state { new, established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" ip saddr "$client_ip" "$proto" sport { "$ports" } ether saddr "$client_mac"  ct state { established } counter accept
+}
+
+
+
+############################ ICMP ###################################
 icmp_out()
 {
 interface=$1
@@ -514,10 +517,14 @@ interface=$1
 nft add rule inet filter output oifname "$interface" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
 ### ICMP Inbound
 nft add rule inet filter input iifname "$interface" ip protocol icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
+
 }
 
-##################### SERVER INBOUND CONNECTIONS #################################
 
+
+#########  SERVER INBOUND CONNECTIONS ############################
+
+## basic inbound rules
 server_in()
 {
 proto=$1
@@ -528,6 +535,8 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 
 }
 
+
+### extended / more permisive inbound rules
 server_in_x()
 {
 proto=$1
@@ -555,16 +564,79 @@ client_mac=$4
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { new, established } counter accept 
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$client_ip" ct state { established } counter accept # jump PASS
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { new, established } counter accept
-nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  ct state {established} counter accept # jump PASS
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  ct state { established } counter accept # jump PASS
 }
 
 
+## basic inbound rules
+server_in_wifi()
+{
+proto=$1
+ports=$2
+
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" dport { "$ports" } counter log accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" sport { "$ports" } ct state { established, related } counter log accept 
+
+}
+
+
+## basic inbound rules
+server6_in_wifi()
+{
+proto=$1
+ports=$2
+
+nft add rule inet filter input iifname "$int_if" ip6 daddr "$int_ipv6"  "$proto" dport { "$ports" } counter log accept 
+nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6"  "$proto" sport { "$ports" } ct state { established, related } counter log accept 
+
+}
+
+
+server_internal_2p()
+{
+proto=$1
+port1=$2
+port2=$3
+client_ip=$4
+client_mac=$5
+
+#   add rule fam  table  chain statement 
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$port1" } dport { "$port2" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { new, established } counter accept 
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" dport { "$port1"} sport { "$port2" } ip daddr "$client_ip" ct state { established } counter accept # jump PASS
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$sport1" } sport { "$port2" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { new, established } counter accept
+nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" sport{ "$port1" } dport { "$port2" } ip daddr "$client_ip"  ct state { established } counter accept # jump PASS
+
+}
+
+server_internal_1way()
+{
+proto="udp"
+ports=$1
+client_ip=$2
+client_mac=$3
+
+nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip" ct state { new, established } counter accept 
+
+}
 
 
 ############################# NOT FIXED / TRANSLATE THESE LATER ###########################################33 
 
-################### OUTBOUND CLIENT
+############# ICMPv6 #####################################
+icmp6_out()
+{
+interface=$1
 
+### ICMP Outbound
+#nft add rule inet filter output oifname "$interface" ip6 icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+#nft add rule inet filter input iifname "$interface" ip6 icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
+
+}
+
+
+
+########### CLIENT OUTBOUND
 ### limit the burst rate / number of requests per second to stop DDOS 
 client_out_lim()
 {
@@ -580,32 +652,323 @@ limburst=$4
 
 }
 
-################### SERVER INBOUND
+############## SERVER INBOUND
 
-### Only allow inbound with no return from a specified client_ip and client_mac
-server_internal_1way()
-{
-ports=$1
-client_ip=$2
-client_mac=$3
-#iptables -A INPUT  -i $int_if -p udp -m multiport --dports "$ports" -d "$int_ip"  -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-}
-
-#### Inbound connection from one specified port to another (possibly different) port 
-server_internal_2p()
+server_in_lim()
 {
 proto=$1
-port1=$2
-port2=$3
-client_ip=$4
-client_mac=$5
-#iptables -A INPUT  -i $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$int_ip"   -s "$client_ip" -m mac --mac-source "$client_mac" -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$int_ip"   -d "$client_ip" -m state --state ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -p "$proto"  --dport "$port1" --sport "$port2" -s "$client_ip" -d "$int_ip" -m mac --mac-source "$client_mac"  -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A OUTPUT -o $int_if -p "$proto"  --sport "$port1" --dport "$port2" -d "$client_ip" -s "$int_ip" -m state --state ESTABLISHED -j PASS
+ports=$2
+limrate=$3
+limburst=$4
+
+
 }
 
-#########################################################################################################################################################################
+##################################### END OF FUNCTIONS #####################################################################################
+
+######## THERE ARE 4 models slectable from the commandline
+#  $ ./endwall_nft_raspi --open
+#  $ ./endwall_nft_raspi --default
+#  $ ./endwall_nft_raspi --test
+#  $ ./endwall_nft_raspi --closed
+#  $ ./endwall_nft_raspi   # this selects the closed model settings 
+
+# The model settings follow below
+
+
+####################################### OPEN WALL ########################################################################
+# Disable firewall if --open flag 
+if [ "$state" = "open" ]
+then
+
+################################  DISABLE THE FIREWALL #################################################################
+
+# Policies
+
+############################     DEFUALT POLICY       ####################################################################
+# make a new table called filter
+nft add table inet filter     #inet does both ip and ip6 
+#nft add table ip filter      # ip filter table
+#nft add table ip6 filter     # ip6 filter table
+
+# Make some default chains 
+nft add chain inet filter input '{ type filter hook input priority 0 ; policy drop ; }'
+nft add chain inet filter forward '{ type filter hook forward priority 0 ; policy drop ; }' 
+nft add chain inet filter output '{ type filter hook output priority 0 ; policy drop ; }'
+
+nft add rule inet filter input accept
+nft add rule inet filter forward accept
+nft add rule inet filter output accept
+
+##############################      SAVE RULES         ##############################################################
+echo SAVING RULES
+#DEBIAN
+nft list ruleset > /etc/nftables.conf
+
+echo "ENDWALL NFT DISABLED"
+##############################     PRINT RULES       ################################################################
+#list the rules
+nft list ruleset;
+#
+#
+#############################     PRINT ADDRESSES    ########################################################################
+echo "GATEWAY_1    :           MAC:"$gateway_mac1"  IPv4:"$gateway_ip1" " 
+echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
+echo "GATEWAY_2    :           MAC:"$gateway_mac2"  IPv4:"$gateway_ip2" " 
+echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
+# print the time the script finishes
+date
+exit 0
+fi 
+
+
+
+
+if [ "$state" = "default" ]
+then
+
+### This is a compact set of rules for testing 
+### This should actually be a better default ruleset rather than all open 
+### acces with --test option
+
+############################     DEFUALT POLICY       ####################################################################
+# make a new table called filter
+nft add table inet filter     #inet does both ip and ip6 
+#nft add table ip filter      # ip filter table
+#nft add table ip6 filter     # ip6 filter table
+
+# Make some default chains 
+nft add chain inet filter input '{ type filter hook input priority 0 ; policy drop ; }'
+nft add chain inet filter forward '{ type filter hook forward priority 0 ; policy drop ; }' 
+nft add chain inet filter output '{ type filter hook output priority 0 ; policy drop ; }'
+
+
+### Accept all loopback 
+nft add rule inet filter input iifname lo accept 
+
+### Accept all output
+nft add rule inet filter output accept
+
+
+################# wlan0 #########################################################################
+## Accept all input from icmp
+nft add rule inet filter input iifname wlan0 ip protocol icmp accept
+
+### Accept all input from gateway (will make redundant rules if a gatweay is missing)
+nft add rule inet filter input iifname wlan0 ip protocol tcp ip saddr "$gateway_ip1" accept
+nft add rule inet filter input iifname wlan0 ip protocol udp ip saddr "$gateway_ip1" accept
+nft add rule inet filter input iifname wlan0 ip protocol tcp ip saddr "$gateway_ip2" accept
+nft add rule inet filter input iifname wlan0 ip protocol udp ip saddr "$gateway_ip2" accept
+
+## Accept all input from DNS,BOOTP,HTTP,HTTPS
+nft add rule inet filter input iifname wlan0 ip protocol tcp tcp sport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname wlan0 ip protocol udp udp sport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname wlan0 ip protocol tcp tcp dport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname wlan0 ip protocol udp udp dport { 53,67,68,80,443 } accept
+################ eth0 ###########################################################################
+## Accept all input from icmp
+nft add rule inet filter input iifname eth0 ip protocol icmp accept
+
+### Accept all input from gateway (will make redundant rules if a gateway is missing)
+nft add rule inet filter input iifname eth0 ip protocol tcp ip saddr "$gateway_ip1" accept
+nft add rule inet filter input iifname eth0 ip protocol udp ip saddr "$gateway_ip1" accept
+nft add rule inet filter input iifname eth0 ip protocol tcp ip saddr "$gateway_ip2" accept
+nft add rule inet filter input iifname eth0 ip protocol udp ip saddr "$gateway_ip2" accept
+
+## Accept all input from DNS,BOOTP,HTTP,HTTPS
+nft add rule inet filter input iifname eth0 ip protocol tcp tcp sport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname eth0 ip protocol udp udp sport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname eth0 ip protocol tcp tcp dport { 53,67,68,80,443 } accept
+nft add rule inet filter input iifname eth0 ip protocol udp udp dport { 53,67,68,80,443 } accept
+##################################################################################################
+
+
+######################## FINAL DROP ################################################################
+nft add rule inet filter input drop
+nft add rule inet filter forward drop
+nft add rule inet filter output drop
+
+##############################      SAVE RULES         ##############################################################
+echo SAVING RULES
+#DEBIAN
+nft list ruleset > /etc/nftables.conf
+
+echo "ENDWALL NFT DISABLED"
+##############################     PRINT RULES       ################################################################
+#list the rules
+nft list ruleset;
+#
+#
+#############################     PRINT ADDRESSES    ########################################################################
+echo "GATEWAY_1    :           MAC:"$gateway_mac1"  IPv4:"$gateway_ip1" " 
+echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
+echo "GATEWAY_2    :           MAC:"$gateway_mac2"  IPv4:"$gateway_ip2" " 
+echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
+# print the time the script finishes
+date
+exit 0
+fi 
+
+
+
+
+if [ "$state" = "test" ]
+then
+
+### This is a compact set of rules for testing 
+### This should actually be a better default ruleset rather than all open 
+### acces with --test option
+
+############################     DEFUALT POLICY       ####################################################################
+# make a new table called filter
+nft add table inet filter     #inet does both ip and ip6 
+#nft add table ip filter      # ip filter table
+#nft add table ip6 filter     # ip6 filter table
+
+# Make some default chains 
+nft add chain inet filter input '{ type filter hook input priority 0 ; policy drop ; }'
+nft add chain inet filter forward '{ type filter hook forward priority 0 ; policy drop ; }' 
+nft add chain inet filter output '{ type filter hook output priority 0 ; policy drop ; }'
+
+############################## TEST RULES #############################################################################
+# Drop invalid
+nft add rule inet filter input ct state invalid drop;
+nft add rule inet filter output ct state invalid drop;
+
+### Accept all loopback 
+#nft add rule inet filter input iifname lo accept 
+
+lo_open udp 53,67,68,80,443
+lo_open tcp 53,67,68,80,443
+lo_icmp 
+
+nft add rule inet filter input iifname lo counter log drop
+nft add rule inet filter output oifname lo counter log drop
+
+### Accept all output
+#nft add rule inet filter output accept
+
+client_out_wifi tcp 53,67,68,80,443
+client_out_wifi udp 53,67,68,80,443
+
+### ICMP 
+
+icmp_out "wlan0"
+icmp_out "eth0"
+
+## Accept all input from icmp
+#nft add rule inet filter input iifname wlan0 ip protocol icmp accept
+#nft add rule inet filter input iifname eth0 ip protocol icmp accep
+
+#######################################################################################
+
+
+######################## FINAL DROP ###################################################
+nft add rule inet filter input drop
+nft add rule inet filter forward drop
+nft add rule inet filter output drop
+
+##############################      SAVE RULES         ##############################################################
+echo SAVING RULES
+#DEBIAN
+nft list ruleset > /etc/nftables.conf
+
+echo "ENDWALL NFT DISABLED"
+##############################     PRINT RULES       ################################################################
+#list the rules
+nft list ruleset;
+#
+#
+#############################     PRINT ADDRESSES    ########################################################################
+echo "GATEWAY_1    :           MAC:"$gateway_mac1"  IPv4:"$gateway_ip1" " 
+echo "INTERFACE_1: "$int_if1"  MAC:"$int_mac1"  IPv4:"$int_ip1" IPv6:"$int_ip1v6" "
+echo "GATEWAY_2    :           MAC:"$gateway_mac2"  IPv4:"$gateway_ip2" " 
+echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v6" "
+# print the time the script finishes
+date
+exit 0
+fi 
+
+
+
+if [ "$state" = "closed" ]
+then
+
+###########################     DEFUALT POLICY       ####################################################################
+# make a new table called filter
+nft add table inet filter     #inet does both ip and ip6 
+#nft add table ip filter      # ip filter table
+#nft add table ip6 filter     # ip6 filter table
+
+# Make some default chains 
+nft add chain inet filter input '{ type filter hook input priority 0 ; policy drop ; }'
+nft add chain inet filter forward '{ type filter hook forward priority 0 ; policy drop ; }' 
+nft add chain inet filter output '{ type filter hook output priority 0 ; policy drop ; }'
+
+##########################################################################################################################
+
+# load the previously saved rules
+# DEBIAN
+#nft -f /etc/nftables.conf
+
+############################   DEFINE CUSTOM CHAINS    #####################################################################
+#iptables -N LnD			# Define custom DROP chain
+ 
+## create a new table. Error if this already exists
+#nft create table inet endtable 
+## add a new base chain: get input packets
+#nft add chain inet endtable LnD { type filter hook input priority filter; policy drop; }
+## count traffic in the chain
+#nft add rule inet endtable LnD counter
+## Log traffic in the chain
+#nft add rule inet endtable LnD comment "LnD"
+# drop 
+#nft add rule innet endtable LnD drop 
+
+#iptables -N LnD			# Define custom DROP chain
+#iptables -A LnD -p tcp -m limit --limit 1/s -j LOG --log-prefix "[TCP drop] " 
+#iptables -A LnD -p udp -m limit --limit 1/s -j LOG --log-prefix "[UDP drop] " 
+#iptables -A LnD -p icmp -m limit --limit 1/s -j LOG --log-prefix "[ICMP drop] " 
+#iptables -A LnD -f -m limit --limit 1/s -j LOG --log-prefix "[FRAG drop] " 
+#iptables -A LnD -j DROP
+
+# iptables -N LnR			# Define custom REJECT chain
+# iptables -N PASS		# Define PASS chain
+
+#######################################################################################################################
+#                   BASIC FIRST LINE SECURITY
+#######################################################################################################################
+echo "LOADING FIRST LINE SECURITY"
+###########################################################################################
+
+#######################################################################################################################
+#                     DROP RESTRICTED SPECIAL USE IPv4 NETWORKS / IP SPOOFING
+#######################################################################################################################
+############################# DROP LINK-LOCAL ADDRESSES ###############################################################
+# Drop invalid
+nft add rule inet filter input ct state invalid drop;
+nft add rule inet filter output ct state invalid drop;
+#
+nft add rule inet filter input ip saddr 169.254.0.0/16 drop
+nft add rule inet filter input ip daddr 169.254.0.0/16 drop
+
+############################### DROP OUTBOUND BROADCAST ###############################################################
+# drop broadcast outbound
+nft add rule inet filter output ip daddr 255.255.255.255 drop
+
+#####################  DROP PRIVATE LAN INPUT OF WRONG CLASS/TYPE      ################################################ 
+
+# nft add rule filter input ip saddr 10.0.0.0/8  drop;
+# nft add rule filter input ip saddr 172.16.0.0/12  drop;
+# nft add rule filter input ip saddr 192.168.0.0/16 drop;
+
+# uncomment private lan network classss that are not not applicable to your network to drop them
+# use an if statement to check gateway ip against 10,172,192 (not implemented currently)
+
+echo "FIRST LINE SECURITY LOADED"
+
+
+#####################################################################################################################################################
 
 #####################################################################################################################################################
 #                               LOCAL HOST RULES  
@@ -717,6 +1080,12 @@ lo_open udp 500,4500
 #lo_open udp 5060
 ################################  BITMESSAGE ################################################
 #lo_open tcp 8444
+############################# RTMP ############################################
+lo_open udp 1935
+lo_open tcp 1935
+lo_open tcp  2222
+lo_open udp  2222
+
 ################################  BITCOIN ###################################################
 lo_open tcp 8332,8333
 ################################  LITECOIN ##################################################
@@ -730,27 +1099,32 @@ lo_open tcp 8332,8333
 ################################  MYSQL #####################################################
 #lo_open tcp 25565
 #lo_open udp 25565
+################################ INTERNAL SSH ##############################################
+lo_open tcp 22543
+
 ############################### MUMBLE #####################################################
 lo_open tcp 64738
 lo_open udp 64738
-
 ######################## ICMP ###############################################################
-lo_icmp
-
-### make a function for this ICMP rule
+lo_icmp 
 
 ############################ LOCAL HOST DROP ############################################## 
 # NO FURTHER INPUT/OUTPUT FROM LOCALHOST / SOURCE HOSTS
-#iptables -A INPUT  -s 127.0.0.0/8    -j LnD
-#iptables -A OUTPUT -d 127.0.0.0/8    -j LnD
-#iptables -A INPUT  -s 0.0.0.0/8      -j LnD
-#iptables -A OUTPUT -d 0.0.0.0/8      -j LnD
+
+nft add rule inet filter input ip saddr 127.0.0.0/8 log drop
+nft add rule inet filter input ip daddr 127.0.0.0/8 log drop
+nft add rule inet filter output ip saddr 127.0.0.0/8 log drop
+nft add rule inet filter output ip daddr 127.0.0.0/8 log drop
+
+nft add rule inet filter input ip saddr 0.0.0.0/8 log drop
+nft add rule inet filter input ip daddr 0.0.0.0/8 log drop
+nft add rule inet filter output ip saddr 0.0.0.0/8 log drop
+nft add rule inet filter output ip daddr 0.0.0.0/8 log drop
 
 nft add rule inet filter input iifname lo counter log drop
 nft add rule inet filter output oifname lo counter log drop
 nft add rule inet filter forward iifname lo counter log drop
 nft add rule inet filter forward oifname lo counter log drop
-
 
 ####################################################################################################
 echo "LOCALHOST RULES LOADED"
@@ -791,14 +1165,21 @@ then
 #                                       PUBLIC OUTPUT
 ######################################################################################################################################################
 echo "LOADING PUBLIC OUTPUT CLIENTS"
-#############################################    DNS   Client           ##############################################################################
+#######################################            BOOTP  Client       #######################################################################################
+client_out udp 67,68
+### Change to an internal locked to the gateway ip/mac
+## client_out_internal udp 67,68 "$gateway_ip" "$gateway_mac"
+######################    DNS   Client           ##############################################################################
 client_out udp 53,953
 client_out tcp 53,953 
-############################################     DHCPv6  Client         ##############################################################################
-client_out udp 546,547
-client_out tcp 546,547
+
+#client_out_internal tcp 53,953 "$host1_ip" "$host1_mac"
+#client_out_internal udp 53,953 "$host1_ip" "$host1_mac"
+
 #############################################   HTTP HTTPS Client       ##############################################################################  
-client_out tcp 80,443
+#client_out tcp 80,443
+client_out tcp 443
+client_out tcp 80 
 ##########################################    HKP OPEN PGP CLIENT       ##############################################################################
 client_out tcp 11371
 ##########################################      RSYNC CLIENT            ##############################################################################
@@ -844,24 +1225,14 @@ client_out tcp 114,993
 ##########################################         NTP   Client         ##############################################################################
 client_out udp 123
 client_out tcp 123
-#######################################            BOOTP  Client       #######################################################################################
-### Change to an internal locked to the gateway ip 
-client_out udp 67,68
-
-#server_in udp 67,68
-
-#iptables -A OUTPUT -o $int_if -s "$int_ip" -d "$gateway_ip" -p udp -m multiport --dports 67,68 -m state --state NEW,ESTABLISHED -j PASS
-#iptables -A INPUT  -i $int_if -d "$int_ip" -s "$gateway_ip" -p udp -m multiport --sports 67,68 -m state --state ESTABLISHED -j PASS
-
-
-###########################################        ICMP Client         ############################################################################### 
+###########################################        ICMP         ############################################################################### 
 icmp_out "$int_if"
 
 ##########################################    SPECIALIZED OUTPUT   ##################################################################################
 ##########################################        GIT Client        #################################################################################
 client_out tcp 9418
 ##########################################       TOR  Client        ###############################################################
-client_out tcp 9001
+client_out tcp 9001,9050,9053
 ##########################################      BitTorrent  Client     ############################################################
 client_out tcp 2710,6881,6882,6883,6884,6885,6886,6887,6888,6889,6890,6969,7000 
 client_out udp 2710,6881,6882,6883,6884,6885,6886,6887,6888,6889,6890,6969,7000 
@@ -902,22 +1273,45 @@ client_out udp 1194
 ##########################################          SIP              ##############################################################
 client_out tcp 5060,5061
 client_out udp 5060
+###########################################         RTMP             ##########################################################
+client_out tcp 1935
+client_out udp 1935
 ##########################################      BITCOIN Client       ##############################################################
 client_out tcp 8332,8333
 ##########################################      BITMESSAGE Client    ##############################################################
 client_out tcp 8444
 ##########################################      LITECOIN Client      ##############################################################
-# client_out tcp 9332,9333
+client_out tcp 9332,9333
 ##########################################      GOOGLE TALK Client   ##############################################################
-#client_out tcp 19294
-#client_out udp 19294
+client_out tcp 19294
+client_out udp 19294
 ##########################################     SKYPE Client          ##############################################################
-#client_out tcp 23399
-#client_out udp 23399
+client_out tcp 23399
+client_out udp 23399
+############################################### INTERNAL SSH ######################################################################
+client_out tcp 22543
 
-############################################### MUMBLE Client #############################################################################
+############################################### MUMBLE #############################################################################
 client_out tcp 64738
 client_out udp 64738
+
+
+################### IPv6 ######################################################################################
+if [ "$int_ipv6" != "" ]
+then 
+############################################     DHCPv6  Client         ##############################################################################
+client6_out udp 546,547
+client6_out tcp 546,547
+################################################ DNSv6 Client  ###################################################
+client6_out udp 53,953
+client6_out tcp 53,953
+############################################## HTTP HTTPS Client #####################################
+client6_out tcp 80,443
+fi
+
+
+
+
 
 ###################################################################################################################################
 echo "LOADING PUBLIC SERVER INPUTS"
@@ -962,6 +1356,7 @@ echo "LOADING PUBLIC SERVER INPUTS"
 #server_in udp 2086
 echo "LOADING INTERNAL LAN SERVER INPUTS"
 
+
 ###################################################################################################################################################################
 #                                 LOCAL / PRIVATE INPUTS  # mac address bind local clients to hosts
 ##################################          BOOTP SERVER             ################################################################################################### 
@@ -971,8 +1366,8 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #######################################      RELP LOG SERVER ########################################################################################################### 
 #iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 2514 --dport 2514 -m mac --mac-source "$gateway_mac" -m state --state NEW,ESTABLISHED -j PASS
 
-### server in 1-way should be ok for this application (SYSLOG,RELP,BOOTP input on UDP from the gateway/router) 
-### make a server_in_1way_internal 
+### internal 1-way udp make a function
+
 
 #######################################       DNS SERVER       ######################################################################################################## 
 #server_in_internal udp 53 "$int_ip" "$int_mac"
@@ -992,9 +1387,9 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #server_in_internal tcp 143,993 "$client1_ip" "$client1_mac"
 #server_in_internal tcp 143,993 "$client2_ip" "$client2_mac"
 ###################################        SMB SERVER         ##############################################################################################
-#server_internal_2p tcp 445 445 "$int_ip" "$int_mac"
-#server_internal_2p tcp 445 445 "$client1_ip" "$client1_mac"
-#server_internal_2p tcp 445 445 "$client2_ip" "$client2_mac"
+#server_in_internal_2p tcp 445 445 "$int_ip" "$int_mac"
+#server_in_internal_2p tcp 445 445 "$client1_ip" "$client1_mac"
+#server_in_internal_2p tcp 445 445 "$client2_ip" "$client2_mac"
 ###################################        NETBIOS  SERVER    ##############################################################################################
 #server_in_internal tcp 135,137,138,139 "$int_ip" "$int_mac" 
 #server_in_internal udp 135,137,138,139 "$int_ip" "$int_mac" 
@@ -1033,6 +1428,19 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #server_in_internal udp 5222,5190,5223,5269,5280,5281,5298,8010 "$client2_ip" "$client2_mac"
 ##############################################################################################################################################################
 
+##############################    INTERNAL RTMP    ###############################
+#server_in tcp 2222
+#server_in udp 2222
+
+#server_in tcp 1935
+#server_in udp 1935
+##############################    INTERNAL SSH     ##############################
+#server_in tcp 22543
+
+
+
+###################################################################################
+
 #### END OF LOOP OVER INTERFACES/IPs
 
 fi
@@ -1042,16 +1450,30 @@ done
 #######################################################################################################################
 #                                          ICMP DROP
 #######################################################################################################################
-#iptables -A INPUT -p icmp -j LnD
-#ip6tables -A INPUT -p icmp -j LnD
+nft add rule inet filter input ip protocol icmp log drop
+nft add rule inet filter input ip protocol icmp log drop
+nft add rule inet filter output ip protocol icmp log drop
+nft add rule inet filter output ip protocol icmp log drop
 
 ########################################################################################################################
 #                                          LAN INPUT DROP
 ########################################################################################################################
 # DROP ANY FURTHER PRIVATE LAN INPUT not specified in internal networking or inputs section
-#iptables -A INPUT  -s 10.0.0.0/8     -j LnD
-#iptables -A INPUT  -s 172.16.0.0/12  -j LnD
-#iptables -A INPUT  -s 192.168.0.0/16 -j LnD
+
+nft add rule inet filter input ip saddr 10.0.0.0/8 log drop
+nft add rule inet filter input ip daddr 10.0.0.0/8 log drop
+nft add rule inet filter output ip saddr 10.0.0.0/8 log drop
+nft add rule inet filter output ip daddr 10.0.0.0/8 log drop
+
+nft add rule inet filter input ip saddr 172.16.0.0/12 log drop
+nft add rule inet filter input  ip daddr 172.16.0.0/12 log drop
+nft add rule inet filter output ip saddr 172.16.0.0/12 log drop
+nft add rule inet filter output  ip daddr 172.16.0.0/12 log drop
+
+nft add rule inet filter input ip saddr 192.168.0.0/16 log drop
+nft add rule inet filter input  ip daddr 192.168.0.0/16 log drop
+nft add rule inet filter output ip saddr 192.168.0.0/16 log drop
+nft add rule inet filter output  ip daddr 192.168.0.0/16 log drop
 
 ########################################################################################################################
 #                                       FINAL LOG DROP  
@@ -1080,5 +1502,6 @@ echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v
 # print the time the script finishes
 date
 exit 0
+fi
 
 ###################################      END OF PROGRAM      ################################################################
