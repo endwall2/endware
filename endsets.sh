@@ -347,9 +347,11 @@ ipset create -exist server_blacklist hash:net hashsize 8192 maxelem 4294967295
 ipset create -exist http_blacklist hash:net hashsize 8192   maxelem 4294967295
 ipset create -exist smtp_blacklist hash:net hashsize 8192 maxelem 4294967295
 ipset create -exist dns_blacklist hash:net hashsize 8192  maxelem 4294967295
+ipset create -exist irc_blacklist hash:net hashsize 8192 maxelem 429467295
 
 ipset create -exist http_whitelist hash:net hashsize 8192 maxelem 4294967295
 ipset create -exist smtp_whitelist hash:net hashsize 8192 maxelem 4294967295
+ipset create -exist irc_whitelist hash:net hashsize 8192 maxelem 429467295
 
 ipset create -exist tor_list hash:net hashsize 8192 maxelem 4294967295
 
@@ -541,6 +543,10 @@ echo SMTP BLACKLIST LOADING
 log_drop smtp_blacklist tcp 25,587 SMTP-BL
 echo SMTP BLACKLIST LOADED
 
+echo IRC BLACKLIST LOADING
+log_drop smtp_blacklist tcp 6667,6697 IRC-BL
+echo IRC BLACKLIST LOADED
+
 echo DNS BLACKLIST LOADING
 log_drop dns_blacklist udp 53,953 DNS-BL
 log_drop dns_blacklist tcp 53,953 DNS-BL
@@ -565,6 +571,10 @@ echo SMTP WHITELIST LOADED
 
 #echo HTTP/HTTPS WHITELIST LOADING
 white http_whitelist tcp 80,443 HTTP-WL
+echo HTTP/HTTPS WHITELIST LOADED
+
+#echo IRC WHITELIST LOADING
+white http_whitelist tcp 6667,6697 HTTP-WL
 echo HTTP/HTTPS WHITELIST LOADED
 
 ####################################################################################

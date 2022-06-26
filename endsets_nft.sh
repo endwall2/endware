@@ -366,31 +366,43 @@ insertIPT_fwd=1
 
 ### maximum size
 max_size=67108864
+### play with this variable to suit your needs
+selected_size=16777216
 
+table_size="$selected_size"
 
 ### create sets (won't cause error if they already exist)
-nft add set inet filter blacklist { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter http_blacklist { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter smtp_blacklist { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter dns_blacklist { type ipv4_addr \; size "$max_size"\;flags interval \; }
-nft add set inet filter attackers { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter http_whitelist { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter smtp_whitelist { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter tor_list { type ipv4_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter ipv6_blacklist { type ipv6_addr \; size "$max_size"\; flags interval \;}
-nft add set inet filter server_blacklist { type ipv4_addr \; size "$max_size"\; flags interval \; }
+nft add set inet filter blacklist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter http_blacklist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter smtp_blacklist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter irc_blacklist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+
+nft add set inet filter dns_blacklist { type ipv4_addr \; size "$table_size"\;flags interval \; }
+nft add set inet filter attackers { type ipv4_addr \; size "$table_size"\; flags interval \;}
+
+nft add set inet filter tor_list { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter ipv6_blacklist { type ipv6_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter server_blacklist { type ipv4_addr \; size "$table_size"\; flags interval \; }
+
+nft add set inet filter http_whitelist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter smtp_whitelist { type ipv4_addr \; size "$table_size"\; flags interval \;}
+nft add set inet filter irc_whitelist { type ipv4_addr \; size "$table_size"\; flags interval \;}
 
 ## flush the sets 
 nft flush set inet filter blacklist
 nft flush set inet filter http_blacklist
 nft flush set inet filter smtp_blacklist
+nft flush set inet filter irc_blacklist
 nft flush set inet filter dns_blacklist
 nft flush set inet filter attackers
-nft flush set inet filter http_whitelist
-nft flush set inet filter smtp_whitelist
+
 nft flush set inet filter tor_list
 nft flush set inet filter ipv6_blacklist
 nft flush set inet filter server_blacklist
+
+nft flush set inet filter http_whitelist
+nft flush set inet filter smtp_whitelist
+nft flush set inet filter irc_whitelist
 
 ### delete the sets (causes an error if they aren't there)
 #nft delete set inet filter blacklist
@@ -403,8 +415,8 @@ nft flush set inet filter server_blacklist
 #nft delete set inet filter tor_list
 #nft delete set inet filter ipv6_blacklist
 #nft delete set inet filter server_blacklist
-
-
+#nft delete set inet filter irc_blacklist
+#nft delete set inet filter irc_whitelist
 
 ######## ALTERNATIVE SETUP with more parameters for specificity 
 #nft add set inet filter server_blacklist { type ipv4_addr . inet_proto . inet_service . ipv4_addr; size 65536; }
@@ -589,6 +601,10 @@ echo "SERVER BLACKLIST LOADED"
 #log_drop smtp_blacklist tcp 25,587 SMTP-BL
 #echo "SMTP BLACKLIST LOADED"
 
+#echo "IRC BLACKLIST LOADING"
+#log_drop smtp_blacklist tcp 6667,6697 IRC-BL
+#echo "IRC BLACKLIST LOADED"
+
 #echo"DNS BLACKLIST LOADING"
 #log_drop dns_blacklist udp 53,953 DNS-BL
 #log_drop dns_blacklist tcp 53,953 DNS-BL
@@ -615,6 +631,10 @@ echo "TOR BLACKLIST LOADED"
 #echo "HTTP/HTTPS WHITELIST LOADING"
 #white http_whitelist tcp 80,443 HTTP-WL
 #echo "HTTP/HTTPS WHITELIST LOADED"
+
+#echo "IRC WHITELIST LOADING"
+#white http_whitelist tcp 6667,6697 HTTP-WL
+#echo "IRC WHITELIST LOADED"
 
 ####################################################################################
 
@@ -675,6 +695,14 @@ echo "TOR EXIT NODES LOADED"
 #done
 #echo SMTP WHITELIST LOADED
 
+#echo LOADING IRC WHITELIST 
+#for whiteout in $(cat irc_whitelist.txt);
+#do 
+#nft add element inet filter irc_whitelist { "$whiteout" }
+#echo "$whiteout" ; 
+#done
+#echo IRC WHITELIST LOADED
+
 ##################################################
 #       POPULATE BLACKLISTS
 ###################################################
@@ -702,6 +730,14 @@ echo SERVER BLACKLIST LOADED
 #echo "$blackout" ; 
 #done
 #echo SMTP BLACKLIST LOADED
+
+#echo LOADING IRC BLACKLIST 
+#for blackout in $(cat irc_blacklist.txt);
+#do 
+#nft add element inet filter irc_blacklist { "$blackout" } 
+#echo "$blackout" ; 
+#done
+#echo IRC BLACKLIST LOADED
 
 #echo LOADING DNS BLACKLIST 
 #for blackout in $(cat dns_blacklist.txt);
