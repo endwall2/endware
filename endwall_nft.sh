@@ -83,8 +83,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.18
-#  VERSION DATE: JUNE 28, 2018
+#  VERSION: 1.19
+#  VERSION DATE: JUNE 23, 2022
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
 #  ALL RIGHTS RESERVED  
 #    
@@ -108,8 +108,8 @@
 #  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
-#        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, train, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth, the Moon, or the planet Mars,
+#        on a satellite orbiting about the Earth, the Moon, the planet Mars, and about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
 #  IN WHAT CONTEXT OR CIRCUMSTANCES MAY A USER USE THIS PROGRAM?
@@ -137,25 +137,30 @@
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
 #  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
+#  12) a) Any user of this program is not granted the freedom to remove, replace, alter or modify the LICENSE AGREEMENT, ACKNOWLEDGMENTS, or the Header and Instructions from the file, if being distributed without modification of the program code. 
+#         The LICENSE AGREEMENT, ACKKNWLEGEMENTS and Header and Instructions sections must remain attached to the code in their entirety when re-distributed without modification. 
+#      b) If the code is moodified, by a user, as permitted and allowed under section 6) a),b),c),d),e) of this LICENSE AGREEMENT, then 
+#         the user of this program who made the program code modifications may modify or alter the ACKNKOWLEGEMENTS, or the Header and Instructions sections to document these new modifications and their authorship, and to acknowledge any asistance in doing so, 
+#         however, these user modifiers are not granted the freedom to removem, replace, alter or modify the LICENSE AGREEMENT which must remain attached to the code in their entirety when re-distributed without modification.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
-#  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
+#  13) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  14) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
-#  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
+#  15)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  16)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
-#  16)  If a user makes a significant improvement to this software, and if this improvement is included in a release, the user agrees not to seek remuneration or payment 
+#  17)  If a user makes a significant improvement to this software, and if this improvement is included in a release, the user agrees not to seek remuneration or payment 
 #       from the creators of this software or from Endwall or from the Endware Development Team, for any such work contribution performed, and the user understands 
 #       that there will be no such remuneration or payment rendered to them for any such contribution. 
 #  END OF LICENSE AGREEMENT
 ##################################################################################################################################################################################
 #  ADDITIONAL NOTES:
-#  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
+#  18)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  19)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
@@ -166,7 +171,7 @@
 #                          INPUT ARGUMENTS
 ###################################################################################################
 version="1.44"
-branch="wired"
+branch="gnu/linux nft wired"
 rev_date="23/06/2022"
 state="closed"
 
@@ -358,6 +363,16 @@ nft add rule inet filter input iifname lo ip protocol icmp icmp type { echo-repl
 
 }
 
+lo_icmp6()
+{
+interface=$1
+
+### ICMP Outbound
+nft add rule inet filter output oifname lo icmpv6 type { echo-reply, echo-request, destination-unreachable, nd-router-solicit, nd-router-advert, nd-neighbor-advert, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+nft add rule inet filter input iifname lo icmpv6 type { echo-reply, echo-request, destination-unreachable, nd-router-solicit, nd-router-advert, nd-neighbor-advert ,time-exceeded, parameter-problem } counter accept 
+
+}
 ############ CLIENT OUTBOUND CONNECTIONS ###################
 
 
@@ -413,8 +428,6 @@ nft add rule inet filter input iifname "$int_if"  protocol "$proto" ip6 daddr "$
 
 }
 
-
-
 #########  Use this to lock to a specific internal server (DNS,SMTP,IMAP) by client_ip and client_mac of the host machine
 client_out_internal()
 {
@@ -431,7 +444,6 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr 
 nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ether saddr "$client_mac" ip saddr "$client_ip"  ct state { established, related } counter accept
 }
 
-
 client_out_wifi()
 {
 proto=$1
@@ -446,7 +458,6 @@ nft add rule inet filter input iifname "$int_if" ip protocol "$proto"  "$proto" 
 
 }
 
-
 client6_out_wifi()
 {
 proto=$1
@@ -460,7 +471,6 @@ nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto"
 nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established } counter accept
 
 }
-
 
 client_out_rel_wifi()
 {
@@ -489,7 +499,6 @@ nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto"
 nft add rule inet filter input iifname "$int_if"  ip6 daddr "$int_ipv6" "$proto" sport { "$ports" } ct state { established, related } counter accept
 
 }
-
 
 ### only allow new and established connections, to or from specified ports to a specific ip and mac address  
 client_out_internal()
@@ -520,7 +529,17 @@ nft add rule inet filter input iifname "$interface" ip protocol icmp icmp type {
 
 }
 
+############# ICMPv6 #####################################
+icmp6_out()
+{
+interface=$1
 
+### ICMP Outbound
+nft add rule inet filter output oifname "$interface" icmpv6 type { echo-reply, echo-request, destination-unreachable, nd-router-solicit, nd-router-advert, nd-neighbor-advert, time-exceeded, parameter-problem } counter accept 
+### ICMP Inbound
+nft add rule inet filter input iifname "$interface" icmpv6 type { echo-reply, echo-request, destination-unreachable, nd-router-solicit, nd-router-advert, nd-neighbor-advert ,time-exceeded, parameter-problem } ct state {established, related } counter accept 
+
+}
 
 #########  SERVER INBOUND CONNECTIONS ############################
 
@@ -534,7 +553,6 @@ nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ct state { established, related } counter log accept 
 
 }
-
 
 ### extended / more permisive inbound rules
 server_in_x()
@@ -567,7 +585,6 @@ nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$client_ip"  ct state { established } counter accept # jump PASS
 }
 
-
 ## basic inbound rules
 server_in_wifi()
 {
@@ -579,7 +596,6 @@ nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" 
 
 }
 
-
 ## basic inbound rules
 server6_in_wifi()
 {
@@ -590,7 +606,6 @@ nft add rule inet filter input iifname "$int_if" ip6 daddr "$int_ipv6"  "$proto"
 nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6"  "$proto" sport { "$ports" } ct state { established, related } counter log accept 
 
 }
-
 
 server_internal_2p()
 {
@@ -619,22 +634,7 @@ nft add rule inet filter input iifname "$int_if" ip protocol "$proto" ip daddr "
 
 }
 
-
 ############################# NOT FIXED / TRANSLATE THESE LATER ###########################################33 
-
-############# ICMPv6 #####################################
-icmp6_out()
-{
-interface=$1
-
-### ICMP Outbound
-#nft add rule inet filter output oifname "$interface" ip6 icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } counter accept 
-### ICMP Inbound
-#nft add rule inet filter input iifname "$interface" ip6 icmp icmp type { echo-reply, echo-request, destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } ct state {established, related } counter accept 
-
-}
-
-
 
 ########### CLIENT OUTBOUND
 ### limit the burst rate / number of requests per second to stop DDOS 
@@ -661,6 +661,10 @@ ports=$2
 limrate=$3
 limburst=$4
 
+#iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --sports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
+#iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --dports "$ports" -m state --state ESTABLISHED -j PASS
+#iptables -A INPUT  -i $int_if -d "$int_ip" -p "$proto" -m multiport --dports "$ports" -m limit --limit "$limrate"/s --limit-burst "$limburst" -m state --state NEW,ESTABLISHED -j PASS
+#iptables -A OUTPUT -o $int_if -s "$int_ip" -p "$proto" -m multiport --sports "$ports" -m state --state ESTABLISHED -j PASS
 
 }
 
@@ -674,7 +678,6 @@ limburst=$4
 #  $ ./endwall_nft_raspi   # this selects the closed model settings 
 
 # The model settings follow below
-
 
 ####################################### OPEN WALL ########################################################################
 # Disable firewall if --open flag 
@@ -720,8 +723,6 @@ echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v
 date
 exit 0
 fi 
-
-
 
 
 if [ "$state" = "default" ]
@@ -810,8 +811,6 @@ exit 0
 fi 
 
 
-
-
 if [ "$state" = "test" ]
 then
 
@@ -862,7 +861,6 @@ icmp_out "eth0"
 
 #######################################################################################
 
-
 ######################## FINAL DROP ###################################################
 nft add rule inet filter input drop
 nft add rule inet filter forward drop
@@ -888,7 +886,6 @@ echo "INTERFACE_2: "$int_if2"  MAC:"$int_mac2"  IPv4:"$int_ip2"  IPv6:"$int_ip2v
 date
 exit 0
 fi 
-
 
 
 if [ "$state" = "closed" ]
@@ -966,7 +963,6 @@ nft add rule inet filter output ip daddr 255.255.255.255 drop
 # use an if statement to check gateway ip against 10,172,192 (not implemented currently)
 
 echo "FIRST LINE SECURITY LOADED"
-
 
 #####################################################################################################################################################
 
@@ -1107,7 +1103,7 @@ lo_open tcp 64738
 lo_open udp 64738
 ######################## ICMP ###############################################################
 lo_icmp 
-
+lo_icmp6
 ############################ LOCAL HOST DROP ############################################## 
 # NO FURTHER INPUT/OUTPUT FROM LOCALHOST / SOURCE HOSTS
 
@@ -1295,7 +1291,6 @@ client_out tcp 22543
 client_out tcp 64738
 client_out udp 64738
 
-
 ################### IPv6 ######################################################################################
 if [ "$int_ipv6" != "" ]
 then 
@@ -1307,10 +1302,9 @@ client6_out udp 53,953
 client6_out tcp 53,953
 ############################################## HTTP HTTPS Client #####################################
 client6_out tcp 80,443
+#################################   ICMPv6 Client   ###################################
+icmp6_out "$int_if"
 fi
-
-
-
 
 
 ###################################################################################################################################
@@ -1367,7 +1361,6 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #iptables -A INPUT -i $int_if -s "$gateway_ip" -d "$int_ip1" -p udp --sport 2514 --dport 2514 -m mac --mac-source "$gateway_mac" -m state --state NEW,ESTABLISHED -j PASS
 
 ### internal 1-way udp make a function
-
 
 #######################################       DNS SERVER       ######################################################################################################## 
 #server_in_internal udp 53 "$int_ip" "$int_mac"
@@ -1436,8 +1429,6 @@ echo "LOADING INTERNAL LAN SERVER INPUTS"
 #server_in udp 1935
 ##############################    INTERNAL SSH     ##############################
 #server_in tcp 22543
-
-
 
 ###################################################################################
 

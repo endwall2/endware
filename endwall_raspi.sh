@@ -92,8 +92,8 @@
 #  BEGINNING OF LICENSE AGREEMENT
 #  TITLE:  THE ENDWARE END USER LICENSE AGREEMENT (EULA) 
 #  CREATION DATE: MARCH 19, 2016
-#  VERSION: 1.18
-#  VERSION DATE: JUNE 28, 2018
+#  VERSION: 1.19
+#  VERSION DATE: JUNE 23, 2022
 #  COPYRIGHT: THE ENDWARE DEVELOPMENT TEAM, 2016-2018
 #  ALL RIGHTS RESERVED  
 #    
@@ -117,8 +117,8 @@
 #  1) i) This program may be used by anyone. 
 #  WHERE MAY A USER USE THIS PROGRAM ?
 #  2) a) This program may be used in any country, in any geographic location of the planet Earth, in any marine or maritime environment, at sea, sub-sea, in a submarine, underground,
-#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth or the Moon,
-#        on a satellite orbiting about the Earth, the Moon, about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
+#        in the air, in an airplane, dirigible, blimp, or balloon, in a car, bus, motor vehicle, train, armored transport vehicle, and at any distance from the surface of the planet Earth, including in orbit about the Earth, the Moon, or the planet Mars,
+#        on a satellite orbiting about the Earth, the Moon, the planet Mars, and about any Solar System planet and its moons, on any space transport vehicle, and anywhere in the Solar System including the Moon, Mars, and all other Solar System planets not listed.  
 #  2) b) This program may be used in any residential, commercial, business, and governmental property or location and in all public and private spaces. 
 #  2) c) This program may be used anywhere.
 #  IN WHAT CONTEXT OR CIRCUMSTANCES MAY A USER USE THIS PROGRAM?
@@ -146,25 +146,30 @@
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
 #  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
+#  12) a) Any user of this program is not granted the freedom to remove, replace, alter or modify the LICENSE AGREEMENT, ACKNOWLEDGMENTS, or the Header and Instructions from the file, if being distributed without modification of the program code. 
+#         The LICENSE AGREEMENT, ACKKNWLEGEMENTS and Header and Instructions sections must remain attached to the code in their entirety when re-distributed without modification. 
+#      b) If the code is moodified, by a user, as permitted and allowed under section 6) a),b),c),d),e) of this LICENSE AGREEMENT, then 
+#         the user of this program who made the program code modifications may modify or alter the ACKNKOWLEGEMENTS, or the Header and Instructions sections to document these new modifications and their authorship, and to acknowledge any asistance in doing so, 
+#         however, these user modifiers are not granted the freedom to removem, replace, alter or modify the LICENSE AGREEMENT which must remain attached to the code in their entirety when re-distributed without modification.
 #  WHO GRANTS THESE FREEDOMS ?
-#  12) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
-#  13) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
+#  13) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
+#  14) The aforementioned freedoms of use listed in sections 4),5),6),and 7) are granted by the creators of this software and the Endware Development Team to any qualifying user listed in section 1) and 
 #      comporting with any restrictions and qualifications mentioned in sections 2), 3), 8), 9), 10) and 11) of this LICENSE AGREEMENT.
 #  WHAT RELATIONSHIP DO THE USERS HAVE WITH THE CREATORS OF THE SOFTWARE ?
-#  14)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
-#  15)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
+#  15)  This software is distributed "AS IS" without any warranty and without any guaranty and the creators do not imply anything about its usefulness or efficacy.
+#  16)  If the user suffers or sustains financial loss, informational loss, material loss, physical loss or data loss as a result of using, running, or modifying this software 
 #       the user agrees that they will hold the creators of this software, "The Endware Development Team", "Endwall", and the programmers involved in its creation, free from prosecution, 
 #       free from indemnity, and free from liability, and will not attempt to seek restitution, compensation, or payment for any such loss real or imagined.
-#  16)  If a user makes a significant improvement to this software, and if this improvement is included in a release, the user agrees not to seek remuneration or payment 
+#  17)  If a user makes a significant improvement to this software, and if this improvement is included in a release, the user agrees not to seek remuneration or payment 
 #       from the creators of this software or from Endwall or from the Endware Development Team, for any such work contribution performed, and the user understands 
 #       that there will be no such remuneration or payment rendered to them for any such contribution. 
 #  END OF LICENSE AGREEMENT
 ##################################################################################################################################################################################
 #  ADDITIONAL NOTES:
-#  17)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
+#  18)  If a user finds a significant flaw or makes a significant improvement to this software, please feel free to notify the original developers so that we may also
 #       include your user improvement in the next release; users are not obligated to do this, but we would enjoy this courtesy tremendously.
 #
-#  18)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
+#  19)  Sections 0) a) 0) b) and 1) a) are sufficient for use; however sections 1) b) through 1) i) are presented to clarify 1 a) and to enforce non-discrimination and non-exclusion of use.  
 #       For example some people may choose to redefine the meaning of the words "person" "human being" or "sentient individual" to exclude certain types of people.
 #       This would be deemed unacceptable and is specifically rejected by the enumeration presented.  If the wording presented is problematic please contact us and suggest a change,
 #       and it will be taken into consideration.  
@@ -181,7 +186,7 @@ rev_date="25/10/2021"
 for arg in "$@"
 do
 
- if [ "$arg" == "--help" ]
+ if [ "$arg" = "--help" ]
  then
  echo "USAGE: ./endwall --help ## displays usage statements"
  echo "USAGE: ./endwall --version  ## displays version statements"
@@ -189,13 +194,13 @@ do
  echo "USAGE: ./endwall  ## enable endwall firewall system"
  shift
  exit 0
- elif  [ "$arg" == "--version" ]
+ elif  [ "$arg" = "--version" ]
  then
  echo "ENDWALL version:"$version", branch:"$branch", revision date:"$rev_date" "
  echo "Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016"
  shift
  exit 0 
- elif  [ "$arg" == "--open" ]
+ elif  [ "$arg" = "--open" ]
  then
  state="open"
  shift
@@ -207,8 +212,8 @@ done
 ####################################################################################################
 #                           GLOBAL VARIABLES
 ####################################################################################################
-iptables=/sbin/iptables
-ip6tables=/sbin/ip6tables
+iptables="/sbin/iptables"
+ip6tables="/sbin/ip6tables"
 
 # Grab interface name from ip link and parse
 int_if1=$(ip link | grep -a "state " | awk -F: '{ if (FNR==2) print $2}'| awk ' {print $1}')
@@ -328,7 +333,7 @@ ip6tables -X                  # Delete Chains
 ip6tables -Z                  # Reset Counter
 
 # Disable firewall if --open flag
-if [ "$state" == "open" ]
+if [ "$state" = "open" ]
 then
 
 ################################  DISABLE THE FIREWALL #################################################################
@@ -625,10 +630,10 @@ port=$2
 client_ip=$3
 client_mac=$4
 
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --dport $port -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --sport $port -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --sport $port -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --dport $port -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" --dport "$port" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" --sport "$port" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" --sport "$port" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" --dport "$port" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
 }
 
 client_out_internal_mp()
@@ -638,10 +643,10 @@ ports=$2
 client_ip=$3
 client_mac=$4
 
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip -m multiport --dports $ports -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip -m multiport --sports $ports -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip -m multiport --sports $ports -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip -m multiport --dports $ports -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" -m multiport --dports "$ports" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" -m multiport --sports "$ports" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" -m multiport --sports "$ports" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" -m multiport --dports "$ports" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
 }
 
 client_out_internal_2p()
@@ -652,10 +657,10 @@ port2=$3
 client_ip=$4
 client_mac=$5
 
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --dport $port1 --sport $port2 -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --sport $port1 --dport $port2 -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
-iptables -A OUTPUT -o $int_if -p $proto -s $int_ip1 -d $client_ip --sport $port1 --dport $port2 -m state --state NEW,ESTABLISHED -j PASS
-iptables -A INPUT  -i $int_if -p $proto -d $int_ip1 -s $client_ip --dport $port1 --sport $port2 -m mac --mac-source $client_mac -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" --dport "$port1" --sport "$port2" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" --sport "$port1" --dport "$port2" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
+iptables -A OUTPUT -o "$int_if" -p "$proto" -s "$int_ip1" -d "$client_ip" --sport "$port1" --dport "$port2" -m state --state NEW,ESTABLISHED -j PASS
+iptables -A INPUT  -i "$int_if" -p "$proto" -d "$int_ip1" -s "$client_ip" --dport "$port1" --sport "$port2" -m mac --mac-source "$client_mac" -m state --state ESTABLISHED -j PASS
 }
 
 
@@ -1015,13 +1020,13 @@ for int_if in "$int_if1" "$int_if2"
 
 do
 
-if [ "$int_if" == "$int_if1" ]
+if [ "$int_if" = "$int_if1" ]
 then
 int_mac="$int_mac1"
 int_ip="$int_ip1"
 int_ipv6="$int_ip1v6"
 
-elif [ "$int_if" == "$int_if2" ]
+elif [ "$int_if" = "$int_if2" ]
 then
 int_mac="$int_mac2"
 int_ip="$int_ip2"
@@ -1029,7 +1034,7 @@ int_ipv6="$int_ip2v6"
 fi
 
 
-if [ "$int_if" == "wlan0" ]
+if [ "$int_if" = "wlan0" ]
 then
 echo "LOADING WIFI PUBLIC OUTPUT CLIENTS"
 #############################################    DNS   Client           ##############################################################################
@@ -1327,7 +1332,6 @@ client_out udp 64731
 
 ################################################ INTERNAL SSH ##########################################################3
 client_out tcp 22543
-
 
 ###################################################################################################################################
 echo "LOADING PUBLIC SERVER INPUTS"

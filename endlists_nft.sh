@@ -2,13 +2,13 @@
 ####################################################################################
 #                        HEADER AND INSTRUCTIONS
 ####################################################################################
-# Program: endlists.sh
+# Program: endlists_nft.sh
 # Type: Bourne shell script
 # Creation Date: February 14, 2016
-# Current Version: 1.27  June 25, 2022
+# Current Version: 1.28  June 25, 2022
 # Stable Version:  1.25, August 30, 2017
 # Author: The Endware Development Team
-# Copyright: The Endware Development Team 2016-2023
+# Copyright: The Endware Development Team 2016
 #
 ####################################################################################
 # Description:  Traditional iptables list based blacklisting 
@@ -38,7 +38,7 @@
 #           -  Use endsets.sh if your blacklists run over 1000 entries.
 #
 # $ mkdir ~/endwall
-# $ cp endlists.sh ~/endwall/endlists.sh
+# $ cp endlists_nft.sh ~/endwall/endlists_nft.sh
 # $ cd ~/endwall
 # $ echo " " >> smtp_whitelist.txt  # whitelist (hotmail,gmail,etc)
 # $ echo " " >> http_whitelist.txt  # users of your website  
@@ -51,13 +51,12 @@
 # $ echo " " >> html_blacklist.txt  # strings of attack html calls (cgi,php) to block from http 
 # $ echo " " >> ipv6_blacklist.txt  # ipv6 addresses to blacklist all ports and protocols
 # $ ls                              # list the files you just made
-# $ nano endlists.sh   # go to the section below labeled SAVE RULES (line 336)
+# $ nano endlists_nft.sh   # go to the section below labeled SAVE RULES (line 336)
 #                      # comment out save rules for distributions you don't use line 336
-# $ chmod u+rwx endlists.sh         # change permisions to allow script execution 
+# $ chmod u+rwx endlists_nft.sh         # change permisions to allow script execution 
 # $ su                              # become root
-# # ./endwall.sh                    # execute script/install the basic firewall rules
-# # ./endlists.sh                   # execute script / install blacklists
-# # ./endsets.sh                    # execute script / install ipsets based blacklists 
+# # ./endwall_nft.sh                    # execute script/install the basic firewall rules
+# # ./endlists_nft.sh               # execute script / install blacklists
 ##############################################################################################
 #                       ADDING TO BAN LIST EXAMPLES
 ##############################################################################################
@@ -78,20 +77,16 @@
 # Example: Whitelisting 
 # $ echo "198.252.153.0/24" >> http_whitelist.txt
 # $ echo "198.252.153.0/24" >> smtp_whitelist.txt
-# $ chmod u+wrx endwall.sh
-# $ chmod u+wrx endlists.sh
+# $ chmod u+wrx endwall_nft.sh
+# $ chmod u+wrx endlists_nft.sh
 # $ su                     
-# # ./endwall.sh   # run the endwall firewall script 
-# # ./endlists.sh  # run the blacklist/whitelist script endlists.sh
+# # ./endwall_nft.sh   # run the endwall firewall script 
+# # ./endlists_nft.sh  # run the blacklist/whitelist script endlists.sh
 ################################################################################################################################################
 #                Enable iptables and ip6tables if using systemd
 ###############################################################################################################################################
-# systemctl enable iptables
-# systemctl enable ip6tables
-# systemctl enable iptables.service
-# systemctl enable ip6tables.service
-# systemctl restart iptables
-# systemctl restart ip6tables
+# systemctl enable  nftables
+# systemctl start nftables
 #
 ############################################################################################################################################################################
 #############################################################################################################################################################################
@@ -184,10 +179,10 @@
 #  11) a) Any user of this program may use this software as part of a patented process, as a substitutable input into the process; however the user agrees not to attempt to patent this software as part of their patented process. 
 #  11) b) This software is a tool, like a hammer, and may be used in a process which applies for and gains a patent, as a substitutable input into the process;
 #         however the software tool itself may not be included in the patent or covered by the patent as a novel invention, and the user agrees not to do this and not to attempt to do this.
-#  12) a) Any user of this program is not granted the freedom to remove, replace, alter or modify the LICENSE AGREEMENT, ACKNOWLEDGMENTS, or the Header and Instructions from the file, if being re-distributed without modification of the program code. 
+#  12) a) Any user of this program is not granted the freedom to remove, replace, alter or modify the LICENSE AGREEMENT, ACKNOWLEDGMENTS, or the Header and Instructions from the file, if being distributed without modification of the program code. 
 #         The LICENSE AGREEMENT, ACKKNWLEGEMENTS and Header and Instructions sections must remain attached to the code in their entirety when re-distributed without modification. 
-#      b) If the code is moodified, by a user, as permitted and allowed under section 6) a),b),c),d),e) of this LICENSE AGREEMENT, then the user of this program who made the program code modifications,
-#         may modify or alter the ACKNKOWLEGEMENTS, or the Header and Instructions sections, in order to document these new modifications and their authorship, and to acknowledge any assistance in doing so, 
+#      b) If the code is moodified, by a user, as permitted and allowed under section 6) a),b),c),d),e) of this LICENSE AGREEMENT, then 
+#         the user of this program who made the program code modifications may modify or alter the ACKNKOWLEGEMENTS, or the Header and Instructions sections to document these new modifications and their authorship, and to acknowledge any asistance in doing so, 
 #         however, these user modifiers are not granted the freedom to removem, replace, alter or modify the LICENSE AGREEMENT which must remain attached to the code in their entirety when re-distributed without modification.
 #  WHO GRANTS THESE FREEDOMS ?
 #  13) The creators of this software are the original developer,"Endwall", and anyone listed as being a member of "The Endware Development Team" by "Endwall", as well as ancillary contributors, and user modifiers and developers of the software. 
@@ -219,9 +214,9 @@
 #                           GLOBAL VARIABLES
 ################################################################################################
 # version information
-version="1.27"
-branch="gnu/linux"
-rev_date="25/06/2022"
+version="1.26"
+branch="gnu/linux nft"
+rev_date="23/06/2022"
 
 ##  get input list from shell argument 
 for arg in $@
@@ -253,8 +248,8 @@ done
 ####################################################################################################
 #                           GLOBAL VARIABLES
 ####################################################################################################
-iptables="/sbin/iptables"
-ip6tables="/sbin/ip6tables"
+### variable for the nft command location
+nft="/sbin/nft"
 
 # Grab interface name from ip link and parse 
 int_if1=$(ip link | grep -a "2: " | awk -F: '{ print $2}')
@@ -286,35 +281,76 @@ int_ip2v6="$host_ip2v6"     # internal ipv6 address of interface 2
 ###################################################################################
 
 ### Rule Insertion Points
-insert_in=31
-insert_fwd=3
-insert_out=97
 
-insert6_in=22
-insert6_fwd=3
-insert6_out=19
+# rule insertion is before the rule with the handle nubmber
+# use the following command to see the handle numbers 
+# nft -a -p list table inet filter
 
-#################################################        FUNCTIONS        ##########################################################################################
+## remove  " position "$insert_out" ", from rules to default to 1st rule insertion
+
+#### Insertion points for IPv4 rules
+insert_in=10
+insert_fwd=803
+insert_out=14
+
+#### Insertion points for IPv6 rules
+insert6_in=10
+insert6_fwd=803
+insert6_out=14
+
+### insertion points for iptables rules for matching
+insertIPT_in=1
+insertIPT_out=1
+insertIPT_fwd=1
+
+## NOTE:
+### but puts it in the correct place
+#  position "$insert_out" 
+#  position "$insert_in"
+
+#########################################################        FUNCTIONS        ##########################################################################################
+
+
+############ IPv4 Log Drop for a specific interface, protocol, internal Lan IP, per blackout IPv4 IP. 
 log_drop()
 {
-
 proto=$1
 ports=$2
 tag=$3
 
-iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j DROP && iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --sports "$ports" -j DROP;
-iptables -I INPUT "$insert_in" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j DROP && iptables -I INPUT "$insert_in" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --sports "$ports" -j DROP;
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter output position "$insert_out"  oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
 
-iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
-iptables -I INPUT "$insert_in" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && iptables -I INPUT "$insert_in" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
-
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -d "$int_ip" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -s "$int_ip" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
-
+#nft insert rule inet filter forward position "$insert_fwd" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" drop
+#nft insert rule inet filter forward position "$insert_fwd" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" drop
 }
 
+############ IPv4 Log Drop for a specific interface, protocol, internal Lan IP, per blackout IPv4 IP. Only input traffic is banned.
+log_drop_in()
+{
+proto=$1
+ports=$2
+tag=$3
+
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+}
+
+############ IPv4 Log Drop for a specific interface, protocol, internal Lan IP, per blackout IPv4 IP. Only output traffic is banned.
+log_drop_out()
+{
+proto=$1
+ports=$2
+tag=$3
+
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+}
+
+
+############## IPv4 Whitelisting by IPv4 IP for a specific interface, prptocol, and specific ports
 white()
 {
 
@@ -322,16 +358,17 @@ proto=$1
 ports=$2
 tag=$3
 
-iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && iptables -I INPUT "$insert_in"  -p "$proto" -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-iptables -I OUTPUT "$insert_out" -p "$proto" -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I INPUT "$insert_in" -p "$proto" -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" accept
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" accept
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" dport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" accept
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" sport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" accept
 
-#iptables -I FORWARD "$insert_fwd" -p tcp -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#iptables -I FORWARD "$insert_fwd" -p tcp -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#iptables -I FORWARD "$insert_fwd" -p tcp -d "$int_ip" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#iptables -I FORWARD "$insert_fwd" -p tcp -s "$int_ip" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
-
+#nft insert rule inet filter forward position "$insert_fwd" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" "$proto" sport { "$ports" } ip daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" accept
+#nft insert rule inet filter forward position "$insert_fwd" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" dport { "$ports" } ip saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" accept
 }
 
+
+############ IPv6 Log Drop for a specific interface, protocol, internal Lan IP, per blackout IPv6 IP. 
 log_drop6()
 {
 
@@ -339,19 +376,18 @@ proto=$1
 ports=$2
 tag=$3
 
-ip6tables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j DROP && iptables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --sports "$ports" -j DROP;
-ip6tables -I INPUT "$insert6_in" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j DROP && iptables -I INPUT "$insert6_in" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --sports "$ports" -j DROP;
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip6 saddr "$int_ip" "$proto" sport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip6 daddr "$int_ip" "$proto" dport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip6 saddr "$int_ip"  "$proto" dport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip6 daddr "$int_ip" "$proto" sport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
 
-ip6tables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport  --sports "$ports" -j LOG --log-prefix "["$tag" OUT] "  --log-level=info 
-ip6tables -I INPUT "$insert6_in" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info && ip6tables -I INPUT "$insert6_in" -p "$proto" -d "int_ipv6" -s "$blackout" -m multiport --sports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info 
-
-#iptables -I FORWARD "$insert6_fwd" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD "$insert6_fwd" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j DROP;
-#iptables -I FORWARD "$insert6_fwd" -p "$proto" -d "$int_ipv6" -s "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD "$insert6_fwd" -p "$proto" -s "$int_ipv6" -d "$blackout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#nft insert rule inet filter forward position "$insert_fwd" oifname "$int_if" ip6 saddr "$int_ip" "$proto" sport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" drop
+#nft insert rule inet filter forward position "$insert_fwd" iifname "$int_if" ip6 daddr "$int_ip" "$proto" dport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" drop
 
 }
 
+
+############## IPv6 Whitelisting by IPv6 IP for a specific interface, prptocol, and specific ports
 white6()
 {
 
@@ -359,105 +395,119 @@ proto=$1
 ports=$2
 tag=$3
 
-ip6tables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT && ip6tables -I INPUT "$insert6_in"  -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-ip6tables -I OUTPUT "$insert6_out" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I INPUT "$insert6_in" -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip6 saddr "$int_ip" "$proto" sport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" accept
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip6 daddr "$int_ip" "$proto" dport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" accept
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip6 saddr "$int_ip"  "$proto" dport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" accept
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip6 daddr "$int_ip" "$proto" sport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" accept
 
-#ip6tables -I FORWARD "$insert6_fwd" -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#ip6tables -I FORWARD "$insert6_fwd" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j ACCEPT;
-#ip6tables -I FORWARD "$insert6_fwd" -p "$proto" -d "$int_ipv6" -s "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#ip6tables -I FORWARD "$insert6_fwd" -p "$proto" -s "$int_ipv6" -d "$whiteout" -m multiport --dports "$ports" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
+#nft insert rule inet filter forward position "$insert_fwd" oifname "$int_if" ip6 saddr "$int_ip" "$proto" sport { "$ports" } ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" accept
+#nft insert rule inet filter forward position "$insert_fwd" iifname "$int_if" ip6 daddr "$int_ip" "$proto" dport { "$ports" } ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD] \" accept
 
 }
 
+
+###=################# IPv4 Log Drop by IP for specific interface and internal lan ip 
+log_drop_ip(){
+proto=$1
+tag=$2
+
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter output position "$insert_out" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip"  "$proto" ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" "$proto" ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+
+#nft insert rule inet filter forward position "$insert_fwd" oifname "$int_if" ip protocol "$proto" ip saddr "$int_ip" ip daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD OUT] \" drop
+#nft insert rule inet filter forward position "$insert_fwd" iifname "$int_if" ip protocol "$proto" ip daddr "$int_ip" ip saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD IN] \" drop
+}
+
+############## IPv4 Log Drop by IP 
+log_drop_any(){
+
+tag=$1
+
+nft insert rule inet filter output position "$insert_out" ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter output position "$insert_out" ip daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert_in" ip saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+
+#nft insert rule inet filter forward position "$insert_fwd" ip daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD OUT] \" drop
+#nft insert rule inet filter forward position "$insert_fwd" ip saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD IN] \" drop
+}
+
+###################### IPv6 LOG DROP by IP 
+log_drop6_any(){
+
+tag=$1
+
+nft insert rule inet filter output position "$insert6_out" ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert6_in" ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+nft insert rule inet filter output position "$insert6_out" ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" OUT] \" drop
+nft insert rule inet filter input position "$insert6_in" ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" IN] \" drop
+
+#nft insert rule inet filter forward "$insert6_fwd" ip6 daddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD OUT]\" drop
+#nft insert rule inet filter forward "$insert6_fwd" ip6 saddr "$blackout" counter log level "info" prefix \"["$tag" FORWARD IN]\" drop
+}
+
+
+################## IPTABLES FUNCTIONS (STRING MATCHING) ##############################################
+
+#################  String matching on packet headers for a single port (bad string gets dropped)
 string_match_1p()
 {
 proto=$1
 port=$2
 tag=$3
 
-iptables -I INPUT "$insert_in" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert_out" -p tcp --dport "$port" -m string --string "$blackout" --algo bm -j DROP ;
-iptables -I INPUT "$insert_in" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info && iptables -I OUTPUT "$insert_out" -p tcp --dport "$port" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info ;
+iptables -I INPUT "$insertIPT_in" -p "$proto" --dport "$port"  -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert_out" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j DROP ;
+iptables -I INPUT "$insertIPT_in" -p "$proto" --dport "$port"  -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info && iptables -I OUTPUT "$insert_out" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info ;
 
-#iptables -I FORWARD "$insert_fwd" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j DROP 
-#iptables -I FORWARD "$insert_fwd" -p "$proto" --dport "$port" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info
+#iptables -I FORWARD "$insertIPT_fwd" -p "$proto" --dport "$port"  -m string --string "$blackout" --algo bm -j DROP 
+#iptables -I FORWARD "$insertIPT_fwd" -p "$proto" --dport "$port"  -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info
+
 }
 
+################# String matching on packet headers for multiple ports ( bad string gets dropped) 
 string_match_mp()
 {
 proto=$1
 ports=$2
 tag=$3
 
-iptables -I INPUT "$insert_in" -p tcp -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert_out" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP;
-iptables -I INPUT "$insert_in" -p tcp -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info && iptables -I OUTPUT "$insert_out" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info;
+iptables -I INPUT "$insertIPT_in" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP && iptables -I OUTPUT "$insert_out" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP;
+iptables -I INPUT "$insertIPT_in" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix \"["$tag"] \" --log-level=info && iptables -I OUTPUT "$insert_out" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix \"["$tag"] \" --log-level=info;
 
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP 
-#iptables -I FORWARD "$insert_fwd" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info;
+#iptables -I FORWARD "$insertIPT_fwd" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j DROP 
+#iptables -I FORWARD "$insertIPT_fwd" -p "$proto" -m multiport --dports "$ports" -m string --string "$blackout" --algo bm -j LOG --log-prefix "$tag" --log-level=info;
 }
+#######################################################################################################
 
-log_drop_ip(){
-proto=$1
-tag=$2
 
-iptables -I OUTPUT "$insert_out" -p all -s "$int_ip" -d "$blackout" -j DROP && iptables -I INPUT "$insert_in" -p all -d "$int_ip" -s "$blackout" -j DROP;
-iptables -I OUTPUT "$insert_out" -p all -s "$int_ip" -d "$blackout" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I INPUT "$insert_in" -p all -d "$int_ip" -s "$blackout" -j LOG --log-prefix "["$tag" IN] " --log-level=info;
-
-#iptables -I FORWARD "$insert_fwd" -p all -d "$int_ip" -s "$blackout" -j DROP;
-#iptables -I FORWARD "$insert_fwd" -p all -s "$int_ip" -d "$blackout" -j DROP;
-
-#iptables -I FORWARD "$insert_fwd" -p all -d "$int_ip" -s "$blackout" -j LOG --log-prefix "["$tag" FORWARD IN] " --log-level=info;
-#iptables -I FORWARD "$insert_fwd" -p all -s "$int_ip" -d "$blackout" -j LOG --log-prefix "["$tag" FORWARD OUT] " --log-level=info;
-}
-
-log_drop_any(){
-
-tag=$1
-
-iptables -I OUTPUT "$insert_out" -p all -d "$blackout" -j DROP && iptables -I INPUT "$insert_in"  -p all -s "$blackout" -j DROP;
-iptables -I OUTPUT "$insert_out" -p all -d "$blackout" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && iptables -I INPUT "$insert_in" -p all -s "$blackout" -j LOG --log-prefix "["$tag" IN] "  --log-level=info;
-
-#iptables -I FORWARD "$insert_fwd" -p all -s "$blackout" -j DROP;
-#iptables -I FORWARD "$insert_fwd" -p all -d "$blackout" -j DROP;
-#iptables -I FORWARD "$insert_fwd" -p all -s "$blackout" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#iptables -I FORWARD "$insert_fwd" -p all -d "$blackout" -j LOG --log-prefix "["$tag" FORWARD OUT] "  --log-level=info;
-}
-
-log_drop6_any(){
-
-tag=$1
-
-ip6tables -I OUTPUT "$insert6_out" -p all -d "$blackout" -j DROP && ip6tables -I INPUT "$insert6_in" -p all -s "$blackout" -j DROP;
-ip6tables -I OUTPUT "$insert6_out" -p all -d "$blackout" -j LOG --log-prefix "["$tag" OUT] " --log-level=info && ip6tables -I INPUT "$insert6_in" -p all -s "$blackout" -j LOG --log-prefix "["$tag" IN] " --log-level=info ;
-
-#ip6tables -I FORWARD "$insert6_fwd" -p all  -s "$blackout" -j DROP;
-#ip6tables -I FORWARD "$insert6_fwd" -p all  -d "$blackout" -j DROP;
-#ip6tables -I FORWARD "$insert6_fwd" -p all  -s "$blackout" -j LOG --log-prefix "["$tag" FORWARD IN] "  --log-level=info;
-#ip6tables -I FORWARD "$insert6_fwd" -p all  -d "$blackout" -j LOG --log-prefix "["$tag" FORWARD OUT] "  --log-level=info;
-}
-
-##################################################################################################################################################################
+###############################################################################################################################################################
 
 ### loop over interfaces
 
-## initialize index outside of loop
+## initialize index outside loop
 ind=1
+
 for int_if in "$int_if1" "$int_if2"
 
 do
 
-if [ $ind = "1" ] 
+
+
+if [ "$ind" = "1" ] 
 then 
 int_mac="$int_mac1" 
 int_ip="$int_ip1"
 int_ipv6="$int_ip1v6"
-elif [ $ind = "2" ]
+elif [ "$ind" = "2" ]
 then
 int_ip="$int_ip2" 
 int_mac="$int_mac2" 
 int_ipv6="$int_ip2v6"
 fi 
 
-## check for empty ipv4 address
+## check for empty ip-address pickup
 if [ "$int_ip" != "" ]
 then 
 
@@ -467,12 +517,14 @@ then
 ### ports that your server serves to clearnet access
 server_ports="21,20,70,80,443,53,25,587,953,993,995,5222,6697,22543,64738"
 
-################ PORT BANS #################################
+
+## block traffic to the multiple ports that you serve to,
+## ban ip values in big_bans.txt (use CIDR ranges like 132.0.0.0/8 )
+## Good for blocking regions you have no business with (ASIA, AFRICA, MIDDLE EAST etc) 
 echo SERVER BLACKLIST LOADING 
-for blackout in $(cat server_blacklist.txt); 
+for blackout in $(cat big_bans.txt); 
 do 
-log_drop tcp "$server_ports" SERVER-BL
-log_drop udp "$server_ports" SERVER-BL
+log_drop tcp "$server_ports" "BIG-BANS" 
 echo "$blackout" 
 done 
 echo SERVER BLACKLIST LOADED
@@ -502,41 +554,68 @@ echo SERVER BLACKLIST LOADED
 #echo "$blackout" 
 #done 
 #echo DNS BLACKLIST LOADED
-############################################################
 
-############## IP BANS ###########################
-echo ATTACKER BLACKLIST LOADING
-for blackout in $(cat attackers.txt);
-do 
-log_drop_ip "ATTACKERS"
-echo "$blackout" 
-done
-echo ATTACKER BLACKLIST LOADED
+################################### INT_IP BAN ###################################################################
 
-################################## STRING MATCHING #################################
-echo EMAIL BLACKLIST LOADING
-for blackout in $(cat email_blacklist.txt);
-do 
-string_match_1p tcp 25 [EMAIL SPAM]
-echo $blackout 
-done 
-echo EMAIL BLACKLIST LOADED
+## DROP TRAFFIC TO SERVER for a single interface and LAN IP from IPv4 ips in blacklist.txt
+#echo ATTACKER BLACKLIST LOADING
+#for blackout in $(cat attackers.txt);
+#do 
+#log_drop_ip all "ATACKER"
+#echo "$blackout" 
+#done
+#echo ATTACKER BLACKLIST LOADED
 
-echo HTML BLACKLIST LOADING
-for blackout in $(cat html_blacklist.txt);
-do 
-string_match_mp tcp 80,443 [HTML SPAM]
-echo "$blackout"  
-done 
-echo HTML BLACKLIST LOADED
+################################### TOTAL IPv4 BAN #################################################################
 
-####################################################################################
+## DROP ALL TRAFFIC TO SERVER from IPv4 ips in blacklist.txt
+#echo LOADING BLACKLIST 
+#for blackout in $(cat blacklist.txt);
+#do 
+#log_drop_any "BLACKLIST"
+#echo "$blackout"  
+#done
+#echo BLACKLIST LOADED
 
+################################### Total IPv6 BAN ###################################################################
+
+## DROP ALL TRAFFIC TO SERVER from IPv6 ips in blacklist.txt
+#echo LOADING IPv6 BLACKLIST 
+#for blackout in $(cat ipv6_blacklist.txt);
+#do 
+#log_drop6_any "BLACKLIST"
+#echo "$blackout"  
+#done
+#echo IPv6 BLACKLIST LOADED
+
+###################################### STRING MATCHING (USES IPTABLES) ############################################################
+
+### Filter packets on port 25 for ASCII strings that are flagged and block the packet
+#echo EMAIL BLACKLIST LOADING
+#for blackout in $(cat email_blacklist.txt);
+#do 
+#string_match_1p tcp 25 [EMAIL SPAM]
+#echo $blackout 
+#done 
+#echo EMAIL BLACKLIST LOADED
+
+### Filter packets on ports 80,443 for ASCII strings that are flagged and block the packet
+#echo HTML BLACKLIST LOADING
+#for blackout in $(cat html_blacklist.txt);
+#do 
+#string_match_mp tcp 80,443 [HTML SPAM]
+#echo "$blackout"  
+#done 
+#echo HTML BLACKLIST LOADED
+
+#########################################################
 
 ####################################################################################
 #                    IP FILTER WHITE LISTS
 ####################################################################################
 
+
+### narrow range whitelisting , make the IPv4 values in whitelist.txt single addresses 
 # smtp_whitelist.txt
 #echo SMTP WHITELIST LOADING
 #for whiteout in $(cat smtp_whitelist.txt);
@@ -546,6 +625,7 @@ echo HTML BLACKLIST LOADED
 #done 
 #echo SMTP WHITELIST LOADED
 
+### narrow range whitelisting , make the IPv4 values in whitelist.txt single addresses 
 # http_whitelist.txt
 #echo HTTP/HTTPS WHITELIST LOADING
 #for whiteout in $(cat http_whitelist.txt);
@@ -564,30 +644,19 @@ ind=$( expr "$ind" + 1 )
 
 done
 
-#################### NON INTERFACE / IP SPECIFIC BANS ##############################
-echo LOADING BLACKLIST 
-for blackout in $(cat blacklist.txt);
-do 
-log_drop_any "IPv4-BLACKLIST"
-echo "$blackout"  
-done
-echo BLACKLIST LOADED
-
-echo LOADING IPv6 BLACKLIST 
-for blackout in $(cat ipv6_blacklist.txt);
-do 
-log_drop6_any "IPv6-BLACKLIST"
-echo "$blackout"  
-done
-echo IPv6 BLACKLIST LOADED
-#####################################################################################
-
 ##########################################################################################################################
 #                                 SAVE RULES
 #####################################################################################################################
+echo SAVING RULES
+#DEBIAN
+nft list ruleset > /etc/nftables.conf
+
+
+## save iptables rules (if you use the string matching section)
+#####################################################################################################################
 #ARCH/PARABOLA
-iptables-save  > /etc/iptables/iptables.rules
-ip6tables-save > /etc/iptables/ip6tables.rules
+#iptables-save  > /etc/iptables/iptables.rules
+#ip6tables-save > /etc/iptables/ip6tables.rules
 
 #DEBIAN/UBUNTU
 #iptables-save  > /etc/iptables/rules.v4
@@ -612,9 +681,7 @@ ip6tables-save > /etc/iptables/ip6tables.rules
 
 echo "ENDLISTS LOADED"
 ################################  PRINT RULES   ###############################################################
-#list the rules
-#iptables -L -v
-#ip6tables -L -v
+#nft list ruleset 
 
 #############################   PRINT ADDRESSES  ############################################################
 echo GATEWAY  :          MAC:$gateway_mac  IP:$gateway_ip  
