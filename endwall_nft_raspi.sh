@@ -982,9 +982,9 @@ lo_open tcp 25,587,465
 lo_open tcp 20,21,989,990,2121
 lo_open udp 20,21,989,990,2121
 
-# 55536-55663
-lo_open tcp 55536-55663
-lo_open udp 55536-55663
+# 50000-55663
+lo_open tcp 50000-55663
+lo_open udp 50000-55663
 lo_open tcp 60000-60100
 lo_open udp 60000-60100
 ########################### HTTP,HTTPS ######################################################
@@ -1182,9 +1182,9 @@ client_out_wifi udp 5298,5222
 client_out_wifi tcp 20,21,989,990,2121
 client_out_wifi udp 20,21,989,990,2121
 
-# 55536-55663
-client_out_wifi tcp 55536-55663
-client_out_wifi udp 55536-55663
+# 50000-55663
+client_out_wifi tcp 50000-55663
+client_out_wifi udp 50000-55663
 client_out_wifi tcp 60000-60100
 client_out_wifi udp 60000-60100
 ##########################################         NNTP Client          ##############################################################################
@@ -1396,9 +1396,9 @@ client_out udp 5298,5222
 client_out tcp 20,21,989,990,2121
 client_out udp 20,21,989,990,2121
 
-# 55536-55663
-client_out tcp 55536-55663
-client_out udp 55536-55663
+# 50000-55663
+client_out tcp 50000-55663
+client_out udp 50000-55663
 client_out tcp 60000-60100
 client_out udp 60000-60100
 ##########################################         NNTP Client          ##############################################################################
@@ -1531,6 +1531,11 @@ echo "LOADING PUBLIC SERVER INPUTS"
 #server_in tcp 22
 ###################################          FTP  SERVER         ################################################################## 
 #server_in_x tcp 20,21,2121
+# 50000-55663
+#server_in_x tcp 50000-55663
+#server_in_x udp 50000-55663
+#server_in_x tcp 60000-60100
+#server_in_x udp 60000-60100
 ##################################          HTTP HTTPS SERVER    ################################################################## 
 #server_in_x tcp 80,443
 #server6_in_x tcp 80,443
