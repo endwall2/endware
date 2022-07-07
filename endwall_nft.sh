@@ -6,9 +6,9 @@
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
 # Branch: wired
-# Current Version: 1.44
-# Revision Date: June 23, 2022
-# Previous Version: 1.42, May 28, 2022
+# Current Version: 1.45
+# Revision Date: July 07, 2022
+# Previous Version: 1.44, June 23, 2022
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016-2023
 #
@@ -170,9 +170,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.44"
+version="1.45"
 branch="gnu/linux nft wired"
-rev_date="23/06/2022"
+rev_date="07/07/2022"
 state="closed"
 
 for arg in "$@"
@@ -184,7 +184,7 @@ do
  echo "USAGE: ./endwall --version  ## displays version statements"
  echo "USAGE: ./endwall --open ## opens firewall to default open policies"
  echo "USAGE: ./endwall  ## enable endwall firewall system"
-  cho "USAGE: ./endwall --default ## default settings"
+ echo "USAGE: ./endwall --default ## default settings"
  echo "USAGE: ./endwall --closed  ## closed settings"
  echo "USAGE: ./endwall --test test settings"
  echo "USAGE: ./endwall  ## enable endwall firewall system with closed settings"
@@ -985,6 +985,12 @@ lo_open tcp 25,587,465
 ############################ FTP ############################################################
 lo_open tcp 20,21,989,990,2121
 lo_open udp 20,21,989,990,2121
+
+# 55536-55663
+lo_open tcp 55536-55663
+lo_open udp 55536-55663
+lo_open tcp 60000-60100
+lo_open udp 60000-60100
 ########################### HTTP,HTTPS ######################################################
 lo_open tcp 80,443
 #lo6_open tcp 80,443
@@ -1199,6 +1205,13 @@ client_out udp 5298,5222
 ##########################################         FTP Client           ##############################################################################
 client_out tcp 20,21,989,990,2121
 client_out udp 20,21,989,990,2121
+
+# 55536-55663
+client_out tcp 55536-55663
+client_out udp 55536-55663
+client_out tcp 60000-60100
+client_out udp 60000-60100
+
 ##########################################         NNTP Client          ##############################################################################
 client_out tcp 119,563
 client_out udp 119,563
@@ -1328,6 +1341,12 @@ echo "LOADING PUBLIC SERVER INPUTS"
 #server_in tcp 22
 ###################################          FTP  SERVER         ################################################################## 
 #server_in_x tcp 20,21,2121
+#server_in_x udp 20,21,2121
+# 55536-55663
+#server_in_x tcp 55536-55663
+#server_in_x udp 55536-55663
+#server_in_x tcp 60000-60100
+#server_in_x udp 60000-60100
 ##################################          HTTP HTTPS SERVER    ################################################################## 
 #server_in_x tcp 80,443
 #server6_in_x tcp 80,443

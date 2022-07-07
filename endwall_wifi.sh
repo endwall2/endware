@@ -6,9 +6,9 @@
 # Type: Bourne shell script
 # Creation Date:         Jan 1  2013
 # Branch: 2, wifi enabled
-# Current Version: 1.40  
-# Revision Date: July 17, 2018 
-# Previous Version:  1.39, August 30 2017
+# Current Version: 1.42  
+# Revision Date: July 6, 2022 
+# Previous Version:  1.40, July 17 2018
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
@@ -187,9 +187,9 @@
 ####################################################################################################
 #                           INPUT ARGUMENTS
 ###################################################################################################
-version="1.40"
+version="1.42"
 branch="wi_fi"
-rev_date="17/07/2018"
+rev_date="06/07/2022"
 
 for arg in "$@"
 do
@@ -862,6 +862,12 @@ lo6_open tcp 25,587,465
 ############################ FTP ############################################################
 lo_open tcp 20,21,989,990,2121
 lo_open udp 20,21,989,990,2121
+
+# 55536-55663
+lo_open tcp 55536:55663
+lo_open udp 55536:55663
+lo_open tcp 60000:60100
+lo_open udp 60000:60100
 ########################### HTTP,HTTPS ######################################################
 lo_open tcp 80,443
 lo6_open tcp 80,443
@@ -1072,6 +1078,13 @@ client_out_wifi udp 5298,5222
 ##########################################         FTP Client           ##############################################################################
 client_out_rel_wifi tcp 20,21,989,990,2121
 client_out_rel_wifi udp 20,21,989,990,2121
+
+# 55536-55663
+client_out_rel_wifi tcp 55536:55663
+client_out_rel_wifi udp 55536:55663
+client_out_rel_wifi tcp 60000:60100
+client_out_rel_wifi udp 60000:60100
+
 ##########################################         NNTP Client          ##############################################################################
 client_out_wifi tcp 119,563
 client_out_wifi udp 119,563
@@ -1219,6 +1232,12 @@ client_out udp 5298,5222
 ##########################################         FTP Client           ##############################################################################
 client_out_rel tcp 20,21,989,990,2121
 client_out_rel udp 20,21,989,990,2121
+
+# 55536-55663
+client_out_rel tcp 55536:55663
+client_out_rel udp 55536:55663
+client_out_rel tcp 60000:60100
+client_out_rel udp 60000:60100
 ##########################################         NNTP Client          ##############################################################################
 client_out tcp 119,563
 client_out udp 119,563

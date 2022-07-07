@@ -5,10 +5,10 @@
 # Program: endwall_nft_wifi.sh
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
-# Branch: nft_wifi
-# Current Version: 1.44
-# Revision Date: June 23 2022
-# Previous Version: 1.39, August 30, 2017
+# Branch: gnu/linux,nft,wifi
+# Current Version: 1.45
+# Revision Date: July 7 2022
+# Previous Version: 1.44, June 23, 2022
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
 #
@@ -170,9 +170,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.44"
-branch="nft_wifi"
-rev_date="22/06/2022"
+version="1.45"
+branch="gnu/linux,nf,_wifi"
+rev_date="07/07/2022"
 state="closed"
 
 for arg in "$@"
@@ -184,7 +184,7 @@ do
  echo "USAGE: ./endwall --version  ## displays version statements"
  echo "USAGE: ./endwall --open ## opens firewall to default open policies"
  echo "USAGE: ./endwall  ## enable endwall firewall system"
-  cho "USAGE: ./endwall --default ## default settings"
+ echo "USAGE: ./endwall --default ## default settings"
  echo "USAGE: ./endwall --closed  ## closed settings"
  echo "USAGE: ./endwall --test test settings"
  echo "USAGE: ./endwall  ## enable endwall firewall system with closed settings"
@@ -981,6 +981,12 @@ lo_open tcp 25,587,465
 ############################ FTP ############################################################
 lo_open tcp 20,21,989,990,2121
 lo_open udp 20,21,989,990,2121
+
+# 55536-55663
+lo_open tcp 55536-55663
+lo_open udp 55536-55663
+lo_open tcp 60000-60100
+lo_open udp 60000-60100
 ########################### HTTP,HTTPS ######################################################
 lo_open tcp 80,443
 lo6_open tcp 80,443
@@ -1075,9 +1081,8 @@ lo_open udp 500,4500
 ############################# RTMP ############################################
 lo_open udp 1935
 lo_open tcp 1935
-lo_open tcp  2222
-lo_open udp  2222
-
+lo_open tcp 2222
+lo_open udp 2222
 ################################  BITCOIN ###################################################
 lo_open tcp 8332,8333
 ################################  LITECOIN ##################################################
@@ -1174,8 +1179,14 @@ client_out_wifi udp 5298,5222
 ##########################################       MSN Client             ##############################################################################
 #client_out_wifi tcp 1863
 ##########################################         FTP Client           ##############################################################################
-#client_out_wifi tcp 20,21,989,990,2121
-#client_out_wifi udp 20,21,989,990,2121
+client_out_wifi tcp 20,21,989,990,2121
+client_out_wifi udp 20,21,989,990,2121
+
+# 55536-55663
+client_out_wifi tcp 55536-55663
+client_out_wifi udp 55536-55663
+client_out_wifi tcp 60000-60100
+client_out_wifi udp 60000-60100
 ##########################################         NNTP Client          ##############################################################################
 client_out_wifi tcp 119,563
 client_out_wifi udp 119,563
@@ -1384,6 +1395,12 @@ client_out udp 5298,5222
 ##########################################         FTP Client           ##############################################################################
 client_out tcp 20,21,989,990,2121
 client_out udp 20,21,989,990,2121
+
+# 55536-55663
+client_out tcp 55536-55663
+client_out udp 55536-55663
+client_out tcp 60000-60100
+client_out udp 60000-60100
 ##########################################         NNTP Client          ##############################################################################
 client_out tcp 119,563
 client_out udp 119,563
