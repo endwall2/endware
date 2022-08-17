@@ -6,8 +6,8 @@
 # Type: Bourne shell script
 # Creation Date: Jan 1  2013
 # Branch: nft_wifi
-# Current Version: 1.45
-# Revision Date: July 7 2022
+# Current Version: 1.46
+# Revision Date: August 16 2022
 # Previous Version: 1.45, June 23, 2022
 # Author: THE ENDWARE DEVELOPMENT TEAM
 # Copyright: THE ENDWARE DEVELOPMENT TEAM, 2016
@@ -170,9 +170,9 @@
 ####################################################################################################
 #                          INPUT ARGUMENTS
 ###################################################################################################
-version="1.45"
+version="1.46"
 branch="gnu/linux,nft,wifi"
-rev_date="07/07/2022"
+rev_date="16/08/2022"
 state="closed"
 
 for arg in "$@"
@@ -248,6 +248,9 @@ nft="/sbin/nft"
 # Grab interface name from ip link and parse 
 int_if1="$(ip link | grep -a "state " | awk -F: '{ if (FNR==2) print $2}')"
 int_if2="$(ip link | grep -a "state " | awk -F: '{ if (FNR==3) print $2}')"
+
+## Change this mannually if it doesn't pick up, assume wlan interface is if2
+wlan_if="$int_if2"
 
 # Grab Gateway Information
 gateway_ip1="$(ip route | awk '/via/ {print $3}' | head -n 1 )"
@@ -468,7 +471,7 @@ client_out_wifi()
 {
 proto=$1
 ports=$2
-int_if="wlan0"
+int_if="$wlan_if"
 
 #   add rule fam  table  chain statement 
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
@@ -483,7 +486,7 @@ client6_out_wifi()
 {
 proto=$1
 ports=$2
-int_if="wlan0"
+int_if="$wlan_if"
 
 #   add rule fam  table  chain statement 
 nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established } counter accept # jump PASS
@@ -498,7 +501,7 @@ client_out_rel_wifi()
 {
 proto=$1
 ports=$2
-int_if="wlan0"
+int_if="$wlan_if"
 
 #   add rule fam  table  chain statement 
 nft add rule inet filter output oifname "$int_if" ip protocol "$proto" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
@@ -512,7 +515,7 @@ client6_out_rel_wifi()
 {
 proto=$1
 ports=$2
-int_if="wlan0"
+int_if="$wlan_if"
 
 #   add rule fam  table  chain statement 
 nft add rule inet filter output oifname "$int_if" ip6 saddr "$int_ipv6" "$proto" sport { "$ports" } ct state { new, established, related } counter accept # jump PASS
@@ -686,14 +689,13 @@ limburst=$4
 
 
 ######## THERE ARE 4 models slectable from the commandline
-#  $ ./endwall_nft_raspi --open
-#  $ ./endwall_nft_raspi --default
-#  $ ./endwall_nft_raspi --test
-#  $ ./endwall_nft_raspi --closed
-#  $ ./endwall_nft_raspi   # this selects the closed model settings 
+#  $ ./endwall_nft_wifi --open
+#  $ ./endwall_nft_wifi --default
+#  $ ./endwall_nft_wifi --test
+#  $ ./endwall_nft_wifi --closed
+#  $ ./endwall_nft_wifi   # this selects the closed model settings 
 
 # The model settings follow below
-
 
 ####################################### OPEN WALL ########################################################################
 # Disable firewall if --open flag 
@@ -871,8 +873,8 @@ client_out_wifi udp 53,67,68,80,443
 
 ### ICMP 
 
-icmp_out "wlan0"
-icmp_out "eth0"
+icmp_out "$int_if1"
+icmp_out "$int_if2"
 
 ## Accept all input from icmp
 #nft add rule inet filter input iifname wlan0 ip protocol icmp accept
@@ -1138,11 +1140,10 @@ echo "LOCALHOST RULES LOADED"
 #
 ####################################################################################################
 
-
 echo "LOADING WIFI PUBLIC OUTPUT CLIENTS"
 
-######### SET THE VARIABLES FOR wlan0 
-int_if="wlan0"
+######### SET THE VARIABLES FOR wlan 
+int_if="$wlan_if"
 int_mac="$int_mac2"
 int_ip="$int_ip2"
 int_ipv6="$int_ip2v6"
@@ -1280,8 +1281,8 @@ client_out_wifi tcp 9332,9333
 #client_out_wifi tcp 23399
 #client_out_wifi udp 23399
 ################################################# MUMBLE CLIENT ###############################################################
-client_out_wifi tcp 64731
-client_out_wifi udp 64731
+client_out_wifi tcp 64738
+client_out_wifi udp 64738
 
 ################################################ INTERNAL SSH ##########################################################3
 client_out_wifi tcp 22543
@@ -1365,11 +1366,11 @@ client_out tcp 53,953
 #server_in_internal  tcp 53 "$gateway_ip" "$gateway_mac"
 
 #### LAN DNS SERVER 
-if [ "$int_if" = "eth0" ]
-then 
-client_out_internal tcp 53,953 "$host_ip" "$host_mac"
-client_out_internal udp 53,953 "$host_ip" "$host_mac"
-fi
+#if [ "$int_if" = "$int_if1" ]
+#then 
+#client_out_internal tcp 53,953 "$host_ip" "$host_mac"
+#client_out_internal udp 53,953 "$host_ip" "$host_mac"
+#fi
 
 #############################################   HTTP HTTPS Client       ##############################################################################  
 #client_out tcp 80,443
