@@ -25,9 +25,9 @@
 #
 #  $ mkdir ~/geoip 
 #  $ cd ~/geoip
-#  $ wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-#  $ wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
-#  $ wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
+#  $ wget https://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+#  $ wget https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+#  $ wget https://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
 #  $ gunzip *.gz
 #  $ cp ~/Downloads/gagzeqd.py ~/geoip/iplookup.py
 #  $ ./iplookup.py 8.8.8.8
